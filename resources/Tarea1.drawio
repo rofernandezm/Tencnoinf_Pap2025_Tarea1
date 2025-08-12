@@ -228,7 +228,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="xVIF0JPG55u9gp92Sdzf" name="CU6_AltaSalidaTurística">
-    <mxGraphModel dx="1188" dy="648" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -302,27 +302,39 @@
     </mxGraphModel>
   </diagram>
   <diagram name="CU7_ConsultaSalidaTurística " id="CCmBWcZ2vBuqBpk5D4J6">
-    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1426" dy="777" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="Fr1kP1A23iDJ-ouvAH8I-0" />
         <mxCell id="Fr1kP1A23iDJ-ouvAH8I-1" parent="Fr1kP1A23iDJ-ouvAH8I-0" />
-        <mxCell id="Fr1kP1A23iDJ-ouvAH8I-2" value="" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;" vertex="1" parent="Fr1kP1A23iDJ-ouvAH8I-1">
-          <mxGeometry x="130" y="260" width="20" height="570" as="geometry" />
-        </mxCell>
-        <mxCell id="Fr1kP1A23iDJ-ouvAH8I-3" value=":Sistema" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="Fr1kP1A23iDJ-ouvAH8I-1">
-          <mxGeometry x="560" y="260" width="100" height="570" as="geometry" />
-        </mxCell>
-        <mxCell id="Fr1kP1A23iDJ-ouvAH8I-4" value="Administrador del sistema" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="Fr1kP1A23iDJ-ouvAH8I-1">
-          <mxGeometry x="60" y="220" width="160" height="30" as="geometry" />
-        </mxCell>
         <mxCell id="Fr1kP1A23iDJ-ouvAH8I-5" value="Consulta de Salida Turística&amp;nbsp;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=14;" vertex="1" parent="Fr1kP1A23iDJ-ouvAH8I-1">
-          <mxGeometry x="290" y="120" width="230" height="30" as="geometry" />
+          <mxGeometry x="250" y="215" width="230" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Fr1kP1A23iDJ-ouvAH8I-6" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="Fr1kP1A23iDJ-ouvAH8I-1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="139.590909090909" y="351" as="sourcePoint" />
             <mxPoint x="609.5" y="351" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="GOIqjO9FU0nLdbFI-mGY-0" value="" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;" vertex="1" parent="Fr1kP1A23iDJ-ouvAH8I-1">
+          <mxGeometry x="130" y="265" width="20" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="GOIqjO9FU0nLdbFI-mGY-1" value=":Sistema" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="Fr1kP1A23iDJ-ouvAH8I-1">
+          <mxGeometry x="560" y="265" width="100" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="GOIqjO9FU0nLdbFI-mGY-2" value="Administrador del sistema" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="Fr1kP1A23iDJ-ouvAH8I-1">
+          <mxGeometry x="60" y="245" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GOIqjO9FU0nLdbFI-mGY-4" value="listarActividadesTuristicas() : Set(DtActividadesTuristicas)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="Fr1kP1A23iDJ-ouvAH8I-1">
+          <mxGeometry x="205" y="322" width="340" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GOIqjO9FU0nLdbFI-mGY-18" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="Fr1kP1A23iDJ-ouvAH8I-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="140.05" y="439" as="sourcePoint" />
+            <mxPoint x="609.959090909091" y="439" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GOIqjO9FU0nLdbFI-mGY-19" value="listarSalidasTuristicas() : Set(DtSalidasTuristicas)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="Fr1kP1A23iDJ-ouvAH8I-1">
+          <mxGeometry x="205.459090909091" y="410" width="340" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
