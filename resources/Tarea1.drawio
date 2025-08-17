@@ -1522,7 +1522,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="lkF13A3ko43AOOqY4pwa" name="CU9_ConsultaInscripcionesTuristicas">
-    <mxGraphModel dx="1624" dy="801" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="919" dy="1641" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1539,7 +1539,7 @@
           <mxGeometry x="197.46000000000004" y="10" width="278" height="30" as="geometry" />
         </mxCell>
         <mxCell id="rrGyvQhjakwDzqIsgcuD-5" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center;&quot;&gt;&lt;b&gt;DtActividad&lt;/b&gt;&lt;/p&gt;&lt;hr style=&quot;border-style: solid;&quot; size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;- nombreActividad: String&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;- descripcion: String&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;- duracion: DuracionAct&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;- costoTurista: float&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;- ciudad: String&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;- fechaAlta: Date&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="650" y="360" width="182" height="130" as="geometry" />
+          <mxGeometry x="230" y="350" width="182" height="130" as="geometry" />
         </mxCell>
         <mxCell id="rrGyvQhjakwDzqIsgcuD-6" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -1563,16 +1563,151 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="rrGyvQhjakwDzqIsgcuD-12" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;DtSalida&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- nombreSalida: String&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- cantidadMaxTuristas: int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- lugarDeSalida: String&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- fechaYHora: Date&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- fechaAlta: Date&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="650" y="220" width="160" height="110" as="geometry" />
+          <mxGeometry x="37.460000000000036" y="350" width="160" height="110" as="geometry" />
         </mxCell>
         <mxCell id="rrGyvQhjakwDzqIsgcuD-13" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;DTInscripcion&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- cantidadTuristas: Int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- /costoTotal: float&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- fechaInscripcion: Date&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="661" y="510" width="160" height="90" as="geometry" />
+          <mxGeometry x="440" y="350" width="160" height="90" as="geometry" />
         </mxCell>
         <mxCell id="7eeGI1YM4m2fbPB1AlXB-1" value="listarSalidasActividad(nombreActividad : String) : Set(DtSalidaTuristica)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="105" y="230" width="400" height="30" as="geometry" />
         </mxCell>
         <mxCell id="7eeGI1YM4m2fbPB1AlXB-2" value="listarInscripcionesSalida(nombreSalida : String):Set(DtInscripcionSalida)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="110" y="290" width="410" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="36.46000000000001" y="520" width="600" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-2" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="36.46000000000001" y="560" as="sourcePoint" />
+            <mxPoint x="636.46" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-3" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="36.46000000000001" y="641" as="sourcePoint" />
+            <mxPoint x="636.46" y="641" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-4" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="36.46000000000001" y="681" as="sourcePoint" />
+            <mxPoint x="636.46" y="681" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-5" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="155.46" y="720" as="sourcePoint" />
+            <mxPoint x="155.46" y="520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-6" value="Operación" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="56.46000000000001" y="530" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-7" value="Descripción" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="56.46000000000001" y="580" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-8" value="Precondiciones" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="56.46000000000001" y="650" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-9" value="Postcondiciones" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="56.46000000000001" y="690" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-10" value="listarActividadesTuristicas() :&amp;nbsp;&lt;span style=&quot;text-align: center; text-wrap-mode: nowrap;&quot;&gt;Set(String)&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="176.46" y="530" width="340" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-11" value=" Lista las actividades turísticas  existentes, el administrador va a seleccionar la actividad deseada para operar sobre ella." style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="176.46" y="580" width="460" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-12" value=" Existen actividades turísticas." style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="176.46" y="650" width="460" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-13" value="La operación es de consulta, no hay alteraciones en el sistema.&amp;nbsp;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="176.46" y="690" width="460" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-14" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="36.46000000000001" y="740" width="600" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-15" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="36.46000000000001" y="780" as="sourcePoint" />
+            <mxPoint x="636.46" y="780" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-16" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="36.46000000000001" y="861" as="sourcePoint" />
+            <mxPoint x="636.46" y="861" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-17" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="36.46000000000001" y="901" as="sourcePoint" />
+            <mxPoint x="636.46" y="901" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-18" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="155.46" y="940" as="sourcePoint" />
+            <mxPoint x="155.46" y="740" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-19" value="Operación" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="56.46000000000001" y="750" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-20" value="Descripción" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="56.46000000000001" y="800" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-21" value="Precondiciones" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="56.46000000000001" y="870" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-22" value="Postcondiciones" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="56.46000000000001" y="910" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-23" value="&lt;span style=&quot;text-align: center; text-wrap-mode: nowrap;&quot;&gt;listarSalidasActividad(nombreActividad : String) : Set(DtSalidaTuristica)&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="176.46" y="750" width="340" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-24" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="36.46000000000001" y="950" width="600" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-25" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="36.46000000000001" y="990" as="sourcePoint" />
+            <mxPoint x="636.46" y="990" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-26" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="36.46000000000001" y="1071" as="sourcePoint" />
+            <mxPoint x="636.46" y="1071" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-27" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="36.46000000000001" y="1111" as="sourcePoint" />
+            <mxPoint x="636.46" y="1111" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-28" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="155.46" y="1150" as="sourcePoint" />
+            <mxPoint x="155.46" y="950" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-29" value="Operación" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="56.46000000000001" y="960" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-30" value="Descripción" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="56.46000000000001" y="1010" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-31" value="Precondiciones" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="56.46000000000001" y="1080" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-32" value="Postcondiciones" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="56.46000000000001" y="1120" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CaR44tln1e4BjZoLXy3m-33" value="&lt;span style=&quot;text-align: center; text-wrap-mode: nowrap;&quot;&gt;listarInscripcionesSalida(nombreSalida : String):Set(DtInscripcionSalida)&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="176.46" y="960" width="340" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
