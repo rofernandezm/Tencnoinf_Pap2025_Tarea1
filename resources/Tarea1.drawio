@@ -2129,75 +2129,84 @@
     </mxGraphModel>
   </diagram>
   <diagram id="IKVYwtOFRVf6pfugLvG0" name="CU11_RankingActividadTuristica">
-    <mxGraphModel dx="784" dy="1641" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="781" dy="680" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="q81LGFJYxyPO7jDbxkHf-18" value="" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;" vertex="1" parent="1">
+        <mxCell id="q81LGFJYxyPO7jDbxkHf-18" value="" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;" parent="1" vertex="1">
           <mxGeometry x="80" y="120" width="20" height="360" as="geometry" />
         </mxCell>
-        <mxCell id="q81LGFJYxyPO7jDbxkHf-19" value=":Sistema" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+        <mxCell id="q81LGFJYxyPO7jDbxkHf-19" value=":Sistema" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="1" vertex="1">
           <mxGeometry x="510" y="120" width="100" height="370" as="geometry" />
         </mxCell>
-        <mxCell id="q81LGFJYxyPO7jDbxkHf-20" value="Administrador del sistema" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="q81LGFJYxyPO7jDbxkHf-20" value="Administrador del sistema" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="10" y="80" width="160" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="q81LGFJYxyPO7jDbxkHf-21" value="Ranking Actividad Deportiva" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+        <mxCell id="q81LGFJYxyPO7jDbxkHf-21" value="Ranking Actividad Deportiva" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=14;" parent="1" vertex="1">
           <mxGeometry x="207.46000000000004" y="30" width="278" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="q81LGFJYxyPO7jDbxkHf-22" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+        <mxCell id="q81LGFJYxyPO7jDbxkHf-22" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="89.59090909090901" y="211" as="sourcePoint" />
             <mxPoint x="559.5" y="211" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="q81LGFJYxyPO7jDbxkHf-23" value="consultarRankingActividades():Set(DtActividadConSalida)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="q81LGFJYxyPO7jDbxkHf-23" value="consultarRankingActividades():Set(DtActividadConSalida)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="160" y="181" width="330" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="q81LGFJYxyPO7jDbxkHf-24" value="NOTAS: El dt esta definido en CU_2" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="q81LGFJYxyPO7jDbxkHf-24" value="NOTAS: El dt esta definido en CU_2" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="515" y="40" width="220" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="q81LGFJYxyPO7jDbxkHf-25" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="q81LGFJYxyPO7jDbxkHf-25" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="25" y="304" width="600" height="200" as="geometry" />
         </mxCell>
-        <mxCell id="q81LGFJYxyPO7jDbxkHf-26" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+        <mxCell id="q81LGFJYxyPO7jDbxkHf-26" value="" style="endArrow=none;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="25" y="344" as="sourcePoint" />
             <mxPoint x="625" y="344" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="q81LGFJYxyPO7jDbxkHf-27" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+        <mxCell id="q81LGFJYxyPO7jDbxkHf-27" value="" style="endArrow=none;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="25" y="425" as="sourcePoint" />
             <mxPoint x="625" y="425" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="q81LGFJYxyPO7jDbxkHf-28" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+        <mxCell id="q81LGFJYxyPO7jDbxkHf-28" value="" style="endArrow=none;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="25" y="465" as="sourcePoint" />
             <mxPoint x="625" y="465" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="q81LGFJYxyPO7jDbxkHf-29" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+        <mxCell id="q81LGFJYxyPO7jDbxkHf-29" value="" style="endArrow=none;html=1;rounded=0;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="144" y="504" as="sourcePoint" />
             <mxPoint x="144" y="304" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="q81LGFJYxyPO7jDbxkHf-30" value="Operación" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+        <mxCell id="q81LGFJYxyPO7jDbxkHf-30" value="Operación" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" parent="1" vertex="1">
           <mxGeometry x="45" y="314" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="q81LGFJYxyPO7jDbxkHf-31" value="Descripción" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="q81LGFJYxyPO7jDbxkHf-31" value="Descripción" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="45" y="364" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="q81LGFJYxyPO7jDbxkHf-32" value="Precondiciones" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="q81LGFJYxyPO7jDbxkHf-32" value="Precondiciones" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="45" y="434" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="q81LGFJYxyPO7jDbxkHf-33" value="Postcondiciones" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="q81LGFJYxyPO7jDbxkHf-33" value="Postcondiciones" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="45" y="474" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="q81LGFJYxyPO7jDbxkHf-34" value="&lt;span style=&quot;text-align: center; text-wrap-mode: nowrap;&quot;&gt;consultarRankingActividades():Set(DtActividadConSalida)&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+        <mxCell id="q81LGFJYxyPO7jDbxkHf-34" value="&lt;span style=&quot;text-align: center; text-wrap-mode: nowrap;&quot;&gt;consultarRankingActividades():Set(DtActividadConSalida)&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" parent="1" vertex="1">
           <mxGeometry x="165" y="314" width="340" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="orUluuUZJ7Di8wbcgl52-1" value="La operación es de consulta, no hay alteraciones en el sistema.&amp;nbsp;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="150" y="474" width="460" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="1KOwpXDdW2A845BFsqkP-1" value="Lista todas las actividades turisticas y la cantidada de salidas turisticas ordenadas de mayo a menor" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="370" width="460" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-XabkufL59CN6GN_0YDq-3" value="Existen actividades turísticas." style="text;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="150" y="434" width="190" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
