@@ -2181,12 +2181,12 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="54r_F_vQ8Nf4Y6Rq84gh" name="CU8_InscripcionSalidaTuristica_Copy">
-    <mxGraphModel dx="1713" dy="1060" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+  <diagram id="54r_F_vQ8Nf4Y6Rq84gh" name="CU8_InscripcionSalidaTuristica">
+    <mxGraphModel dx="1028" dy="636" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="QCynZg6j68xRZsSKFVPW-1" value="Caso de uso&#xa;Inscripción a Salida Turística (8)&#xa;Actores&#xa;Administrador del Sistema&#xa;Descripción&#xa;El caso de uso comienza cuando el administrador desea realizar una inscripción de un/a turista a una salida de una actividad turística. En primer lugar, el administrador muestra las actividades disponible. El administrador elige una y el sistema muestra los datos básicos de las salidas vigentes, si existen. Luego, el sistema muestra la lista de todos/as los/as turistas y el administrador selecciona el/la turista que quiere inscribir, la salida a la que lo/la quiere inscribir, la cantidad de turistas para la inscripción y la fecha de inscripción.&#xa;En caso de que ya exista un registro de el/la turista a la salida turística o se&#xa;haya alcanzado el límite máximo de turistas, el administrador podrá (dependiendo del caso): cambiar la salida seleccionada, cambiar el/la turista seleccionado/a o cancelar el caso de uso. Finalmente, el sistema realiza la inscripción de el/la turista a la salida en dicha fecha, registrando el costo de la inscripción." style="text;whiteSpace=wrap;" vertex="1" parent="1">
+        <mxCell id="QCynZg6j68xRZsSKFVPW-1" value="Caso de uso&#xa;Inscripción a Salida Turística (8)&#xa;Actores&#xa;Administrador del Sistema&#xa;Descripción&#xa;El caso de uso comienza cuando el administrador desea realizar una inscripción de un/a turista a una salida de una actividad turística. En primer lugar, el administrador muestra las actividades disponible. El administrador elige una y el sistema muestra los datos básicos de las salidas vigentes, si existen. Luego, el sistema muestra la lista de todos/as los/as turistas y el administrador selecciona el/la turista que quiere inscribir, la salida a la que lo/la quiere inscribir, la cantidad de turistas para la inscripción y la fecha de inscripción.&#xa;En caso de que ya exista un registro de el/la turista a la salida turística o se&#xa;haya alcanzado el límite máximo de turistas, el administrador podrá (dependiendo del caso): cambiar la salida seleccionada, cambiar el/la turista seleccionado/a o cancelar el caso de uso. Finalmente, el sistema realiza la inscripción de el/la turista a la salida en dicha fecha, registrando el costo de la inscripción." style="text;whiteSpace=wrap;" parent="1" vertex="1">
           <mxGeometry x="210" y="90" width="560" height="250" as="geometry" />
         </mxCell>
       </root>
