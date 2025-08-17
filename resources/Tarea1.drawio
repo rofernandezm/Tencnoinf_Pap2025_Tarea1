@@ -1731,7 +1731,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="6jNVnO2Shh2w277qSBLu" name="CU10_ModificarActividadTuristica">
-    <mxGraphModel dx="784" dy="1641" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="916" dy="680" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -2079,6 +2079,9 @@
         </mxCell>
         <mxCell id="Zu6bOg1dGkR3rP3QWjoP-85" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="Zu6bOg1dGkR3rP3QWjoP-84" target="Zu6bOg1dGkR3rP3QWjoP-84">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LBVfssB4X18AKGT9dGPh-1" value="-" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="760" y="750" width="460" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
