@@ -170,7 +170,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="KBmlHss2O4QAnYEtU9hW" name="CU1_AltaUsuario">
-    <mxGraphModel dx="2284" dy="1413" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="3427" dy="2120" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -559,6 +559,9 @@
         </mxCell>
         <mxCell id="DERJhMFo0MEm1HWZWF0h-10" value="&lt;div&gt;&lt;u&gt;:Usuario&lt;/u&gt;&lt;/div&gt;" style="html=1;whiteSpace=wrap;" vertex="1" parent="iSzKxgwIfK4g2yVA4g99-1">
           <mxGeometry y="18" width="152" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="r9otpEtA7np6bjAYE5_e-1" value="El caso de uso comienza cuando el administrador desea dar de alta a un nuevo usuario en el sistema.&#xa;Para ello indica si es turista o proveedor/a y sus datos básicos: nickname (único en la plataforma), nombre, apellido, correo electrónico (único en la plataforma) y fecha de nacimiento. Si es turista se debe ingresar además otro dato básico: la nacionalidad. Si es proveedor/a se ingresan además otros datos básicos: una descripción general y un link a su sitio web (este último opcional). Si el nickname o el correo electrónico se encuentran en uso por algún otro usuario, el sistema avisa al administrador, pudiendo éste corregir la información o cancelar el alta. Finalmente, el sistema da de alta al usuario." style="text;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="1680" y="701.88" width="600" height="120" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
