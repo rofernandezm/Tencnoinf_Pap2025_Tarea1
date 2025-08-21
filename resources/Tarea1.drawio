@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 OPR/120.0.0.0 (Edition std-1)" version="28.1.0" pages="12">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0" version="28.1.0" pages="12">
   <diagram name="ModeloDominio" id="K_SPVwELb6RBCzlSe16Q">
-    <mxGraphModel dx="1870" dy="852" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1292" dy="553" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -146,7 +146,7 @@
           <mxGeometry x="1940" y="270" width="180" height="100" as="geometry" />
         </mxCell>
         <mxCell id="MfJV7A26QuEDaqCEJXEh-7" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;DtActividadConSalida&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- actividad: DtActividadTuristica&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- salidas: Set(DtSalidaTuristica)&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="2130" y="270" width="180" height="140" as="geometry" />
+          <mxGeometry x="2130" y="270" width="180" height="70" as="geometry" />
         </mxCell>
         <mxCell id="MfJV7A26QuEDaqCEJXEh-8" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;DtSalidaTuristica&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- nombreSalida: String&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- cantidadMaxTuristas: int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- lugarDeSalida: String&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- fechaYHora: Date&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- fechaAlta: Date&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" parent="1" vertex="1">
           <mxGeometry x="1770" y="270" width="160" height="110" as="geometry" />
@@ -635,7 +635,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="Tysvvw1a4r16jUoEJycR" name="CU2_ConsultaUsuario">
-    <mxGraphModel dx="1500" dy="574" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1002,8 +1002,222 @@
         <mxCell id="479R9yT9kE71H8kCfPnS-14" value="El caso de uso comienza cuando el administrador desea consultar el perfil de un usuario. &#xa;1) Para ello el sistema muestra la lista de todos los usuarios y el administrador elige uno. &#xa;2) Luego, el sistema muestra todos los datos básicos del usuario. &#xa;    a) Si es proveedor/a se muestra también la información básica de las actividades turísticas que ofrece     y salidas asociadas. &#xa;    b) Si es turista se muestra también la información de las salidas a las que se inscribió. &#xa;3) Si el administrador selecciona una actividad turística o una salida, se muestra la información detallada, tal como se indica en los casos de uso Consulta de Actividad Turística y Consulta de Salida Turística, respectivamente" style="text;whiteSpace=wrap;" parent="1" vertex="1">
           <mxGeometry x="210" y="760" width="560" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-48" value="" style="group" parent="1" vertex="1" connectable="0">
-          <mxGeometry x="810" y="1230" width="893" height="330" as="geometry" />
+        <mxCell id="Kme7jHEOL_ZQutowfrsX-4" value="&lt;span style=&quot;font-size: 11px; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;2.2*: [TipoUsuario == Proveedor] : [forEach] : at := next()&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1570" y="700" width="321" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="gTDGc2DN6tDReJMZKVH3-29" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="810" y="340" width="1933" height="1081" as="geometry" />
+        </mxCell>
+        <mxCell id="8Jo3qcPYJjDMDrXjyacN-5" value="&lt;u&gt;&lt;span style=&quot;font-size: 11px; text-align: left; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;inscSalidaTuristica&lt;/span&gt;:&amp;nbsp;InscripcionSalidaTuristica&lt;/u&gt;" style="html=1;whiteSpace=wrap;container=0;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="851.5" y="284" width="254.5" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="WbblCKEdOo5E21VbApw2-5" value="&lt;u&gt;:TurismoUyUsuarios&lt;/u&gt;" style="html=1;whiteSpace=wrap;container=0;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="312" y="21" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="WbblCKEdOo5E21VbApw2-6" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=none;endFill=0;endSize=6;align=left;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="gTDGc2DN6tDReJMZKVH3-29" target="WbblCKEdOo5E21VbApw2-5" edge="1">
+          <mxGeometry x="-1" y="16" relative="1" as="geometry">
+            <mxPoint y="41" as="sourcePoint" />
+            <mxPoint x="220" y="40.5" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WbblCKEdOo5E21VbApw2-7" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="gTDGc2DN6tDReJMZKVH3-29" edge="1">
+          <mxGeometry x="-1" relative="1" as="geometry">
+            <mxPoint x="114.5" y="60.170000000000016" as="sourcePoint" />
+            <mxPoint x="194.5" y="60.170000000000016" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WbblCKEdOo5E21VbApw2-8" value="1: u := find(nickname)" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=none;endFill=0;endSize=6;align=left;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="gTDGc2DN6tDReJMZKVH3-29" source="WbblCKEdOo5E21VbApw2-5" target="WbblCKEdOo5E21VbApw2-17" edge="1">
+          <mxGeometry x="-0.7488" y="7" relative="1" as="geometry">
+            <mxPoint x="432" y="38.5" as="sourcePoint" />
+            <mxPoint x="592" y="41" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WbblCKEdOo5E21VbApw2-9" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="gTDGc2DN6tDReJMZKVH3-29" edge="1">
+          <mxGeometry x="-1" relative="1" as="geometry">
+            <mxPoint x="465" y="51" as="sourcePoint" />
+            <mxPoint x="545" y="51" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WbblCKEdOo5E21VbApw2-10" value="&lt;span style=&quot;text-wrap-mode: nowrap;&quot;&gt;seleccionarUsuario(usuario:String) : DtPerfilUsuario&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;container=0;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="10" y="10" width="289" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ifRfiALE7SZFC-MT4Qa3-5" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endArrow=none;endFill=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="gTDGc2DN6tDReJMZKVH3-29" source="WbblCKEdOo5E21VbApw2-11" target="ifRfiALE7SZFC-MT4Qa3-4" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="599.9999999999998" y="172.34482758620697" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1wzuqXJ0GRpaQ0RqyXYJ-2" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;endArrow=none;endFill=0;entryX=0.101;entryY=0.091;entryDx=0;entryDy=0;entryPerimeter=0;" parent="gTDGc2DN6tDReJMZKVH3-29" source="WbblCKEdOo5E21VbApw2-11" target="1wzuqXJ0GRpaQ0RqyXYJ-5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="660" y="529" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1wzuqXJ0GRpaQ0RqyXYJ-8" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="gTDGc2DN6tDReJMZKVH3-29" source="WbblCKEdOo5E21VbApw2-11" target="1wzuqXJ0GRpaQ0RqyXYJ-7" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="407" y="193.00000000000023" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WbblCKEdOo5E21VbApw2-11" value="&lt;u&gt;u&amp;nbsp;&lt;/u&gt;&lt;u&gt;:Usuario&lt;/u&gt;" style="html=1;whiteSpace=wrap;container=0;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="297" y="152" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="WbblCKEdOo5E21VbApw2-12" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="gTDGc2DN6tDReJMZKVH3-29" source="WbblCKEdOo5E21VbApw2-11" target="WbblCKEdOo5E21VbApw2-5" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="360" y="82" as="sourcePoint" />
+            <mxPoint x="368" y="-8" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WbblCKEdOo5E21VbApw2-13" value="&lt;span style=&quot;font-size: 11px; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;2 : getPerfilUsuario() : DtPerfilUsuario&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;container=0;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="380" y="94" width="270" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="WbblCKEdOo5E21VbApw2-14" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="gTDGc2DN6tDReJMZKVH3-29" edge="1">
+          <mxGeometry x="-1" relative="1" as="geometry">
+            <mxPoint x="360" y="81" as="sourcePoint" />
+            <mxPoint x="360" y="134" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ifRfiALE7SZFC-MT4Qa3-1" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="gTDGc2DN6tDReJMZKVH3-29" edge="1">
+          <mxGeometry x="-1" relative="1" as="geometry">
+            <mxPoint x="670.5" y="182" as="sourcePoint" />
+            <mxPoint x="750.5" y="182" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KLuWXOCQViNycYxu8gxW-1" value="&lt;span style=&quot;font-size: 11px; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;2.1*: [TipoUsuario == Turista] : [forEach] : inscSalidaTuristica := next()&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;container=0;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="550" y="141" width="321" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="8Jo3qcPYJjDMDrXjyacN-1" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;endArrow=none;endFill=0;entryX=0;entryY=0;entryDx=0;entryDy=0;" parent="gTDGc2DN6tDReJMZKVH3-29" source="WbblCKEdOo5E21VbApw2-11" target="8Jo3qcPYJjDMDrXjyacN-5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="590.4999999999998" y="262.344827586207" as="targetPoint" />
+            <mxPoint x="437.5" y="262" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8Jo3qcPYJjDMDrXjyacN-2" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="gTDGc2DN6tDReJMZKVH3-29" edge="1">
+          <mxGeometry x="-1" relative="1" as="geometry">
+            <mxPoint x="614" y="249" as="sourcePoint" />
+            <mxPoint x="697" y="269" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8Jo3qcPYJjDMDrXjyacN-6" value="&lt;span style=&quot;font-size: 11px; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;2.1*.1* : [TipoUsuario == Turista] : dtInscSalidaTuristica := getDtInscripcionSalidaTuristica() :&amp;nbsp;&lt;/span&gt;DtInscripcionSalidaTuristica" style="text;whiteSpace=wrap;html=1;container=0;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="690" y="211" width="610" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="Kme7jHEOL_ZQutowfrsX-1" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endArrow=none;endFill=0;" parent="gTDGc2DN6tDReJMZKVH3-29" source="8Jo3qcPYJjDMDrXjyacN-5" target="4TyhNW9ileLtrobiSk-7-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4TyhNW9ileLtrobiSk-7-1" value="&lt;u&gt;:SalidaTuristica&lt;/u&gt;" style="html=1;whiteSpace=wrap;container=0;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="1416" y="284" width="152" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="4TyhNW9ileLtrobiSk-7-3" value="Arma el DtInscripcionSalidaTuristica con sus datos y el DtSalidaTuristica obtenido" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=16;spacingLeft=2;spacingRight=2;align=center;container=0;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="1240" y="381" width="190" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="4TyhNW9ileLtrobiSk-7-4" value="" style="endArrow=none;dashed=1;html=1;rounded=0;exitX=0;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=1;entryDx=0;entryDy=0;" parent="gTDGc2DN6tDReJMZKVH3-29" source="4TyhNW9ileLtrobiSk-7-3" target="8Jo3qcPYJjDMDrXjyacN-5" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1112" y="512" as="sourcePoint" />
+            <mxPoint x="1126" y="323" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Kme7jHEOL_ZQutowfrsX-2" value="" style="orthogonalLoop=1;jettySize=auto;html=1;rounded=0;" parent="gTDGc2DN6tDReJMZKVH3-29" edge="1">
+          <mxGeometry width="100" relative="1" as="geometry">
+            <mxPoint x="1200.5" y="323" as="sourcePoint" />
+            <mxPoint x="1300.5" y="323" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Kme7jHEOL_ZQutowfrsX-3" value="&lt;span style=&quot;font-size: 11px; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;2.1*.1*.1* : getDtSalidaTuristica() :&amp;nbsp;&lt;/span&gt;DtSalidaTuristica" style="text;whiteSpace=wrap;html=1;container=0;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="1126" y="273" width="269" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="gTDGc2DN6tDReJMZKVH3-16" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="gTDGc2DN6tDReJMZKVH3-29" source="1wzuqXJ0GRpaQ0RqyXYJ-7" target="gTDGc2DN6tDReJMZKVH3-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="1wzuqXJ0GRpaQ0RqyXYJ-7" value="&lt;span style=&quot;font-size: 11px; text-align: left; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;at&amp;nbsp;&lt;/span&gt;&lt;u&gt;: ActividadTuristica&lt;/u&gt;" style="html=1;whiteSpace=wrap;container=0;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="237.47000000000003" y="642" width="194.53" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="1wzuqXJ0GRpaQ0RqyXYJ-9" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="gTDGc2DN6tDReJMZKVH3-29" edge="1">
+          <mxGeometry x="-1" relative="1" as="geometry">
+            <mxPoint x="315" y="322" as="sourcePoint" />
+            <mxPoint x="315" y="461" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1wzuqXJ0GRpaQ0RqyXYJ-10" value="Arma el DtPerfilUsuario con la información básica y la obtenida segun el tipo de usuario" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=16;spacingLeft=2;spacingRight=2;align=center;container=0;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="66" y="245" width="190" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="1wzuqXJ0GRpaQ0RqyXYJ-11" value="" style="endArrow=none;dashed=1;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0;exitDx=87;exitDy=0;exitPerimeter=0;" parent="gTDGc2DN6tDReJMZKVH3-29" source="1wzuqXJ0GRpaQ0RqyXYJ-10" target="WbblCKEdOo5E21VbApw2-11" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="240" y="222" as="sourcePoint" />
+            <mxPoint x="180" y="192" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1wzuqXJ0GRpaQ0RqyXYJ-12" value="&lt;span style=&quot;font-size: 11px; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;2.2*.1*: [TipoUsuario == Proveedor] := getDtActividadConSalida() :&lt;/span&gt;DtActividadConSalida" style="text;whiteSpace=wrap;html=1;container=0;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="350" y="466" width="321" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="479R9yT9kE71H8kCfPnS-3" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;endArrow=none;endFill=0;entryX=0;entryY=0;entryDx=0;entryDy=0;" parent="gTDGc2DN6tDReJMZKVH3-29" source="1wzuqXJ0GRpaQ0RqyXYJ-7" target="479R9yT9kE71H8kCfPnS-4" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="398.53" y="664" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="479R9yT9kE71H8kCfPnS-4" value="&lt;u&gt;st :SalidaTuristica&lt;/u&gt;" style="html=1;whiteSpace=wrap;container=0;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="677" y="806" width="152" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="479R9yT9kE71H8kCfPnS-5" value="&lt;span style=&quot;font-size: 11px; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;2.2*.1*.1* : [forEach] : st : next()&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;container=0;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="470" y="637" width="173" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="479R9yT9kE71H8kCfPnS-6" value="Arma el DtActividadTuristicaConSalida con sus datos y la colección de DtSalidaTuristica obtenidos" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=16;spacingLeft=2;spacingRight=2;align=center;container=0;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="10" y="780" width="190" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="479R9yT9kE71H8kCfPnS-7" value="" style="endArrow=none;dashed=1;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" parent="gTDGc2DN6tDReJMZKVH3-29" source="479R9yT9kE71H8kCfPnS-6" target="1wzuqXJ0GRpaQ0RqyXYJ-7" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="208" y="668" as="sourcePoint" />
+            <mxPoint x="75" y="484" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="479R9yT9kE71H8kCfPnS-10" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="gTDGc2DN6tDReJMZKVH3-29" edge="1">
+          <mxGeometry x="-1" relative="1" as="geometry">
+            <mxPoint x="800" y="441" as="sourcePoint" />
+            <mxPoint x="880" y="490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="479R9yT9kE71H8kCfPnS-11" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="gTDGc2DN6tDReJMZKVH3-29" edge="1">
+          <mxGeometry x="-1" relative="1" as="geometry">
+            <mxPoint x="500" y="685.3500000000001" as="sourcePoint" />
+            <mxPoint x="598.5" y="685.4000000000001" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gTDGc2DN6tDReJMZKVH3-7" value="&lt;span style=&quot;font-size: 11px; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;2.2*.1*.1*.1* : getDtSalidaTuristica() :&amp;nbsp;&lt;/span&gt;DtSalidaTuristica" style="text;whiteSpace=wrap;html=1;container=0;" vertex="1" parent="gTDGc2DN6tDReJMZKVH3-29">
+          <mxGeometry x="590" y="730" width="269" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="gTDGc2DN6tDReJMZKVH3-8" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" edge="1" parent="gTDGc2DN6tDReJMZKVH3-29">
+          <mxGeometry x="-1" relative="1" as="geometry">
+            <mxPoint x="480" y="720" as="sourcePoint" />
+            <mxPoint x="610" y="790" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WbblCKEdOo5E21VbApw2-16" value="" style="html=1;whiteSpace=wrap;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="625" width="152" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="WbblCKEdOo5E21VbApw2-17" value="&lt;u&gt;:Usuario&lt;/u&gt;" style="html=1;whiteSpace=wrap;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="614" y="19" width="152" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="ifRfiALE7SZFC-MT4Qa3-3" value="" style="html=1;whiteSpace=wrap;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="991.4723926380368" y="129" width="158.5276073619632" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="ifRfiALE7SZFC-MT4Qa3-4" value="&lt;u&gt;:InscripcionSalidaTuristica&lt;/u&gt;" style="html=1;whiteSpace=wrap;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="980" y="148" width="158.5276073619632" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="1wzuqXJ0GRpaQ0RqyXYJ-4" value="" style="html=1;whiteSpace=wrap;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="1021.4723926380368" y="528" width="158.5276073619632" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="1wzuqXJ0GRpaQ0RqyXYJ-5" value="&lt;u&gt;:ActividadTuristica&lt;/u&gt;" style="html=1;whiteSpace=wrap;" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1">
+          <mxGeometry x="1010" y="547" width="158.5276073619632" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="gTDGc2DN6tDReJMZKVH3-13" value="" style="html=1;whiteSpace=wrap;" vertex="1" parent="gTDGc2DN6tDReJMZKVH3-29">
+          <mxGeometry x="677" y="623" width="152" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="gTDGc2DN6tDReJMZKVH3-14" value="&lt;u&gt;:SalidaTuristica&lt;/u&gt;" style="html=1;whiteSpace=wrap;" vertex="1" parent="gTDGc2DN6tDReJMZKVH3-29">
+          <mxGeometry x="666" y="642" width="152" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="479R9yT9kE71H8kCfPnS-48" value="" style="group" parent="gTDGc2DN6tDReJMZKVH3-29" vertex="1" connectable="0">
+          <mxGeometry x="1040" y="751" width="893" height="330" as="geometry" />
         </mxCell>
         <mxCell id="479R9yT9kE71H8kCfPnS-33" value="&lt;u&gt;:TurismoUySalidas&lt;/u&gt;" style="html=1;whiteSpace=wrap;" parent="479R9yT9kE71H8kCfPnS-48" vertex="1">
           <mxGeometry x="372" y="20" width="148" height="40" as="geometry" />
@@ -1073,60 +1287,66 @@
             <mxPoint x="1278" y="354" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-31" value="" style="group" parent="1" vertex="1" connectable="0">
-          <mxGeometry x="1650" y="50" width="943" height="330" as="geometry" />
+        <mxCell id="gTDGc2DN6tDReJMZKVH3-30" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="1650" y="50" width="943" height="392.5" as="geometry" />
         </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-16" value="&lt;u&gt;:TurismoUyActividades&lt;/u&gt;" style="html=1;whiteSpace=wrap;" parent="479R9yT9kE71H8kCfPnS-31" vertex="1">
+        <mxCell id="479R9yT9kE71H8kCfPnS-16" value="&lt;u&gt;:TurismoUyActividades&lt;/u&gt;" style="html=1;whiteSpace=wrap;" parent="gTDGc2DN6tDReJMZKVH3-30" vertex="1">
           <mxGeometry x="422" y="20" width="148" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-17" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=none;endFill=0;endSize=6;align=left;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="479R9yT9kE71H8kCfPnS-31" target="479R9yT9kE71H8kCfPnS-16" edge="1">
+        <mxCell id="479R9yT9kE71H8kCfPnS-17" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=none;endFill=0;endSize=6;align=left;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="gTDGc2DN6tDReJMZKVH3-30" target="479R9yT9kE71H8kCfPnS-16" edge="1">
           <mxGeometry x="-1" y="16" relative="1" as="geometry">
             <mxPoint y="40" as="sourcePoint" />
             <mxPoint x="140" y="39.5" as="targetPoint" />
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-18" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="479R9yT9kE71H8kCfPnS-31" edge="1">
+        <mxCell id="479R9yT9kE71H8kCfPnS-18" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="gTDGc2DN6tDReJMZKVH3-30" edge="1">
           <mxGeometry x="-1" relative="1" as="geometry">
             <mxPoint x="151.25" y="55" as="sourcePoint" />
             <mxPoint x="273.75" y="54.620000000000005" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-19" value="1: at := find(nombreActividad)" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=none;endFill=0;endSize=6;align=left;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="479R9yT9kE71H8kCfPnS-31" source="479R9yT9kE71H8kCfPnS-16" target="479R9yT9kE71H8kCfPnS-28" edge="1">
+        <mxCell id="479R9yT9kE71H8kCfPnS-19" value="1: at := find(nombreActividad)" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=none;endFill=0;endSize=6;align=left;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="gTDGc2DN6tDReJMZKVH3-30" source="479R9yT9kE71H8kCfPnS-16" target="479R9yT9kE71H8kCfPnS-28" edge="1">
           <mxGeometry x="-0.7489" y="7" relative="1" as="geometry">
             <mxPoint x="542" y="37.5" as="sourcePoint" />
             <mxPoint x="702" y="40" as="targetPoint" />
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-20" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="479R9yT9kE71H8kCfPnS-31" edge="1">
+        <mxCell id="479R9yT9kE71H8kCfPnS-20" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="gTDGc2DN6tDReJMZKVH3-30" edge="1">
           <mxGeometry x="-1" relative="1" as="geometry">
             <mxPoint x="630" y="50" as="sourcePoint" />
             <mxPoint x="710" y="50" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-21" value="&lt;span style=&quot;text-wrap-mode: nowrap;&quot;&gt;consultarActividadTuristica(nombreActividad: String) : DtActividadTuristica&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="479R9yT9kE71H8kCfPnS-31" vertex="1">
+        <mxCell id="479R9yT9kE71H8kCfPnS-21" value="&lt;span style=&quot;text-wrap-mode: nowrap;&quot;&gt;consultarActividadTuristica(nombreActividad: String) :&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-wrap-mode: nowrap;&quot;&gt;DtActividadConSalida&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="gTDGc2DN6tDReJMZKVH3-30" vertex="1">
           <mxGeometry x="3" y="10" width="411" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-22" value="&lt;u&gt;at :ActividadTuristica&lt;/u&gt;" style="html=1;whiteSpace=wrap;" parent="479R9yT9kE71H8kCfPnS-31" vertex="1">
-          <mxGeometry x="713" y="203" width="150" height="40" as="geometry" />
+        <mxCell id="gTDGc2DN6tDReJMZKVH3-25" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="gTDGc2DN6tDReJMZKVH3-30" source="479R9yT9kE71H8kCfPnS-22" target="gTDGc2DN6tDReJMZKVH3-24">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-23" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="479R9yT9kE71H8kCfPnS-31" source="479R9yT9kE71H8kCfPnS-22" target="479R9yT9kE71H8kCfPnS-16" edge="1">
+        <mxCell id="gTDGc2DN6tDReJMZKVH3-26" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="gTDGc2DN6tDReJMZKVH3-30" source="479R9yT9kE71H8kCfPnS-22" target="gTDGc2DN6tDReJMZKVH3-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="479R9yT9kE71H8kCfPnS-22" value="&lt;u&gt;at :ActividadTuristica&lt;/u&gt;" style="html=1;whiteSpace=wrap;" parent="gTDGc2DN6tDReJMZKVH3-30" vertex="1">
+          <mxGeometry x="420" y="201" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="479R9yT9kE71H8kCfPnS-23" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="gTDGc2DN6tDReJMZKVH3-30" source="479R9yT9kE71H8kCfPnS-22" target="479R9yT9kE71H8kCfPnS-16" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="470" y="81" as="sourcePoint" />
             <mxPoint x="478" y="-9" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-24" value="&lt;span style=&quot;font-size: 11px; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;1.1 : getDtActividadTuristica() : DtActividadTuristica&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" parent="479R9yT9kE71H8kCfPnS-31" vertex="1">
-          <mxGeometry x="638" y="130" width="250" height="21" as="geometry" />
+        <mxCell id="479R9yT9kE71H8kCfPnS-24" value="&lt;span style=&quot;font-size: 11px; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;1.1 : getDtActividadTuristica() : DtActividadTuristica&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" parent="gTDGc2DN6tDReJMZKVH3-30" vertex="1">
+          <mxGeometry x="500" y="130" width="250" height="21" as="geometry" />
         </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-25" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="479R9yT9kE71H8kCfPnS-31" edge="1">
+        <mxCell id="479R9yT9kE71H8kCfPnS-25" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="gTDGc2DN6tDReJMZKVH3-30" edge="1">
           <mxGeometry x="-1" relative="1" as="geometry">
-            <mxPoint x="570" y="140" as="sourcePoint" />
-            <mxPoint x="640" y="190" as="targetPoint" />
+            <mxPoint x="480" y="110" as="sourcePoint" />
+            <mxPoint x="480" y="170" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-26" value="" style="group" parent="479R9yT9kE71H8kCfPnS-31" vertex="1" connectable="0">
+        <mxCell id="479R9yT9kE71H8kCfPnS-26" value="" style="group" parent="gTDGc2DN6tDReJMZKVH3-30" vertex="1" connectable="0">
           <mxGeometry x="780" width="163" height="63" as="geometry" />
         </mxCell>
         <mxCell id="479R9yT9kE71H8kCfPnS-27" value="" style="html=1;whiteSpace=wrap;" parent="479R9yT9kE71H8kCfPnS-26" vertex="1">
@@ -1135,225 +1355,44 @@
         <mxCell id="479R9yT9kE71H8kCfPnS-28" value="&lt;u&gt;:ActividadTuristica&lt;/u&gt;" style="html=1;whiteSpace=wrap;" parent="479R9yT9kE71H8kCfPnS-26" vertex="1">
           <mxGeometry y="19" width="152" height="44" as="geometry" />
         </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-29" value="Arma el Dt con sus datos" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=11;spacingLeft=2;spacingRight=2;align=center;" parent="479R9yT9kE71H8kCfPnS-31" vertex="1">
-          <mxGeometry x="745" y="285" width="165" height="45" as="geometry" />
+        <mxCell id="479R9yT9kE71H8kCfPnS-29" value="Arma el Dt con sus datos y la colección de los DtSalidaTuristica obtenidos" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=11;spacingLeft=2;spacingRight=2;align=center;" parent="gTDGc2DN6tDReJMZKVH3-30" vertex="1">
+          <mxGeometry x="280" y="280" width="190" height="68.5" as="geometry" />
         </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-30" value="" style="endArrow=none;dashed=1;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;" parent="479R9yT9kE71H8kCfPnS-31" source="479R9yT9kE71H8kCfPnS-29" target="479R9yT9kE71H8kCfPnS-22" edge="1">
+        <mxCell id="479R9yT9kE71H8kCfPnS-30" value="" style="endArrow=none;dashed=1;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;" parent="gTDGc2DN6tDReJMZKVH3-30" source="479R9yT9kE71H8kCfPnS-29" target="479R9yT9kE71H8kCfPnS-22" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="726" y="442" as="sourcePoint" />
             <mxPoint x="1328" y="354" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="OGLyO4UBtIFRaSekyoWD-1" value="" style="group" parent="1" vertex="1" connectable="0">
-          <mxGeometry x="810" y="340" width="1568" height="801" as="geometry" />
+        <mxCell id="gTDGc2DN6tDReJMZKVH3-17" value="&lt;u&gt;st :SalidaTuristica&lt;/u&gt;" style="html=1;whiteSpace=wrap;" vertex="1" parent="gTDGc2DN6tDReJMZKVH3-30">
+          <mxGeometry x="690" y="348.5" width="152" height="44" as="geometry" />
         </mxCell>
-        <mxCell id="WbblCKEdOo5E21VbApw2-5" value="&lt;u&gt;:TurismoUyUsuarios&lt;/u&gt;" style="html=1;whiteSpace=wrap;" parent="OGLyO4UBtIFRaSekyoWD-1" vertex="1">
-          <mxGeometry x="312" y="21" width="120" height="40" as="geometry" />
+        <mxCell id="gTDGc2DN6tDReJMZKVH3-18" value="&lt;span style=&quot;font-size: 11px; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;2.1.1* : [forEach] : st : next()&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="gTDGc2DN6tDReJMZKVH3-30">
+          <mxGeometry x="580" y="190" width="173" height="21" as="geometry" />
         </mxCell>
-        <mxCell id="WbblCKEdOo5E21VbApw2-6" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=none;endFill=0;endSize=6;align=left;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="OGLyO4UBtIFRaSekyoWD-1" target="WbblCKEdOo5E21VbApw2-5" edge="1">
-          <mxGeometry x="-1" y="16" relative="1" as="geometry">
-            <mxPoint y="41" as="sourcePoint" />
-            <mxPoint x="220" y="40.5" as="targetPoint" />
-            <mxPoint as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="WbblCKEdOo5E21VbApw2-7" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="OGLyO4UBtIFRaSekyoWD-1" edge="1">
+        <mxCell id="gTDGc2DN6tDReJMZKVH3-19" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" edge="1" parent="gTDGc2DN6tDReJMZKVH3-30">
           <mxGeometry x="-1" relative="1" as="geometry">
-            <mxPoint x="114.5" y="60.170000000000016" as="sourcePoint" />
-            <mxPoint x="194.5" y="60.170000000000016" as="targetPoint" />
+            <mxPoint x="602.75" y="231.0000000000001" as="sourcePoint" />
+            <mxPoint x="701.25" y="231.05000000000007" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="WbblCKEdOo5E21VbApw2-8" value="1: u := find(nickname)" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=none;endFill=0;endSize=6;align=left;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="OGLyO4UBtIFRaSekyoWD-1" source="WbblCKEdOo5E21VbApw2-5" target="WbblCKEdOo5E21VbApw2-17" edge="1">
-          <mxGeometry x="-0.7488" y="7" relative="1" as="geometry">
-            <mxPoint x="432" y="38.5" as="sourcePoint" />
-            <mxPoint x="592" y="41" as="targetPoint" />
-            <mxPoint as="offset" />
-          </mxGeometry>
+        <mxCell id="gTDGc2DN6tDReJMZKVH3-20" value="&lt;span style=&quot;font-size: 11px; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;2.1.1*.1* : getDtSalidaTuristica() :&amp;nbsp;&lt;/span&gt;DtSalidaTuristica" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="gTDGc2DN6tDReJMZKVH3-30">
+          <mxGeometry x="650" y="279" width="269" height="21" as="geometry" />
         </mxCell>
-        <mxCell id="WbblCKEdOo5E21VbApw2-9" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="OGLyO4UBtIFRaSekyoWD-1" edge="1">
+        <mxCell id="gTDGc2DN6tDReJMZKVH3-21" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" edge="1" parent="gTDGc2DN6tDReJMZKVH3-30">
           <mxGeometry x="-1" relative="1" as="geometry">
-            <mxPoint x="465" y="51" as="sourcePoint" />
-            <mxPoint x="545" y="51" as="targetPoint" />
+            <mxPoint x="580" y="270" as="sourcePoint" />
+            <mxPoint x="650" y="335" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="WbblCKEdOo5E21VbApw2-10" value="&lt;span style=&quot;text-wrap-mode: nowrap;&quot;&gt;seleccionarUsuario(usuario:String) : DtPerfilUsuario&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="OGLyO4UBtIFRaSekyoWD-1" vertex="1">
-          <mxGeometry x="10" y="10" width="289" height="30" as="geometry" />
+        <mxCell id="gTDGc2DN6tDReJMZKVH3-22" value="" style="group" vertex="1" connectable="0" parent="gTDGc2DN6tDReJMZKVH3-30">
+          <mxGeometry x="770" y="181" width="163" height="63" as="geometry" />
         </mxCell>
-        <mxCell id="ifRfiALE7SZFC-MT4Qa3-5" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endArrow=none;endFill=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="OGLyO4UBtIFRaSekyoWD-1" source="WbblCKEdOo5E21VbApw2-11" target="ifRfiALE7SZFC-MT4Qa3-4" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="599.9999999999998" y="172.34482758620697" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="1wzuqXJ0GRpaQ0RqyXYJ-2" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;endArrow=none;endFill=0;entryX=0.101;entryY=0.091;entryDx=0;entryDy=0;entryPerimeter=0;" parent="OGLyO4UBtIFRaSekyoWD-1" source="WbblCKEdOo5E21VbApw2-11" target="1wzuqXJ0GRpaQ0RqyXYJ-5" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="660" y="529" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="1wzuqXJ0GRpaQ0RqyXYJ-8" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="OGLyO4UBtIFRaSekyoWD-1" source="WbblCKEdOo5E21VbApw2-11" target="1wzuqXJ0GRpaQ0RqyXYJ-7" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="407" y="193.00000000000023" as="sourcePoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="WbblCKEdOo5E21VbApw2-11" value="&lt;u&gt;u&amp;nbsp;&lt;/u&gt;&lt;u&gt;:Usuario&lt;/u&gt;" style="html=1;whiteSpace=wrap;" parent="OGLyO4UBtIFRaSekyoWD-1" vertex="1">
-          <mxGeometry x="297" y="152" width="150" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="WbblCKEdOo5E21VbApw2-12" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="OGLyO4UBtIFRaSekyoWD-1" source="WbblCKEdOo5E21VbApw2-11" target="WbblCKEdOo5E21VbApw2-5" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="360" y="82" as="sourcePoint" />
-            <mxPoint x="368" y="-8" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="WbblCKEdOo5E21VbApw2-13" value="&lt;span style=&quot;font-size: 11px; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;2 : getPerfilUsuario() : DtPerfilUsuario&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" parent="OGLyO4UBtIFRaSekyoWD-1" vertex="1">
-          <mxGeometry x="380" y="94" width="270" height="21" as="geometry" />
-        </mxCell>
-        <mxCell id="WbblCKEdOo5E21VbApw2-14" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="OGLyO4UBtIFRaSekyoWD-1" edge="1">
-          <mxGeometry x="-1" relative="1" as="geometry">
-            <mxPoint x="360" y="81" as="sourcePoint" />
-            <mxPoint x="360" y="134" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="WbblCKEdOo5E21VbApw2-15" value="" style="group" parent="OGLyO4UBtIFRaSekyoWD-1" vertex="1" connectable="0">
-          <mxGeometry x="614" width="163" height="63" as="geometry" />
-        </mxCell>
-        <mxCell id="WbblCKEdOo5E21VbApw2-16" value="" style="html=1;whiteSpace=wrap;" parent="WbblCKEdOo5E21VbApw2-15" vertex="1">
+        <mxCell id="gTDGc2DN6tDReJMZKVH3-23" value="" style="html=1;whiteSpace=wrap;" vertex="1" parent="gTDGc2DN6tDReJMZKVH3-22">
           <mxGeometry x="11" width="152" height="44" as="geometry" />
         </mxCell>
-        <mxCell id="WbblCKEdOo5E21VbApw2-17" value="&lt;u&gt;:Usuario&lt;/u&gt;" style="html=1;whiteSpace=wrap;" parent="WbblCKEdOo5E21VbApw2-15" vertex="1">
+        <mxCell id="gTDGc2DN6tDReJMZKVH3-24" value="&lt;u&gt;:SalidaTuristica&lt;/u&gt;" style="html=1;whiteSpace=wrap;" vertex="1" parent="gTDGc2DN6tDReJMZKVH3-22">
           <mxGeometry y="19" width="152" height="44" as="geometry" />
-        </mxCell>
-        <mxCell id="ifRfiALE7SZFC-MT4Qa3-1" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="OGLyO4UBtIFRaSekyoWD-1" edge="1">
-          <mxGeometry x="-1" relative="1" as="geometry">
-            <mxPoint x="670.5" y="182" as="sourcePoint" />
-            <mxPoint x="750.5" y="182" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="ifRfiALE7SZFC-MT4Qa3-2" value="" style="group" parent="OGLyO4UBtIFRaSekyoWD-1" vertex="1" connectable="0">
-          <mxGeometry x="980" y="129" width="170" height="63" as="geometry" />
-        </mxCell>
-        <mxCell id="ifRfiALE7SZFC-MT4Qa3-3" value="" style="html=1;whiteSpace=wrap;" parent="ifRfiALE7SZFC-MT4Qa3-2" vertex="1">
-          <mxGeometry x="11.47239263803681" width="158.5276073619632" height="44" as="geometry" />
-        </mxCell>
-        <mxCell id="ifRfiALE7SZFC-MT4Qa3-4" value="&lt;u&gt;:InscripcionSalidaTuristica&lt;/u&gt;" style="html=1;whiteSpace=wrap;" parent="ifRfiALE7SZFC-MT4Qa3-2" vertex="1">
-          <mxGeometry y="19" width="158.5276073619632" height="44" as="geometry" />
-        </mxCell>
-        <mxCell id="KLuWXOCQViNycYxu8gxW-1" value="&lt;span style=&quot;font-size: 11px; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;2.1*: [TipoUsuario == Turista] : [forEach] : inscSalidaTuristica := next()&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" parent="OGLyO4UBtIFRaSekyoWD-1" vertex="1">
-          <mxGeometry x="550" y="141" width="321" height="21" as="geometry" />
-        </mxCell>
-        <mxCell id="8Jo3qcPYJjDMDrXjyacN-1" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;endArrow=none;endFill=0;entryX=0;entryY=0;entryDx=0;entryDy=0;" parent="OGLyO4UBtIFRaSekyoWD-1" source="WbblCKEdOo5E21VbApw2-11" target="8Jo3qcPYJjDMDrXjyacN-5" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="590.4999999999998" y="262.344827586207" as="targetPoint" />
-            <mxPoint x="437.5" y="262" as="sourcePoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="8Jo3qcPYJjDMDrXjyacN-2" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="OGLyO4UBtIFRaSekyoWD-1" edge="1">
-          <mxGeometry x="-1" relative="1" as="geometry">
-            <mxPoint x="614" y="249" as="sourcePoint" />
-            <mxPoint x="697" y="269" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="8Jo3qcPYJjDMDrXjyacN-6" value="&lt;span style=&quot;font-size: 11px; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;2.1*.1* : [TipoUsuario == Turista] : dtInscSalidaTuristica := getDtInscripcionSalidaTuristica() :&amp;nbsp;&lt;/span&gt;DtInscripcionSalidaTuristica" style="text;whiteSpace=wrap;html=1;" parent="OGLyO4UBtIFRaSekyoWD-1" vertex="1">
-          <mxGeometry x="690" y="211" width="610" height="21" as="geometry" />
-        </mxCell>
-        <mxCell id="Kme7jHEOL_ZQutowfrsX-1" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endArrow=none;endFill=0;" parent="OGLyO4UBtIFRaSekyoWD-1" source="8Jo3qcPYJjDMDrXjyacN-5" target="4TyhNW9ileLtrobiSk-7-1" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="8Jo3qcPYJjDMDrXjyacN-5" value="&lt;u&gt;&lt;span style=&quot;font-size: 11px; text-align: left; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;inscSalidaTuristica&lt;/span&gt;:&amp;nbsp;InscripcionSalidaTuristica&lt;/u&gt;" style="html=1;whiteSpace=wrap;" parent="OGLyO4UBtIFRaSekyoWD-1" vertex="1">
-          <mxGeometry x="851.5" y="284" width="254.5" height="44" as="geometry" />
-        </mxCell>
-        <mxCell id="4TyhNW9ileLtrobiSk-7-1" value="&lt;u&gt;:SalidaTuristica&lt;/u&gt;" style="html=1;whiteSpace=wrap;" parent="OGLyO4UBtIFRaSekyoWD-1" vertex="1">
-          <mxGeometry x="1416" y="284" width="152" height="44" as="geometry" />
-        </mxCell>
-        <mxCell id="4TyhNW9ileLtrobiSk-7-3" value="Arma el DtInscripcionSalidaTuristica con sus datos y el DtSalidaTuristica obtenido" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=16;spacingLeft=2;spacingRight=2;align=center;" parent="OGLyO4UBtIFRaSekyoWD-1" vertex="1">
-          <mxGeometry x="1240" y="381" width="190" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="4TyhNW9ileLtrobiSk-7-4" value="" style="endArrow=none;dashed=1;html=1;rounded=0;exitX=0;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=1;entryDx=0;entryDy=0;" parent="OGLyO4UBtIFRaSekyoWD-1" source="4TyhNW9ileLtrobiSk-7-3" target="8Jo3qcPYJjDMDrXjyacN-5" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1112" y="512" as="sourcePoint" />
-            <mxPoint x="1126" y="323" as="targetPoint" />
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Kme7jHEOL_ZQutowfrsX-2" value="" style="orthogonalLoop=1;jettySize=auto;html=1;rounded=0;" parent="OGLyO4UBtIFRaSekyoWD-1" edge="1">
-          <mxGeometry width="100" relative="1" as="geometry">
-            <mxPoint x="1200.5" y="323" as="sourcePoint" />
-            <mxPoint x="1300.5" y="323" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="Kme7jHEOL_ZQutowfrsX-3" value="&lt;span style=&quot;font-size: 11px; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;2.1*.1*.1* : getDtSalidaTuristica() :&amp;nbsp;&lt;/span&gt;DtSalidaTuristica" style="text;whiteSpace=wrap;html=1;" parent="OGLyO4UBtIFRaSekyoWD-1" vertex="1">
-          <mxGeometry x="1126" y="273" width="269" height="21" as="geometry" />
-        </mxCell>
-        <mxCell id="Kme7jHEOL_ZQutowfrsX-4" value="&lt;span style=&quot;font-size: 11px; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;2.2*: [TipoUsuario == Proveedor] : [forEach] : at := next()&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" parent="OGLyO4UBtIFRaSekyoWD-1" vertex="1">
-          <mxGeometry x="760" y="360" width="321" height="21" as="geometry" />
-        </mxCell>
-        <mxCell id="1wzuqXJ0GRpaQ0RqyXYJ-3" value="" style="group" parent="OGLyO4UBtIFRaSekyoWD-1" vertex="1" connectable="0">
-          <mxGeometry x="1010" y="528" width="170" height="63" as="geometry" />
-        </mxCell>
-        <mxCell id="1wzuqXJ0GRpaQ0RqyXYJ-4" value="" style="html=1;whiteSpace=wrap;" parent="1wzuqXJ0GRpaQ0RqyXYJ-3" vertex="1">
-          <mxGeometry x="11.47239263803681" width="158.5276073619632" height="44" as="geometry" />
-        </mxCell>
-        <mxCell id="1wzuqXJ0GRpaQ0RqyXYJ-5" value="&lt;u&gt;:ActividadTuristica&lt;/u&gt;" style="html=1;whiteSpace=wrap;" parent="1wzuqXJ0GRpaQ0RqyXYJ-3" vertex="1">
-          <mxGeometry y="19" width="158.5276073619632" height="44" as="geometry" />
-        </mxCell>
-        <mxCell id="1wzuqXJ0GRpaQ0RqyXYJ-7" value="&lt;span style=&quot;font-size: 11px; text-align: left; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;at&amp;nbsp;&lt;/span&gt;&lt;u&gt;: ActividadTuristica&lt;/u&gt;" style="html=1;whiteSpace=wrap;" parent="OGLyO4UBtIFRaSekyoWD-1" vertex="1">
-          <mxGeometry x="237.47000000000003" y="642" width="194.53" height="44" as="geometry" />
-        </mxCell>
-        <mxCell id="1wzuqXJ0GRpaQ0RqyXYJ-9" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="OGLyO4UBtIFRaSekyoWD-1" edge="1">
-          <mxGeometry x="-1" relative="1" as="geometry">
-            <mxPoint x="315" y="322" as="sourcePoint" />
-            <mxPoint x="315" y="461" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="1wzuqXJ0GRpaQ0RqyXYJ-10" value="Arma el DtPerfilUsuario con la información básica y la obtenida segun el tipo de usuario" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=16;spacingLeft=2;spacingRight=2;align=center;" parent="OGLyO4UBtIFRaSekyoWD-1" vertex="1">
-          <mxGeometry x="66" y="245" width="190" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="1wzuqXJ0GRpaQ0RqyXYJ-11" value="" style="endArrow=none;dashed=1;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0;exitDx=87;exitDy=0;exitPerimeter=0;" parent="OGLyO4UBtIFRaSekyoWD-1" source="1wzuqXJ0GRpaQ0RqyXYJ-10" target="WbblCKEdOo5E21VbApw2-11" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="240" y="222" as="sourcePoint" />
-            <mxPoint x="180" y="192" as="targetPoint" />
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="1wzuqXJ0GRpaQ0RqyXYJ-12" value="&lt;span style=&quot;font-size: 11px; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;2.2*.1*: [TipoUsuario == Proveedor] := getDtActividadConSalida() :&lt;/span&gt;DtActividadConSalida" style="text;whiteSpace=wrap;html=1;" parent="OGLyO4UBtIFRaSekyoWD-1" vertex="1">
-          <mxGeometry x="350" y="466" width="321" height="21" as="geometry" />
-        </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-3" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;endArrow=none;endFill=0;" parent="OGLyO4UBtIFRaSekyoWD-1" source="1wzuqXJ0GRpaQ0RqyXYJ-7" target="479R9yT9kE71H8kCfPnS-4" edge="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="398.53" y="664" as="sourcePoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-4" value="&lt;u&gt;:SalidaTuristica&lt;/u&gt;" style="html=1;whiteSpace=wrap;" parent="OGLyO4UBtIFRaSekyoWD-1" vertex="1">
-          <mxGeometry x="750" y="642" width="152" height="44" as="geometry" />
-        </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-5" value="&lt;span style=&quot;font-size: 11px; text-wrap-mode: nowrap; background-color: rgb(251, 251, 251);&quot;&gt;2.2*.1*.1* : getDtSalidaTuristica() :&amp;nbsp;&lt;/span&gt;DtSalidaTuristica" style="text;whiteSpace=wrap;html=1;" parent="OGLyO4UBtIFRaSekyoWD-1" vertex="1">
-          <mxGeometry x="447" y="631" width="269" height="21" as="geometry" />
-        </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-6" value="Arma el DtActividadTuristicaConSalida con sus datos y el DtSalidaTuristica obtenido" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=16;spacingLeft=2;spacingRight=2;align=center;" parent="OGLyO4UBtIFRaSekyoWD-1" vertex="1">
-          <mxGeometry x="256" y="731" width="190" height="70" as="geometry" />
-        </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-7" value="" style="endArrow=none;dashed=1;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="OGLyO4UBtIFRaSekyoWD-1" source="479R9yT9kE71H8kCfPnS-6" target="1wzuqXJ0GRpaQ0RqyXYJ-7" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="208" y="668" as="sourcePoint" />
-            <mxPoint x="75" y="484" as="targetPoint" />
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-10" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="OGLyO4UBtIFRaSekyoWD-1" edge="1">
-          <mxGeometry x="-1" relative="1" as="geometry">
-            <mxPoint x="800" y="441" as="sourcePoint" />
-            <mxPoint x="880" y="490" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="479R9yT9kE71H8kCfPnS-11" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;endSize=6;align=left;rounded=0;" parent="OGLyO4UBtIFRaSekyoWD-1" edge="1">
-          <mxGeometry x="-1" relative="1" as="geometry">
-            <mxPoint x="521.5" y="684.95" as="sourcePoint" />
-            <mxPoint x="641.5" y="684.95" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="zYyc17a7IXJS2yrsyE5d-1" value="Falto forEach de coleccion SalidaTuristica" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="1415" y="1068" width="250" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="zYyc17a7IXJS2yrsyE5d-2" value="MODIFICAR. Requiere recorrer salidas asociadas a cada actividad" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="2380" y="138" width="380" height="30" as="geometry" />
         </mxCell>
         <mxCell id="phU0y2AJ6iQmRjlnMThK-1" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: nowrap; background-color: rgb(236, 236, 236); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;&quot;&gt;consultarActividadTuristica(nombreActividad: String) : DtActividadConSalida&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="180" y="405" width="440" height="40" as="geometry" />
@@ -1362,7 +1401,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="IQtuCPgk9VZrahMHdSm_" name="CU3_ModificarDatosUsuario">
-    <mxGraphModel dx="1290" dy="588" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1559" dy="795" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -2064,7 +2103,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="y-mfYwFBIp9Pl2lnreCK" name="CU4_AltaDeActividadTuristica">
-    <mxGraphModel dx="1500" dy="574" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -2566,7 +2605,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="BgpGrFFY5U0FJzXFxSKA" name="CU5_ConsultaDeActividadTuristica">
-    <mxGraphModel dx="1500" dy="574" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -2847,7 +2886,7 @@
             <mxRectangle width="490" height="42" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="daWH748HMBb1hs0e9psB-1" value="" style="group" vertex="1" connectable="0" parent="1">
+        <mxCell id="daWH748HMBb1hs0e9psB-1" value="" style="group" connectable="0" vertex="1" parent="1">
           <mxGeometry x="730" y="820" width="893" height="330" as="geometry" />
         </mxCell>
         <mxCell id="daWH748HMBb1hs0e9psB-2" value="&lt;u&gt;:TurismoUySalidas&lt;/u&gt;" style="html=1;whiteSpace=wrap;" vertex="1" parent="daWH748HMBb1hs0e9psB-1">
@@ -2900,7 +2939,7 @@
             <mxPoint x="590" y="190" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="daWH748HMBb1hs0e9psB-12" value="" style="group" vertex="1" connectable="0" parent="daWH748HMBb1hs0e9psB-1">
+        <mxCell id="daWH748HMBb1hs0e9psB-12" value="" style="group" connectable="0" vertex="1" parent="daWH748HMBb1hs0e9psB-1">
           <mxGeometry x="730" width="163" height="63" as="geometry" />
         </mxCell>
         <mxCell id="daWH748HMBb1hs0e9psB-13" value="" style="html=1;whiteSpace=wrap;" vertex="1" parent="daWH748HMBb1hs0e9psB-12">
@@ -2918,7 +2957,7 @@
             <mxPoint x="1278" y="354" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="pBeS5DPDyCA2mdXaWwxX-1" value="" style="group" vertex="1" connectable="0" parent="1">
+        <mxCell id="pBeS5DPDyCA2mdXaWwxX-1" value="" style="group" connectable="0" vertex="1" parent="1">
           <mxGeometry x="680" y="1169" width="1040" height="330" as="geometry" />
         </mxCell>
         <mxCell id="pBeS5DPDyCA2mdXaWwxX-2" value="&lt;u&gt;:TurismoUyActividades&lt;/u&gt;" style="html=1;whiteSpace=wrap;" vertex="1" parent="pBeS5DPDyCA2mdXaWwxX-1">
@@ -2971,7 +3010,7 @@
             <mxPoint x="640" y="190" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="pBeS5DPDyCA2mdXaWwxX-12" value="" style="group" vertex="1" connectable="0" parent="pBeS5DPDyCA2mdXaWwxX-1">
+        <mxCell id="pBeS5DPDyCA2mdXaWwxX-12" value="" style="group" connectable="0" vertex="1" parent="pBeS5DPDyCA2mdXaWwxX-1">
           <mxGeometry x="780" width="163" height="63" as="geometry" />
         </mxCell>
         <mxCell id="pBeS5DPDyCA2mdXaWwxX-13" value="" style="html=1;whiteSpace=wrap;" vertex="1" parent="pBeS5DPDyCA2mdXaWwxX-12">
@@ -2999,7 +3038,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="xVIF0JPG55u9gp92Sdzf" name="CU6_AltaSalidaTurística">
-    <mxGraphModel dx="922" dy="810" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -3562,7 +3601,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="CU7_ConsultaSalidaTurística " id="CCmBWcZ2vBuqBpk5D4J6">
-    <mxGraphModel dx="922" dy="810" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="Fr1kP1A23iDJ-ouvAH8I-0" />
         <mxCell id="Fr1kP1A23iDJ-ouvAH8I-1" parent="Fr1kP1A23iDJ-ouvAH8I-0" />
@@ -3974,7 +4013,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="54r_F_vQ8Nf4Y6Rq84gh" name="CU8_InscripcionSalidaTuristica">
-    <mxGraphModel dx="922" dy="810" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -4734,7 +4773,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="lkF13A3ko43AOOqY4pwa" name="CU9_ConsultaInscripcionesTuristicas">
-    <mxGraphModel dx="661" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -5047,7 +5086,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="6jNVnO2Shh2w277qSBLu" name="CU10_ModificarActividadTuristica">
-    <mxGraphModel dx="661" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -5445,7 +5484,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="IKVYwtOFRVf6pfugLvG0" name="CU11_RankingActividadTuristica">
-    <mxGraphModel dx="661" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
