@@ -1,10 +1,10 @@
-package logica;
+package logic.entity;
 
-import java.net.URI;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import logic.dto.WebSite;
 
 @Entity
 public class Supplier extends User {
@@ -19,10 +19,10 @@ public class Supplier extends User {
 	}
 
 	public Supplier(String nickname, String name, String lastName, String email, LocalDate birthDate,
-			String description, URI webSite) {
+			String description, WebSite webSite) {
 		super(nickname, name, lastName, email, birthDate);
 		this.description = description;
-		this.webSite = new WebSite(webSite);
+		this.webSite = webSite;
 	}
 
 	public String getDescription() {
@@ -37,7 +37,7 @@ public class Supplier extends User {
 		return webSite;
 	}
 
-	public void setWebSite(URI webSite) {
-		this.webSite = new WebSite(webSite);
+	public void setWebSite(WebSite webSite) {
+		this.webSite = webSite;
 	}
 }
