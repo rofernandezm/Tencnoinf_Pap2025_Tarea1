@@ -1,6 +1,7 @@
 package logic.dto;
 
 import java.time.Duration;
+import java.time.LocalDate;
 
 public class DtTouristActivity {
 	
@@ -9,13 +10,40 @@ public class DtTouristActivity {
 	private Duration duration;
 	private float costTurist;
 	private String city;
+	private LocalDate registratioDate;
 	
-	public pubpubliclic() {};
+	public DtTouristActivity() {};
 	
-	public DtTouristTrip(String tripName, int maxTourist, String exitPoint, LocalDateTime dateTime, LocalDate registrationDate) {
-		this.tripName = tripName;
-		this.maxTourist = maxTourist;
-		this.exitPoint = exitPoint;
-		this.dateTime = dateTime;
-		this.registrationDate = registrationDate;
+	public DtTouristActivity( String activityName, String description, Duration duration, float costTurist, String city, LocalDate registratioDate) {
+		this.activityName = activityName;
+		this.description = description;
+		this.duration = duration;
+		this.costTurist = costTurist;
+		this.city = city;
+		this.registratioDate = registratioDate;
 	}
+	
+	public String getActivityName() {
+		return activityName;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public Duration getDuration() {
+		return duration;
+	}
+
+	public float getCostTurist() {
+		return costTurist;
+	}
+
+	public String getCity() {
+		return city;
+	}
+	
+	public LocalDate getRegistratioDate() {
+		return registratioDate;
+	}
+}
