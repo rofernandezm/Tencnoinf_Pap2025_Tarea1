@@ -33,11 +33,11 @@ public class DtTouristTrip {
 		return exitPoint;
 	}
 
-	public LocalDateTime getBirthDate() {
+	public LocalDateTime getDateTime() {
 		return dateTime;
 	}
 
-	public LocalDate getUserType() {
+	public LocalDate getRegistrationDate() {
 		return registrationDate;
 	}
 }
