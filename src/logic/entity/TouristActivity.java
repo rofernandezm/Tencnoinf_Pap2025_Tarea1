@@ -1,15 +1,10 @@
 package logic.entity;
 
-import logic.dto.DtDurationAct;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Map;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(name = "constraint_touristactivity_name", columnNames = "name") })
@@ -19,26 +14,28 @@ public class TouristActivity {
 	@Column(nullable = false, updatable = false, unique = true)
 	private String activityName;
 	private String description;
-	private DtDurationAct duration;
+	private Duration duration;
 	private float touristFee;
 	private String city;
 	private LocalDate dischargeDate;
-	
+
 	// Relation with one Supplier
 	// We use an attribute with the name supplier as link with the parent
 	@ManyToOne
 	@JoinColumn(name = "supplier_name", nullable = false)
 	private Supplier supplier;
-	
+
 	// Relation with one or many TouristOuting
-	// We use a map collection with the name of the TouristOuting as key and the object its self as value
+	// We use a map collection with the name of the TouristOuting as key and the
+	// object its self as value
 	@OneToMany(mappedBy = "parentActivity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Map<String, TouristOuting> touristOutings;
-	
+	private Map<String, TouristOuting> touristOutings;
+
 	public TouristActivity() {
 	};
-	
-	public TouristActivity(String activityName, String description, DtDurationAct duration, float touristFee, String city, LocalDate dischargeDate) {
+
+	public TouristActivity(String activityName, String description, Duration duration, float touristFee, String city,
+			LocalDate dischargeDate) {
 		this.activityName = activityName;
 		this.description = description;
 		this.duration = duration;
@@ -46,7 +43,7 @@ public class TouristActivity {
 		this.city = city;
 		this.dischargeDate = dischargeDate;
 	};
-	
+
 	public String getActivityName() {
 		return activityName;
 	}
@@ -54,23 +51,23 @@ public class TouristActivity {
 	public void setActivityName(String activityName) {
 		this.activityName = activityName;
 	}
-	
+
 	public String getDescription() {
-		return activityName;
+		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	public DtDuration getDuration() {
+
+	public Duration getDuration() {
 		return duration;
 	}
 
-	public void setDuration(DtDuration duration) {
+	public void setDuration(Duration duration) {
 		this.duration = duration;
 	}
-	
+
 	public float getTouristFee() {
 		return touristFee;
 	}
@@ -78,7 +75,7 @@ public class TouristActivity {
 	public void setTouristFee(float touristFee) {
 		this.touristFee = touristFee;
 	}
-	
+
 	public String getCity() {
 		return city;
 	}
@@ -86,7 +83,7 @@ public class TouristActivity {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	
+
 	public LocalDate getDischargeDate() {
 		return dischargeDate;
 	}
@@ -102,12 +99,13 @@ public class TouristActivity {
 	public void setSupplier(Supplier supplier) {
 		this.supplier = supplier;
 	}
-	
+
 	public Map<String, TouristOuting> getTouristOutings() {
 		return touristOutings;
 	}
-	
-	public void setTouristOutings(Map<String, TouristOuting> touristOutings){
+
+	public void setTouristOutings(Map<String, TouristOuting> touristOutings) {
 		this.touristOutings = touristOutings;
-		}
+	}
+
 }

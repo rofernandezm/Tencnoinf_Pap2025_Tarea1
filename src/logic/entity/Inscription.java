@@ -3,42 +3,37 @@ package logic.entity;
 import java.time.LocalDate;
 import java.util.Map;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
-import jakarta.persistance.ManyToOne;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.*;
 
 @Entity
 public class Inscription {
-	
+
 	private int numTourists;
 	private float totalRegistrationCost;
 	private LocalDate inscriptionDate;
-	
+
 	// Relation with one TouristOuting
 	// We use an attribute with the name touristOuting as link with the parent
 	@ManyToOne
-    @JoinColumn(name = "touristOuting_name", nullable = false)
-    private TouristOuting touristOuting;
-	
+	@JoinColumn(name = "touristOuting_name", nullable = false)
+	private TouristOuting touristOuting;
+
 	// Relation with one Turist
-	// We use a map collection with the name of the TouristOuting as key and the object its self as value
+	// We use a map collection with the name of the TouristOuting as key and the
+	// object its self as value
 	@ManyToOne
-    @JoinColumn(name = "turist_nickname", nullable = false)
-    private Turist turist;
-    
+	@JoinColumn(name = "turist_nickname", nullable = false)
+	private Tourist turist;
+
 	public Inscription() {
 	};
-	
+
 	public Inscription(int numTourists, float totalRegistrationCost, LocalDate inscriptionDate) {
 		this.numTourists = numTourists;
 		this.totalRegistrationCost = totalRegistrationCost;
 		this.inscriptionDate = inscriptionDate;
 	};
-	
+
 	public int getNumTourists() {
 		return numTourists;
 	}
@@ -46,15 +41,15 @@ public class Inscription {
 	public void setNumTourists(int numTourists) {
 		this.numTourists = numTourists;
 	}
-	
-	public int getTotalRegistrationCost() {
-		return numTourists;
+
+	public float getTotalRegistrationCost() {
+		return totalRegistrationCost;
 	}
 
 	public void setTotalRegistrationCost(float totalRegistrationCost) {
 		this.totalRegistrationCost = totalRegistrationCost;
 	}
-	
+
 	public LocalDate getInscriptionDate() {
 		return inscriptionDate;
 	}
@@ -62,7 +57,7 @@ public class Inscription {
 	public void setInscriptionDate(LocalDate inscriptionDate) {
 		this.inscriptionDate = inscriptionDate;
 	}
-	
+
 	public TouristOuting getTouristOuting() {
 		return touristOuting;
 	}
@@ -70,13 +65,13 @@ public class Inscription {
 	public void setTouristOuting(TouristOuting touristOuting) {
 		this.touristOuting = touristOuting;
 	}
-	
-	public Turist getTurist() {
+
+	public Tourist getTurist() {
 		return turist;
 	}
 
-	public void setTurist(Turist turist) {
+	public void setTurist(Tourist turist) {
 		this.turist = turist;
 	}
-	
+
 }

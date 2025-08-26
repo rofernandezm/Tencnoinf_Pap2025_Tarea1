@@ -48,7 +48,7 @@ public class UserHandler {
 			Set<String> keySet = users.keySet();
 			Object[] keys = keySet.toArray();
 			String[] nicknames = new String[users.size()];
-			for (int ind = 0; ind < keys.length; ind ++) {
+			for (int ind = 0; ind < keys.length; ind++) {
 				nicknames[ind] = keys[ind].toString();
 			}
 			return nicknames;
