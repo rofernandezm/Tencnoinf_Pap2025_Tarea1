@@ -6,16 +6,16 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
 @Entity
-public class Turist extends User {
+public class Tourist extends User {
 
 	@Column(updatable = false)
 	private String nationality;
 
-	public Turist() {
+	public Tourist() {
 		super();
 	}
 
-	public Turist(String nickname, String name, String lastName, String email, LocalDate birthDate,
+	public Tourist(String nickname, String name, String lastName, String email, LocalDate birthDate,
 			String nationality) {
 		super(nickname, name, lastName, email, birthDate);
 		this.nationality = nationality;
