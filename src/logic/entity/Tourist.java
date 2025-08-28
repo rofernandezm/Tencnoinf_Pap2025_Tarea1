@@ -1,18 +1,29 @@
 package logic.entity;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+import logic.dto.DtTourist;
+import logic.dto.DtTouristProfile;
+import logic.dto.DtUser;
+import logic.dto.DtUserProfile;
+import logic.dto.UserType;
 
 @Entity
 public class Tourist extends User {
 
 	@Column(updatable = false)
 	private String nationality;
+	
+	@OneToMany
+//	@JoinColumn(name = "touristOuting_name", nullable = false)
+	private Map<String, Inscription> outingInscriptions;
 
 	public Tourist() {
 		super();
+		this.outingInscriptions = new HashMap<String, Inscription>();
 	}
 
 	public Tourist(String nickname, String name, String lastName, String email, LocalDate birthDate,
@@ -27,5 +38,25 @@ public class Tourist extends User {
 
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
+	}
+
+	public DtUser createDtUser() {
+
+		DtUser dt = new DtTourist(this.getNickname(), this.getName(), this.getLastName(), this.getEmail(),
+				this.getBirthDate(), UserType.TOURIST, this.getNationality());
+
+		return dt;
+	}
+
+	public DtUserProfile createDtUserProfile() {
+		return new DtTouristProfile();
+	}
+
+	public Map<String, Inscription> getOutingInscriptions() {
+		return outingInscriptions;
+	}
+
+	public void setOutingInscriptions(Map<String, Inscription> outingInscriptions) {
+		this.outingInscriptions = outingInscriptions;
 	}
 }
