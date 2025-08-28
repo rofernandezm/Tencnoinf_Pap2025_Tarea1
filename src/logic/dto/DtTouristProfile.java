@@ -3,13 +3,13 @@ package logic.dto;
 import java.util.Set;
 import java.util.HashSet;
 
-public class DtTuristProfile extends DtUserProfile {
+public class DtTouristProfile extends DtUserProfile {
 	
 	private Set<DtInscriptionTouristTrip> inscriptionTourisTrip = new HashSet<>();
 	
-	public DtTuristProfile() {}
+	public DtTouristProfile() {}
 
-	public DtTuristProfile(DtUser user, Set<DtInscriptionTouristTrip> inscriptionTourisTrip) {
+	public DtTouristProfile(DtUser user, Set<DtInscriptionTouristTrip> inscriptionTourisTrip) {
 		super(user);
 		this.inscriptionTourisTrip = inscriptionTourisTrip;
 	}

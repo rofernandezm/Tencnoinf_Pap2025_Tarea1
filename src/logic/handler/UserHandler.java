@@ -1,4 +1,4 @@
-package logic;
+package logic.handler;
 
 import java.util.HashMap;
 import java.util.Map;

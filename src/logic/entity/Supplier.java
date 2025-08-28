@@ -1,8 +1,14 @@
 package logic.entity;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 import jakarta.persistence.*;
+import logic.dto.DtSupplier;
+import logic.dto.DtSupplierProfile;
+import logic.dto.DtUser;
+import logic.dto.DtUserProfile;
+import logic.dto.UserType;
 import logic.dto.WebSite;
 
 @Entity
@@ -12,6 +18,9 @@ public class Supplier extends User {
 	private String description;
 	@Column(updatable = false)
 	private WebSite webSite;
+	
+	@OneToMany
+	private Map<String, TouristActivity> activities;
 
 	public Supplier() {
 		super();
@@ -38,5 +47,29 @@ public class Supplier extends User {
 
 	public void setWebSite(WebSite webSite) {
 		this.webSite = webSite;
+	}
+
+	public Map<String, TouristActivity> getActivities() {
+		return activities;
+	}
+
+	public void setActivities(Map<String, TouristActivity> activities) {
+		this.activities = activities;
+	}
+
+	public String convertWebSiteToString() {
+		return webSite.getUrl().toString();
+	}
+
+	public DtUser createDtUser() {
+
+		DtUser dt = new DtSupplier(this.getNickname(), this.getName(), this.getLastName(), this.getEmail(),
+				this.getBirthDate(), UserType.SUPPLIER, this.getDescription(), this.convertWebSiteToString());
+
+		return dt;
+	}
+
+	public DtUserProfile createDtUserProfile() {
+		return new DtSupplierProfile();
 	}
 }

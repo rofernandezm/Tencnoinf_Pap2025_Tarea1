@@ -2,13 +2,9 @@ package logic.entity;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.*;
+import logic.dto.DtUser;
+import logic.dto.DtUserProfile;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -75,4 +71,7 @@ public abstract class User {
 		this.birthDate = birthDate;
 	};
 
+	public abstract DtUser createDtUser();
+	
+	public abstract DtUserProfile createDtUserProfile();
 }
