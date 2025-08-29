@@ -5,16 +5,16 @@ import java.util.HashSet;
 
 public class DtTouristProfile extends DtUserProfile {
 	
-	private Set<DtInscriptionTouristTrip> inscriptionTourisTrip = new HashSet<>();
+	private Set<DtInscriptionTouristOuting> inscriptionTourisOuting = new HashSet<>();
 	
 	public DtTouristProfile() {}
 
-	public DtTouristProfile(DtUser user, Set<DtInscriptionTouristTrip> inscriptionTourisTrip) {
+	public DtTouristProfile(DtUser user, Set<DtInscriptionTouristOuting> inscriptionTourisOuting) {
 		super(user);
-		this.inscriptionTourisTrip = inscriptionTourisTrip;
+		this.inscriptionTourisOuting = inscriptionTourisOuting;
 	}
 	
-	public Set<DtInscriptionTouristTrip> getInscriptionTourisTrip() {
-		return inscriptionTourisTrip;
+	public Set<DtInscriptionTouristOuting> getInscriptionTourisOuting() {
+		return inscriptionTourisOuting;
 	}
 }

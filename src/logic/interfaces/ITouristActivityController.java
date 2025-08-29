@@ -1,6 +1,7 @@
 package logic.interfaces;
 
-import logic.dto.DtActivityWithTrips;
+import logic.dto.DtActivityWithOutings;
+import logic.dto.DtActivityWithOutings;
 import logic.dto.DtTouristActivity;
 //import logic.dto.DtRanking; falta!!!!
 import java.time.Duration;
@@ -15,7 +16,7 @@ public interface ITouristActivityController {
 	
 	public String[] listTouristActivities();
 	
-	public DtActivityWithTrips consultTouristActivityData(String activityName);
+	public DtActivityWithOutings consultTouristActivityData(String activityName);
 	
 	//The method ListarSalidasActividad(nombreActividad: String) : DtActividadConSalida has same response and parameters than consultTouristActivityData method
 	

@@ -3,18 +3,18 @@ package logic.dto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class DtTouristTrip {
+public class DtTouristOuting {
 	
-	private String tripName;
+	private String outingName;
 	private int maxTourist;
 	private String exitPoint;
 	private LocalDateTime dateTime;
 	private LocalDate registrationDate;
 	
-	public DtTouristTrip() {};
+	public DtTouristOuting() {};
 	
-	public DtTouristTrip(String tripName, int maxTourist, String exitPoint, LocalDateTime dateTime, LocalDate registrationDate) {
-		this.tripName = tripName;
+	public DtTouristOuting(String outingName, int maxTourist, String exitPoint, LocalDateTime dateTime, LocalDate registrationDate) {
+		this.outingName = outingName;
 		this.maxTourist = maxTourist;
 		this.exitPoint = exitPoint;
 		this.dateTime = dateTime;
@@ -22,7 +22,7 @@ public class DtTouristTrip {
 	}
 	
 	public String getTipName() {
-		return tripName;
+		return outingName;
 	}
 
 	public int getMaxTourist() {
