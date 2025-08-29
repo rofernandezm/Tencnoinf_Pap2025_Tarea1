@@ -5,7 +5,7 @@ import java.time.Duration;
 import logic.dto.DtActivityWithTrips;
 import logic.dto.DtTouristActivity;
 import logic.entity.TouristActivity;
-//import logic.handler.TouristActivityHandler; No esta en esta rama que sale de main que aun no se hizo merge
+import logic.TouristActivityHandler;
 import logic.interfaces.ITouristActivityController;
 
 public class TouristActivityController implements ITouristActivityController {
