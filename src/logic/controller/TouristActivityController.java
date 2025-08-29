@@ -2,7 +2,9 @@ package logic.controller;
 
 import java.time.Duration;
 
-import logic.dto.DtActivityWithTrips;
+import logic.dto.DtActivityWithOutings;
+import logic.dto.DtRanking;
+import logic.dto.DtActivityWithOutings;
 import logic.dto.DtTouristActivity;
 import logic.entity.TouristActivity;
 import logic.TouristActivityHandler;
@@ -25,7 +27,7 @@ public class TouristActivityController implements ITouristActivityController {
 		return TouristActivityHandler.getIntance().listTouristActivities();
 	}
 	
-	public DtActivityWithTrips consultTouristActivityData(String activityName) {
+	public DtActivityWithOutings consultTouristActivityData(String activityName) {
 		
 	}
 	
@@ -51,5 +53,7 @@ public class TouristActivityController implements ITouristActivityController {
 		
 	}
 	
-	// public DtRanking consultRankingActivities();
+	 public DtRanking consultRankingActivities() {
+		 
+	 }
 }
