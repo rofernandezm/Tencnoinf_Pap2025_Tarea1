@@ -1,6 +1,7 @@
 package logic.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import jakarta.persistence.*;
@@ -14,7 +15,7 @@ public class TouristOuting {
 	private String outingName;
 	private int maxNumTourists;
 	private String departurePoint;
-	private LocalDate departureDate;
+	private LocalDateTime departureDate;
 	private LocalDate dischargeDate;
 
 	// Relation with one TouristActivity
@@ -65,11 +66,11 @@ public class TouristOuting {
 		this.departurePoint = departurePoint;
 	}
 
-	public LocalDate getDepartureDate() {
+	public LocalDateTime getDepartureDate() {
 		return departureDate;
 	}
 
-	public void setDepartureDate(LocalDate departureDate) {
+	public void setDepartureDate(LocalDateTime departureDate) {
 		this.departureDate = departureDate;
 	}
 
