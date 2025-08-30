@@ -1,11 +1,3 @@
-/*En primer lugar, lista las actividades turísticas  existentes. 
- * El administrador elige una de ellas  e ingresa los 
-datos básicos de la salida: nombre de la salida (único en la plataforma), 
-fecha / hora / lugar de salida, máxima cantidad de turistas, y la fecha de 
-alta. En  caso  de  que  exista  una  salida con  el  nombre  ingresado, el 
-administrador  puede  modificar  los  datos  o  cancelar  el  caso  de  uso. 
-Finalmente, el sistema da de alta la salida turística.*/
-
 package presentation;
 
 import javax.swing.JInternalFrame;
@@ -210,6 +202,8 @@ public class TouristOutingRegistration extends JInternalFrame{
         int maxNumTouristsTOint = Integer.parseInt(maxNumTouristsTO); 
         
         DtTouristTrip newTouristOuting = new DtTouristTrip(outingNameTO, maxNumTouristsTOint, departurePointTO, departureDateTOldt, dischargeDateTO);
+        
+        String touristActivityName = (String) comboBoxTouristActivities.getSelectedItem();
 
         if (checkFormulario()) {
             try {
@@ -224,7 +218,12 @@ public class TouristOutingRegistration extends JInternalFrame{
                 // Error message
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Tourist Outing Registration", JOptionPane.ERROR_MESSAGE);
             }
-
+            
+            /* En  caso  de  que  exista  una  salida con  el  nombre  ingresado, el 
+            administrador  puede  modificar  los  datos  o  cancelar  el  caso  de  uso. 
+            Finalmente, el sistema da de alta la salida turística.*/
+            
+            
             // I clean the internal frame before closing the window.
             clearForm();
             setVisible(false);
@@ -237,8 +236,9 @@ public class TouristOutingRegistration extends JInternalFrame{
         String maxNumTouristsTO = this.textFieldMaxNumTourists.getText();
         String departurePointTO = this.textFieldDeparturePoint.getText();
         String departureDateTO = this.textFieldDepartureDate.getText();
+        String touristActivityName = (String) comboBoxTouristActivities.getSelectedItem();
 
-        if (outingNameTO.isEmpty() || maxNumTouristsTO.isEmpty() || departurePointTO.isEmpty() || departureDateTO.isEmpty()) {
+        if (outingNameTO.isEmpty() || maxNumTouristsTO.isEmpty() || departurePointTO.isEmpty() || departureDateTO.isEmpty() || touristActivityName.isEmpty()){
             JOptionPane.showMessageDialog(this, "Please fill all the fields", "Tourist Outing Registration",
                     JOptionPane.ERROR_MESSAGE);
             return false;
@@ -271,6 +271,5 @@ public class TouristOutingRegistration extends JInternalFrame{
         } catch (ActivityDoesNotExistException e) {
             // We will not show any tourist activity
         }
-
     }
 }
