@@ -7,7 +7,7 @@ import logic.dto.DtRanking;
 import logic.dto.DtActivityWithOutings;
 import logic.dto.DtTouristActivity;
 import logic.entity.TouristActivity;
-import logic.TouristActivityHandler;
+import logic.handler.TouristActivityHandler;
 import logic.interfaces.ITouristActivityController;
 
 public class TouristActivityController implements ITouristActivityController {

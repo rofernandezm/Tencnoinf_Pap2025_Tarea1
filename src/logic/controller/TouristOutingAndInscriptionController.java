@@ -2,9 +2,9 @@ package logic.controller;
 
 import java.time.LocalDateTime;
 
-import logic.TouristOutingAndInscrptionHandler;
 import logic.dto.DtInscriptionTouristOuting;
 import logic.dto.DtTouristOuting;
+import logic.handler.TouristOutingAndInscrptionHandler;
 import logic.interfaces.ITouristOutingAndInscriptionController;
 
 public class TouristOutingAndInscriptionController implements ITouristOutingAndInscriptionController {
