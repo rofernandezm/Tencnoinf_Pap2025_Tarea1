@@ -7,13 +7,13 @@ import logic.dto.DtRanking;
 import logic.dto.DtActivityWithOutings;
 import logic.dto.DtTouristActivity;
 import logic.entity.TouristActivity;
-import logic.TouristActivityHandler;
+import logic.handler.TouristActivityHandler;
 import logic.interfaces.ITouristActivityController;
 
 public class TouristActivityController implements ITouristActivityController {
 
 	public Boolean activityDataEntry(DtTouristActivity dtTouristActivity, String supplierNickname) {
-		
+		return true;
 	}
 	public void cancelRegistration() {
 		
@@ -28,7 +28,7 @@ public class TouristActivityController implements ITouristActivityController {
 	}
 	
 	public DtActivityWithOutings consultTouristActivityData(String activityName) {
-		
+		return new DtActivityWithOutings();
 	}
 	
 	//The method ListarSalidasActividad(nombreActividad: String) : DtActividadConSalida has same response and parameters than consultTouristActivityData method
@@ -54,6 +54,6 @@ public class TouristActivityController implements ITouristActivityController {
 	}
 	
 	 public DtRanking consultRankingActivities() {
-		 
+		 return new DtRanking();
 	 }
 }

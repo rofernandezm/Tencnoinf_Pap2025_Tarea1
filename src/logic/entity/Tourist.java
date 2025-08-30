@@ -12,13 +12,14 @@ import logic.dto.DtUserProfile;
 import logic.dto.UserType;
 
 @Entity
+@Table(name = "tourist")
+@PrimaryKeyJoinColumn(name = "nickname")
 public class Tourist extends User {
 
 	@Column(updatable = false)
 	private String nationality;
 	
-	@OneToMany
-//	@JoinColumn(name = "touristOuting_name", nullable = false)
+	@OneToMany(mappedBy = "tourist", cascade = CascadeType.ALL)
 	private Map<String, Inscription> outingInscriptions;
 
 	public Tourist() {

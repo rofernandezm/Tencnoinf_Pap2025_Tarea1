@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.1"
+	xsi:schemalocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd">
+	<persistence-unit name="turismoUyDB"
+		transaction-type="RESOURCE_LOCAL">
+		<!-- Clase de proveedor de JPA -->
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<!-- Cuando no existen, se crean las tablas especificadas -->
+		<class>logic.entity.User</class>
+		<class>logic.entity.Supplier</class>
+		<class>logic.entity.Tourist</class>
+		<class>logic.entity.Inscription</class>
+		<class>logic.entity.TouristActivity</class>
+		<class>logic.entity.TouristOuting</class>
+
+		<properties>
+			<property name="jakarta.persistence.jdbc.driver"
+				value="org.hsqldb.jdbcDriver" />
+			<!-- Se referencia a la carpeta data/db dentro del project -->
+			<property name="jakarta.persistence.jdbc.url"
+				value="jdbc:hsqldb:file:file:./data/db/turismouydb;shutdown=true" />
+			<property name="jakarta.persistence.jdbc.user" value="sa" />
+			<property name="jakarta.persistence.jdbc.password" value="" />
+
+			<!-- Configuracion de generacion del esquema -->
+			<property name="eclipselink.ddl-generation"
+				value="create-tables" />
+			<property name="eclipselink.ddl-generation.output-mode"
+				value="database" />
+		</properties>
+	</persistence-unit>
+</persistence>
