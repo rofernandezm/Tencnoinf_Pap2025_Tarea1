@@ -2,20 +2,20 @@ package logic.dto;
 
 import java.time.LocalDate;
 
-public class DtInscriptionTouristTrip {
+public class DtInscriptionTouristOuting {
 	
 	private int touristAmount;
 	private float totalCost;
 	private LocalDate inscriptionDate;
-	private DtTouristTrip turistTrip;
+	private DtTouristOuting turistOuting;
 	
-	public DtInscriptionTouristTrip() {};
+	public DtInscriptionTouristOuting() {};
 	
-	public DtInscriptionTouristTrip( int touristAmount, float totalCost, LocalDate inscriptionDate, DtTouristTrip turistTrip) {
+	public DtInscriptionTouristOuting( int touristAmount, float totalCost, LocalDate inscriptionDate, DtTouristOuting turistOuting) {
 		this.touristAmount = touristAmount;
 		this.totalCost = totalCost;
 		this.inscriptionDate = inscriptionDate;
-		this.turistTrip = turistTrip;
+		this.turistOuting = turistOuting;
 	}
 	
 	public int getTouristAmount() {
@@ -30,8 +30,8 @@ public class DtInscriptionTouristTrip {
 		return inscriptionDate;
 	}
 
-	public DtTouristTrip getTuristTrip() {
-		return turistTrip;
+	public DtTouristOuting getTuristOuting() {
+		return turistOuting;
 	}	
 	
 }
