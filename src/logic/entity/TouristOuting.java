@@ -33,7 +33,7 @@ public class TouristOuting {
 	public TouristOuting() {
 	};
 
-	public TouristOuting(String outingName, int maxNumTourists, String departurePoint, LocalDate departureDate,
+	public TouristOuting(String outingName, int maxNumTourists, String departurePoint, LocalDateTime departureDate,
 			LocalDate dischargeDate) {
 		this.outingName = outingName;
 		this.maxNumTourists = maxNumTourists;
