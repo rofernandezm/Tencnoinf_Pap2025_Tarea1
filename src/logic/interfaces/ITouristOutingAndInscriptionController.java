@@ -27,4 +27,6 @@ public interface ITouristOutingAndInscriptionController {
 	
 	public void modifydateTime (LocalDateTime dateTime);
 	
+	public String getOutingName();
+	
 }

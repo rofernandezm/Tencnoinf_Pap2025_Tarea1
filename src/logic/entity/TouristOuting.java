@@ -1,9 +1,11 @@
 package logic.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import jakarta.persistence.*;
+import logic.dto.DtTouristOuting;
 
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(name = "constraint_Touristouting_name", columnNames = "name") })
@@ -14,7 +16,7 @@ public class TouristOuting {
 	private String outingName;
 	private int maxNumTourists;
 	private String departurePoint;
-	private LocalDate departureDate;
+	private LocalDateTime departureDate;
 	private LocalDate dischargeDate;
 
 	// Relation with one TouristActivity
@@ -32,7 +34,7 @@ public class TouristOuting {
 	public TouristOuting() {
 	};
 
-	public TouristOuting(String outingName, int maxNumTourists, String departurePoint, LocalDate departureDate,
+	public TouristOuting(String outingName, int maxNumTourists, String departurePoint, LocalDateTime departureDate,
 			LocalDate dischargeDate) {
 		this.outingName = outingName;
 		this.maxNumTourists = maxNumTourists;
@@ -65,11 +67,11 @@ public class TouristOuting {
 		this.departurePoint = departurePoint;
 	}
 
-	public LocalDate getDepartureDate() {
+	public LocalDateTime getDepartureDate() {
 		return departureDate;
 	}
 
-	public void setDepartureDate(LocalDate departureDate) {
+	public void setDepartureDate(LocalDateTime departureDate) {
 		this.departureDate = departureDate;
 	}
 
@@ -96,4 +98,14 @@ public class TouristOuting {
 	public void setTouristOutings(Map<String, Inscription> inscriptions) {
 		this.inscriptions = inscriptions;
 	}
+	
+	public DtTouristOuting toDT() {
+	    return new DtTouristOuting(
+	        getOutingName(),
+	        getMaxNumTourists(),
+	        getDeparturePoint(),
+	        getDepartureDate(),
+	        getDischargeDate()
+	        );
+	}	
 }
