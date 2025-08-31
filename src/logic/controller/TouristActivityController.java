@@ -30,7 +30,7 @@ public class TouristActivityController implements ITouristActivityController {
 		
 		String[] rtn = TouristActivityHandler.getIntance().listTouristActivities();
 		
-		if(rtn == null) throw new ActivityDoesNotExistException("");
+		if(rtn == null) throw new ActivityDoesNotExistException("No existen actividades turisticas registradas.");
 		
 		return rtn;
 	}

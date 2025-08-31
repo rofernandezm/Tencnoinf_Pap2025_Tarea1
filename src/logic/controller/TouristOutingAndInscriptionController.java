@@ -1,12 +1,15 @@
 package logic.controller;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
 import exceptions.RepeatedTouristOutingException;
 import logic.dto.DtInscriptionTouristOuting;
 import logic.dto.DtTouristOuting;
+import logic.dto.DtUser;
 import logic.entity.Inscription;
+import logic.entity.TouristOuting;
 import logic.handler.TouristActivityHandler;
 import logic.handler.TouristOutingAndInscrptionHandler;
 import logic.interfaces.ITouristOutingAndInscriptionController;
@@ -14,12 +17,30 @@ import logic.interfaces.ITouristOutingAndInscriptionController;
 public class TouristOutingAndInscriptionController implements ITouristOutingAndInscriptionController {
 	
 	private String outingName;
+	private DtTouristOuting dtNewTouristOuting;
 	
 	public DtTouristOuting consultTouristOutingData(String outingName) {
 		return null;
 	}
 	
 	public void outingDataEntry(DtTouristOuting dtTouristOuting, String activityName) throws RepeatedTouristOutingException {
+
+ 		this.dtNewTouristOuting = dtTouristOuting;
+ 		
+ 		TouristOutingAndInscrptionHandler mto = TouristOutingAndInscrptionHandler.getIntance();
+		String tourisOutingName = dtTouristOuting.getTipName();
+        TouristOuting to = mto.getTouristOutingByName(tourisOutingName);
+        
+        if (to != null)
+            throw new RepeatedTouristOutingException("La salida de nombre " + tourisOutingName + " ya esta registrada. Por favor, ingrese un nuevo nombre");
+		
+        int maxNumTourists = dtTouristOuting.getMaxNumTourists();
+        String departurePoint = dtTouristOuting.getDeparturePoint();
+        LocalDateTime departureDate = dtTouristOuting.getDepartureDate();
+        LocalDate dischargeDate = dtTouristOuting.getDischargeDate();
+        
+        to = new TouristOuting(tourisOutingName, maxNumTourists, departurePoint, departureDate, dischargeDate);
+        mto.addTouristOuting(to);
 	}
 
 	public void inscriptionDataEntry(DtInscriptionTouristOuting dtInscriptionOuting, String userNickname, String outingName) {
@@ -28,8 +49,9 @@ public class TouristOutingAndInscriptionController implements ITouristOutingAndI
 	public void cancelOutingRegistration() {	
 	}
 
-	public void confirmOutingRegistration() {	
-	}
+//	public void confirmOutingRegistration() {
+//	} NOT NEDEED
+	
 	public DtInscriptionTouristOuting[] listOutingInscription(String outingName) {
 		  Set<Inscription> inscriptionsSet = TouristOutingAndInscrptionHandler.getIntance().getInscriptionsByTouristOuting(outingName);
 
