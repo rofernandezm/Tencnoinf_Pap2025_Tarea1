@@ -6,38 +6,38 @@ import java.time.LocalDateTime;
 public class DtTouristOuting {
 	
 	private String outingName;
-	private int maxTourist;
-	private String exitPoint;
-	private LocalDateTime dateTime;
-	private LocalDate registrationDate;
+	private int maxNumTourists;
+	private String departurePoint;
+	private LocalDateTime departureDate;
+	private LocalDate dischargeDate;
 	
 	public DtTouristOuting() {};
 	
-	public DtTouristOuting(String outingName, int maxTourist, String exitPoint, LocalDateTime dateTime, LocalDate registrationDate) {
+	public DtTouristOuting(String outingName, int maxNumTourists, String departurePoint, LocalDateTime departureDate, LocalDate dischargeDate) {
 		this.outingName = outingName;
-		this.maxTourist = maxTourist;
-		this.exitPoint = exitPoint;
-		this.dateTime = dateTime;
-		this.registrationDate = registrationDate;
+		this.maxNumTourists = maxNumTourists;
+		this.departurePoint = departurePoint;
+		this.departureDate = departureDate;
+		this.dischargeDate = dischargeDate;
 	}
 	
 	public String getTipName() {
 		return outingName;
 	}
 
-	public int getMaxTourist() {
-		return maxTourist;
+	public int getMaxNumTourists() {
+		return maxNumTourists;
 	}
 
-	public String getExitPoint() {
-		return exitPoint;
+	public String getDeparturePoint() {
+		return departurePoint;
 	}
 
-	public LocalDateTime getDateTime() {
-		return dateTime;
+	public LocalDateTime getDepartureDate() {
+		return departureDate;
 	}
 
-	public LocalDate getRegistrationDate() {
-		return registrationDate;
+	public LocalDate getDischargeDate() {
+		return dischargeDate;
 	}
 }
