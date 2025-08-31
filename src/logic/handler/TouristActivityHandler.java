@@ -26,7 +26,7 @@ public class TouristActivityHandler {
 		this.touristActivities.put(activityName, touristActivity);
 	}
 
-	public TouristActivity gerTouristActivityByName(String activityName) {
+	public TouristActivity getTouristActivityByName(String activityName) {
 		return ((TouristActivity) touristActivities.get(activityName));
 	}
 

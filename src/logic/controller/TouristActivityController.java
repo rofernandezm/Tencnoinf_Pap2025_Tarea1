@@ -12,6 +12,8 @@ import logic.handler.TouristActivityHandler;
 import logic.interfaces.ITouristActivityController;
 
 public class TouristActivityController implements ITouristActivityController {
+	
+	private String activityName;
 
 	public Boolean activityDataEntry(DtTouristActivity dtTouristActivity, String supplierNickname) {
 		return true;
@@ -38,28 +40,29 @@ public class TouristActivityController implements ITouristActivityController {
 	}
 	
 	//The method ListarSalidasActividad(nombreActividad: String) : DtActividadConSalida has same response and parameters than consultTouristActivityData method
-	
-	public void modifyActivityName (String activityName) {
 		
-	}
-	
 	public void modifyDescription (String description) {
-		
+		TouristActivityHandler.getIntance().getTouristActivityByName(activityName).setDescription(description);
 	}
 	
 	public void modifyDuration (Duration duration) {
-		
+		TouristActivityHandler.getIntance().getTouristActivityByName(activityName).setDuration(duration);
 	}
 	
 	public void modifyTouristFee (float touristFee) {
-		
+		TouristActivityHandler.getIntance().getTouristActivityByName(activityName).setTouristFee(touristFee);
 	}
 	
 	public void modifyCity (String city) {
+		TouristActivityHandler.getIntance().getTouristActivityByName(activityName).setCity(city);
 		
 	}
 	
 	 public DtRanking consultRankingActivities() {
 		 return new DtRanking();
+	 }
+	 
+	 public String getActivityName() {
+		return activityName;
 	 }
 }
