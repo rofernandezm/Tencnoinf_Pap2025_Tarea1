@@ -6,7 +6,7 @@ import java.util.Map;
 import jakarta.persistence.*;
 
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "constraint_Touristouting_name", columnNames = "name") })
+@Table(uniqueConstraints = { @UniqueConstraint(name = "constraint_Touristouting_name", columnNames = "outingName") })
 public class TouristOuting {
 
 	@Id
@@ -20,13 +20,13 @@ public class TouristOuting {
 	// Relation with one TouristActivity
 	// We use an attribute with the name activity as link with the parent
 	@ManyToOne
-	@JoinColumn(name = "activity_name", nullable = false)
+	@JoinColumn(name = "activityName", nullable = false)
 	private TouristActivity activity;
 
 	// Relation with one or many Tourist
 	// We use a map collection with the name of the TouristOuting as key and the
 	// object its self as value
-	@OneToMany(mappedBy = "ParentTouristOuting", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "touristOuting", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Map<String, Inscription> inscriptions;
 
 	public TouristOuting() {
