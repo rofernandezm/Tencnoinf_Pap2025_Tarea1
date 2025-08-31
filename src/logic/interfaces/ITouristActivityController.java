@@ -1,6 +1,7 @@
 package logic.interfaces;
 
 import logic.dto.DtActivityWithOutings;
+
 import logic.dto.DtRanking;
 import logic.dto.DtActivityWithOutings;
 import logic.dto.DtTouristActivity;
@@ -16,7 +17,7 @@ public interface ITouristActivityController {
 
 	public void confirmRegistration();
 	
-	public String[] listTouristActivities();
+	public String[] listTouristActivities() throws ActivityDoesNotExistException;
 	
 	public DtActivityWithOutings consultTouristActivityData(String activityName) throws ActivityDoesNotExistException ;
 	

@@ -138,6 +138,8 @@ public class ConsultTouristOuting extends JInternalFrame{
         gbc_textFieldTouristOutingName.insets = new Insets(0, 0, 5, 0);
         gbc_textFieldTouristOutingName.gridx = 1;
         gbc_textFieldTouristOutingName.gridy = 3;
+
+
         getContentPane().add(textFieldTouristOutingName, gbc_textFieldTouristOutingName);
         textFieldTouristOutingName.setColumns(10);
 
@@ -157,6 +159,8 @@ public class ConsultTouristOuting extends JInternalFrame{
         gbc_textFieldMaxNumTourists.fill = GridBagConstraints.BOTH;
         gbc_textFieldMaxNumTourists.insets = new Insets(0, 0, 5, 0);
         gbc_textFieldMaxNumTourists.gridx = 1;
+
+
         gbc_textFieldMaxNumTourists.gridy = 4;
         getContentPane().add(textFieldMaxNumTourists, gbc_textFieldMaxNumTourists);
         textFieldMaxNumTourists.setColumns(10);
@@ -236,11 +240,12 @@ public class ConsultTouristOuting extends JInternalFrame{
         getContentPane().add(btnCloseWindow, gbc_btnCancel);
     }
     
-    public void loadTouristActivities() {
+    public void loadTouristActivities(){
         DefaultComboBoxModel<String> model; 
         try {                                    
             model = new DefaultComboBoxModel<String>(controlTouristActivity.listTouristActivities()); 
-            comboBoxTouristActivities.setModel(model);        
+            comboBoxTouristActivities.setModel(model);    
+            
         } catch (ActivityDoesNotExistException e) {
             // We will not show any tourist activity
         }
