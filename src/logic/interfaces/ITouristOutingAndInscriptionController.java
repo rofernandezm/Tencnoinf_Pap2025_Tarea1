@@ -16,7 +16,7 @@ public interface ITouristOutingAndInscriptionController {
 	
 	public void cancelOutingRegistration();
 
-	public void confirmOutingRegistration();
+//	public void confirmOutingRegistration(); not needed
 	
 	public DtInscriptionTouristOuting[] listOutingInscription(String outingName);
 	
