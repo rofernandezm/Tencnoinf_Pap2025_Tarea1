@@ -26,9 +26,9 @@ public class FactoryUyTourism {
         return new UserController();
     }
     
-//    public ITouristOutingAndInscriptionController getITouristOutingAndInscriptionController() {
-//        return new TouristOutingAndInscriptionController();
-//    }
+    public ITouristOutingAndInscriptionController getITouristOutingAndInscriptionController() {
+        return new TouristOutingAndInscriptionController();
+    }
     
 }
 
