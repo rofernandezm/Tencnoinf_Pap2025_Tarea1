@@ -32,7 +32,7 @@ import javax.swing.JFrame;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class consultTouristOuting extends JInternalFrame{
+public class ConsultTouristOuting extends JInternalFrame{
 	
 	private ITouristOutingAndInscriptionController controlTouristOutingAndInscription;
 	private ITouristActivityController controlTouristActivity;
@@ -54,7 +54,7 @@ public class consultTouristOuting extends JInternalFrame{
     private JLabel lblInfoTouristOuting;
     private JButton btnCloseWindow;
     
-    public consultTouristOuting(ITouristOutingAndInscriptionController itoic) {
+    public ConsultTouristOuting(ITouristOutingAndInscriptionController itoic) {
 
         controlTouristOutingAndInscription = itoic;
         
