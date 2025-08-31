@@ -2,6 +2,7 @@ package logic.controller;
 
 import java.time.Duration;
 
+import exceptions.ActivityDoesNotExistException;
 import logic.dto.DtActivityWithOutings;
 import logic.dto.DtRanking;
 import logic.dto.DtActivityWithOutings;
@@ -25,8 +26,13 @@ public class TouristActivityController implements ITouristActivityController {
 		
 	}
 	
-	public String[] listTouristActivities() {
-		return TouristActivityHandler.getIntance().listTouristActivities();
+	public String[] listTouristActivities() throws ActivityDoesNotExistException{
+		
+		String[] rtn = TouristActivityHandler.getIntance().listTouristActivities();
+		
+		if(rtn == null) throw new ActivityDoesNotExistException("");
+		
+		return rtn;
 	}
 	
 	public DtActivityWithOutings consultTouristActivityData(String activityName) {

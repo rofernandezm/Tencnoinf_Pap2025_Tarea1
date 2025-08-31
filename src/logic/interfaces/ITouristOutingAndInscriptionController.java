@@ -2,6 +2,7 @@ package logic.interfaces;
 
 import java.time.LocalDateTime;
 
+import exceptions.RepeatedTouristOutingException;
 import logic.dto.DtInscriptionTouristOuting;
 import logic.dto.DtTouristOuting;
 
@@ -9,7 +10,7 @@ public interface ITouristOutingAndInscriptionController {
 
 	public DtTouristOuting consultTouristOutingData(String outingName);
 	
-	public void outingDataEntry(DtTouristOuting dtTouristOuting, String activityName);
+	public void outingDataEntry(DtTouristOuting dtTouristOuting, String activityName) throws RepeatedTouristOutingException;
 
 	public void inscriptionDataEntry(DtInscriptionTouristOuting dtInscriptionOuting, String userNickname, String outingName);
 	
