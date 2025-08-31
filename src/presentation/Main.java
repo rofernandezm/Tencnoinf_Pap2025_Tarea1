@@ -89,7 +89,6 @@ public class Main {
 		frmTourismUy.getContentPane().add(consultInscriptionInternalFrame);
 
 	}
-
 	private void initialize() {
 
 		frmTourismUy = new JFrame();
