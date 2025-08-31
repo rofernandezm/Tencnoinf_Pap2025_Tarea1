@@ -1,10 +1,7 @@
 package presentation;
 
-import java.awt.EventQueue;
-
 import javax.swing.JInternalFrame;
 import javax.swing.JComboBox;
-import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -22,9 +19,12 @@ public class ConsultTuristInscription extends JInternalFrame {
 	
 	private ITouristOutingAndInscriptionController iOutingAndInscriptionController;
 	
-	private JComboBox comboBox;
-
 	private static final long serialVersionUID = 1L;
+	private JComboBox cbInscripciones;
+	private JLabel lblInscripcionesRegistradas;
+	private JButton btnCerrar;
+
+	
 	/**
 	 * Create the frame.
 	 */
@@ -32,22 +32,25 @@ public class ConsultTuristInscription extends JInternalFrame {
 		
 		this.iOutingAndInscriptionController = iOutingAndInscriptionController;
 		
-		
+		setResizable(true);
+		setIconifiable(true);
+		setMaximizable(true);
+		setClosable(true);
 		
 		setBounds(100, 100, 450, 150);
 		getContentPane().setLayout(null);
 		
-		comboBox = new JComboBox();
-		comboBox.setBounds(0, 38, 434, 27);
-		getContentPane().add(comboBox);
+		cbInscripciones = new JComboBox();
+		cbInscripciones.setBounds(0, 38, 434, 27);
+		getContentPane().add(cbInscripciones);
 		
-		JLabel lblInscripcionesRegistradas = new JLabel("Inscripciones Registradas");
+	    lblInscripcionesRegistradas = new JLabel("Inscripciones Registradas");
 		lblInscripcionesRegistradas.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblInscripcionesRegistradas.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInscripcionesRegistradas.setBounds(0, 0, 434, 38);
 		getContentPane().add(lblInscripcionesRegistradas);
 		
-		JButton btnCerrar = new JButton("Salir");
+		btnCerrar = new JButton("Salir");
 		btnCerrar.setBackground(UIManager.getColor("ColorChooser.background"));
 		btnCerrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -62,6 +65,6 @@ public class ConsultTuristInscription extends JInternalFrame {
 	public void chargeInscriptions() {
         DefaultComboBoxModel<DtInscriptionTouristOuting> model;
         model = new DefaultComboBoxModel<DtInscriptionTouristOuting>(this.iOutingAndInscriptionController.listOutingInscription(this.iOutingAndInscriptionController.getOutingName()));
-        comboBox.setModel(model);
+        cbInscripciones.setModel(model);
         }
 }

@@ -1,12 +1,9 @@
 package presentation;
 
-import java.awt.EventQueue;
-
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -14,13 +11,10 @@ import javax.swing.SwingConstants;
 
 import exceptions.ActivityDoesNotExistException;
 import logic.dto.DtActivityWithOutings;
-import logic.dto.DtTouristActivity;
 import logic.interfaces.ITouristActivityController;
-import logic.interfaces.ITouristOutingAndInscriptionController;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 
 public class ModifyActivity extends JInternalFrame {
@@ -178,11 +172,10 @@ public class ModifyActivity extends JInternalFrame {
 		gbc_btnAccept.gridx = 1;
 		gbc_btnAccept.gridy = 7;
 		getContentPane().add(btnAccept, gbc_btnAccept);
-
 	}
 	 
 	
-	 protected void cmdBuscarUsuarioActionPerformed(ActionEvent e) {
+	 protected void cmdSearchActivityActionPerformed(ActionEvent e) {
 	        DtActivityWithOutings dtActivity;
 	        try {
 	        	dtActivity = iTouristActivityController.consultTouristActivityData(iTouristActivityController.getActivityName());
@@ -193,7 +186,7 @@ public class ModifyActivity extends JInternalFrame {
 	        	txtCity.setText(dtActivity.getActivity().getCity());
 	        	txtDischargeDate.setText(dtActivity.getActivity().getRegistratioDate().toString());
 	        } catch (ActivityDoesNotExistException e1) {
-	            JOptionPane.showMessageDialog(this, e1.getMessage(), "Buscar Usuario", JOptionPane.ERROR_MESSAGE);
+	            JOptionPane.showMessageDialog(this, e1.getMessage(), "Busqueda Actividad", JOptionPane.ERROR_MESSAGE);
 	            limpiarFormulario();
 	        }
 

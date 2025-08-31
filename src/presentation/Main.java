@@ -8,7 +8,6 @@ import javax.swing.JMenuItem;
 
 import logic.FactoryUyTourism;
 import logic.interfaces.*;
-//Llamo archivos de la capa presentacion que representan un caso de uso
 
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent; 
@@ -17,9 +16,11 @@ import java.awt.event.ActionListener;
 public class Main {
 
 	private JFrame frmTourismUy;       
-    private IUserController IUC; 
-    private CreateUser creUsrInternalFrame;
-	
+    private ITouristActivityController IAC;
+    private ITouristOutingAndInscriptionController IOIC;
+    private ModifyActivity modifyActivityInternalFrame;
+    private ConsultTuristInscription consultInscriptionInternalFrame;
+   	
 	public static void main(String[] args) {
 		
 		System.out.print("Access to main");
@@ -40,16 +41,20 @@ public class Main {
         initialize();  
         
         FactoryUyTourism factoryUyTourism = FactoryUyTourism.getInstance();  
-        /*IUC = FactoryUyTourism.getIUserController();
-     
-        creUsrInternalFrame = new CreateUser(IUC);
-        creUsrInternalFrame.setLocation(30, 35);
-        creUsrInternalFrame.setVisible(false);
-
-        frmTourismUy.getContentPane().add(creUsrInternalFrame);
-    }*/
+        
+        IAC = factoryUyTourism.getITouristActivityController();
+        IOIC = factoryUyTourism.getITouristOutingAndInscriptionController();
+        
+        
+        modifyActivityInternalFrame = new ModifyActivity(IAC);
+        modifyActivityInternalFrame.setVisible(false);
+        frmTourismUy.getContentPane().add(modifyActivityInternalFrame);
+        
+        
+        consultInscriptionInternalFrame = new ConsultTuristInscription(IOIC);
+        consultInscriptionInternalFrame.setVisible(false);
+        frmTourismUy.getContentPane().add(consultInscriptionInternalFrame);
 	}
-
 	private void initialize() {
         
         frmTourismUy = new JFrame();
@@ -60,20 +65,72 @@ public class Main {
         JMenuBar menuBar = new JMenuBar();
         frmTourismUy.setJMenuBar(menuBar);
         
-        JMenu menuSystem = new JMenu("System");
-        menuBar.add(menuSystem);
-
-        JMenuItem menuExit = new JMenuItem("Exit");
-        menuExit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                frmTourismUy.setVisible(false);
-                frmTourismUy.dispose();
-            }
-        });
-        menuSystem.add(menuExit);
-        
-        JMenu menuUsers = new JMenu("Users");
+        JMenu menuUsers = new JMenu("Usuarios");
         menuBar.add(menuUsers);
+        
+        JMenuItem mnCreateUser = new JMenuItem("Alta Usuario");
+        menuUsers.add(mnCreateUser);
+        
+        JMenuItem mnConsultUser = new JMenuItem("Consultar Usuarios");
+        menuUsers.add(mnConsultUser);
+        
+        JMenuItem mnModifyUser = new JMenuItem("Modificar Datos Usuario");
+        menuUsers.add(mnModifyUser);
+        
+        JMenu mnActivity = new JMenu("Actividades");
+        menuBar.add(mnActivity);
+        
+        JMenuItem mnCreateActivity = new JMenuItem("Alta Actividad");
+        mnActivity.add(mnCreateActivity);
+        
+        JMenuItem mnConsultActivity = new JMenuItem("Consultar Actividad");
+        mnActivity.add(mnConsultActivity);
+        
+        JMenuItem mnModifyActivity = new JMenuItem("Modificar Actividad");
+        mnActivity.add(mnModifyActivity);
+        mnModifyActivity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				modifyActivityInternalFrame.setVisible(true);
+			}
+		});
+                
+        JMenuItem mnRankingActivity = new JMenuItem("Ranking Actividades");
+        mnActivity.add(mnRankingActivity);
+        
+        JMenu mnOuting = new JMenu("Salidas");
+        menuBar.add(mnOuting);
+        
+        JMenuItem mnCreateOuting = new JMenuItem("Alta Salida");
+        mnOuting.add(mnCreateOuting);
+        
+        JMenuItem mnConsultOuting = new JMenuItem("Consultar Salida");
+        mnOuting.add(mnConsultOuting);
+        
+        JMenu mnInscription = new JMenu("Inscripciones");
+        menuBar.add(mnInscription);
+        
+        JMenuItem mnCreateInscription = new JMenuItem("Nueva Inscripcion");
+        mnInscription.add(mnCreateInscription);
+        
+        JMenuItem mnConsultInscription = new JMenuItem("Consultar Inscripciones");
+        mnInscription.add(mnConsultInscription);
+        mnConsultInscription.addActionListener(new ActionListener() {
+     			public void actionPerformed(ActionEvent e) {
+     				consultInscriptionInternalFrame.setVisible(true);
+     			}
+     		});
+        
+        JMenu menuSystem = new JMenu("Sistema");
+        menuBar.add(menuSystem);
+        
+                JMenuItem menuExit = new JMenuItem("Exit");
+                menuExit.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent arg0) {
+                        frmTourismUy.setVisible(false);
+                        frmTourismUy.dispose();
+                    }
+                });
+                menuSystem.add(menuExit);
 
         /*JMenuItem createUser = new JMenuItem("Create User");
         createUser.addActionListener(new ActionListener() {
