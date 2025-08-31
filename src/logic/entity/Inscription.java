@@ -6,6 +6,8 @@ import java.util.Map;
 import jakarta.persistence.*;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(name = "uc_tourist_outdating", columnNames = { "tourist_nickname",
+		"touristOuting_name" }), indexes = { @Index(name = "index_insc_outdating", columnList = "touristOuting_name") })
 public class Inscription {
 
 	private int numTourists;
@@ -15,15 +17,15 @@ public class Inscription {
 	// Relation with one TouristOuting
 	// We use an attribute with the name touristOuting as link with the parent
 	@ManyToOne
-	@JoinColumn(name = "touristOuting_name", nullable = false)
+	@JoinColumn(name = "touristOuting_name", referencedColumnName = "outingName", nullable = false)
 	private TouristOuting touristOuting;
 
-	// Relation with one Turist
+	// Relation with one Tourist
 	// We use a map collection with the name of the TouristOuting as key and the
 	// object its self as value
 	@ManyToOne
-	@JoinColumn(name = "turist_nickname", nullable = false)
-	private Tourist turist;
+	@JoinColumn(name = "tourist_nickname", nullable = false)
+	private Tourist tourist;
 
 	public Inscription() {
 	};
@@ -66,12 +68,12 @@ public class Inscription {
 		this.touristOuting = touristOuting;
 	}
 
-	public Tourist getTurist() {
-		return turist;
+	public Tourist getTourist() {
+		return tourist;
 	}
 
-	public void setTurist(Tourist turist) {
-		this.turist = turist;
+	public void setTourist(Tourist tourist) {
+		this.tourist = tourist;
 	}
 
 }

@@ -29,7 +29,7 @@ public class UserHandler {
 		this.emailMapper.put(email, nickname);
 	}
 
-	public User gerUserByNickname(String nickname) {
+	public User getUserByNickname(String nickname) {
 		return ((User) users.get(nickname));
 	}
 

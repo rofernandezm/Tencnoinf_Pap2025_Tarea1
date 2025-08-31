@@ -3,15 +3,15 @@ package presentation;
 import javax.swing.JInternalFrame;
 
 import logic.interfaces.*;
-import logic.dto.DtTouristTrip;
+import logic.dto.DtTouristOuting;
 import exceptions.RepeatedTouristOutingException;
 import exceptions.ActivityDoesNotExistException;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
-
 import javax.swing.JTextField;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,6 +22,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.awt.event.ActionEvent;
@@ -120,7 +121,7 @@ public class TouristOutingRegistration extends JInternalFrame{
         getContentPane().add(textFieldMaxNumTourists, gbc_textFieldMaxNumTourists);
         textFieldMaxNumTourists.setColumns(10);
 
-        lblEnterDeparturePoint = new JLabel("Departure point");
+        lblEnterDeparturePoint = new JLabel("Departure point:");
         lblEnterDeparturePoint.setHorizontalAlignment(SwingConstants.RIGHT);
         GridBagConstraints gbc_lblEnterDeparturePoint = new GridBagConstraints();
         gbc_lblEnterDeparturePoint.fill = GridBagConstraints.BOTH;
@@ -139,7 +140,7 @@ public class TouristOutingRegistration extends JInternalFrame{
         getContentPane().add(textFieldDeparturePoint, gbc_textFieldDeparturePoint);
              textFieldDeparturePoint.setColumns(10);
         
-        lblEnterDepartureDate = new JLabel("Departure date");
+        lblEnterDepartureDate = new JLabel("Departure date:");
         lblEnterDepartureDate.setHorizontalAlignment(SwingConstants.RIGHT);
         GridBagConstraints gbc_lblEnterDepartureDate = new GridBagConstraints();
         gbc_lblEnterDepartureDate.fill = GridBagConstraints.BOTH;
@@ -201,14 +202,14 @@ public class TouristOutingRegistration extends JInternalFrame{
         LocalDate dischargeDateTO = LocalDate.now();
         int maxNumTouristsTOint = Integer.parseInt(maxNumTouristsTO); 
         
-        DtTouristTrip newTouristOuting = new DtTouristTrip(outingNameTO, maxNumTouristsTOint, departurePointTO, departureDateTOldt, dischargeDateTO);
+        DtTouristOuting newTouristOuting = new DtTouristOuting(outingNameTO, maxNumTouristsTOint, departurePointTO, departureDateTOldt, dischargeDateTO);
         
         String touristActivityName = (String) comboBoxTouristActivities.getSelectedItem();
 
         if (checkFormulario()) {
             try {
             
-                TouristOutingAndInscriptionController.outingDataEntry(newTouristOuting, touristActivityName);
+            	TouristOutingAndInscriptionController.outingDataEntry(newTouristOuting, touristActivityName);
 
                 // Success
                 JOptionPane.showMessageDialog(this, "The tourist outing has been successfully created.", "Tourist Outing Registration",

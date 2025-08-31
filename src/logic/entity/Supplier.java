@@ -12,6 +12,7 @@ import logic.dto.UserType;
 import logic.dto.WebSite;
 
 @Entity
+@PrimaryKeyJoinColumn(name = "nickname") 
 public class Supplier extends User {
 
 	@Column(updatable = false)
@@ -19,7 +20,7 @@ public class Supplier extends User {
 	@Column(updatable = false)
 	private WebSite webSite;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = false)
 	private Map<String, TouristActivity> activities;
 
 	public Supplier() {
