@@ -29,8 +29,8 @@ import java.awt.event.ActionEvent;
 
 public class TouristOutingRegistration extends JInternalFrame{
 
-	private ITouristOutingAndInscriptionController controlTouristOutingAndInscription;
-	private ITouristActivityController controlTouristActivity;
+	private ITouristOutingAndInscriptionController iControlTouristOutingAndInscription;
+	private ITouristActivityController iControlTouristActivity;
 	
 	private JComboBox<String> comboBoxTouristActivities;
     private JLabel lblTouristActivities;
@@ -47,7 +47,7 @@ public class TouristOutingRegistration extends JInternalFrame{
 	
 	 public TouristOutingRegistration(ITouristOutingAndInscriptionController itoic) {
 
-        controlTouristOutingAndInscription = itoic;
+        iControlTouristOutingAndInscription = itoic;
 
         setResizable(true);
         setIconifiable(true);
@@ -209,7 +209,7 @@ public class TouristOutingRegistration extends JInternalFrame{
         if (checkFormulario()) {
             try {
             
-            	TouristOutingAndInscriptionController.outingDataEntry(newTouristOuting, touristActivityName);
+            	iControlTouristOutingAndInscription.outingDataEntry(newTouristOuting, touristActivityName);
 
                 // Success
                 JOptionPane.showMessageDialog(this, "The tourist outing has been successfully created.", "Tourist Outing Registration",
@@ -267,7 +267,7 @@ public class TouristOutingRegistration extends JInternalFrame{
     public void loadTouristActivities() {
         DefaultComboBoxModel<String> model; 
         try {                                    
-            model = new DefaultComboBoxModel<String>(controlTouristActivity.listTouristActivities()); 
+            model = new DefaultComboBoxModel<String>(iControlTouristActivity.listTouristActivities()); 
             comboBoxTouristActivities.setModel(model);        
         } catch (ActivityDoesNotExistException e) {
             // We will not show any tourist activity

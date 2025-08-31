@@ -19,7 +19,7 @@
 				value="org.hsqldb.jdbcDriver" />
 			<!-- Se referencia a la carpeta data/db dentro del project -->
 			<property name="jakarta.persistence.jdbc.url"
-				value="jdbc:hsqldb:file:file:./data/db/turismouydb;shutdown=true" />
+				value="jdbc:hsqldb:file:./data/db/turismouydb;shutdown=true" />
 			<property name="jakarta.persistence.jdbc.user" value="sa" />
 			<property name="jakarta.persistence.jdbc.password" value="" />
 

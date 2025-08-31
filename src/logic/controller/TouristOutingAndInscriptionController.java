@@ -3,6 +3,7 @@ package logic.controller;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import exceptions.RepeatedTouristOutingException;
 import logic.dto.DtInscriptionTouristOuting;
 import logic.dto.DtTouristOuting;
 import logic.entity.Inscription;
@@ -18,7 +19,7 @@ public class TouristOutingAndInscriptionController implements ITouristOutingAndI
 		return null;
 	}
 	
-	public void outingDataEntry(DtTouristOuting dtTouristOuting, String activityName) {
+	public void outingDataEntry(DtTouristOuting dtTouristOuting, String activityName) throws RepeatedTouristOutingException {
 	}
 
 	public void inscriptionDataEntry(DtInscriptionTouristOuting dtInscriptionOuting, String userNickname, String outingName) {

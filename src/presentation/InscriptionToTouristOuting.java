@@ -72,7 +72,7 @@ public class InscriptionToTouristOuting extends JInternalFrame{
     private JButton btnConfirm;
 	private JButton btnCancel;
 	
-	public public public InscriptionToTouristOuting(ITouristOutingAndInscriptionController itoic) {
+	public InscriptionToTouristOuting(ITouristOutingAndInscriptionController itoic) {
 
         controlTouristOutingAndInscription = itoic;
         

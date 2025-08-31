@@ -1,10 +1,11 @@
 package logic.interfaces;
 
 import logic.dto.DtActivityWithOutings;
-import logic.dto.DtActivityWithOutings;
 import logic.dto.DtTouristActivity;
 //import logic.dto.DtRanking; falta!!!!
 import java.time.Duration;
+
+import exceptions.ActivityDoesNotExistException;
 
 public interface ITouristActivityController {
 
@@ -14,7 +15,7 @@ public interface ITouristActivityController {
 
 	public void confirmRegistration();
 	
-	public String[] listTouristActivities();
+	public String[] listTouristActivities() throws ActivityDoesNotExistException;
 	
 	public DtActivityWithOutings consultTouristActivityData(String activityName);
 	
