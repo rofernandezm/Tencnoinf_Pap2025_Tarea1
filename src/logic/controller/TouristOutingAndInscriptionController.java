@@ -4,7 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+
+import exceptions.ActivityDoesNotExistException;
 import exceptions.RepeatedTouristOutingException;
+import exceptions.TouristOutingDoesNotExistException;
 import logic.dto.DtInscriptionTouristOuting;
 import logic.dto.DtTouristOuting;
 import logic.dto.DtUser;
@@ -19,8 +22,14 @@ public class TouristOutingAndInscriptionController implements ITouristOutingAndI
 	private String outingName;
 	private DtTouristOuting dtNewTouristOuting;
 	
-	public DtTouristOuting consultTouristOutingData(String outingName) {
-		return null;
+	public DtTouristOuting consultTouristOutingData(String outingName) throws TouristOutingDoesNotExistException{
+		
+		TouristOutingAndInscrptionHandler toih = TouristOutingAndInscrptionHandler.getIntance();
+        TouristOuting to = toih.getTouristOutingByName(outingName);                    
+        if (to != null) 
+            return new DtTouristOuting(to.getOutingName() , to.getMaxNumTourists(), to.getDeparturePoint(), to.getDepartureDate(), to.getDischargeDate());
+        else
+            throw new TouristOutingDoesNotExistException("La salida turistica de nombre " + outingName + " no existe");
 	}
 	
 	public void outingDataEntry(DtTouristOuting dtTouristOuting, String activityName) throws RepeatedTouristOutingException {
@@ -92,4 +101,14 @@ public class TouristOutingAndInscriptionController implements ITouristOutingAndI
 		return outingName;
 	}
 	
+	public String[] listTouristOutings() throws TouristOutingDoesNotExistException{
+		
+		String[] rtn = TouristOutingAndInscrptionHandler.getIntance().listTouristOutings();
+		
+		if(rtn == null) throw new TouristOutingDoesNotExistException("No existen salidas turisticas registradas.");
+		
+		return rtn;
+	
+	}
+
 }
