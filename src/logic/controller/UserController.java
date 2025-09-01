@@ -2,6 +2,8 @@ package logic.controller;
 
 import java.time.LocalDate;
 
+import exceptions.RepeatedUserEmailException;
+import exceptions.RepeatedUserNicknameException;
 import logic.dto.DtSupplier;
 import logic.dto.DtTourist;
 import logic.dto.DtUser;
@@ -17,12 +19,16 @@ public class UserController implements IUserController {
 
 	private DtUser dtNewUser;
 
-	public Boolean dataEntry(DtUser dtUser) {
+	public void dataEntry(DtUser dtUser) throws RepeatedUserEmailException, RepeatedUserNicknameException {
 
 		this.dtNewUser = dtUser;
 
 		UserHandler uh = UserHandler.getIntance();
-		return (uh.existEmail(dtUser.getEmail()) || uh.existNickname(dtUser.getNickname()));
+
+		if (uh.existNickname(dtUser.getNickname()))
+			throw new RepeatedUserNicknameException(null);
+		if (uh.existEmail(dtUser.getEmail()))
+			throw new RepeatedUserEmailException(null);
 	}
 
 	public void cancelRegistration() {

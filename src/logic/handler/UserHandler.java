@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 import logic.entity.User;
 
 public class UserHandler {
@@ -27,6 +31,14 @@ public class UserHandler {
 		String email = user.getEmail();
 		this.users.put(nickname, user);
 		this.emailMapper.put(email, nickname);
+     	EntityManagerFactory emf = Persistence.createEntityManagerFactory("turismoUyDB");
+     	EntityManager em = emf.createEntityManager();
+     	EntityTransaction tx = em.getTransaction();
+     	tx.begin();
+     	em.persist(user);
+     	tx.commit();
+     	em.close();
+     	emf.close();
 	}
 
 	public User getUserByNickname(String nickname) {

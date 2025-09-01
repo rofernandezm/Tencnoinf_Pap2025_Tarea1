@@ -18,7 +18,7 @@ import javax.swing.UIManager;
 import logic.dto.DtInscriptionTouristOuting;
 import logic.interfaces.ITouristOutingAndInscriptionController;
 
-public class ConsultTuristInscription extends JInternalFrame {
+public class ConsultTouristInscription extends JInternalFrame {
 	
 	private ITouristOutingAndInscriptionController iOutingAndInscriptionController;
 	
@@ -28,7 +28,7 @@ public class ConsultTuristInscription extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ConsultTuristInscription(ITouristOutingAndInscriptionController iOutingAndInscriptionController) {
+	public ConsultTouristInscription(ITouristOutingAndInscriptionController iOutingAndInscriptionController) {
 		
 		this.iOutingAndInscriptionController = iOutingAndInscriptionController;
 		

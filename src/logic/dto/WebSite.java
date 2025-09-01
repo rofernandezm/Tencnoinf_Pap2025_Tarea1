@@ -1,7 +1,6 @@
 package logic.dto;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
 public class WebSite {
 
@@ -12,11 +11,7 @@ public class WebSite {
 	}
 
 	public WebSite(String strUrl) {
-		try {
-			this.url = new URI(strUrl);
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
+		this(URI.create(strUrl));
 	}
 
 	public URI getUrl() {
