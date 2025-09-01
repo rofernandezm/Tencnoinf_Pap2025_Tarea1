@@ -43,7 +43,7 @@ public class Tourist extends User {
 	public DtUser createDtUser() {
 
 		DtUser dt = new DtTourist(this.getNickname(), this.getName(), this.getLastName(), this.getEmail(),
-				this.getBirthDate(), UserType.TOURIST, this.getNationality());
+				this.getBirthDate(), this.getNationality());
 
 		return dt;
 	}

@@ -40,14 +40,13 @@ public class Main {
         initialize();  
         
         FactoryUyTourism factoryUyTourism = FactoryUyTourism.getInstance();  
-        /*IUC = FactoryUyTourism.getIUserController();
+        IUC = factoryUyTourism.getIUserController();
      
         creUsrInternalFrame = new CreateUser(IUC);
         creUsrInternalFrame.setLocation(30, 35);
         creUsrInternalFrame.setVisible(false);
 
         frmTourismUy.getContentPane().add(creUsrInternalFrame);
-    }*/
 	}
 
 	private void initialize() {
@@ -75,12 +74,12 @@ public class Main {
         JMenu menuUsers = new JMenu("Users");
         menuBar.add(menuUsers);
 
-        /*JMenuItem createUser = new JMenuItem("Create User");
-        createUser.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	creUsrInternalFrame.setVisible(true);
-            }
-        });
-        menuUsers.add(createUser);*/
+        
+        ActionListener createUserListener = e -> {
+        	creUsrInternalFrame.setVisible(true);
+        };
+        JMenuItem createUser = new JMenuItem("Create User");
+        createUser.addActionListener(createUserListener);
+        menuUsers.add(createUser);
     }
 }

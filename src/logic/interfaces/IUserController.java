@@ -1,11 +1,13 @@
 package logic.interfaces;
 
+import exceptions.RepeatedUserEmailException;
+import exceptions.RepeatedUserNicknameException;
 import logic.dto.DtUser;
 import logic.dto.DtUserProfile;
 
 public interface IUserController {
 
-	public Boolean dataEntry(DtUser dtUser);
+	public void dataEntry(DtUser dtUser) throws RepeatedUserEmailException, RepeatedUserNicknameException;
 
 	public void cancelRegistration();
 

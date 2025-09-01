@@ -8,7 +8,7 @@ import logic.dto.DtUserProfile;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "user", uniqueConstraints = {
+@Table(name = "Users", uniqueConstraints = {
 		@UniqueConstraint(name = "constraint_users_email", columnNames = "email") }, indexes = {
 				@Index(name = "index_users_email", columnList = "email") })
 public abstract class User {

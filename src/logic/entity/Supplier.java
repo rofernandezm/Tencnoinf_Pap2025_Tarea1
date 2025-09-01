@@ -65,7 +65,7 @@ public class Supplier extends User {
 	public DtUser createDtUser() {
 
 		DtUser dt = new DtSupplier(this.getNickname(), this.getName(), this.getLastName(), this.getEmail(),
-				this.getBirthDate(), UserType.SUPPLIER, this.getDescription(), this.convertWebSiteToString());
+				this.getBirthDate(), this.getDescription(), this.convertWebSiteToString());
 
 		return dt;
 	}

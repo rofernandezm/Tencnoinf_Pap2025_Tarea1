@@ -14,8 +14,8 @@ public class DtSupplier extends DtUser {
 	}
 
 	public DtSupplier(String nickname, String name, String lastName, String email, LocalDate birthDate,
-			UserType userType, String description, String webSite) {
-		super(nickname, name, lastName, email, birthDate, userType);
+			String description, String webSite) {
+		super(nickname, name, lastName, email, birthDate, UserType.SUPPLIER);
 		this.description = description;
 		this.webSite = webSite != null ? new WebSite(webSite) : null;
 	}

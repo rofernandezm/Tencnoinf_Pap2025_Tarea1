@@ -10,6 +10,10 @@ import jakarta.persistence.*;
 		"touristOuting_name" }), indexes = { @Index(name = "index_insc_outdating", columnList = "touristOuting_name") })
 public class Inscription {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+	
 	private int numTourists;
 	private float totalRegistrationCost;
 	private LocalDate inscriptionDate;
