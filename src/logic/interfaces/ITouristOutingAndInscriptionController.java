@@ -3,12 +3,13 @@ package logic.interfaces;
 import java.time.LocalDateTime;
 
 import exceptions.RepeatedTouristOutingException;
+import exceptions.TouristOutingDoesNotExistException;
 import logic.dto.DtInscriptionTouristOuting;
 import logic.dto.DtTouristOuting;
 
 public interface ITouristOutingAndInscriptionController {
 
-	public DtTouristOuting consultTouristOutingData(String outingName);
+	public DtTouristOuting consultTouristOutingData(String outingName)throws TouristOutingDoesNotExistException;
 	
 	public void outingDataEntry(DtTouristOuting dtTouristOuting, String activityName) throws RepeatedTouristOutingException;
 
@@ -29,5 +30,7 @@ public interface ITouristOutingAndInscriptionController {
 	public void modifydateTime (LocalDateTime dateTime);
 	
 	public String getOutingName();
+
+	public String[] listTouristOutings() throws TouristOutingDoesNotExistException;
 	
 }

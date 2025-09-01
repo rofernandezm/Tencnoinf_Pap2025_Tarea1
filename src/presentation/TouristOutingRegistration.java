@@ -86,7 +86,7 @@ public class TouristOutingRegistration extends JInternalFrame{
         gbc_comboBoxTouristActivities.gridx = 1;
         gbc_comboBoxTouristActivities.gridy = 0;
         getContentPane().add(comboBoxTouristActivities, gbc_comboBoxTouristActivities);
-        textFieldTouristOutingName.setColumns(10);
+        //textFieldTouristOutingName.setColumns(10);
         
         lblEnterTouristOutingName = new JLabel("Nombre de salida turistica:");
         lblEnterTouristOutingName.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -233,15 +233,12 @@ public class TouristOutingRegistration extends JInternalFrame{
         
         //LocalDateTime departureDateTOldt = LocalDateTime.parse(departureDateTO); Componente a verificar si se elimina
         LocalDate dischargeDateTO = LocalDate.now(); 
-        int maxNumTouristsTOint = Integer.parseInt(maxNumTouristsTO); 
         
         String touristActivityName = (String) comboBoxTouristActivities.getSelectedItem();
-       
-        Boolean touristOutingCreated = false;
-        
-        while(touristOutingCreated == false) {
+
 	        if (checkFormulario()) {
 	        	
+	            int maxNumTouristsTOint = Integer.parseInt(maxNumTouristsTO); 
 	        	//Create Dt to assign to the method
 	            DtTouristOuting newTouristOuting = new DtTouristOuting(outingNameTO, maxNumTouristsTOint, departurePointTO, departureDateTOldt, dischargeDateTO);
 	            
@@ -254,7 +251,6 @@ public class TouristOutingRegistration extends JInternalFrame{
 	                        JOptionPane.INFORMATION_MESSAGE);
 	                
 	             // I clean the internal frame before closing the window.
-	                touristOutingCreated = true;
 	                clearForm();
 	                setVisible(false);
 	
@@ -263,12 +259,9 @@ public class TouristOutingRegistration extends JInternalFrame{
 	                JOptionPane.showMessageDialog(this, e.getMessage(), "Tourist Outing Registration", JOptionPane.ERROR_MESSAGE);
 	                
 	                textFieldTouristOutingName.setText("");
-	                touristOutingCreated = false;
 	            }
 	            
 	        }
-	        
-        }
         
     }
 
@@ -285,7 +278,7 @@ public class TouristOutingRegistration extends JInternalFrame{
         
         String touristActivityName = (String) comboBoxTouristActivities.getSelectedItem();
 
-        if (outingNameTO.isEmpty() || maxNumTouristsTO.isEmpty() || departurePointTO.isEmpty() || departureDateTOldt == null || touristActivityName.isEmpty()){
+        if (outingNameTO.isEmpty() || maxNumTouristsTO.isEmpty() || departurePointTO.isEmpty() || departureDateTOldt == null || touristActivityName == null){
             JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos", "Tourist Outing Registration",
                     JOptionPane.ERROR_MESSAGE);
             return false;
@@ -298,6 +291,7 @@ public class TouristOutingRegistration extends JInternalFrame{
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
+        
 
         return true;
     }

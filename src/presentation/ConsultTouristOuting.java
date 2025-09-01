@@ -1,10 +1,3 @@
-/*El caso de uso comienza cuando el administrador desea consultar una 
-salida de una actividad turística. 
-En primer lugar, se listan las actividades turísticas existentes. 
-El administrador elige una y el sistema lista todas las 
-salidas asociadas.  El  administrador  elige  una de ellas  y  el  
-sistema devuelve todos los datos de la salida turística seleccionada.*/
-
 package presentation;
 
 import javax.swing.JInternalFrame;
@@ -12,11 +5,14 @@ import javax.swing.JInternalFrame;
 import logic.interfaces.*;
 import logic.dto.DtTouristOuting;
 
+import java.time.format.DateTimeFormatter;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import exceptions.ActivityDoesNotExistException;
+import exceptions.TouristOutingDoesNotExistException;
 
 import javax.swing.JTextField;
 
@@ -25,7 +21,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import java.awt.GridBagLayout;
-import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JFrame;
@@ -52,6 +47,7 @@ public class ConsultTouristOuting extends JInternalFrame{
 	private JLabel lblDepartureDate;
 	private JLabel lblDischargeDate;
     private JLabel lblInfoTouristOuting;
+    private JButton btnSearchTouristOuting;
     private JButton btnCloseWindow;
     
     public ConsultTouristOuting(ITouristOutingAndInscriptionController itoic) {
@@ -70,10 +66,10 @@ public class ConsultTouristOuting extends JInternalFrame{
         gridBagLayout.columnWidths = new int[] { 180, 105, 105, 5 };
         gridBagLayout.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 30, 30, 30 };
         gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
-        gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+        gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
         getContentPane().setLayout(gridBagLayout);
 
-        lblTouristActivities = new JLabel("Tourist Activities");
+        lblTouristActivities = new JLabel("Actividades turisticas");
         lblTouristActivities.setHorizontalAlignment(SwingConstants.RIGHT);
         GridBagConstraints gbc_lblTouristActivities = new GridBagConstraints();
         gbc_lblTouristActivities.fill = GridBagConstraints.BOTH;
@@ -90,9 +86,8 @@ public class ConsultTouristOuting extends JInternalFrame{
         gbc_comboBoxTouristActivities.gridx = 1;
         gbc_comboBoxTouristActivities.gridy = 0;
         getContentPane().add(comboBoxTouristActivities, gbc_comboBoxTouristActivities);
-        textFieldTouristOutingName.setColumns(10);
         
-        lblTouristOutings = new JLabel("Tourist Outings");
+        lblTouristOutings = new JLabel("Salidas turisticas");
         lblTouristOutings.setHorizontalAlignment(SwingConstants.RIGHT);
         GridBagConstraints gbc_lblTouristOutings = new GridBagConstraints();
         gbc_lblTouristOutings.fill = GridBagConstraints.BOTH;
@@ -109,19 +104,30 @@ public class ConsultTouristOuting extends JInternalFrame{
         gbc_comboBoxTouristOutings.gridx = 1;
         gbc_comboBoxTouristOutings.gridy = 1;
         getContentPane().add(comboBoxTouristOutings, gbc_comboBoxTouristOutings);
-        textFieldTouristOutingName.setColumns(10);
         
-        lblInfoTouristOuting = new JLabel("Tourist Outing Information:");
+        lblInfoTouristOuting = new JLabel("¿Desea informacion de esta salida?");
         lblInfoTouristOuting.setHorizontalAlignment(SwingConstants.RIGHT);
         GridBagConstraints gbc_lblInfoTouristOuting = new GridBagConstraints();
+        gbc_lblInfoTouristOuting.gridwidth = 2;
         gbc_lblInfoTouristOuting.fill = GridBagConstraints.BOTH;
         gbc_lblInfoTouristOuting.insets = new Insets(0, 0, 5, 5);
         gbc_lblInfoTouristOuting.gridx = 0;
         gbc_lblInfoTouristOuting.gridy = 2;
         getContentPane().add(lblInfoTouristOuting, gbc_lblInfoTouristOuting);
-        textFieldTouristOutingName.setColumns(10);
         
-        lblTouristOutingName = new JLabel("Tourist outing name:");
+        btnSearchTouristOuting = new JButton("Consultar");
+        btnSearchTouristOuting.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                cmdTouristOutingActionPerformed(arg0);
+            }
+        });
+        GridBagConstraints gbc_btnSearchTouristOuting = new GridBagConstraints();
+        gbc_btnSearchTouristOuting.fill = GridBagConstraints.BOTH;
+        gbc_btnSearchTouristOuting.gridx = 2;
+        gbc_btnSearchTouristOuting.gridy = 2;
+        getContentPane().add(btnSearchTouristOuting, gbc_btnSearchTouristOuting);
+        
+        lblTouristOutingName = new JLabel("Nombre de salida turistica:");
         lblTouristOutingName.setHorizontalAlignment(SwingConstants.RIGHT);
         GridBagConstraints gbc_lblTouristOutingName = new GridBagConstraints();
         gbc_lblTouristOutingName.fill = GridBagConstraints.BOTH;
@@ -143,7 +149,7 @@ public class ConsultTouristOuting extends JInternalFrame{
         getContentPane().add(textFieldTouristOutingName, gbc_textFieldTouristOutingName);
         textFieldTouristOutingName.setColumns(10);
 
-        lblMaxNumTourists = new JLabel("Maximum number of tourists:");
+        lblMaxNumTourists = new JLabel("Maxima cantidad de turistas:");
         lblMaxNumTourists.setHorizontalAlignment(SwingConstants.RIGHT);
         GridBagConstraints gbc_lblMaxNumTourists = new GridBagConstraints();
         gbc_lblMaxNumTourists.fill = GridBagConstraints.BOTH;
@@ -165,7 +171,7 @@ public class ConsultTouristOuting extends JInternalFrame{
         getContentPane().add(textFieldMaxNumTourists, gbc_textFieldMaxNumTourists);
         textFieldMaxNumTourists.setColumns(10);
 
-        lblDeparturePoint = new JLabel("Departure point:");
+        lblDeparturePoint = new JLabel("Lugar de salida:");
         lblDeparturePoint.setHorizontalAlignment(SwingConstants.RIGHT);
         GridBagConstraints gbc_lblDeparturePoint = new GridBagConstraints();
         gbc_lblDeparturePoint.fill = GridBagConstraints.BOTH;
@@ -185,7 +191,7 @@ public class ConsultTouristOuting extends JInternalFrame{
         getContentPane().add(textFieldDeparturePoint, gbc_textFieldDeparturePoint);
         textFieldDeparturePoint.setColumns(10);
         
-        lblDepartureDate = new JLabel("Departure date:");
+        lblDepartureDate = new JLabel("Fecha y hora de salida:");
         lblDepartureDate.setHorizontalAlignment(SwingConstants.RIGHT);
         GridBagConstraints gbc_lblDepartureDate = new GridBagConstraints();
         gbc_lblDepartureDate.fill = GridBagConstraints.BOTH;
@@ -206,7 +212,7 @@ public class ConsultTouristOuting extends JInternalFrame{
         gbc_textFieldDepartureDate.gridy = 6;
         getContentPane().add(textFieldDepartureDate, gbc_textFieldDepartureDate);
         
-        lblDischargeDate = new JLabel("Discharge date:");
+        lblDischargeDate = new JLabel("Fecha de alta:");
         lblDischargeDate.setHorizontalAlignment(SwingConstants.RIGHT);
         GridBagConstraints gbc_lblDischargeDate = new GridBagConstraints();
         gbc_lblDischargeDate.fill = GridBagConstraints.BOTH;
@@ -254,23 +260,42 @@ public class ConsultTouristOuting extends JInternalFrame{
     public void loadTouristOutings() {
         DefaultComboBoxModel<String> model; 
         try {                                    
-            model = new DefaultComboBoxModel<String>(controlTouristActivity.listTouristActivities()); 
-            comboBoxTouristActivities.setModel(model);        
-        } catch (ActivityDoesNotExistException e) {
-            // We will not show any tourist activity
+            model = new DefaultComboBoxModel<String>(controlTouristOutingAndInscription.listTouristOutings()); 
+            comboBoxTouristOutings.setModel(model);    
+            
+        } catch (TouristOutingDoesNotExistException e) {
+            // We will not show any tourist outing
         }
     }
     
-    /*protected void cmdTouristOutingActionPerformed(ActionEvent e) {
-        DtActivityWithOuting tawo;
-        try {
-            tawo = controlUsr.verInfoUsuario(textFieldCI.getText());
-            textFieldNombre.setText(du.getNombre());
-            textFieldApellido.setText(du.getApellido());
-        } catch (UsuarioNoExisteException e1) {
-            JOptionPane.showMessageDialog(this, e1.getMessage(), "Buscar Usuario", JOptionPane.ERROR_MESSAGE);
-            limpiarFormulario();
-        }*/
+    protected void cmdTouristOutingActionPerformed(ActionEvent e) {
+    	
+    	String touristOutingName = (String) comboBoxTouristOutings.getSelectedItem();
+    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    	DtTouristOuting to;
+    	
+    	if (touristOutingName != null ) {
+    		
+    		try {
+        	
+	            to = controlTouristOutingAndInscription.consultTouristOutingData(touristOutingName);
+	            
+	            textFieldTouristOutingName.setText(to.getTipName());
+	            textFieldMaxNumTourists.setText(String.valueOf(to.getMaxNumTourists()));
+	        	textFieldDeparturePoint.setText(to.getDeparturePoint());
+	        	textFieldDepartureDate.setText(to.getDepartureDate().format(formatter));
+	        	textFieldDischargeDate.setText(to.getDischargeDate().format(formatter));
+	        	
+        	}catch (TouristOutingDoesNotExistException e1) {
+	            
+	            JOptionPane.showMessageDialog(this, e1.getMessage(), "Consult Tourist Outing", JOptionPane.ERROR_MESSAGE);
+	            clearForm();
+	        }
+        }else {
+        	JOptionPane.showMessageDialog(this, "Debe seleccionar un valor en el campo «Salidas turistas».", "Consult Tourist Outing",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
     
     private void clearForm() {
     	comboBoxTouristActivities.removeAllItems();
