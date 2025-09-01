@@ -18,6 +18,8 @@ public class Main {
 	private JFrame frmTourismUy;       
     private ITouristActivityController IAC;
     private ITouristOutingAndInscriptionController IOIC;
+    private TouristOutingRegistration touristOutingRegistrationInternalFrame;
+    private ConsultTouristOuting consultTouristOutingInternalFrame;
     private ModifyActivity modifyActivityInternalFrame;
     private ConsultTuristInscription consultInscriptionInternalFrame;
    	
@@ -45,6 +47,13 @@ public class Main {
         IAC = factoryUyTourism.getITouristActivityController();
         IOIC = factoryUyTourism.getITouristOutingAndInscriptionController();
         
+        touristOutingRegistrationInternalFrame = new TouristOutingRegistration(IOIC);
+        touristOutingRegistrationInternalFrame.setVisible(false);
+        frmTourismUy.getContentPane().add(touristOutingRegistrationInternalFrame);
+        
+        consultTouristOutingInternalFrame = new ConsultTouristOuting(IOIC);
+        consultTouristOutingInternalFrame.setVisible(false);
+        frmTourismUy.getContentPane().add(consultTouristOutingInternalFrame);
         
         modifyActivityInternalFrame = new ModifyActivity(IAC);
         modifyActivityInternalFrame.setVisible(false);
@@ -102,9 +111,19 @@ public class Main {
         
         JMenuItem mnCreateOuting = new JMenuItem("Alta Salida");
         mnOuting.add(mnCreateOuting);
+        mnCreateOuting.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				touristOutingRegistrationInternalFrame.setVisible(true);
+			}
+		});
         
         JMenuItem mnConsultOuting = new JMenuItem("Consultar Salida");
         mnOuting.add(mnConsultOuting);
+        mnConsultOuting.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				consultTouristOutingInternalFrame.setVisible(true);
+			}
+		});
         
         JMenu mnInscription = new JMenu("Inscripciones");
         menuBar.add(mnInscription);
