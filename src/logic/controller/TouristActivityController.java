@@ -65,4 +65,12 @@ public class TouristActivityController implements ITouristActivityController {
 	 public String getActivityName() {
 		return activityName;
 	 }
+	 
+
+	public float getActivityCostTourist(String activityName) {
+		DtActivityWithOutings activity = consultTouristActivityData(activityName);
+		DtTouristActivity detailedActivityOnly = activity.getActivity();
+		
+		return detailedActivityOnly.getCostTurist();
+	};
 }
