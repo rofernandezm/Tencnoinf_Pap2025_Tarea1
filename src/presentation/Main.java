@@ -18,7 +18,10 @@ public class Main {
 
 	private JFrame frmTourismUy;       
     private IUserController IUC; 
+    private ITouristActivityController ITAC;
+
     private CreateUser creUsrInternalFrame;
+    private CreateActivity creActInternalFrame; 
 	
 	public static void main(String[] args) {
 		
@@ -27,6 +30,7 @@ public class Main {
             public void run() {                  
                 try {
                     Main window = new Main();  
+                    window.frmTourismUy.setLayout(null);
                     window.frmTourismUy.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -47,13 +51,18 @@ public class Main {
         creUsrInternalFrame.setVisible(false);
 
         frmTourismUy.getContentPane().add(creUsrInternalFrame);
+        
+        ITAC = factoryUyTourism.getITouristActivityController();
+        creActInternalFrame = new CreateActivity(ITAC, IUC);
+        creActInternalFrame.setVisible(false);
+        frmTourismUy.getContentPane().add(creActInternalFrame);
 	}
 
 	private void initialize() {
         
         frmTourismUy = new JFrame();
         frmTourismUy.setTitle("Tourism Uy");
-        frmTourismUy.setBounds(100, 100, 450, 400);
+        frmTourismUy.setBounds(100, 100, 600, 600);
         frmTourismUy.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JMenuBar menuBar = new JMenuBar();
@@ -71,9 +80,9 @@ public class Main {
         });
         menuSystem.add(menuExit);
         
+        //Menu Users
         JMenu menuUsers = new JMenu("Users");
         menuBar.add(menuUsers);
-
         
         ActionListener createUserListener = e -> {
         	creUsrInternalFrame.setVisible(true);
@@ -81,5 +90,19 @@ public class Main {
         JMenuItem createUser = new JMenuItem("Create User");
         createUser.addActionListener(createUserListener);
         menuUsers.add(createUser);
+        
+        
+        //Menu Activities
+        JMenu menuActivities = new JMenu("Activities");
+        menuBar.add(menuActivities);
+
+        JMenuItem menuItemAddAct = new JMenuItem("Add Activity");
+        menuItemAddAct.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+		        creActInternalFrame.setVisible(true);
+				
+			}
+		});
+        menuActivities.add(menuItemAddAct);
     }
 }
