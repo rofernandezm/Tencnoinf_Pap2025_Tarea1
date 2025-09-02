@@ -13,6 +13,8 @@ import logic.interfaces.*;
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent; 
 import java.awt.event.ActionListener;
+import java.awt.event.ContainerAdapter;
+import java.awt.event.ContainerEvent;
 
 public class Main {
 
@@ -61,10 +63,16 @@ public class Main {
 	private void initialize() {
         
         frmTourismUy = new JFrame();
+        frmTourismUy.addContainerListener(new ContainerAdapter() {
+        	@Override
+        	public void componentAdded(ContainerEvent e) {
+        		frmTourismUy.pack();
+        	}
+        });
         frmTourismUy.setTitle("Tourism Uy");
-        frmTourismUy.setBounds(100, 100, 600, 600);
+        frmTourismUy.setBounds(100, 100, 800, 600);
         frmTourismUy.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        
         JMenuBar menuBar = new JMenuBar();
         frmTourismUy.setJMenuBar(menuBar);
         
