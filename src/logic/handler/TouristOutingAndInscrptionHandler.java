@@ -5,11 +5,16 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.List;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 import logic.entity.TouristOuting;
 import logic.dto.DtInscriptionTouristOuting;
 import logic.entity.Inscription;
-import logic.entity.Tourist;
 
 public class TouristOutingAndInscrptionHandler {
 	
@@ -34,7 +39,16 @@ public class TouristOutingAndInscrptionHandler {
 	
 	public void addTouristOuting(TouristOuting touristOuting) {
 		String outingName = touristOuting.getOutingName();
-		this.touristOutings.put(outingName, touristOuting);
+		this.touristOutings = updateTouristOutingsFromDB();
+		touristOutings.put(outingName, touristOuting);
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("turismoUyDB");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+     	em.persist(touristOuting);
+     	tx.commit();
+     	em.close();
+     	emf.close();
 	}
 	
 //	Key is tourist nickname, then outingName as key and inscription as value of internal map
@@ -42,12 +56,34 @@ public class TouristOutingAndInscrptionHandler {
 		String touristOutingName = touristOuting.getOutingName();
 		this.mapOutingTourist.put(touristOutingName, inscription);
 		this.inscriptions.put(touristNickname, mapOutingTourist);
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("turismoUyDB");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+     	em.persist(inscription);
+     	tx.commit();
+     	em.close();
+     	emf.close();
 	}
 	
 	public TouristOuting getTouristOutingByName(String outingName) {
-		return ((TouristOuting) touristOutings.get(outingName));
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("turismoUyDB");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		TouristOuting touristOutingToGet = em.find(TouristOuting.class, outingName);
+		tx.commit();
+     	em.close();
+     	emf.close();
+		return (touristOutingToGet);
 	}
 	
+//	public TouristOuting getTouristOutingByName(String outingName) {
+//		this.touristOutings = updateTouristOutingsFromDB();
+//		return touristOutings.get(outingName);
+//	}
+	
+	//Analizar en base de datos como se guardan los datos 
 	public Set<Inscription> getInscriptionsByTouristNickname(String nickname) {
 		Map<String, Inscription> auxMap = new HashMap<>();
 		auxMap = inscriptions.get(nickname);
@@ -58,6 +94,8 @@ public class TouristOutingAndInscrptionHandler {
 		return inscriptionsSet;
 	}
 
+
+	//Analizar en base de datos como se guardan los datos 
 	public Set<Inscription> getInscriptionsByTouristOuting(String touristOutingName) {
 		Set<Map<String, Inscription>> auxMapSet = new HashSet<>();
 		auxMapSet = (Set<Map<String, Inscription>>) inscriptions.values();
@@ -75,10 +113,12 @@ public class TouristOutingAndInscrptionHandler {
 	}
 	
 	public Boolean existOutingName(String outingName) {
+		this.touristOutings = updateTouristOutingsFromDB();
 		return touristOutings.containsKey(outingName);
 	}
 
 	public String[] listTouristOutings() {
+		this.touristOutings = updateTouristOutingsFromDB();
 		if (touristOutings.isEmpty())
 			return null;
 		else {
@@ -123,5 +163,23 @@ public class TouristOutingAndInscrptionHandler {
 		
 		Inscription inscription = new Inscription(numTourists, totalRegistrationCost, inscriptionDate);
 		return inscription;
+	}
+	
+	private Map<String, TouristOuting> updateTouristOutingsFromDB() {
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("turismoUyDB");
+		EntityManager em = emf.createEntityManager();
+		Query query = em.createQuery("SELECT to FROM TouristOuting to");
+		
+		List<TouristOuting> result = query.getResultList();
+
+		for (TouristOuting outing : result) {
+	        touristOutings.put(outing.getOutingName(), outing);
+	    }
+		
+		em.close();
+		emf.close();
+		return touristOutings;
+		
 	}
 }
