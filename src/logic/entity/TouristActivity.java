@@ -7,7 +7,6 @@ import java.util.Map;
 import jakarta.persistence.*;
 
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "constraint_touristactivity_name", columnNames = "activityName") })
 public class TouristActivity {
 
 	@Id
