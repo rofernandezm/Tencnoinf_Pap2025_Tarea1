@@ -14,7 +14,8 @@ public class UserHandler {
 	private Map<String, User> users;
 	private Map<String, String> emailMapper;
 	private static UserHandler instance = null;
-
+	private static final String PERSISTENCE_UNIT = "turismoUyDB";
+	
 	private UserHandler() {
 		users = new HashMap<String, User>();
 		emailMapper = new HashMap<String, String>();
@@ -31,7 +32,7 @@ public class UserHandler {
 		String email = user.getEmail();
 		this.users.put(nickname, user);
 		this.emailMapper.put(email, nickname);
-     	EntityManagerFactory emf = Persistence.createEntityManagerFactory("turismoUyDB");
+     	EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
      	EntityManager em = emf.createEntityManager();
      	EntityTransaction tx = em.getTransaction();
      	tx.begin();
@@ -42,7 +43,16 @@ public class UserHandler {
 	}
 
 	public User getUserByNickname(String nickname) {
-		return ((User) users.get(nickname));
+		
+ 		EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
+ 		EntityManager em = emf.createEntityManager();
+ 		EntityTransaction tx = em.getTransaction();
+ 		tx.begin();
+ 		User userByNickname = em.find(User.class, nickname);
+ 		tx.commit();
+ 		em.close();
+ 		emf.close();
+    	return (userByNickname);
 	}
 
 	public Boolean existNickname(String nickname) {
