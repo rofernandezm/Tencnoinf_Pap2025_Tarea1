@@ -9,7 +9,6 @@ import logic.dto.DtTourist;
 import logic.dto.DtTouristProfile;
 import logic.dto.DtUser;
 import logic.dto.DtUserProfile;
-import logic.dto.UserType;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "nickname")

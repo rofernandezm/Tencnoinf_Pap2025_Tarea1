@@ -8,7 +8,7 @@ import logic.entity.User;
 public class DtSupplier extends DtUser {
 
 	private String description;
-	private WebSite webSite;
+	private String webSite;
 
 	public DtSupplier() {
 	}
@@ -17,14 +17,14 @@ public class DtSupplier extends DtUser {
 			String description, String webSite) {
 		super(nickname, name, lastName, email, birthDate, UserType.SUPPLIER);
 		this.description = description;
-		this.webSite = webSite != null ? new WebSite(webSite) : null;
+		this.webSite = webSite != null ? webSite : null;
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
-	public WebSite getWebSite() {
+	public String getWebSite() {
 		return webSite;
 	}
 
