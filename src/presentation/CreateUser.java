@@ -131,6 +131,7 @@ public class CreateUser extends JInternalFrame {
 
 		// Content panel
 		getContentPane().setLayout(new BorderLayout(0, 0));
+		setBounds(0, 0, 780, 540);
 
 		// Title
 		labelSubTitle = new JLabel(SUBTITLE);
