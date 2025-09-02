@@ -17,19 +17,42 @@ import java.awt.event.ContainerEvent;
 
 public class Main {
 
-	private JFrame frmTourismUy;
-
+	private JFrame frmTourismUy;       
 	private IUserController IUC;
 	private ITouristOutingAndInscriptionController IOIC;
 	private ITouristActivityController ITAC;
-
 	private CreateUser creUsrInternalFrame;
 	private CreateActivity creActInternalFrame;
 	private TouristOutingRegistration touristOutingRegistrationInternalFrame;
 	private ConsultTouristOuting consultTouristOutingInternalFrame;
+	private InscriptionToTouristOuting inscriptionToTouristOutingInternalFrame;
 	private ModifyActivity modifyActivityInternalFrame;
 	private ConsultTouristInscription consultInscriptionInternalFrame;
-
+//<<<<<<< HEAD
+//	private JFrame frmTourismUy;
+//
+//	private IUserController IUC;
+//	private ITouristOutingAndInscriptionController IOIC;
+//	private ITouristActivityController ITAC;
+//
+//	private CreateUser creUsrInternalFrame;
+//	private CreateActivity creActInternalFrame;
+//	private TouristOutingRegistration touristOutingRegistrationInternalFrame;
+//	private ConsultTouristOuting consultTouristOutingInternalFrame;
+//	private ModifyActivity modifyActivityInternalFrame;
+//	private ConsultTouristInscription consultInscriptionInternalFrame;
+//
+//=======
+//	private JFrame frmTourismUy;       
+//    private ITouristActivityController IAC;
+//    private ITouristOutingAndInscriptionController IOIC;
+//    private TouristOutingRegistration touristOutingRegistrationInternalFrame;
+//    private ConsultTouristOuting consultTouristOutingInternalFrame;
+//    private InscriptionToTouristOuting inscriptionToTouristOutingInternalFrame;
+//    private ModifyActivity modifyActivityInternalFrame;
+//    private ConsultTuristInscription consultInscriptionInternalFrame;
+//   	
+//>>>>>>> 98220f7 (logica caso de uso 8 completa)
 	public static void main(String[] args) {
 
 		System.out.print("Access to main");
@@ -46,12 +69,12 @@ public class Main {
 		});
 
 	}
-
-	public Main() {
-		initialize();
-
-		FactoryUyTourism factoryUyTourism = FactoryUyTourism.getInstance();
-
+	
+	public Main() {   
+        initialize();  
+        
+        FactoryUyTourism factoryUyTourism = FactoryUyTourism.getInstance();  
+        
 		IUC = factoryUyTourism.getIUserController();
 
 		creUsrInternalFrame = new CreateUser(IUC);
@@ -59,30 +82,101 @@ public class Main {
 		creUsrInternalFrame.setVisible(false);
 
 		frmTourismUy.getContentPane().add(creUsrInternalFrame);
-
-		ITAC = factoryUyTourism.getITouristActivityController();
-		IOIC = factoryUyTourism.getITouristOutingAndInscriptionController();
-
-		touristOutingRegistrationInternalFrame = new TouristOutingRegistration(IOIC);
-		touristOutingRegistrationInternalFrame.setVisible(false);
-		frmTourismUy.getContentPane().add(touristOutingRegistrationInternalFrame);
-
-		consultTouristOutingInternalFrame = new ConsultTouristOuting(IOIC);
-		consultTouristOutingInternalFrame.setVisible(false);
-		frmTourismUy.getContentPane().add(consultTouristOutingInternalFrame);
-
+        ITAC = factoryUyTourism.getITouristActivityController();
+        IOIC = factoryUyTourism.getITouristOutingAndInscriptionController();
+        
+        touristOutingRegistrationInternalFrame = new TouristOutingRegistration(IOIC);
+        touristOutingRegistrationInternalFrame.setVisible(false);
+        frmTourismUy.getContentPane().add(touristOutingRegistrationInternalFrame);
+        
+        consultTouristOutingInternalFrame = new ConsultTouristOuting(IOIC);
+        consultTouristOutingInternalFrame.setVisible(false);
+        frmTourismUy.getContentPane().add(consultTouristOutingInternalFrame);
+        
 		creActInternalFrame = new CreateActivity(ITAC, IUC);
 		creActInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(creActInternalFrame);
 
 		modifyActivityInternalFrame = new ModifyActivity(ITAC);
+		
+        inscriptionToTouristOutingInternalFrame = new InscriptionToTouristOuting(IOIC);
+        inscriptionToTouristOutingInternalFrame.setVisible(false);
+        frmTourismUy.getContentPane().add(inscriptionToTouristOutingInternalFrame);
+        
+        modifyActivityInternalFrame = new ModifyActivity(ITAC);
+        modifyActivityInternalFrame.setVisible(false);
+        frmTourismUy.getContentPane().add(modifyActivityInternalFrame);
+        
+        
+        consultInscriptionInternalFrame = new ConsultTouristInscription(IOIC);
+        consultInscriptionInternalFrame.setVisible(false);
+        frmTourismUy.getContentPane().add(consultInscriptionInternalFrame);
 //<<<<<<< HEAD
-//        ITAC = factoryUyTourism.getITouristActivityController();
-//        creActInternalFrame = new CreateActivity(ITAC, IUC);
-//        creActInternalFrame.setVisible(false);
-//        frmTourismUy.getContentPane().add(creActInternalFrame);
-//        modifyActivityInternalFrame = new ModifyActivity(ITAC);
+//
+//	public Main() {
+//		initialize();
+//
+//		FactoryUyTourism factoryUyTourism = FactoryUyTourism.getInstance();
+//
+//		IUC = factoryUyTourism.getIUserController();
+//
+//		creUsrInternalFrame = new CreateUser(IUC);
+//		creUsrInternalFrame.setLocation(30, 35);
+//		creUsrInternalFrame.setVisible(false);
+//
+//		frmTourismUy.getContentPane().add(creUsrInternalFrame);
+//
+//		ITAC = factoryUyTourism.getITouristActivityController();
+//		IOIC = factoryUyTourism.getITouristOutingAndInscriptionController();
+//
+//		touristOutingRegistrationInternalFrame = new TouristOutingRegistration(IOIC);
+//		touristOutingRegistrationInternalFrame.setVisible(false);
+//		frmTourismUy.getContentPane().add(touristOutingRegistrationInternalFrame);
+//
+//		consultTouristOutingInternalFrame = new ConsultTouristOuting(IOIC);
+//		consultTouristOutingInternalFrame.setVisible(false);
+//		frmTourismUy.getContentPane().add(consultTouristOutingInternalFrame);
+//
+//		creActInternalFrame = new CreateActivity(ITAC, IUC);
+//		creActInternalFrame.setVisible(false);
+//		frmTourismUy.getContentPane().add(creActInternalFrame);
+//
+//		modifyActivityInternalFrame = new ModifyActivity(ITAC);
+////<<<<<<< HEAD
+////        ITAC = factoryUyTourism.getITouristActivityController();
+////        creActInternalFrame = new CreateActivity(ITAC, IUC);
+////        creActInternalFrame.setVisible(false);
+////        frmTourismUy.getContentPane().add(creActInternalFrame);
+////        modifyActivityInternalFrame = new ModifyActivity(ITAC);
+////=======
+////        IAC = factoryUyTourism.getITouristActivityController();
+////        IOIC = factoryUyTourism.getITouristOutingAndInscriptionController();
+////        
+////        touristOutingRegistrationInternalFrame = new TouristOutingRegistration(IOIC);
+////        touristOutingRegistrationInternalFrame.setVisible(false);
+////        frmTourismUy.getContentPane().add(touristOutingRegistrationInternalFrame);
+////        
+////        consultTouristOutingInternalFrame = new ConsultTouristOuting(IOIC);
+////        consultTouristOutingInternalFrame.setVisible(false);
+////        frmTourismUy.getContentPane().add(consultTouristOutingInternalFrame);
+////        
+////        modifyActivityInternalFrame = new ModifyActivity(IAC);
+////>>>>>>> 13eb475 (casos de uso 6 y 7 en el main, con interfaz, compilando, resta probarlos)
+//		modifyActivityInternalFrame.setVisible(false);
+//		frmTourismUy.getContentPane().add(modifyActivityInternalFrame);
+//
+//		IOIC = factoryUyTourism.getITouristOutingAndInscriptionController();
+//		consultInscriptionInternalFrame = new ConsultTouristInscription(IOIC);
+//		consultInscriptionInternalFrame.setVisible(false);
+//		frmTourismUy.getContentPane().add(consultInscriptionInternalFrame);
+//
 //=======
+//	
+//	public Main() {   
+//        initialize();  
+//        
+//        FactoryUyTourism factoryUyTourism = FactoryUyTourism.getInstance();  
+//        
 //        IAC = factoryUyTourism.getITouristActivityController();
 //        IOIC = factoryUyTourism.getITouristOutingAndInscriptionController();
 //        
@@ -94,16 +188,19 @@ public class Main {
 //        consultTouristOutingInternalFrame.setVisible(false);
 //        frmTourismUy.getContentPane().add(consultTouristOutingInternalFrame);
 //        
+//        inscriptionToTouristOutingInternalFrame = new InscriptionToTouristOuting(IOIC);
+//        inscriptionToTouristOutingInternalFrame.setVisible(false);
+//        frmTourismUy.getContentPane().add(inscriptionToTouristOutingInternalFrame);
+//        
 //        modifyActivityInternalFrame = new ModifyActivity(IAC);
-//>>>>>>> 13eb475 (casos de uso 6 y 7 en el main, con interfaz, compilando, resta probarlos)
-		modifyActivityInternalFrame.setVisible(false);
-		frmTourismUy.getContentPane().add(modifyActivityInternalFrame);
-
-		IOIC = factoryUyTourism.getITouristOutingAndInscriptionController();
-		consultInscriptionInternalFrame = new ConsultTouristInscription(IOIC);
-		consultInscriptionInternalFrame.setVisible(false);
-		frmTourismUy.getContentPane().add(consultInscriptionInternalFrame);
-
+//        modifyActivityInternalFrame.setVisible(false);
+//        frmTourismUy.getContentPane().add(modifyActivityInternalFrame);
+//        
+//        
+//        consultInscriptionInternalFrame = new ConsultTuristInscription(IOIC);
+//        consultInscriptionInternalFrame.setVisible(false);
+//        frmTourismUy.getContentPane().add(consultInscriptionInternalFrame);
+//>>>>>>> 98220f7 (logica caso de uso 8 completa)
 	}
 
 	private void initialize() {
@@ -185,32 +282,63 @@ public class Main {
 				consultTouristOutingInternalFrame.setVisible(true);
 			}
 		});
-
-		JMenu mnInscription = new JMenu("Inscripciones");
-		menuBar.add(mnInscription);
-
-		JMenuItem mnCreateInscription = new JMenuItem("Nueva Inscripcion");
-		mnInscription.add(mnCreateInscription);
-
-		JMenuItem mnConsultInscription = new JMenuItem("Consultar Inscripciones");
-		mnInscription.add(mnConsultInscription);
-		mnConsultInscription.addActionListener(new ActionListener() {
+        
+        JMenu mnInscription = new JMenu("Inscripciones");
+        menuBar.add(mnInscription);
+        
+        JMenuItem mnCreateInscription = new JMenuItem("Nueva Inscripcion");
+        mnInscription.add(mnCreateInscription);
+        mnCreateInscription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				consultInscriptionInternalFrame.setVisible(true);
+				inscriptionToTouristOutingInternalFrame.setVisible(true);
 			}
 		});
+        
+        JMenuItem mnConsultInscription = new JMenuItem("Consultar Inscripciones");
+        mnInscription.add(mnConsultInscription);
+        mnConsultInscription.addActionListener(new ActionListener() {
+     			public void actionPerformed(ActionEvent e) {
+     				consultInscriptionInternalFrame.setVisible(true);
+     			}
+     		});
+        
+        JMenu menuSystem = new JMenu("Sistema");
+        menuBar.add(menuSystem);
+        
+                JMenuItem menuExit = new JMenuItem("Exit");
+                menuExit.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent arg0) {
+                        frmTourismUy.setVisible(false);
+                        frmTourismUy.dispose();
+                    }
+                });
+                menuSystem.add(menuExit);
 
-		JMenu menuSystem = new JMenu("Sistema");
-		menuBar.add(menuSystem);
-
-		JMenuItem menuExit = new JMenuItem("Exit");
-		menuExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				frmTourismUy.setVisible(false);
-				frmTourismUy.dispose();
-			}
-		});
-		menuSystem.add(menuExit);
+//		JMenu mnInscription = new JMenu("Inscripciones");
+//		menuBar.add(mnInscription);
+//
+//		JMenuItem mnCreateInscription = new JMenuItem("Nueva Inscripcion");
+//		mnInscription.add(mnCreateInscription);
+//
+//		JMenuItem mnConsultInscription = new JMenuItem("Consultar Inscripciones");
+//		mnInscription.add(mnConsultInscription);
+//		mnConsultInscription.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				consultInscriptionInternalFrame.setVisible(true);
+//			}
+//		});
+//
+//		JMenu menuSystem = new JMenu("Sistema");
+//		menuBar.add(menuSystem);
+//
+//		JMenuItem menuExit = new JMenuItem("Exit");
+//		menuExit.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				frmTourismUy.setVisible(false);
+//				frmTourismUy.dispose();
+//			}
+//		});
+//		menuSystem.add(menuExit);
 //                JMenuItem mnCreateActivity = new JMenuItem("Alta Actividad");
 //                menuActivities.add(mnCreateActivity);
 //                

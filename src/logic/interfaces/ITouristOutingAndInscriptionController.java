@@ -1,7 +1,9 @@
 package logic.interfaces;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
+import exceptions.RepeatedInscriptionToTouristOutingException;
 import exceptions.RepeatedTouristOutingException;
 import exceptions.TouristOutingDoesNotExistException;
 import logic.dto.DtInscriptionTouristOuting;
@@ -13,7 +15,7 @@ public interface ITouristOutingAndInscriptionController {
 	
 	public void outingDataEntry(DtTouristOuting dtTouristOuting, String activityName) throws RepeatedTouristOutingException;
 
-	public void inscriptionDataEntry(DtInscriptionTouristOuting dtInscriptionOuting, String userNickname, String outingName);
+	public void inscriptionDataEntry(DtInscriptionTouristOuting dtInscriptionOuting, String userNickname, String outingName) throws RepeatedInscriptionToTouristOutingException;
 	
 	public void cancelOutingRegistration();
 
@@ -33,4 +35,7 @@ public interface ITouristOutingAndInscriptionController {
 
 	public String[] listTouristOutings() throws TouristOutingDoesNotExistException;
 	
+	public String[] listTouristOutingsNames(Set<DtTouristOuting> allTouristOutings);
+	
+	public float inscriptionTotalCost(float touristActivityCost, int numTourists);
 }

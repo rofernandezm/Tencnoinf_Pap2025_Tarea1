@@ -34,5 +34,7 @@ public interface ITouristActivityController {
 	public DtRanking consultRankingActivities();
 	
 	public String getActivityName();
+
+	public float getActivityCostTourist(String activityName);
 }
 
