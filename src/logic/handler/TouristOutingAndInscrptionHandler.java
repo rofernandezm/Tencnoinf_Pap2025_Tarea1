@@ -1,11 +1,13 @@
 package logic.handler;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import logic.entity.TouristOuting;
+import logic.dto.DtInscriptionTouristOuting;
 import logic.entity.Inscription;
 import logic.entity.Tourist;
 
@@ -36,9 +38,7 @@ public class TouristOutingAndInscrptionHandler {
 	}
 	
 //	Key is tourist nickname, then outingName as key and inscription as value of internal map
-//  Analyze if Tourist and touristOuting as objects in parameters or just string with Tourist nickname and Tourist name
-	public void addInscription(Tourist tourist, TouristOuting touristOuting, Inscription inscription) {
-		String touristNickname = tourist.getNickname();
+	public void addInscription(String touristNickname, TouristOuting touristOuting, Inscription inscription) {
 		String touristOutingName = touristOuting.getOutingName();
 		this.mapOutingTourist.put(touristOutingName, inscription);
 		this.inscriptions.put(touristNickname, mapOutingTourist);
@@ -114,5 +114,14 @@ public class TouristOutingAndInscrptionHandler {
 			return true;
 		}
 		return false;
+	}
+	
+	public Inscription getInscriptionByDtInscriptionTouristOuting(DtInscriptionTouristOuting dtInscriptionTouristOuting) {
+		int numTourists = dtInscriptionTouristOuting.getTouristAmount();
+		float totalRegistrationCost = dtInscriptionTouristOuting.getTotalCost();
+		LocalDate inscriptionDate = dtInscriptionTouristOuting.getInscriptionDate();
+		
+		Inscription inscription = new Inscription(numTourists, totalRegistrationCost, inscriptionDate);
+		return inscription;
 	}
 }

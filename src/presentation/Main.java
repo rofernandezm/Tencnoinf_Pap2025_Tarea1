@@ -20,6 +20,7 @@ public class Main {
     private ITouristOutingAndInscriptionController IOIC;
     private TouristOutingRegistration touristOutingRegistrationInternalFrame;
     private ConsultTouristOuting consultTouristOutingInternalFrame;
+    private InscriptionToTouristOuting inscriptionToTouristOutingInternalFrame;
     private ModifyActivity modifyActivityInternalFrame;
     private ConsultTuristInscription consultInscriptionInternalFrame;
    	
@@ -54,6 +55,10 @@ public class Main {
         consultTouristOutingInternalFrame = new ConsultTouristOuting(IOIC);
         consultTouristOutingInternalFrame.setVisible(false);
         frmTourismUy.getContentPane().add(consultTouristOutingInternalFrame);
+        
+        inscriptionToTouristOutingInternalFrame = new InscriptionToTouristOuting(IOIC);
+        inscriptionToTouristOutingInternalFrame.setVisible(false);
+        frmTourismUy.getContentPane().add(inscriptionToTouristOutingInternalFrame);
         
         modifyActivityInternalFrame = new ModifyActivity(IAC);
         modifyActivityInternalFrame.setVisible(false);
@@ -130,6 +135,11 @@ public class Main {
         
         JMenuItem mnCreateInscription = new JMenuItem("Nueva Inscripcion");
         mnInscription.add(mnCreateInscription);
+        mnCreateInscription.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				inscriptionToTouristOutingInternalFrame.setVisible(true);
+			}
+		});
         
         JMenuItem mnConsultInscription = new JMenuItem("Consultar Inscripciones");
         mnInscription.add(mnConsultInscription);

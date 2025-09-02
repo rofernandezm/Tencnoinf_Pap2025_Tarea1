@@ -3,7 +3,7 @@ package logic.controller;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
-
+import java.util.HashSet;
 
 import exceptions.ActivityDoesNotExistException;
 import exceptions.RepeatedTouristOutingException;
@@ -16,6 +16,7 @@ import logic.entity.TouristOuting;
 import logic.handler.TouristActivityHandler;
 import logic.handler.TouristOutingAndInscrptionHandler;
 import logic.interfaces.ITouristOutingAndInscriptionController;
+import exceptions.RepeatedInscriptionToTouristOutingException;
 
 public class TouristOutingAndInscriptionController implements ITouristOutingAndInscriptionController {
 	
@@ -52,7 +53,19 @@ public class TouristOutingAndInscriptionController implements ITouristOutingAndI
         mto.addTouristOuting(to);
 	}
 
-	public void inscriptionDataEntry(DtInscriptionTouristOuting dtInscriptionOuting, String userNickname, String outingName) {
+	public void inscriptionDataEntry(DtInscriptionTouristOuting dtInscriptionOuting, String userNickname, String outingName) throws RepeatedInscriptionToTouristOutingException{
+		
+		TouristOutingAndInscrptionHandler mto = TouristOutingAndInscrptionHandler.getIntance();
+		Boolean inscription = mto.existInscription(userNickname, outingName);
+		
+		if (inscription)
+            throw new RepeatedInscriptionToTouristOutingException("La inscripcion para este usuario en esta salida ya esta registrada. Por favor, ingrese un nuevo nombre");
+		
+		Inscription inscriptionToAdd = mto.getInscriptionByDtInscriptionTouristOuting(dtInscriptionOuting);
+		TouristOuting to = mto.getTouristOutingByName(outingName);
+		
+		mto.addInscription(userNickname, to, inscriptionToAdd);
+		
 	}
 	
 	public void cancelOutingRegistration() {	
@@ -110,5 +123,35 @@ public class TouristOutingAndInscriptionController implements ITouristOutingAndI
 		return rtn;
 	
 	}
+	
 
+	public String[] listTouristOutingsNames(Set<DtTouristOuting> allTouristOutings) {
+		
+		String[] rtn = null ;
+		
+		if (allTouristOutings != null && !allTouristOutings.isEmpty()) {
+			
+			Set<String> touristOutingNames = new HashSet<>();
+			
+			for(DtTouristOuting touristOuting : allTouristOutings) {
+				String touristOutingName = touristOuting.getTipName();
+				touristOutingNames.add(touristOutingName);
+			}	
+			
+			Object[] touristOutingNamesString = touristOutingNames.toArray();
+			rtn = new String [touristOutingNames.size()];
+			
+			for (int ind = 0; ind < touristOutingNamesString.length; ind++) {
+				rtn[ind] = touristOutingNamesString[ind].toString();
+			}
+		}
+		
+		return rtn;
+	}
+
+
+	public float inscriptionTotalCost(float touristActivityCost, int numTourists) {
+		return touristActivityCost * numTourists;
+	}
+	
 }
