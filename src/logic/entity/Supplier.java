@@ -8,18 +8,16 @@ import logic.dto.DtSupplier;
 import logic.dto.DtSupplierProfile;
 import logic.dto.DtUser;
 import logic.dto.DtUserProfile;
-import logic.dto.UserType;
-import logic.dto.WebSite;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "nickname") 
+@PrimaryKeyJoinColumn(name = "nickname")
 public class Supplier extends User {
 
 	@Column(updatable = false)
 	private String description;
 	@Column(updatable = false)
-	private WebSite webSite;
-	
+	private String webSite;
+
 	@OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = false)
 	private Map<String, TouristActivity> activities;
 
@@ -28,7 +26,7 @@ public class Supplier extends User {
 	}
 
 	public Supplier(String nickname, String name, String lastName, String email, LocalDate birthDate,
-			String description, WebSite webSite) {
+			String description, String webSite) {
 		super(nickname, name, lastName, email, birthDate);
 		this.description = description;
 		this.webSite = webSite;
@@ -42,11 +40,11 @@ public class Supplier extends User {
 		this.description = description;
 	}
 
-	public WebSite getWebSite() {
+	public String getWebSite() {
 		return webSite;
 	}
 
-	public void setWebSite(WebSite webSite) {
+	public void setWebSite(String webSite) {
 		this.webSite = webSite;
 	}
 
@@ -58,14 +56,10 @@ public class Supplier extends User {
 		this.activities = activities;
 	}
 
-	public String convertWebSiteToString() {
-		return webSite.getUrl().toString();
-	}
-
 	public DtUser createDtUser() {
 
 		DtUser dt = new DtSupplier(this.getNickname(), this.getName(), this.getLastName(), this.getEmail(),
-				this.getBirthDate(), this.getDescription(), this.convertWebSiteToString());
+				this.getBirthDate(), this.getDescription(), this.getWebSite());
 
 		return dt;
 	}

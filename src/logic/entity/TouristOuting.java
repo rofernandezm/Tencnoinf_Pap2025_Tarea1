@@ -8,7 +8,6 @@ import jakarta.persistence.*;
 import logic.dto.DtTouristOuting;
 
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "constraint_Touristouting_name", columnNames = "outingName") })
 public class TouristOuting {
 
 	@Id

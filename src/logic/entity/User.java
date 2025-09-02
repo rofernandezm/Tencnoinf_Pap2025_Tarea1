@@ -20,7 +20,7 @@ public abstract class User {
 	private String name;
 	@Column(nullable = false)
 	private String lastName;
-	@Column(nullable = false, updatable = false, unique = true)
+	@Column(nullable = false, updatable = false)
 	private String email;
 	@Column(name = "birth_date", nullable = false)
 	private LocalDate birthDate;
