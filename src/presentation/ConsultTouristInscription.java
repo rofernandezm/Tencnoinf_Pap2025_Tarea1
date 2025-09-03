@@ -45,7 +45,7 @@ public class ConsultTouristInscription extends JInternalFrame {
 		getContentPane().add(cbInscripciones);
 		
 	    lblInscripcionesRegistradas = new JLabel("Inscripciones Registradas");
-		lblInscripcionesRegistradas.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblInscripcionesRegistradas.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblInscripcionesRegistradas.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInscripcionesRegistradas.setBounds(0, 0, 434, 38);
 		getContentPane().add(lblInscripcionesRegistradas);
