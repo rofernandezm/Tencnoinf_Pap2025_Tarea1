@@ -23,6 +23,7 @@ public class Main {
 	private ITouristActivityController ITAC;
 	private CreateUser creUsrInternalFrame;
 	private CreateActivity creActInternalFrame;
+	private ConsultActivity consultActInternalFrame;
 	private TouristOutingRegistration touristOutingRegistrationInternalFrame;
 	private ConsultTouristOuting consultTouristOutingInternalFrame;
 	private InscriptionToTouristOuting inscriptionToTouristOutingInternalFrame;
@@ -54,8 +55,9 @@ public class Main {
 		IUC = factoryUyTourism.getIUserController();
 		ITAC = factoryUyTourism.getITouristActivityController();
 		IOIC = factoryUyTourism.getITouristOutingAndInscriptionController();
-		
-		creUsrInternalFrame = new CreateUser(IUC);
+
+    creUsrInternalFrame = new CreateUser(IUC);
+
 		frmTourismUy.getContentPane().add(creUsrInternalFrame);
 
 		touristOutingRegistrationInternalFrame = new TouristOutingRegistration(IOIC);
@@ -69,6 +71,10 @@ public class Main {
 		creActInternalFrame = new CreateActivity(ITAC, IUC);
 		creActInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(creActInternalFrame);
+		
+		consultActInternalFrame = new ConsultActivity(ITAC);
+		consultActInternalFrame.setVisible(false);
+		frmTourismUy.getContentPane().add(consultActInternalFrame);
 
 		inscriptionToTouristOutingInternalFrame = new InscriptionToTouristOuting(IOIC);
 		inscriptionToTouristOutingInternalFrame.setVisible(false);
@@ -135,6 +141,12 @@ public class Main {
 
 		JMenuItem mnConsultActivity = new JMenuItem("Consultar Actividad");
 		menuActivities.add(mnConsultActivity);
+		mnConsultActivity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				consultActInternalFrame.setVisible(true);
+
+			}
+		});
 
 		JMenuItem mnModifyActivity = new JMenuItem("Modificar Actividad");
 		menuActivities.add(mnModifyActivity);
