@@ -131,9 +131,9 @@ public class CreateUser extends JInternalFrame {
 
 		// Content panel
 		getContentPane().setLayout(new BorderLayout(0, 0));
-		setBounds(100, 100, 450, 600);
+		setBounds(0, 0, 780, 540);
 
-		// Title
+    // Title
 		labelSubTitle = new JLabel(SUBTITLE);
 		labelSubTitle.setBorder(new EmptyBorder(10, 12, 5, 12));
 		labelSubTitle.setFont(labelSubTitle.getFont().deriveFont(Font.BOLD, labelSubTitle.getFont().getSize() + 2f));
