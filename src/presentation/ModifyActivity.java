@@ -180,10 +180,10 @@ public class ModifyActivity extends JInternalFrame {
 	        	dtActivity = iTouristActivityController.consultTouristActivityData(iTouristActivityController.getActivityName());
 	        	txfActivityName.setText(dtActivity.getActivity().getActivityName());
 	        	txtDescription.setText(dtActivity.getActivity().getDescription());
-	        	txtDuration.setText(dtActivity.getActivity().getDuration().toString());
+	        	spnDuration.setValue(dtActivity.getActivity().getDuration().toString());
 	        	txtTouristFee.setText(String.valueOf(dtActivity.getActivity().getCostTurist()));
 	        	txtCity.setText(dtActivity.getActivity().getCity());
-	        	txtDischargeDate.setText(dtActivity.getActivity().getRegistratioDate().toString());
+	        	spnDischargeDate.setValue(dtActivity.getActivity().getRegistratioDate().toString());
 	        } catch (ActivityDoesNotExistException e1) {
 	            JOptionPane.showMessageDialog(this, e1.getMessage(), "Busqueda Actividad", JOptionPane.ERROR_MESSAGE);
 	            limpiarFormulario();
@@ -194,10 +194,10 @@ public class ModifyActivity extends JInternalFrame {
 	 private void limpiarFormulario() {
 		txfActivityName.setText("");
      	txtDescription.setText("");
-     	txtDuration.setText("");
+     	spnDuration.setValue("");
      	txtTouristFee.setText("");
      	txtCity.setText("");
-     	txtDischargeDate.setText("");
+     	spnDischargeDate.setValue("");
 	    }
 	
 }
