@@ -16,6 +16,7 @@ import logic.interfaces.ITouristActivityController;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JSpinner;
 
 public class ModifyActivity extends JInternalFrame {
 	
@@ -26,13 +27,13 @@ public class ModifyActivity extends JInternalFrame {
 	private JTextField txtTouristFee;
 	private JTextField txtCity;
 	private JLabel lblCity;
-	private JTextField txtDuration;
 	private JLabel lblDuration;
 	private JLabel lblNombreActividad;
 	private JTextField txfActivityName;
 	private JLabel lblDischargeDate;
-	private JTextField txtDischargeDate;
 	private JButton btnAccept;
+	private JSpinner spnDuration;
+	private JSpinner spnDischargeDate;
 	/**
 	 * Create the frame.
 	 */
@@ -99,14 +100,13 @@ public class ModifyActivity extends JInternalFrame {
 		gbc_lblDuration.gridy = 3;
 		getContentPane().add(lblDuration, gbc_lblDuration);
 		
-		txtDuration = new JTextField();
-		txtDuration.setColumns(10);
-		GridBagConstraints gbc_txtDuration = new GridBagConstraints();
-		gbc_txtDuration.fill = GridBagConstraints.BOTH;
-		gbc_txtDuration.insets = new Insets(0, 0, 5, 0);
-		gbc_txtDuration.gridx = 1;
-		gbc_txtDuration.gridy = 3;
-		getContentPane().add(txtDuration, gbc_txtDuration);
+		spnDuration = new JSpinner();
+		GridBagConstraints gbc_spnDuration = new GridBagConstraints();
+		gbc_spnDuration.fill = GridBagConstraints.HORIZONTAL;
+		gbc_spnDuration.insets = new Insets(0, 0, 5, 0);
+		gbc_spnDuration.gridx = 1;
+		gbc_spnDuration.gridy = 3;
+		getContentPane().add(spnDuration, gbc_spnDuration);
 		
 		JLabel lblTouristFee = new JLabel("Costo por turista");
 		lblTouristFee.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -153,21 +153,20 @@ public class ModifyActivity extends JInternalFrame {
 		gbc_lblDischargeDate.gridy = 6;
 		getContentPane().add(lblDischargeDate, gbc_lblDischargeDate);
 		
-		txtDischargeDate = new JTextField();
-		txtDischargeDate.setEditable(false);
-		txtDischargeDate.setColumns(10);
-		GridBagConstraints gbc_txtDischargeDate = new GridBagConstraints();
-		gbc_txtDischargeDate.insets = new Insets(0, 0, 5, 0);
-		gbc_txtDischargeDate.fill = GridBagConstraints.BOTH;
-		gbc_txtDischargeDate.gridx = 1;
-		gbc_txtDischargeDate.gridy = 6;
-		getContentPane().add(txtDischargeDate, gbc_txtDischargeDate);
-		
 		btnAccept = new JButton("Aceptar");
 		btnAccept.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+		
+		spnDischargeDate = new JSpinner();
+		spnDischargeDate.setEnabled(false);
+		GridBagConstraints gbc_spnDischargeDate = new GridBagConstraints();
+		gbc_spnDischargeDate.fill = GridBagConstraints.HORIZONTAL;
+		gbc_spnDischargeDate.insets = new Insets(0, 0, 5, 0);
+		gbc_spnDischargeDate.gridx = 1;
+		gbc_spnDischargeDate.gridy = 6;
+		getContentPane().add(spnDischargeDate, gbc_spnDischargeDate);
 		GridBagConstraints gbc_btnAccept = new GridBagConstraints();
 		gbc_btnAccept.gridx = 1;
 		gbc_btnAccept.gridy = 7;
