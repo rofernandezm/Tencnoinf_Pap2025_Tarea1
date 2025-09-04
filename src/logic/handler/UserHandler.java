@@ -1,17 +1,17 @@
 package logic.handler;
 
 import java.util.Collection;
+import java.util.List;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
+import logic.entity.Supplier;
 import logic.entity.User;
 
 public class UserHandler {
 	private static UserHandler instance = null;
-	private static final String PERSISTENCE_UNIT = "turismoUyDB";
 
 	private UserHandler() {
 	}
@@ -20,98 +20,73 @@ public class UserHandler {
 
 		if (instance == null)
 			instance = new UserHandler();
+
 		return instance;
 	}
 
 	public void addUser(User user) {
 
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = PersistenceHandler.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		em.persist(user);
 		tx.commit();
 		em.close();
-		emf.close();
 	}
 
 	public User getUserByNickname(String nickname) {
 
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
+		EntityManager em = PersistenceHandler.getEntityManager();
 		User userByNickname = em.find(User.class, nickname);
-		tx.commit();
 		em.close();
-		emf.close();
 		return userByNickname;
 	}
 
 	public Boolean existNickname(String nickname) {
 
 		Boolean exist = false;
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
+		EntityManager em = PersistenceHandler.getEntityManager();
 		exist = (em.find(User.class, nickname) != null);
-		tx.commit();
 		em.close();
-		emf.close();
 		return exist;
 	}
 
 	public Boolean existEmail(String email) {
 
 		Boolean exist = false;
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
-		exist = (em.find(User.class, email) != null);
-		tx.commit();
+		EntityManager em = PersistenceHandler.getEntityManager();
+		// A diferencia de Query, no requiere casteo de tipo
+		TypedQuery<User> q = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
+		q.setParameter("email", email);
+		exist = !q.getResultList().isEmpty();
+
 		em.close();
-		emf.close();
 		return exist;
 	}
 
 	public String[] listUsers() {
 
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-		EntityManager em = emf.createEntityManager();
-		Query query = em.createQuery("SELECT u FROM USERS u");
-
-		@SuppressWarnings("unchecked")
-		Collection<User> result = query.getResultList();
-
-		Object[] o = result.toArray();
-		String[] nicknames = new String[o.length];
-		for (int i = 0; i < o.length; i++) {
-			nicknames[i] = ((User) o[i]).getNickname();
+		EntityManager em = PersistenceHandler.getEntityManager();
+		TypedQuery<User> q = em.createQuery("SELECT u FROM User u", User.class);
+		List<User> obj_users = q.getResultList();
+		String[] nicknames = new String[obj_users.size()];
+		for (int ind = 0; ind < obj_users.size(); ind++) {
+			nicknames[ind] = obj_users.get(ind).getNickname();
 		}
 		em.close();
-		emf.close();
 		return nicknames;
-
 	}
 
 	public String[] listSuppliers() {
 
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-		EntityManager em = emf.createEntityManager();
-		Query query = em.createQuery("SELECT u FROM USERS u WHERE u.DTYPE = \"Supplier\"");
-
-		@SuppressWarnings("unchecked")
-		Collection<User> result = query.getResultList();
-
-		Object[] o = result.toArray();
-		String[] suppliers = new String[o.length];
-		for (int i = 0; i < o.length; i++) {
-			suppliers[i] = ((User) o[i]).getNickname();
+		EntityManager em = PersistenceHandler.getEntityManager();
+		TypedQuery<Supplier> q = em.createQuery("SELECT s FROM Supplier s", Supplier.class);
+		List<Supplier> obj_suppliers = q.getResultList();
+		String[] suppliers = new String[obj_suppliers.size()];
+		for (int ind = 0; ind < obj_suppliers.size(); ind++) {
+			suppliers[ind] = obj_suppliers.get(ind).getNickname();
 		}
 		em.close();
-		emf.close();
 		return suppliers;
 
 	}

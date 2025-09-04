@@ -4,11 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import logic.entity.TouristActivity;
 
 public class TouristActivityHandler {
 	
 	private Map<String, TouristActivity> touristActivities;
+	private EntityManagerFactory emf;
+	private static final String PERSISTENCE_UNIT = "turismoUyDB";
 	private static TouristActivityHandler instance = null;
 
 	private TouristActivityHandler() {
@@ -16,14 +20,18 @@ public class TouristActivityHandler {
 	}
 	
 	public static TouristActivityHandler getIntance() {
-		if (instance == null)
+		if (instance == null) {
 			instance = new TouristActivityHandler();
+		}
+		
 		return instance;
 	}
 	
 	public void addTouristActivity(TouristActivity touristActivity) {
 		String activityName = touristActivity.getActivityName();
 		this.touristActivities.put(activityName, touristActivity);
+		emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
+		emf.createEntityManager().persist(touristActivity);
 	}
 
 	public TouristActivity getTouristActivityByName(String activityName) {
