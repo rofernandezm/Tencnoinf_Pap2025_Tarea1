@@ -26,9 +26,9 @@ public class UserController implements IUserController {
 		UserHandler uh = UserHandler.getIntance();
 
 		if (uh.existNickname(dtUser.getNickname()))
-			throw new RepeatedUserNicknameException(null);
+			throw new RepeatedUserNicknameException("Error - El nombre de usuario ingresado ya está en uso. Por favor, elige otro.");
 		if (uh.existEmail(dtUser.getEmail()))
-			throw new RepeatedUserEmailException(null);
+			throw new RepeatedUserEmailException("Error - El correo electrónico ingresado ya está en uso. Por favor, utiliza otro.");
 	}
 
 	public void cancelRegistration() {
