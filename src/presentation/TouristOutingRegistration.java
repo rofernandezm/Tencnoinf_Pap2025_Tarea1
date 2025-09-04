@@ -59,7 +59,7 @@ public class TouristOutingRegistration extends JInternalFrame{
         setMaximizable(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
-        setTitle("Alta de salida turistica ");
+        setTitle("Alta de salida turistica");
         setBounds(10, 40, 360, 210);
 
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -247,7 +247,7 @@ public class TouristOutingRegistration extends JInternalFrame{
 	            	iControlTouristOutingAndInscription.outingDataEntry(newTouristOuting, touristActivityName);
 	
 	                // Success
-	                JOptionPane.showMessageDialog(this, "La salida turistica fue creada exitosamente.", "Tourist Outing Registration",
+	                JOptionPane.showMessageDialog(this, "La salida turistica fue creada exitosamente.", "Alta de salida turistica",
 	                        JOptionPane.INFORMATION_MESSAGE);
 	                
 	             // I clean the internal frame before closing the window.
@@ -256,7 +256,7 @@ public class TouristOutingRegistration extends JInternalFrame{
 	
 	            } catch (RepeatedTouristOutingException e) {
 	                // Error message
-	                JOptionPane.showMessageDialog(this, e.getMessage(), "Tourist Outing Registration", JOptionPane.ERROR_MESSAGE);
+	                JOptionPane.showMessageDialog(this, e.getMessage(), "Alta de salida turistica", JOptionPane.ERROR_MESSAGE);
 	                
 	                textFieldTouristOutingName.setText("");
 	            }
@@ -279,7 +279,7 @@ public class TouristOutingRegistration extends JInternalFrame{
         String touristActivityName = (String) comboBoxTouristActivities.getSelectedItem();
 
         if (outingNameTO.isEmpty() || maxNumTouristsTO.isEmpty() || departurePointTO.isEmpty() || departureDateTOldt == null || touristActivityName == null){
-            JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos", "Tourist Outing Registration",
+            JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos", "Alta de salida turistica",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -287,7 +287,7 @@ public class TouristOutingRegistration extends JInternalFrame{
         try {
             Integer.parseInt(maxNumTouristsTO);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El campo «Maxima cantidad de turistas» debe ser un número.", "Tourist Outing Registration",
+            JOptionPane.showMessageDialog(this, "El campo «Maxima cantidad de turistas» debe ser un número.", "Alta de salida turistica",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }

@@ -5,15 +5,15 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.HashSet;
 
-import exceptions.ActivityDoesNotExistException;
+//import exceptions.ActivityDoesNotExistException;
 import exceptions.RepeatedTouristOutingException;
 import exceptions.TouristOutingDoesNotExistException;
 import logic.dto.DtInscriptionTouristOuting;
 import logic.dto.DtTouristOuting;
-import logic.dto.DtUser;
+//import logic.dto.DtUser;
 import logic.entity.Inscription;
 import logic.entity.TouristOuting;
-import logic.handler.TouristActivityHandler;
+//import logic.handler.TouristActivityHandler;
 import logic.handler.TouristOutingAndInscrptionHandler;
 import logic.interfaces.ITouristOutingAndInscriptionController;
 import exceptions.RepeatedInscriptionToTouristOutingException;

@@ -59,7 +59,7 @@ public class ConsultTouristOuting extends JInternalFrame{
         setMaximizable(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
-        setTitle("Consult Tourist Outing");
+        setTitle("Consultar salida turistica");
         setBounds(10, 40, 360, 320);
         
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -232,7 +232,7 @@ public class ConsultTouristOuting extends JInternalFrame{
         gbc_textFieldDischargeDate.gridy = 7;
         getContentPane().add(textFieldDischargeDate, gbc_textFieldDischargeDate);
         
-        btnCloseWindow = new JButton("Close");
+        btnCloseWindow = new JButton("Cancelar");
         btnCloseWindow.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 clearForm();
@@ -288,11 +288,11 @@ public class ConsultTouristOuting extends JInternalFrame{
 	        	
         	}catch (TouristOutingDoesNotExistException e1) {
 	            
-	            JOptionPane.showMessageDialog(this, e1.getMessage(), "Consult Tourist Outing", JOptionPane.ERROR_MESSAGE);
+	            JOptionPane.showMessageDialog(this, e1.getMessage(), "Consultar salida turistica", JOptionPane.ERROR_MESSAGE);
 	            clearForm();
 	        }
         }else {
-        	JOptionPane.showMessageDialog(this, "Debe seleccionar un valor en el campo «Salidas turistas».", "Consult Tourist Outing",
+        	JOptionPane.showMessageDialog(this, "Debe seleccionar un valor en el campo «Salidas turisticas».", "Consultar salida turistica",
                     JOptionPane.ERROR_MESSAGE);
         }
     }
