@@ -1,70 +1,93 @@
 package logic.handler;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.Collection;
+import java.util.List;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
+import logic.entity.Supplier;
 import logic.entity.User;
 
 public class UserHandler {
-	private Map<String, User> users;
-	private Map<String, String> emailMapper;
 	private static UserHandler instance = null;
 
 	private UserHandler() {
-		users = new HashMap<String, User>();
-		emailMapper = new HashMap<String, String>();
 	}
 
 	public static UserHandler getIntance() {
+
 		if (instance == null)
 			instance = new UserHandler();
+
 		return instance;
 	}
 
 	public void addUser(User user) {
-		String nickname = user.getNickname();
-		String email = user.getEmail();
-		this.users.put(nickname, user);
-		this.emailMapper.put(email, nickname);
-     	EntityManagerFactory emf = Persistence.createEntityManagerFactory("turismoUyDB");
-     	EntityManager em = emf.createEntityManager();
-     	EntityTransaction tx = em.getTransaction();
-     	tx.begin();
-     	em.persist(user);
-     	tx.commit();
-     	em.close();
-     	emf.close();
+
+		EntityManager em = PersistenceHandler.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		em.persist(user);
+		tx.commit();
+		em.close();
 	}
 
 	public User getUserByNickname(String nickname) {
-		return ((User) users.get(nickname));
+
+		EntityManager em = PersistenceHandler.getEntityManager();
+		User userByNickname = em.find(User.class, nickname);
+		em.close();
+		return userByNickname;
 	}
 
 	public Boolean existNickname(String nickname) {
-		return users.containsKey(nickname);
+
+		Boolean exist = false;
+		EntityManager em = PersistenceHandler.getEntityManager();
+		exist = (em.find(User.class, nickname) != null);
+		em.close();
+		return exist;
 	}
 
 	public Boolean existEmail(String email) {
-		return emailMapper.containsKey(email);
+
+		Boolean exist = false;
+		EntityManager em = PersistenceHandler.getEntityManager();
+		// A diferencia de Query, no requiere casteo de tipo
+		TypedQuery<User> q = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
+		q.setParameter("email", email);
+		exist = !q.getResultList().isEmpty();
+
+		em.close();
+		return exist;
 	}
 
 	public String[] listUsers() {
-		if (users.isEmpty())
-			return null;
-		else {
-			Set<String> keySet = users.keySet();
-			Object[] keys = keySet.toArray();
-			String[] nicknames = new String[users.size()];
-			for (int ind = 0; ind < keys.length; ind++) {
-				nicknames[ind] = keys[ind].toString();
-			}
-			return nicknames;
+
+		EntityManager em = PersistenceHandler.getEntityManager();
+		TypedQuery<User> q = em.createQuery("SELECT u FROM User u", User.class);
+		List<User> obj_users = q.getResultList();
+		String[] nicknames = new String[obj_users.size()];
+		for (int ind = 0; ind < obj_users.size(); ind++) {
+			nicknames[ind] = obj_users.get(ind).getNickname();
 		}
+		em.close();
+		return nicknames;
+	}
+
+	public String[] listSuppliers() {
+
+		EntityManager em = PersistenceHandler.getEntityManager();
+		TypedQuery<Supplier> q = em.createQuery("SELECT s FROM Supplier s", Supplier.class);
+		List<Supplier> obj_suppliers = q.getResultList();
+		String[] suppliers = new String[obj_suppliers.size()];
+		for (int ind = 0; ind < obj_suppliers.size(); ind++) {
+			suppliers[ind] = obj_suppliers.get(ind).getNickname();
+		}
+		em.close();
+		return suppliers;
 
 	}
 }

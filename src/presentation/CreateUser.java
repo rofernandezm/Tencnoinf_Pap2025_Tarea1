@@ -15,11 +15,9 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URI;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 import javax.swing.JFrame;
 import java.util.Date;
@@ -133,8 +131,9 @@ public class CreateUser extends JInternalFrame {
 
 		// Content panel
 		getContentPane().setLayout(new BorderLayout(0, 0));
+		setBounds(0, 0, 780, 540);
 
-		// Title
+    // Title
 		labelSubTitle = new JLabel(SUBTITLE);
 		labelSubTitle.setBorder(new EmptyBorder(10, 12, 5, 12));
 		labelSubTitle.setFont(labelSubTitle.getFont().deriveFont(Font.BOLD, labelSubTitle.getFont().getSize() + 2f));
@@ -416,7 +415,6 @@ public class CreateUser extends JInternalFrame {
 	}
 
 	protected void cmdUserRegisterActionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 
 		if (checkForm()) {
 
@@ -464,7 +462,6 @@ public class CreateUser extends JInternalFrame {
 		String lastName = this.fieldLastname.getText();
 		String email = this.fieldEmail.getText();
 		LocalDate birthDate = jSpinnerValueToLocalDate(this.field_birthDate);
-		String nationality = this.fieldNationality.getText();
 		String supplierDesc = this.textAreaDescription.getText();
 		String webSite = this.fieldSitioweb.getText();
 
@@ -521,6 +518,17 @@ public class CreateUser extends JInternalFrame {
 			return false;
 		}
 
+		if (this.rdbtnSupplier.isSelected() && !this.fieldSitioweb.getText().isEmpty()) {
+
+			if (!isValidURL()) {
+				JOptionPane.showMessageDialog(this,
+						"El sitio web ingresado es inválido, por favor verifique y vuelva a intentar.",
+						"Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+				this.textAreaDescription.requestFocusInWindow();
+				return false;
+			}
+		}
+
 		return true;
 	}
 
@@ -554,5 +562,14 @@ public class CreateUser extends JInternalFrame {
 
 	private boolean isEmail(String email) {
 		return email != null && EMAIL_REGEX.matcher(email.trim()).matches();
+	}
+
+	private boolean isValidURL() {
+		try {
+			URI.create(this.fieldSitioweb.getText());
+			return true;
+		} catch (IllegalArgumentException e) {
+			return false;
+		}
 	}
 }

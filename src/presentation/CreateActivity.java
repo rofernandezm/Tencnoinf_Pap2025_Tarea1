@@ -1,14 +1,10 @@
 package presentation;
 
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.time.Duration;
 import java.time.LocalDate;
 
@@ -22,7 +18,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import logic.dto.DtTouristActivity;
-import logic.dto.DtUser;
 import logic.interfaces.ITouristActivityController;
 import logic.interfaces.IUserController;
 
@@ -210,6 +205,7 @@ public class CreateActivity extends JInternalFrame  {
 	public void loadSupplier() {
         DefaultComboBoxModel<String> model; 
         String[] data = iUserController.listSuppliers();
+        System.out.println(data);
         if (data != null) {
         	model = new DefaultComboBoxModel<String>(data); 
        		cmbSupplier.setModel(model);
