@@ -1,6 +1,7 @@
 package logic.handler;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -8,11 +9,11 @@ import java.util.Set;
 import java.util.List;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import logic.entity.TouristOuting;
+import logic.entity.Tourist;
+import logic.handler.PersistenceHandler;
 import logic.dto.DtInscriptionTouristOuting;
 import logic.entity.Inscription;
 
@@ -41,14 +42,12 @@ public class TouristOutingAndInscrptionHandler {
 		String outingName = touristOuting.getOutingName();
 		this.touristOutings = updateTouristOutingsFromDB();
 		touristOutings.put(outingName, touristOuting);
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("turismoUyDB");
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = PersistenceHandler.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
      	em.persist(touristOuting);
      	tx.commit();
      	em.close();
-     	emf.close();
 	}
 	
 //	Key is tourist nickname, then outingName as key and inscription as value of internal map
@@ -56,25 +55,21 @@ public class TouristOutingAndInscrptionHandler {
 		String touristOutingName = touristOuting.getOutingName();
 		this.mapOutingTourist.put(touristOutingName, inscription);
 		this.inscriptions.put(touristNickname, mapOutingTourist);
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("turismoUyDB");
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = PersistenceHandler.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
      	em.persist(inscription);
      	tx.commit();
      	em.close();
-     	emf.close();
 	}
 	
 	public TouristOuting getTouristOutingByName(String outingName) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("turismoUyDB");
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = PersistenceHandler.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		TouristOuting touristOutingToGet = em.find(TouristOuting.class, outingName);
 		tx.commit();
      	em.close();
-     	emf.close();
 		return (touristOutingToGet);
 	}
 	
@@ -83,9 +78,10 @@ public class TouristOutingAndInscrptionHandler {
 //		return touristOutings.get(outingName);
 //	}
 	
-	//Analizar en base de datos como se guardan los datos 
 	public Set<Inscription> getInscriptionsByTouristNickname(String nickname) {
+		this.inscriptions = updateInscriptionsFromDB();
 		Map<String, Inscription> auxMap = new HashMap<>();
+		
 		auxMap = inscriptions.get(nickname);
 		Set<Inscription> inscriptionsSet = new HashSet<>(auxMap.values());
 		if (inscriptionsSet.isEmpty()) { 
@@ -97,8 +93,10 @@ public class TouristOutingAndInscrptionHandler {
 
 	//Analizar en base de datos como se guardan los datos 
 	public Set<Inscription> getInscriptionsByTouristOuting(String touristOutingName) {
-		Set<Map<String, Inscription>> auxMapSet = new HashSet<>();
-		auxMapSet = (Set<Map<String, Inscription>>) inscriptions.values();
+		this.inscriptions = updateInscriptionsFromDB();
+//		Set<Map<String, Inscription>> auxMapSet = new HashSet<>();
+//		auxMapSet = (Set<Map<String, Inscription>>) inscriptions.values();
+		Collection<Map<String, Inscription>> auxMapSet = inscriptions.values();
 		Set<Inscription> inscriptionsSet = new HashSet<>();
 		//Select from the set of maps, ones who has touristOutingName as key
 		for (Map<String, Inscription> internalMap : auxMapSet) { 
@@ -167,9 +165,8 @@ public class TouristOutingAndInscrptionHandler {
 	
 	private Map<String, TouristOuting> updateTouristOutingsFromDB() {
 		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("turismoUyDB");
-		EntityManager em = emf.createEntityManager();
-		Query query = em.createQuery("SELECT to FROM TouristOuting to");
+		EntityManager em = PersistenceHandler.getEntityManager();
+		TypedQuery<TouristOuting> query = em.createQuery("SELECT to FROM TouristOuting to", TouristOuting.class);
 		
 		List<TouristOuting> result = query.getResultList();
 
@@ -178,8 +175,27 @@ public class TouristOutingAndInscrptionHandler {
 	    }
 		
 		em.close();
-		emf.close();
 		return touristOutings;
+	}
+	
+	private Map<String, Map<String, Inscription>> updateInscriptionsFromDB() {
 		
+		EntityManager em = PersistenceHandler.getEntityManager();
+		TypedQuery<Inscription> query = em.createQuery("SELECT ins FROM Inscription ins", Inscription.class);
+		
+		List<Inscription> result = query.getResultList();
+
+		for (Inscription inscr : result) {
+			TouristOuting to = inscr.getTouristOuting();
+			Tourist ut = inscr.getTourist();
+
+			// Recuperar el mapa ya existente, o crear uno nuevo si no está
+			Map<String, Inscription> auxMap = inscriptions.getOrDefault(ut.getNickname(), new HashMap<>());
+			auxMap.put(to.getOutingName(), inscr);
+			inscriptions.put(ut.getNickname(), auxMap);
+	    }
+		
+		em.close();
+		return inscriptions;
 	}
 }
