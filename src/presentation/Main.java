@@ -142,6 +142,7 @@ public class Main {
 		menuActivities.add(mnConsultActivity);
 		mnConsultActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				consultActInternalFrame.init();
 				consultActInternalFrame.setVisible(true);
 
 			}

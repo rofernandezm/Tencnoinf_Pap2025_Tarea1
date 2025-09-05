@@ -10,7 +10,7 @@ import logic.dto.DtTouristActivity;
 
 public interface ITouristActivityController {
 
-	public Boolean activityDataEntry(DtTouristActivity dtTouristActivity, String supplierNickname) throws RepeatedActivityNameException;
+	public Boolean activityDataEntry(DtTouristActivity dtTouristActivity) throws RepeatedActivityNameException;
 	
 	public String[] listTouristActivities() throws ActivityDoesNotExistException;
 	
@@ -18,7 +18,18 @@ public interface ITouristActivityController {
 	
 	//The method ListarSalidasActividad(nombreActividad: String) : DtActividadConSalida has same response and parameters than consultTouristActivityData method
 		
+	public void modifyDescription (String description);
+	
+	public void modifyDuration (Duration duration);
+	
+	public void modifyTouristFee (float touristFee);
+	
+	public void modifyCity (String city);
+	
 	public DtRanking consultRankingActivities();
 	
+	public String getActivityName();
+
+	public float getActivityCostTourist(String activityName);
 }
 

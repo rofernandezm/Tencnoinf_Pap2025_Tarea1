@@ -217,10 +217,9 @@ public class CreateActivity extends JInternalFrame  {
 	protected void cmdRegisterActivityActionPerformed(ActionEvent arg0) {
 		if (validateInputs()) {
 			try {
-				String supplier = (String) cmbSupplier.getSelectedItem(); 
 				DtTouristActivity dtActivity = parseData();
 				
-				if (iTouristActivityController.activityDataEntry(dtActivity, supplier)) {
+				if (iTouristActivityController.activityDataEntry(dtActivity)) {
 					JOptionPane.showMessageDialog(null, "Actividad creada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 					limpiarFormulario();
 					setVisible(false);
@@ -280,12 +279,13 @@ public class CreateActivity extends JInternalFrame  {
 		String durationText = txtDuration.getText().trim();
 		String feeText = txtTouristFee.getText().trim();
 		String city = txtCity.getText().trim();
+		String supplier = (String) cmbSupplier.getSelectedItem();
 		
 		Duration duration = Duration.ofHours(Integer.parseInt(durationText));
 		float fee = Float.parseFloat(feeText);
 		LocalDate dischargeDate = LocalDate.now();
 		
-		return new DtTouristActivity(name, description, duration, fee, city, dischargeDate);
+		return new DtTouristActivity(name, description, duration, fee, city, dischargeDate, supplier);
 	}
 	 
 	 private void limpiarFormulario() {

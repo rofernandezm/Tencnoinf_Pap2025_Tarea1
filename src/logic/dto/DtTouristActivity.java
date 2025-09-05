@@ -3,9 +3,11 @@ package logic.dto;
 import java.time.Duration;
 import java.time.LocalDate;
 
+import logic.entity.Supplier;
 import logic.entity.TouristActivity;
+import logic.handler.UserHandler;
 
-public abstract class DtTouristActivity {
+public class DtTouristActivity {
 	
 	private String activityName;
 	private String description;
@@ -56,7 +58,7 @@ public abstract class DtTouristActivity {
 	}
 	
 	public TouristActivity toEntity() {
-		 Supplier supplier = SupplierHandler.getIntance().getSupplierByNickname(this.supplierNickname);
+		 Supplier supplier = UserHandler.getIntance().getSupplierByNickname(this.supplierNickname);
 		    if (supplier == null) {
 		        throw new IllegalArgumentException("Supplier no encontrado: " + this.supplierNickname);
 		    }
