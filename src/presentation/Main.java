@@ -204,7 +204,7 @@ public class Main {
 		JMenu menuSystem = new JMenu("Sistema");
 		menuBar.add(menuSystem);
 
-		JMenuItem menuExit = new JMenuItem("Exit");
+		JMenuItem menuExit = new JMenuItem("Salir");
 		menuExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				hideAllComponents();
