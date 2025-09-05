@@ -8,19 +8,19 @@ import java.util.Set;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import java.util.List;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 import logic.entity.TouristActivity;
 import logic.entity.TouristOuting;
 
 public class TouristActivityHandler {
 	
-	private Map<String, TouristActivity> touristActivities;
-	private EntityManagerFactory emf;
-	private static final String PERSISTENCE_UNIT = "turismoUyDB";
 	private static TouristActivityHandler instance = null;
 
 	private TouristActivityHandler() {
-		touristActivities = new HashMap<String, TouristActivity>();
 	}
 	
 	public static TouristActivityHandler getIntance() {
@@ -32,34 +32,57 @@ public class TouristActivityHandler {
 	}
 	
 	public void addTouristActivity(TouristActivity touristActivity) {
-		String activityName = touristActivity.getActivityName();
-		this.touristActivities.put(activityName, touristActivity);
-		emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-		emf.createEntityManager().persist(touristActivity);
+		EntityManager em = PersistenceHandler.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		 try {
+		        tx.begin();
+		        em.persist(touristActivity);
+		        tx.commit();
+		    } catch (Exception e) {
+		        if (tx.isActive()) {
+		            tx.rollback();
+		        }
+		        throw e;
+		    } finally {
+		        em.close();
+		    }
 	}
 
 	public TouristActivity getTouristActivityByName(String activityName) {
-		return ((TouristActivity) touristActivities.get(activityName));
+		 EntityManager em = PersistenceHandler.getEntityManager();
+		    try {
+		        return em.find(TouristActivity.class, activityName);
+		    } finally {
+		        em.close();
+		    }
 	}
 
 	public Boolean existActivityName(String activityName) {
-		return touristActivities.containsKey(activityName);
+		  EntityManager em = PersistenceHandler.getEntityManager();
+		    try {
+		        return em.find(TouristActivity.class, activityName) != null;
+		    } finally {
+		        em.close();
+		    }
 	}
 
 	public String[] listTouristActivities() {
-		this.touristActivities = updateTouristActivitiesFromDB();
-		if (touristActivities.isEmpty())
-			return null;
-		else {
-			Set<String> keySet = touristActivities.keySet();
-			Object[] keys = keySet.toArray();
-			String[] activitiesNames = new String[touristActivities.size()];
-			for (int ind = 0; ind < keys.length; ind++) {
-				activitiesNames[ind] = keys[ind].toString();
-			}
-			return activitiesNames;
-		}
 
+		EntityManager em = PersistenceHandler.getEntityManager();
+		try {
+	        TypedQuery<TouristActivity> query = em.createQuery("SELECT t FROM TouristActivity t", TouristActivity.class);
+
+	        List<TouristActivity> result = query.getResultList();
+
+	        String[] activities = new String[result.size()];
+	        for (int i = 0; i < result.size(); i++) {
+	            activities[i] = result.get(i).getActivityName();
+	        }
+
+	        return activities;
+	    } finally {
+	        em.close();
+	    }
 	}
 
 	private Map<String, TouristActivity> updateTouristActivitiesFromDB() {
@@ -68,7 +91,7 @@ public class TouristActivityHandler {
 			TypedQuery<TouristActivity> query = em.createQuery("SELECT ta FROM TouristActivity ta", TouristActivity.class);
 			
 			List<TouristActivity> result = query.getResultList();
-	
+			Map<String, TouristActivity> touristActivities = new HashMap<>();
 			for (TouristActivity activity : result) {
 				touristActivities.put(activity.getActivityName(), activity);
 		    }

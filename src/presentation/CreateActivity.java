@@ -210,10 +210,6 @@ public class CreateActivity extends JInternalFrame  {
         	model = new DefaultComboBoxModel<String>(data); 
        		cmbSupplier.setModel(model);
         	
-        }else {
-        	model = new DefaultComboBoxModel<String>(new String[] {"Pepe", "Carlos"}); 
-       		cmbSupplier.setModel(model);
-        	
         }
 
     }
