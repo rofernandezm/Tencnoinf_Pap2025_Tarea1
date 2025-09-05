@@ -46,6 +46,8 @@ public class UserController implements IUserController {
 	}
 
 	public String[] listTourists() {
+		// CORREGIR
+		// TODO
 		return UserHandler.getIntance().listUsers();
 	}
 
