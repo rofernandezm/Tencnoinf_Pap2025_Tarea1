@@ -5,6 +5,7 @@ import javax.swing.border.EmptyBorder;
 
 import logic.controller.TouristActivityController;
 import logic.dto.DtTouristActivity;
+import logic.interfaces.ITouristActivityController;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,14 +23,14 @@ public class ModifyActivity extends JInternalFrame {
     private JTextField txtCiudad;
     private JTextField txtFechaAlta;
 
-    private TouristActivityController activityController;
+    private ITouristActivityController iActivityController;
 
-    public ModifyActivity() {
+    public ModifyActivity(ITouristActivityController iTAC) {
        
+    	iActivityController = iTAC;
+    	
         setSize(500, 400);
         setLayout(new BorderLayout());
-
-        activityController = new TouristActivityController();
 
         JPanel panelSelect = new JPanel();
         panelSelect.add(new JLabel("Actividad:"));
@@ -104,10 +105,10 @@ public class ModifyActivity extends JInternalFrame {
         DtTouristActivity act = (DtTouristActivity) cbActividad.getSelectedItem();
         if (act != null) {
             try {
-                activityController.modifyDescription(txtDescripcion.getText());
-                activityController.modifyDuration(Duration.ofHours((int) spnDuracion.getValue()));
-                activityController.modifyTouristFee(Float.parseFloat(txtCosto.getText()));
-                activityController.modifyCity(txtCiudad.getText());
+                iActivityController.modifyDescription(txtDescripcion.getText());
+                iActivityController.modifyDuration(Duration.ofHours((int) spnDuracion.getValue()));
+                iActivityController.modifyTouristFee(Float.parseFloat(txtCosto.getText()));
+                iActivityController.modifyCity(txtCiudad.getText());
 
                 JOptionPane.showMessageDialog(this, "Actividad modificada correctamente.",
                         "Éxito", JOptionPane.INFORMATION_MESSAGE);

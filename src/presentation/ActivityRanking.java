@@ -3,21 +3,22 @@ package presentation;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import logic.controller.TouristActivityController;
+import logic.interfaces.ITouristActivityController;
+
 import java.awt.*;
 
 public class ActivityRanking extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JTable tableRanking;
-    private TouristActivityController activityController;
+    private ITouristActivityController iActivityController;
 
-    public ActivityRanking() {
-        super("Ranking de Actividades Turísticas", true, true, true, true);
+    public ActivityRanking(ITouristActivityController iTAC) {
+
         setSize(400, 300);
         setLayout(new BorderLayout());
 
-        activityController = new TouristActivityController();
+        iActivityController = iTAC;
 
    
         DefaultTableModel model = new DefaultTableModel(new Object[]{"Actividad", "Cantidad de Salidas"}, 0) {};
@@ -27,7 +28,7 @@ public class ActivityRanking extends JInternalFrame {
 
         add(scrollPane, BorderLayout.CENTER);
 
-        // Cargar datos
+     
         loadRanking();
     }
 

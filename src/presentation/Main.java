@@ -29,6 +29,7 @@ public class Main {
 	private InscriptionToTouristOuting inscriptionToTouristOutingInternalFrame;
 	private ModifyActivity modifyActivityInternalFrame;
 	private ConsultTouristInscription consultInscriptionInternalFrame;
+	private ActivityRanking activityRankingInternalFrame;
 
 	public static void main(String[] args) {
 
@@ -87,6 +88,10 @@ public class Main {
 		consultInscriptionInternalFrame = new ConsultTouristInscription(IOIC);
 		consultInscriptionInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(consultInscriptionInternalFrame);
+		
+		activityRankingInternalFrame = new ActivityRanking(ITAC);
+		activityRankingInternalFrame.setVisible(false);
+		frmTourismUy.getContentPane().add(activityRankingInternalFrame);
 
 	}
 	private void initialize() {
@@ -158,6 +163,12 @@ public class Main {
 
 		JMenuItem mnRankingActivity = new JMenuItem("Ranking Actividades");
 		menuActivities.add(mnRankingActivity);
+		mnRankingActivity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				hideAllComponents();
+				activityRankingInternalFrame.setVisible(true);
+			}
+		});
 
 		JMenu mnOuting = new JMenu("Salidas");
 		menuBar.add(mnOuting);

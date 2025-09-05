@@ -10,9 +10,12 @@ import java.awt.BorderLayout;
 import javax.swing.table.DefaultTableModel;
 
 import logic.controller.TouristActivityController;
-import logic.controller.TouristOutingAndInscriptionController;
+import logic.dto.DtTouristActivity;
+import logic.dto.DtTouristOuting;
 import logic.entity.TouristActivity;
 import logic.entity.TouristOuting;
+import logic.interfaces.ITouristActivityController;
+import logic.interfaces.ITouristOutingAndInscriptionController;
 
 public class ConsultTouristInscription extends JInternalFrame {
 	
@@ -20,21 +23,20 @@ public class ConsultTouristInscription extends JInternalFrame {
 	
 	private static final long serialVersionUID = 1L;
 	
-	    private JComboBox<TouristActivity> cbActividad;
-	    private JComboBox<TouristOuting> cbSalida;
+	    private JComboBox<DtTouristActivity> cbActividad;
+	    private JComboBox<DtTouristOuting> cbSalida;
 	    private JTable tableInscripciones;
 	    private DefaultTableModel tableModel;
 
-	    private TouristActivityController activityController;
-	    private TouristOutingAndInscriptionController outingController;
+	    private ITouristActivityController iActivityController;
+	    private ITouristOutingAndInscriptionController iOutingController;
 
-	    public ConsultTouristInscription() {
-	        super("Consultar Inscripciones", true, true, true, true);
+	    public ConsultTouristInscription(ITouristOutingAndInscriptionController iOIC) {
+	   
 	        setSize(600, 400);
 	        setLayout(new BorderLayout());
-
-	        activityController = new TouristActivityController();
-	        outingController = new TouristOutingAndInscriptionController();
+	        
+	        iOutingController = iOIC;
 
 	        JPanel panelSelect = new JPanel();
 	        panelSelect.add(new JLabel("Actividad:"));
