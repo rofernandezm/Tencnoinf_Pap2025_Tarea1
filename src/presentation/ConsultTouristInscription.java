@@ -18,71 +18,74 @@ import logic.interfaces.ITouristActivityController;
 import logic.interfaces.ITouristOutingAndInscriptionController;
 
 public class ConsultTouristInscription extends JInternalFrame {
-	
-	
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	    private JComboBox<DtTouristActivity> cbActividad;
-	    private JComboBox<DtTouristOuting> cbSalida;
-	    private JTable tableInscripciones;
-	    private DefaultTableModel tableModel;
 
-	    private ITouristActivityController iActivityController;
-	    private ITouristOutingAndInscriptionController iOutingController;
+	private JComboBox<String> cbActividad;
+	private JComboBox<String> cbSalida;
+	private JTable tableInscripciones;
+	private DefaultTableModel tableModel;
 
-	    public ConsultTouristInscription(ITouristOutingAndInscriptionController iOIC) {
-	   
-	        setSize(600, 400);
-	        setLayout(new BorderLayout());
-	        
-	        iOutingController = iOIC;
+	private ITouristActivityController iActivityController;
+	private ITouristOutingAndInscriptionController iOutingController;
 
-	        JPanel panelSelect = new JPanel();
-	        panelSelect.add(new JLabel("Actividad:"));
-	        cbActividad = new JComboBox<>();
-	        panelSelect.add(cbActividad);
-	        panelSelect.add(new JLabel("Salida:"));
-	        cbSalida = new JComboBox<>();
-	        panelSelect.add(cbSalida);
-	        add(panelSelect, BorderLayout.NORTH);
+	public ConsultTouristInscription(ITouristOutingAndInscriptionController iOIC) {
 
-	
-	        tableModel = new DefaultTableModel();
-	
-	        tableModel.addColumn("Cliente");
-	        tableModel.addColumn("Cédula");
-	        tableModel.addColumn("Fecha Inscripción");
-	        tableInscripciones = new JTable(tableModel);
-	        tableInscripciones.setFillsViewportHeight(true);
-	        JScrollPane scrollPane = new JScrollPane(tableInscripciones);
-	        add(scrollPane, BorderLayout.CENTER);
+		iOutingController = iOIC;
 
-	        loadActivities();
+		setTitle("Consulta Inscripciones Turisticas");
+		setResizable(true);
+		setClosable(true);
+		setIconifiable(true);
+		setMaximizable(true);
 
-	        cbActividad.addActionListener(e -> {
-	            TouristActivity act = (TouristActivity) cbActividad.getSelectedItem();
-	            if (act != null) {
-	                loadOutings(act);
-	            }
-	        });
-	        cbSalida.addActionListener(e -> {
-	            TouristOuting outing = (TouristOuting) cbSalida.getSelectedItem();
-	            if (outing != null) {
-	                loadInscriptions(outing);
-	            }
-	        });
-	    }
+		setSize(600, 400);
+		getContentPane().setLayout(new BorderLayout());
 
-	    private void loadActivities() {
-	       
-	    }
+		JPanel panelSelect = new JPanel();
+		panelSelect.add(new JLabel("Actividad:"));
+		cbActividad = new JComboBox<>();
+		panelSelect.add(cbActividad);
+		panelSelect.add(new JLabel("Salida:"));
+		cbSalida = new JComboBox<>();
+		panelSelect.add(cbSalida);
+		getContentPane().add(panelSelect, BorderLayout.NORTH);
 
-	    private void loadOutings(TouristActivity act) {
-	        
-	    }
+		tableModel = new DefaultTableModel();
 
-	    private void loadInscriptions(TouristOuting outing) {
-	     
-	    }
+		tableModel.addColumn("Cliente");
+		tableModel.addColumn("Cédula");
+		tableModel.addColumn("Fecha Inscripción");
+		tableInscripciones = new JTable(tableModel);
+		tableInscripciones.setFillsViewportHeight(true);
+		JScrollPane scrollPane = new JScrollPane(tableInscripciones);
+		getContentPane().add(scrollPane, BorderLayout.CENTER);
+
+		loadActivities();
+
+		cbActividad.addActionListener(e -> {
+			TouristActivity act = (TouristActivity) cbActividad.getSelectedItem();
+			if (act != null) {
+				loadOutings(act);
+			}
+		});
+		cbSalida.addActionListener(e -> {
+			TouristOuting outing = (TouristOuting) cbSalida.getSelectedItem();
+			if (outing != null) {
+				loadInscriptions(outing);
+			}
+		});
 	}
+
+	private void loadActivities() {
+
+	}
+
+	private void loadOutings(TouristActivity act) {
+
+	}
+
+	private void loadInscriptions(TouristOuting outing) {
+
+	}
+}
