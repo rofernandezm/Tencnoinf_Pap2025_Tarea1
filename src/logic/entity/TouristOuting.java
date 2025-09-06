@@ -104,7 +104,8 @@ public class TouristOuting {
 	        getMaxNumTourists(),
 	        getDeparturePoint(),
 	        getDepartureDate(),
-	        getDischargeDate()
+	        getDischargeDate(),
+	        getActivity().getActivityName()
 	        );
 	}	
 }

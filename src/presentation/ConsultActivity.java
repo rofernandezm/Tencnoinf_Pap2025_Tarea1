@@ -143,17 +143,17 @@ public class ConsultActivity extends JInternalFrame {
 				txtActCity.setText(activityData.getCity());
 				txtActRegDate.setText(activityData.getRegistratioDate().format(formatter));
 				
-				loadComboActSelectOutings(cmbSelActivity, activityWithOutingsData.getOutings());
+				loadComboActSelectOutings(activityWithOutingsData.getOutings());
 				
 			} catch (ActivityDoesNotExistException ex) {
-				clearForm();
+				clearActivityData();
 			}
 		} else {
 			clearActivityData();
 		}
 	}
 	
-	private void loadComboActSelectOutings(JComboBox<String> combo, Set<DtTouristOuting> outings) {
+	private void loadComboActSelectOutings(Set<DtTouristOuting> outings) {
 		DefaultComboBoxModel<String> model;
 		// Crear un array con una opción nula al principio
 		String[] data = outings.stream().map(DtTouristOuting::getTipName).toArray(String[]::new);
@@ -161,7 +161,7 @@ public class ConsultActivity extends JInternalFrame {
 		dataWithNull[0] = null; // Primera opción nula
 		System.arraycopy(data, 0, dataWithNull, 1, data.length);
 		model = new DefaultComboBoxModel<String>(dataWithNull);
-		combo.setModel(model);
+		cmbActOutings.setModel(model);
 	}
 	
 	private JPanel dataActivity() {

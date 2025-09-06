@@ -64,7 +64,7 @@ public class Main {
 		touristOutingRegistrationInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(touristOutingRegistrationInternalFrame);
 
-		consultTouristOutingInternalFrame = new ConsultTouristOuting(IOIC);
+		consultTouristOutingInternalFrame = new ConsultTouristOuting(IOIC, ITAC);
 		consultTouristOutingInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(consultTouristOutingInternalFrame);
 

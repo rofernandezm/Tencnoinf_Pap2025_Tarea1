@@ -16,40 +16,44 @@ import logic.handler.TouristActivityHandler;
 import logic.interfaces.ITouristActivityController;
 
 public class TouristActivityController implements ITouristActivityController {
-	
 
 	public Boolean activityDataEntry(DtTouristActivity dtTouristActivity) throws RepeatedActivityNameException {
-		if(TouristActivityHandler.getIntance().existActivityName(dtTouristActivity.getActivityName())) {
+		if (TouristActivityHandler.getIntance().existActivityName(dtTouristActivity.getActivityName())) {
 			throw new RepeatedActivityNameException("Ya existe una actividad turistica con ese nombre.");
 		}
-		
+
 		TouristActivityHandler.getIntance().addTouristActivity(dtTouristActivity.toEntity());
-		
+
 		return true;
 	}
 
-	public String[] listTouristActivities() throws ActivityDoesNotExistException{
-		
+	public String[] listTouristActivities() throws ActivityDoesNotExistException {
+
 		String[] rtn = TouristActivityHandler.getIntance().listTouristActivities();
-		
-		if(rtn == null) throw new ActivityDoesNotExistException("No existen actividades turisticas registradas.");
-		
+
+		if (rtn == null)
+			throw new ActivityDoesNotExistException("No existen actividades turisticas registradas.");
+
 		return rtn;
 	}
-	
+
 	public DtActivityWithOutings consultTouristActivityData(String activityName) {
 		DtActivityWithOutings rtn = null;
 		TouristActivity ta = TouristActivityHandler.getIntance().getTouristActivityByName(activityName);
-		if(ta != null) {
-			DtTouristActivity dtActivity = new DtTouristActivity(ta.getActivityName(), ta.getDescription(), ta.getDuration(), ta.getTouristFee(), ta.getCity(), ta.getDischargeDate(), ta.getSupplier().getNickname());
-			Set<DtTouristOuting> touristOutings = null;new java.util.HashSet<>();
-			if(ta.getTouristOutings() != null) {
+		if (ta != null) {
+			DtTouristActivity dtActivity = new DtTouristActivity(ta.getActivityName(), ta.getDescription(),
+					ta.getDuration(), ta.getTouristFee(), ta.getCity(), ta.getDischargeDate(),
+					ta.getSupplier().getNickname());
+			Set<DtTouristOuting> touristOutings = null;
+			new java.util.HashSet<>();
+			if (ta.getTouristOutings() != null) {
 				Iterator<TouristOuting> it = ta.getTouristOutings().values().iterator();
-				if(it != null) {
+				if (it != null) {
 					touristOutings = new java.util.HashSet<>();
-					while(it.hasNext()) {
+					while (it.hasNext()) {
 						TouristOuting to = it.next();
-						touristOutings.add(new DtTouristOuting(to.getOutingName(), to.getMaxNumTourists(), to.getDeparturePoint(), to.getDepartureDate(), to.getDischargeDate()));
+						touristOutings.add(new DtTouristOuting(to.getOutingName(), to.getMaxNumTourists(),
+								to.getDeparturePoint(), to.getDepartureDate(), to.getDischargeDate(), activityName));
 					}
 				}
 			}
@@ -57,38 +61,33 @@ public class TouristActivityController implements ITouristActivityController {
 		}
 		return rtn;
 	}
-	
-	//The method ListarSalidasActividad(nombreActividad: String) : DtActividadConSalida has same response and parameters than consultTouristActivityData method
-		
-	 public DtRanking consultRankingActivities() {
-		 return new DtRanking();
-	 }
-	 
-	 public void modifyDescription (String description) {
-		 
-	 }
-		
-		public void modifyDuration (Duration duration) {
-			
-		}
-		
-		public void modifyTouristFee (float touristFee) {
-			
-		}
-		
-		public void modifyCity (String city) {
-			
-		}
-		
-		public String getActivityName() {
-			return "";
-		}
 
-		public float getActivityCostTourist(String activityName) {
-			TouristActivity ta = TouristActivityHandler.getIntance().getTouristActivityByName(activityName);
-			if(ta == null) {
-				return -1;
-			}
-			return ta.getTouristFee();
+	// The method ListarSalidasActividad(nombreActividad: String) :
+	// DtActividadConSalida has same response and parameters than
+	// consultTouristActivityData method
+
+	public DtRanking consultRankingActivities() {
+		return new DtRanking();
+	}
+	
+	public DtTouristActivity consultTouristActivityBasicData(String activityName) throws ActivityDoesNotExistException {
+		DtTouristActivity rtn = null;
+		TouristActivity ta = TouristActivityHandler.getIntance().getTouristActivityByName(activityName);
+		if (ta != null) {
+			rtn = new DtTouristActivity(ta.getActivityName(), ta.getDescription(),
+					ta.getDuration(), ta.getTouristFee(), ta.getCity(), ta.getDischargeDate(),
+					ta.getSupplier().getNickname());
+		}else {
+			throw new ActivityDoesNotExistException("No existe una actividad turistica con ese nombre.");
 		}
+		return rtn;
+	}
+	
+	public float getActivityCostTourist(String activityName) {
+		TouristActivity ta = TouristActivityHandler.getIntance().getTouristActivityByName(activityName);
+		if (ta == null) {
+			return -1;
+		}
+		return ta.getTouristFee();
+	}
 }

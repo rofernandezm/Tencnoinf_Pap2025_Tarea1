@@ -3,18 +3,12 @@ package logic.handler;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import java.util.List;
 
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 import logic.entity.TouristActivity;
-import logic.entity.TouristOuting;
 
 public class TouristActivityHandler {
 	
@@ -85,18 +79,4 @@ public class TouristActivityHandler {
 	    }
 	}
 
-	private Map<String, TouristActivity> updateTouristActivitiesFromDB() {
-			
-			EntityManager em = PersistenceHandler.getEntityManager();
-			TypedQuery<TouristActivity> query = em.createQuery("SELECT ta FROM TouristActivity ta", TouristActivity.class);
-			
-			List<TouristActivity> result = query.getResultList();
-			Map<String, TouristActivity> touristActivities = new HashMap<>();
-			for (TouristActivity activity : result) {
-				touristActivities.put(activity.getActivityName(), activity);
-		    }
-			
-			em.close();
-			return touristActivities;
-		}
 }

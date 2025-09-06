@@ -175,19 +175,19 @@ public class ModifyActivity extends JInternalFrame {
 	 
 	
 	 protected void cmdSearchActivityActionPerformed(ActionEvent e) {
-	        DtActivityWithOutings dtActivity;
-	        try {
-	        	dtActivity = iTouristActivityController.consultTouristActivityData(iTouristActivityController.getActivityName());
-	        	txfActivityName.setText(dtActivity.getActivity().getActivityName());
-	        	txtDescription.setText(dtActivity.getActivity().getDescription());
-	        	spnDuration.setValue(dtActivity.getActivity().getDuration().toString());
-	        	txtTouristFee.setText(String.valueOf(dtActivity.getActivity().getCostTurist()));
-	        	txtCity.setText(dtActivity.getActivity().getCity());
-	        	spnDischargeDate.setValue(dtActivity.getActivity().getRegistratioDate().toString());
-	        } catch (ActivityDoesNotExistException e1) {
-	            JOptionPane.showMessageDialog(this, e1.getMessage(), "Busqueda Actividad", JOptionPane.ERROR_MESSAGE);
-	            limpiarFormulario();
-	        }
+//	        DtActivityWithOutings dtActivity;
+//	        try {
+//	        	dtActivity = iTouristActivityController.consultTouristActivityData(txtActivityName.getText());
+//	        	txfActivityName.setText(dtActivity.getActivity().getActivityName());
+//	        	txtDescription.setText(dtActivity.getActivity().getDescription());
+//	        	spnDuration.setValue(dtActivity.getActivity().getDuration().toString());
+//	        	txtTouristFee.setText(String.valueOf(dtActivity.getActivity().getCostTurist()));
+//	        	txtCity.setText(dtActivity.getActivity().getCity());
+//	        	spnDischargeDate.setValue(dtActivity.getActivity().getRegistratioDate().toString());
+//	        } catch (ActivityDoesNotExistException e1) {
+//	            JOptionPane.showMessageDialog(this, e1.getMessage(), "Busqueda Actividad", JOptionPane.ERROR_MESSAGE);
+//	            limpiarFormulario();
+//	        }
 
 	    }
 	 

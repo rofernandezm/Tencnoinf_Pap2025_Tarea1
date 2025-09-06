@@ -25,4 +25,4 @@ replay_pid*
 /bin/
 
 !/lib/*jar
-/data/db/
+!/data/db/
