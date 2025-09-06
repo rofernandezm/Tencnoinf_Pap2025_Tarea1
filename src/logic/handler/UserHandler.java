@@ -90,4 +90,12 @@ public class UserHandler {
 		return suppliers;
 
 	}
+	
+	public Supplier getSupplierByNickname(String nickname) {
+
+		EntityManager em = PersistenceHandler.getEntityManager();
+		Supplier userByNickname = em.find(Supplier.class, nickname);
+		em.close();
+		return userByNickname;
+	}
 }

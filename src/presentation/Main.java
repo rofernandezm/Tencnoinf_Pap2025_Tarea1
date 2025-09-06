@@ -64,7 +64,7 @@ public class Main {
 		touristOutingRegistrationInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(touristOutingRegistrationInternalFrame);
 
-		consultTouristOutingInternalFrame = new ConsultTouristOuting(IOIC);
+		consultTouristOutingInternalFrame = new ConsultTouristOuting(IOIC, ITAC);
 		consultTouristOutingInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(consultTouristOutingInternalFrame);
 
@@ -142,6 +142,7 @@ public class Main {
 		menuActivities.add(mnConsultActivity);
 		mnConsultActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				consultActInternalFrame.init();
 				consultActInternalFrame.setVisible(true);
 
 			}
