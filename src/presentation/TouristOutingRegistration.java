@@ -225,13 +225,11 @@ public class TouristOutingRegistration extends JInternalFrame{
         String outingNameTO = this.textFieldTouristOutingName.getText();
         String maxNumTouristsTO = this.textFieldMaxNumTourists.getText();
         String departurePointTO = this.textFieldDeparturePoint.getText();
-        //String departureDateTO = this.textFieldDepartureDate.getText(); Componente a verificar si se elimina
         Date date = (Date) spinnerDepartureDate.getValue();
         LocalDateTime departureDateTOldt = date.toInstant()
                                                  .atZone(java.time.ZoneId.systemDefault())
                                                  .toLocalDateTime();
         
-        //LocalDateTime departureDateTOldt = LocalDateTime.parse(departureDateTO); Componente a verificar si se elimina
         LocalDate dischargeDateTO = LocalDate.now(); 
         
         String touristActivityName = (String) comboBoxTouristActivities.getSelectedItem();
@@ -300,7 +298,6 @@ public class TouristOutingRegistration extends JInternalFrame{
     	textFieldTouristOutingName.setText("");
     	textFieldMaxNumTourists.setText("");
     	textFieldDeparturePoint.setText("");
-    	//textFieldDepartureDate.setText("");
     	spinnerDepartureDate.setValue(new Date());
     	comboBoxTouristActivities.removeAllItems();
     }
@@ -312,6 +309,12 @@ public class TouristOutingRegistration extends JInternalFrame{
             comboBoxTouristActivities.setModel(model);        
         } catch (ActivityDoesNotExistException e) {
             // We will not show any tourist activity
+        	model = new DefaultComboBoxModel<>(new String[] {"No existen actividades turísticas registradas."});
         }
     }
+    
+    public void init() {
+    	loadTouristActivities();
+		clearForm();
+	}
 }

@@ -3,6 +3,10 @@ package logic.dto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import logic.entity.Tourist;
+import logic.entity.TouristOuting;
+import logic.entity.User;
+
 public class DtTouristOuting {
 	
 	private String outingName;
@@ -39,5 +43,9 @@ public class DtTouristOuting {
 
 	public LocalDate getDischargeDate() {
 		return dischargeDate;
+	}
+	
+	public TouristOuting toEntity() {
+		return new TouristOuting(this.getTipName(), this.getMaxNumTourists(), this.getDeparturePoint(), this.getDepartureDate(), this.getDischargeDate());
 	}
 }

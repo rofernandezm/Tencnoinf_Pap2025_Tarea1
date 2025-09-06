@@ -47,33 +47,30 @@ public class TouristActivityHandler {
 	}
 
 	public String[] listTouristActivities() {
-		this.touristActivities = updateTouristActivitiesFromDB();
-		if (touristActivities.isEmpty())
-			return null;
-		else {
-			Set<String> keySet = touristActivities.keySet();
-			Object[] keys = keySet.toArray();
-			String[] activitiesNames = new String[touristActivities.size()];
-			for (int ind = 0; ind < keys.length; ind++) {
-				activitiesNames[ind] = keys[ind].toString();
-			}
-			return activitiesNames;
-		}
-
+		
+		EntityManager em = PersistenceHandler.getEntityManager();
+	    TypedQuery<TouristActivity> query = em.createQuery("SELECT t FROM TouristActivity t", TouristActivity.class);
+	    List<TouristActivity> result = query.getResultList();
+	    String[] activities = new String[result.size()];
+	    for (int i = 0; i < result.size(); i++) {
+	    	activities[i] = result.get(i).getActivityName();
+	    }
+	    em.close();
+		return activities;
 	}
 
-	private Map<String, TouristActivity> updateTouristActivitiesFromDB() {
-			
-			EntityManager em = PersistenceHandler.getEntityManager();
-			TypedQuery<TouristActivity> query = em.createQuery("SELECT ta FROM TouristActivity ta", TouristActivity.class);
-			
-			List<TouristActivity> result = query.getResultList();
-	
-			for (TouristActivity activity : result) {
-				touristActivities.put(activity.getActivityName(), activity);
-		    }
-			
-			em.close();
-			return touristActivities;
-		}
+//	private Map<String, TouristActivity> updateTouristActivitiesFromDB() {
+//			
+//			EntityManager em = PersistenceHandler.getEntityManager();
+//			TypedQuery<TouristActivity> query = em.createQuery("SELECT ta FROM TouristActivity ta", TouristActivity.class);
+//			
+//			List<TouristActivity> result = query.getResultList();
+//	
+//			for (TouristActivity activity : result) {
+//				touristActivities.put(activity.getActivityName(), activity);
+//		    }
+//			
+//			em.close();
+//			return touristActivities;
+//		}
 }
