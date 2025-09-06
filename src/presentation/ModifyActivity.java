@@ -1,203 +1,125 @@
 package presentation;
 
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.SwingConstants;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
-import exceptions.ActivityDoesNotExistException;
-import logic.dto.DtActivityWithOutings;
+import logic.controller.TouristActivityController;
+import logic.dto.DtTouristActivity;
 import logic.interfaces.ITouristActivityController;
 
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-import javax.swing.JSpinner;
+import java.time.Duration;
+import java.time.format.DateTimeFormatter;
 
 public class ModifyActivity extends JInternalFrame {
-	
-	private ITouristActivityController iTouristActivityController;
 
 	private static final long serialVersionUID = 1L;
-	private JTextField txtDescription;
-	private JTextField txtTouristFee;
-	private JTextField txtCity;
-	private JLabel lblCity;
-	private JLabel lblDuration;
-	private JLabel lblNombreActividad;
-	private JTextField txfActivityName;
-	private JLabel lblDischargeDate;
-	private JButton btnAccept;
-	private JSpinner spnDuration;
-	private JSpinner spnDischargeDate;
-	/**
-	 * Create the frame.
-	 */
-	public ModifyActivity(ITouristActivityController iTouristActivityController) {
-		
-		this.iTouristActivityController = iTouristActivityController;
-		
-		setResizable(true);
-		setMaximizable(true);
-		setIconifiable(true);
+	private JComboBox<DtTouristActivity> cbActividad;
+	private JTextField txtNombre;
+	private JTextArea txtDescripcion;
+	private JSpinner spnDuracion;
+	private JTextField txtCosto;
+	private JTextField txtCiudad;
+	private JTextField txtFechaAlta;
+
+	private ITouristActivityController iActivityController;
+
+	public ModifyActivity(ITouristActivityController iTAC) {
+
+		iActivityController = iTAC;
+
 		setTitle("Modificar Actividad");
 		setClosable(true);
-		setBounds(100, 100, 410, 300);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{101, 290, 0};
-		gridBagLayout.rowHeights = new int[]{0, 30, 50, 30, 30, 30, 30, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		getContentPane().setLayout(gridBagLayout);
-		
-		lblNombreActividad = new JLabel("Nombre Actividad");
-		lblNombreActividad.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblNombreActividad = new GridBagConstraints();
-		gbc_lblNombreActividad.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNombreActividad.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNombreActividad.gridx = 0;
-		gbc_lblNombreActividad.gridy = 1;
-		getContentPane().add(lblNombreActividad, gbc_lblNombreActividad);
-		
-		txfActivityName = new JTextField();
-		txfActivityName.setEditable(false);
-		txfActivityName.setColumns(10);
-		GridBagConstraints gbc_txfActivityName = new GridBagConstraints();
-		gbc_txfActivityName.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txfActivityName.insets = new Insets(0, 0, 5, 0);
-		gbc_txfActivityName.gridx = 1;
-		gbc_txfActivityName.gridy = 1;
-		getContentPane().add(txfActivityName, gbc_txfActivityName);
-		
-		JLabel lblDescription = new JLabel("Descripcion");
-		lblDescription.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblDescription = new GridBagConstraints();
-		gbc_lblDescription.fill = GridBagConstraints.BOTH;
-		gbc_lblDescription.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDescription.gridx = 0;
-		gbc_lblDescription.gridy = 2;
-		getContentPane().add(lblDescription, gbc_lblDescription);
-		
-		txtDescription = new JTextField();
-		GridBagConstraints gbc_txtDescription = new GridBagConstraints();
-		gbc_txtDescription.fill = GridBagConstraints.BOTH;
-		gbc_txtDescription.insets = new Insets(0, 0, 5, 0);
-		gbc_txtDescription.gridx = 1;
-		gbc_txtDescription.gridy = 2;
-		getContentPane().add(txtDescription, gbc_txtDescription);
-		txtDescription.setColumns(10);
-		
-		lblDuration = new JLabel("Duracion");
-		lblDuration.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblDuration = new GridBagConstraints();
-		gbc_lblDuration.fill = GridBagConstraints.BOTH;
-		gbc_lblDuration.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDuration.gridx = 0;
-		gbc_lblDuration.gridy = 3;
-		getContentPane().add(lblDuration, gbc_lblDuration);
-		
-		spnDuration = new JSpinner();
-		GridBagConstraints gbc_spnDuration = new GridBagConstraints();
-		gbc_spnDuration.fill = GridBagConstraints.HORIZONTAL;
-		gbc_spnDuration.insets = new Insets(0, 0, 5, 0);
-		gbc_spnDuration.gridx = 1;
-		gbc_spnDuration.gridy = 3;
-		getContentPane().add(spnDuration, gbc_spnDuration);
-		
-		JLabel lblTouristFee = new JLabel("Costo por turista");
-		lblTouristFee.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblTouristFee = new GridBagConstraints();
-		gbc_lblTouristFee.fill = GridBagConstraints.BOTH;
-		gbc_lblTouristFee.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTouristFee.gridx = 0;
-		gbc_lblTouristFee.gridy = 4;
-		getContentPane().add(lblTouristFee, gbc_lblTouristFee);
-		
-		txtTouristFee = new JTextField();
-		txtTouristFee.setColumns(10);
-		GridBagConstraints gbc_txtTouristFee = new GridBagConstraints();
-		gbc_txtTouristFee.fill = GridBagConstraints.BOTH;
-		gbc_txtTouristFee.insets = new Insets(0, 0, 5, 0);
-		gbc_txtTouristFee.gridx = 1;
-		gbc_txtTouristFee.gridy = 4;
-		getContentPane().add(txtTouristFee, gbc_txtTouristFee);
-		
-		lblCity = new JLabel("Ciudad");
-		lblCity.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblCity = new GridBagConstraints();
-		gbc_lblCity.fill = GridBagConstraints.BOTH;
-		gbc_lblCity.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCity.gridx = 0;
-		gbc_lblCity.gridy = 5;
-		getContentPane().add(lblCity, gbc_lblCity);
-		
-		txtCity = new JTextField();
-		txtCity.setColumns(10);
-		GridBagConstraints gbc_txtCity = new GridBagConstraints();
-		gbc_txtCity.fill = GridBagConstraints.BOTH;
-		gbc_txtCity.insets = new Insets(0, 0, 5, 0);
-		gbc_txtCity.gridx = 1;
-		gbc_txtCity.gridy = 5;
-		getContentPane().add(txtCity, gbc_txtCity);
-		
-		lblDischargeDate = new JLabel("Fecha de Alta");
-		lblDischargeDate.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblDischargeDate = new GridBagConstraints();
-		gbc_lblDischargeDate.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblDischargeDate.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDischargeDate.gridx = 0;
-		gbc_lblDischargeDate.gridy = 6;
-		getContentPane().add(lblDischargeDate, gbc_lblDischargeDate);
-		
-		btnAccept = new JButton("Aceptar");
-		btnAccept.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		
-		spnDischargeDate = new JSpinner();
-		spnDischargeDate.setEnabled(false);
-		GridBagConstraints gbc_spnDischargeDate = new GridBagConstraints();
-		gbc_spnDischargeDate.fill = GridBagConstraints.HORIZONTAL;
-		gbc_spnDischargeDate.insets = new Insets(0, 0, 5, 0);
-		gbc_spnDischargeDate.gridx = 1;
-		gbc_spnDischargeDate.gridy = 6;
-		getContentPane().add(spnDischargeDate, gbc_spnDischargeDate);
-		GridBagConstraints gbc_btnAccept = new GridBagConstraints();
-		gbc_btnAccept.gridx = 1;
-		gbc_btnAccept.gridy = 7;
-		getContentPane().add(btnAccept, gbc_btnAccept);
-	}
-	 
-	
-	 protected void cmdSearchActivityActionPerformed(ActionEvent e) {
-//	        DtActivityWithOutings dtActivity;
-//	        try {
-//	        	dtActivity = iTouristActivityController.consultTouristActivityData(txtActivityName.getText());
-//	        	txfActivityName.setText(dtActivity.getActivity().getActivityName());
-//	        	txtDescription.setText(dtActivity.getActivity().getDescription());
-//	        	spnDuration.setValue(dtActivity.getActivity().getDuration().toString());
-//	        	txtTouristFee.setText(String.valueOf(dtActivity.getActivity().getCostTurist()));
-//	        	txtCity.setText(dtActivity.getActivity().getCity());
-//	        	spnDischargeDate.setValue(dtActivity.getActivity().getRegistratioDate().toString());
-//	        } catch (ActivityDoesNotExistException e1) {
-//	            JOptionPane.showMessageDialog(this, e1.getMessage(), "Busqueda Actividad", JOptionPane.ERROR_MESSAGE);
-//	            limpiarFormulario();
-//	        }
+		setIconifiable(true);
+		setMaximizable(true);
 
-	    }
-	 
-	 private void limpiarFormulario() {
-		txfActivityName.setText("");
-     	txtDescription.setText("");
-     	spnDuration.setValue("");
-     	txtTouristFee.setText("");
-     	txtCity.setText("");
-     	spnDischargeDate.setValue("");
-	    }
-	
+		setSize(500, 400);
+		getContentPane().setLayout(new BorderLayout());
+
+		JPanel panelSelect = new JPanel();
+		panelSelect.add(new JLabel("Actividad:"));
+		cbActividad = new JComboBox<>();
+		panelSelect.add(cbActividad);
+		getContentPane().add(panelSelect, BorderLayout.NORTH);
+
+		JPanel formPanel = new JPanel(new GridLayout(6, 2, 10, 10));
+		formPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+		formPanel.add(new JLabel("Nombre:"));
+		txtNombre = new JTextField();
+		txtNombre.setEditable(false);
+		formPanel.add(txtNombre);
+
+		formPanel.add(new JLabel("Descripción:"));
+		txtDescripcion = new JTextArea(3, 20);
+		formPanel.add(new JScrollPane(txtDescripcion));
+
+		formPanel.add(new JLabel("Duración (horas):"));
+		spnDuracion = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		formPanel.add(spnDuracion);
+
+		formPanel.add(new JLabel("Costo por turista:"));
+		txtCosto = new JTextField();
+		formPanel.add(txtCosto);
+
+		formPanel.add(new JLabel("Ciudad:"));
+		txtCiudad = new JTextField();
+		formPanel.add(txtCiudad);
+
+		formPanel.add(new JLabel("Fecha Alta:"));
+		txtFechaAlta = new JTextField();
+		txtFechaAlta.setEditable(false);
+		formPanel.add(txtFechaAlta);
+
+		getContentPane().add(formPanel, BorderLayout.CENTER);
+
+		JPanel panelButtons = new JPanel();
+		JButton btnGuardar = new JButton("Guardar");
+		JButton btnCancelar = new JButton("Cancelar");
+		panelButtons.add(btnGuardar);
+		panelButtons.add(btnCancelar);
+		getContentPane().add(panelButtons, BorderLayout.SOUTH);
+
+		cbActividad.addActionListener(this::onActivitySelected);
+		btnGuardar.addActionListener(this::onGuardar);
+		btnCancelar.addActionListener(e -> dispose());
+
+		loadActivities();
+	}
+
+	private void loadActivities() {
+
+	}
+
+	private void onActivitySelected(ActionEvent e) {
+		DtTouristActivity act = (DtTouristActivity) cbActividad.getSelectedItem();
+		if (act != null) {
+			txtNombre.setText(act.getActivityName());
+			txtDescripcion.setText(act.getDescription());
+			spnDuracion.setValue(act.getDuration().toHours());
+			txtCosto.setText(String.valueOf(act.getCostTurist()));
+			txtCiudad.setText(act.getCity());
+			txtFechaAlta.setText(act.getRegistratioDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+		}
+	}
+
+	private void onGuardar(ActionEvent e) {
+		DtTouristActivity act = (DtTouristActivity) cbActividad.getSelectedItem();
+		if (act != null) {
+			try {
+				iActivityController.modifyDescription(txtDescripcion.getText());
+				iActivityController.modifyDuration(Duration.ofHours((int) spnDuracion.getValue()));
+				iActivityController.modifyTouristFee(Float.parseFloat(txtCosto.getText()));
+				iActivityController.modifyCity(txtCiudad.getText());
+
+				JOptionPane.showMessageDialog(this, "Actividad modificada correctamente.", "Éxito",
+						JOptionPane.INFORMATION_MESSAGE);
+				dispose();
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(this, "Error al modificar actividad: " + ex.getMessage(), "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
 }
