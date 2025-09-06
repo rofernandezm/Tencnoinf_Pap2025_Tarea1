@@ -3,6 +3,10 @@ package logic.dto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import logic.entity.TouristActivity;
+import logic.entity.TouristOuting;
+import logic.handler.TouristActivityHandler;
+
 public class DtTouristOuting {
 	
 	private String outingName;
@@ -44,5 +48,22 @@ public class DtTouristOuting {
 	}
 	public String getActivityName() {
 		return activityName;
+	}
+	public TouristOuting toEntity() {
+		TouristActivity activity= TouristActivityHandler.getIntance().getTouristActivityByName(this.activityName);
+	    if (activity == null) {
+	        throw new IllegalArgumentException("Actividad no encontrada: " + this.activityName);
+	    }
+		TouristOuting to = new TouristOuting(
+	        this.outingName,
+	        this.maxNumTourists,
+	        this.departurePoint,
+	        this.departureDate,
+	        this.dischargeDate
+	    );
+
+	    to.setActivity(activity); 
+
+	    return to;
 	}
 }

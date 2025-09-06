@@ -465,6 +465,7 @@ public class ConsultActivity extends JInternalFrame {
 		txtActCost.setText("");
 		txtActCity.setText("");
 		txtActRegDate.setText("");
+		cmbActOutings.setSelectedItem(null);
 		clearOutingData();
 	}
 	

@@ -433,7 +433,6 @@ public class ConsultTouristOuting extends JInternalFrame {
 	}
 	
 	private void clearOutingData() {
-		cmbSelOuting.setSelectedItem(null);
 		txtOutName.setText("");
 		txtOutMax.setText("");
 		txtOutDepPoint.setText("");

@@ -56,11 +56,11 @@ public class Main {
 		ITAC = factoryUyTourism.getITouristActivityController();
 		IOIC = factoryUyTourism.getITouristOutingAndInscriptionController();
 
-    creUsrInternalFrame = new CreateUser(IUC);
+		creUsrInternalFrame = new CreateUser(IUC);
 
 		frmTourismUy.getContentPane().add(creUsrInternalFrame);
 
-		touristOutingRegistrationInternalFrame = new TouristOutingRegistration(IOIC);
+		touristOutingRegistrationInternalFrame = new TouristOutingRegistration(IOIC, ITAC);
 		touristOutingRegistrationInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(touristOutingRegistrationInternalFrame);
 
@@ -133,6 +133,7 @@ public class Main {
 		menuItemAddAct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				hideAllComponents();
+				creActInternalFrame.init();
 				creActInternalFrame.setVisible(true);
 
 			}
@@ -168,6 +169,7 @@ public class Main {
 		mnCreateOuting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				hideAllComponents();
+				touristOutingRegistrationInternalFrame.init();
 				touristOutingRegistrationInternalFrame.setVisible(true);
 			}
 		});
