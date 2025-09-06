@@ -85,7 +85,7 @@ public class Main {
 		modifyActivityInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(modifyActivityInternalFrame);
 
-		consultInscriptionInternalFrame = new ConsultTouristInscription(IOIC);
+		consultInscriptionInternalFrame = new ConsultTouristInscription(IOIC, ITAC);
 		consultInscriptionInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(consultInscriptionInternalFrame);
 		

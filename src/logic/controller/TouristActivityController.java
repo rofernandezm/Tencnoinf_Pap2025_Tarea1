@@ -1,7 +1,9 @@
 package logic.controller;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import exceptions.ActivityDoesNotExistException;
@@ -66,8 +68,32 @@ public class TouristActivityController implements ITouristActivityController {
 	// DtActividadConSalida has same response and parameters than
 	// consultTouristActivityData method
 
-	public DtRanking consultRankingActivities() {
-		return new DtRanking();
+	public DtRanking[] getActivityRanking() {
+	    String[] activities = TouristActivityHandler.getIntance().listTouristActivities();
+	    if (activities == null || activities.length == 0) {
+	        return new DtRanking[0];
+	    }
+
+	    List<DtRanking> rankingList = new ArrayList<>();
+
+	    for (String activityName : activities) {
+	        TouristActivity ta = TouristActivityHandler.getIntance().getTouristActivityByName(activityName);
+
+	        int outingCount = 0;
+	        if (ta != null && ta.getTouristOutings() != null) {
+	            outingCount = ta.getTouristOutings().size();
+	        }
+
+	        DtRanking newItem = new DtRanking(activityName, outingCount);
+
+	        int pos = 0;
+	        while (pos < rankingList.size() && rankingList.get(pos).getOutings() >= newItem.getOutings()) {
+	            pos++;
+	        }
+	        rankingList.add(pos, newItem);
+	    }
+
+	    return rankingList.toArray(new DtRanking[0]);
 	}
 	
 	public DtTouristActivity consultTouristActivityBasicData(String activityName) throws ActivityDoesNotExistException {
@@ -89,5 +115,9 @@ public class TouristActivityController implements ITouristActivityController {
 			return -1;
 		}
 		return ta.getTouristFee();
+	}
+	
+	public void modifyActivity(DtTouristActivity dto) {
+	    TouristActivityHandler.getIntance().updateActivity(dto);
 	}
 }

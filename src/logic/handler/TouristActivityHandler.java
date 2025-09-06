@@ -1,5 +1,6 @@
 package logic.handler;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import jakarta.persistence.EntityManager;
 
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
+import logic.dto.DtTouristActivity;
 import logic.entity.TouristActivity;
 
 public class TouristActivityHandler {
@@ -77,6 +79,22 @@ public class TouristActivityHandler {
 	    } finally {
 	        em.close();
 	    }
+	}
+	
+	public void updateActivity(DtTouristActivity dto) {
+	    EntityManager em = PersistenceHandler.getEntityManager();
+	    EntityTransaction tx = em.getTransaction();
+	    tx.begin();
+	    TouristActivity ta = em.find(TouristActivity.class, dto.getActivityName());
+	    if (ta != null) {
+	        ta.setDescription(dto.getDescription());
+	        ta.setDuration(dto.getDuration());
+	        ta.setTouristFee(dto.getCostTurist());
+	        ta.setCity(dto.getCity());
+
+	    }
+	    tx.commit();
+	    em.close();
 	}
 
 }

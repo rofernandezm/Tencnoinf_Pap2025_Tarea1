@@ -3,6 +3,7 @@ package presentation;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import exceptions.ActivityDoesNotExistException;
 import logic.controller.TouristActivityController;
 import logic.dto.DtTouristActivity;
 import logic.interfaces.ITouristActivityController;
@@ -15,13 +16,15 @@ import java.time.format.DateTimeFormatter;
 public class ModifyActivity extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JComboBox<DtTouristActivity> cbActividad;
+	private JComboBox<String> cbActividad;
 	private JTextField txtNombre;
 	private JTextArea txtDescripcion;
 	private JSpinner spnDuracion;
 	private JTextField txtCosto;
 	private JTextField txtCiudad;
 	private JTextField txtFechaAlta;
+
+	private DtTouristActivity currentActivity;
 
 	private ITouristActivityController iActivityController;
 
@@ -48,6 +51,7 @@ public class ModifyActivity extends JInternalFrame {
 
 		formPanel.add(new JLabel("Nombre:"));
 		txtNombre = new JTextField();
+		txtNombre.setEnabled(false);
 		txtNombre.setEditable(false);
 		formPanel.add(txtNombre);
 
@@ -69,6 +73,7 @@ public class ModifyActivity extends JInternalFrame {
 
 		formPanel.add(new JLabel("Fecha Alta:"));
 		txtFechaAlta = new JTextField();
+		txtFechaAlta.setEnabled(false);
 		txtFechaAlta.setEditable(false);
 		formPanel.add(txtFechaAlta);
 
@@ -89,37 +94,64 @@ public class ModifyActivity extends JInternalFrame {
 	}
 
 	private void loadActivities() {
+		DefaultComboBoxModel<String> model;
+		try {
+
+			String[] data = iActivityController.listTouristActivities();
+			System.out.println("Datos de actividades cargados: " + data);
+			if (data != null) {
+				String[] dataWithNull = new String[data.length + 1];
+				dataWithNull[0] = null; // Primera opción nula
+				System.arraycopy(data, 0, dataWithNull, 1, data.length);
+				model = new DefaultComboBoxModel<String>(dataWithNull);
+				cbActividad.setModel(model);
+			}
+
+		} catch (ActivityDoesNotExistException e) {
+			cbActividad.setModel(new DefaultComboBoxModel<String>());
+		}
 
 	}
 
 	private void onActivitySelected(ActionEvent e) {
-		DtTouristActivity act = (DtTouristActivity) cbActividad.getSelectedItem();
-		if (act != null) {
-			txtNombre.setText(act.getActivityName());
-			txtDescripcion.setText(act.getDescription());
-			spnDuracion.setValue(act.getDuration().toHours());
-			txtCosto.setText(String.valueOf(act.getCostTurist()));
-			txtCiudad.setText(act.getCity());
-			txtFechaAlta.setText(act.getRegistratioDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+		String selectedName = (String) cbActividad.getSelectedItem();
+		if (selectedName != null) {
+			try {
+				currentActivity = iActivityController.consultTouristActivityBasicData(selectedName);
+
+				txtNombre.setText(currentActivity.getActivityName());
+				txtDescripcion.setText(currentActivity.getDescription());
+				spnDuracion.setValue(currentActivity.getDuration().toHours());
+				txtCosto.setText(String.valueOf(currentActivity.getCostTurist()));
+				txtCiudad.setText(currentActivity.getCity());
+				txtFechaAlta.setText(
+						currentActivity.getRegistratioDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(this,
+			            "No se pudo cargar la actividad seleccionada.",
+			            "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 
 	private void onGuardar(ActionEvent e) {
-		DtTouristActivity act = (DtTouristActivity) cbActividad.getSelectedItem();
-		if (act != null) {
+		if (currentActivity != null) {
 			try {
-				iActivityController.modifyDescription(txtDescripcion.getText());
-				iActivityController.modifyDuration(Duration.ofHours((int) spnDuracion.getValue()));
-				iActivityController.modifyTouristFee(Float.parseFloat(txtCosto.getText()));
-				iActivityController.modifyCity(txtCiudad.getText());
+				DtTouristActivity updated = new DtTouristActivity(currentActivity.getActivityName(),
+						txtDescripcion.getText(), Duration.ofHours((int) spnDuracion.getValue()),
+						Float.parseFloat(txtCosto.getText()), txtCiudad.getText(), currentActivity.getRegistratioDate(),
+						currentActivity.getSupplierNickname());
+
+				iActivityController.modifyActivity(updated);
 
 				JOptionPane.showMessageDialog(this, "Actividad modificada correctamente.", "Éxito",
 						JOptionPane.INFORMATION_MESSAGE);
 				dispose();
 			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(this, "Error al modificar actividad: " + ex.getMessage(), "Error",
+				JOptionPane.showMessageDialog(this, "Error al modificar la actividad: " + ex.getMessage(), "Error",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
+
 }

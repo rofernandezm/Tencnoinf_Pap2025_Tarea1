@@ -1,15 +1,20 @@
 package presentation;
 
 import javax.swing.JInternalFrame;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.BorderLayout;
 import javax.swing.table.DefaultTableModel;
 
+import exceptions.ActivityDoesNotExistException;
 import logic.controller.TouristActivityController;
+import logic.dto.DtActivityWithOutings;
+import logic.dto.DtInscriptionTouristOuting;
 import logic.dto.DtTouristActivity;
 import logic.dto.DtTouristOuting;
 import logic.entity.TouristActivity;
@@ -29,9 +34,10 @@ public class ConsultTouristInscription extends JInternalFrame {
 	private ITouristActivityController iActivityController;
 	private ITouristOutingAndInscriptionController iOutingController;
 
-	public ConsultTouristInscription(ITouristOutingAndInscriptionController iOIC) {
+	public ConsultTouristInscription(ITouristOutingAndInscriptionController iOIC, ITouristActivityController iTAC) {
 
 		iOutingController = iOIC;
+		iActivityController = iTAC;
 
 		setTitle("Consulta Inscripciones Turisticas");
 		setResizable(true);
@@ -54,38 +60,77 @@ public class ConsultTouristInscription extends JInternalFrame {
 		tableModel = new DefaultTableModel();
 
 		tableModel.addColumn("Cliente");
-		tableModel.addColumn("Cédula");
+		tableModel.addColumn("Costo Total");
 		tableModel.addColumn("Fecha Inscripción");
 		tableInscripciones = new JTable(tableModel);
 		tableInscripciones.setFillsViewportHeight(true);
 		JScrollPane scrollPane = new JScrollPane(tableInscripciones);
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 
-		loadActivities();
+		loadTouristActivities();
 
 		cbActividad.addActionListener(e -> {
-			TouristActivity act = (TouristActivity) cbActividad.getSelectedItem();
-			if (act != null) {
-				loadOutings(act);
-			}
+		    String actName = (String) cbActividad.getSelectedItem();
+		    if (actName != null) {
+		        loadOutings(actName);
+		    }
 		});
 		cbSalida.addActionListener(e -> {
-			TouristOuting outing = (TouristOuting) cbSalida.getSelectedItem();
-			if (outing != null) {
-				loadInscriptions(outing);
-			}
+		    String outingName = (String) cbSalida.getSelectedItem();
+		    if (outingName != null) {
+		        loadInscriptions(outingName);
+		    }
 		});
 	}
 
-	private void loadActivities() {
+	   public void loadTouristActivities() {
+		   	cbActividad.removeAllItems();
+	        DefaultComboBoxModel<String> model; 
+	        try {                                    
+	            model = new DefaultComboBoxModel<String>(iActivityController.listTouristActivities()); 
+	            cbActividad.setModel(model);        
+	        } catch (ActivityDoesNotExistException e) {
+	            // We will not show any tourist activity
+	        	model = new DefaultComboBoxModel<>(new String[] {"No existen actividades turísticas registradas."});
+	        }
+	    }
 
-	}
+	   private void loadOutings(String activityName) {
+		    cbSalida.removeAllItems();
+		    try {
+		        DtActivityWithOutings dtActivity = iActivityController.consultTouristActivityData(activityName);
 
-	private void loadOutings(TouristActivity act) {
+		        if (dtActivity != null && dtActivity.getOutings() != null) {
+		            for (DtTouristOuting outing : dtActivity.getOutings()) {
+		                cbSalida.addItem(outing.getTipName()); 
+		            }
+		        }
 
-	}
+		    } catch (Exception e) {
+		        JOptionPane.showMessageDialog(this,
+		                "Error al cargar salidas: " + e.getMessage(),
+		                "Error", JOptionPane.ERROR_MESSAGE);
+		    }
+		}
 
-	private void loadInscriptions(TouristOuting outing) {
+	private void loadInscriptions(String outingName) {
+	    tableModel.setRowCount(0); 
 
+	    try {
+	        DtInscriptionTouristOuting[] inscriptions = iOutingController.listOutingInscription(outingName);
+
+	        for (DtInscriptionTouristOuting ins : inscriptions) {
+	            tableModel.addRow(new Object[]{
+	                ins.getTouristAmount(),
+	                ins.getTotalCost(),
+	                ins.getInscriptionDate()
+	            });
+	        }
+
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(this,
+	                "Error al cargar inscripciones: " + e.getMessage(),
+	                "Error", JOptionPane.ERROR_MESSAGE);
+	    }
 	}
 }

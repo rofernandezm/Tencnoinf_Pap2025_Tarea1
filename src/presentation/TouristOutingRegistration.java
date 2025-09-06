@@ -62,8 +62,8 @@ public class TouristOutingRegistration extends JInternalFrame{
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[] { 180, 105, 105, 5 };
         gridBagLayout.rowHeights = new int[] { 30, 30, 30, 30, 0, 0 };
-        gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
-        gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+        gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 1.0, 1.0 };
+        gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
         getContentPane().setLayout(gridBagLayout);
 
         dataCreateOuting();
@@ -154,7 +154,7 @@ public class TouristOutingRegistration extends JInternalFrame{
         gbc_lblEnterDepartureDate.insets = new Insets(0, 0, 5, 5);
         gbc_lblEnterDepartureDate.gridx = 0;
         gbc_lblEnterDepartureDate.gridy = 4;
-        getContentPane().add(lblEnterDepartureDate, gbc_lblEnterDepartureDate); 
+//        getContentPane().add(lblEnterDepartureDate, gbc_lblEnterDepartureDate); 
 
         // Spinner para LocalDateTime
 //        SpinnerDateModel dateModel = new SpinnerDateModel(new Date(), null, null, java.util.Calendar.MINUTE);
@@ -172,7 +172,7 @@ public class TouristOutingRegistration extends JInternalFrame{
         
         dateChooserDepDate = new JDateChooser();
         dateChooserDepDate.setDateFormatString("yyyy-MM-dd HH:mm");
-        getContentPane().add(dateChooserDepDate, gbc_lblEnterDepartureDate);
+//        getContentPane().add(dateChooserDepDate, gbc_lblEnterDepartureDate);
 
         GridBagConstraints gbc_dateChooser = new GridBagConstraints();
         gbc_dateChooser.gridwidth = 2;
