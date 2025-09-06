@@ -50,9 +50,10 @@ public class TouristOutingRegistration extends JInternalFrame{
 	private JButton btnConfirm;
 	private JButton btnCancel;
 	
-	 public TouristOutingRegistration(ITouristOutingAndInscriptionController itoic) {
+	 public TouristOutingRegistration(ITouristOutingAndInscriptionController itoic, ITouristActivityController icta) {
 
         iControlTouristOutingAndInscription = itoic;
+        iControlTouristActivity = icta;
 
         setResizable(true);
         setIconifiable(true);
@@ -215,6 +216,9 @@ public class TouristOutingRegistration extends JInternalFrame{
         gbc_btnCancel.gridx = 2;
         gbc_btnCancel.gridy = 5;
         getContentPane().add(btnCancel, gbc_btnCancel);
+        
+        init();
+        
     }
 	 
 	
@@ -306,15 +310,16 @@ public class TouristOutingRegistration extends JInternalFrame{
         DefaultComboBoxModel<String> model; 
         try {                                    
             model = new DefaultComboBoxModel<String>(iControlTouristActivity.listTouristActivities()); 
-            comboBoxTouristActivities.setModel(model);        
         } catch (ActivityDoesNotExistException e) {
             // We will not show any tourist activity
-        	model = new DefaultComboBoxModel<>(new String[] {"No existen actividades turísticas registradas."});
+        	model = new DefaultComboBoxModel<String>(new String[] {"No existen actividades turísticas registradas."});
         }
+        comboBoxTouristActivities.setModel(model);
     }
     
     public void init() {
+    	clearForm();
     	loadTouristActivities();
-		clearForm();
-	}
+    }
+    
 }
