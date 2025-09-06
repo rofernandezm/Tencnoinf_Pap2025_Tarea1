@@ -13,7 +13,7 @@ public interface ITouristOutingAndInscriptionController {
 
 	public DtTouristOuting consultTouristOutingData(String outingName)throws TouristOutingDoesNotExistException;
 	
-	public void outingDataEntry(DtTouristOuting dtTouristOuting, String activityName) throws RepeatedTouristOutingException;
+	public void outingDataEntry(DtTouristOuting dtTouristOuting) throws RepeatedTouristOutingException;
 
 	public void inscriptionDataEntry(DtInscriptionTouristOuting dtInscriptionOuting, String userNickname, String outingName) throws RepeatedInscriptionToTouristOutingException;
 	

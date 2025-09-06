@@ -310,7 +310,7 @@ public class InscriptionToTouristOuting extends JInternalFrame{
         getContentPane().add(textFieldTotalRegistrationCost, gbc_textFieldTotalRegistrationCost);
         textFieldTotalRegistrationCost.setColumns(10);
         
-        btnConfirm = new JButton("Confirm");
+        btnConfirm = new JButton("Confirmar");
         btnConfirm.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 cmdInscriptionToTouristOutingActionPerformed(arg0);
@@ -324,7 +324,7 @@ public class InscriptionToTouristOuting extends JInternalFrame{
         gbc_btnConfirm.gridy = 11;
         getContentPane().add(btnConfirm, gbc_btnConfirm);
 
-        btnCancel = new JButton("Cancel");
+        btnCancel = new JButton("Cancelar");
         btnCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 clearForm();
@@ -446,12 +446,12 @@ public class InscriptionToTouristOuting extends JInternalFrame{
 	            
         		controlTouristOutingAndInscription.inscriptionDataEntry(newInscriptionToTouristOuting, touristName, touristOutingName);
 	                // Success
-	                JOptionPane.showMessageDialog(this, "La inscripcion a la salida turistica fue creada exitosamente.", "Inscription To Tourist Outing",
+	                JOptionPane.showMessageDialog(this, "La inscripcion a la salida turistica fue creada exitosamente.", "Inscripcion a salida turistica",
 	                        JOptionPane.INFORMATION_MESSAGE);
 	
 	            } catch (RepeatedInscriptionToTouristOutingException e) {
 	                // Error message
-	                JOptionPane.showMessageDialog(this, e.getMessage(), "Inscription To Tourist Outing", JOptionPane.ERROR_MESSAGE);
+	                JOptionPane.showMessageDialog(this, e.getMessage(), "Inscripcion a salida turistica", JOptionPane.ERROR_MESSAGE);
 	                
 	                comboBoxTourists.removeAllItems();
 	            	comboBoxTouristOutings.removeAllItems();
@@ -467,8 +467,8 @@ public class InscriptionToTouristOuting extends JInternalFrame{
     	String touristName = (String) comboBoxTourists.getSelectedItem();
     	String numTourists = this.textFieldNumTourists.getText();
 
-        if (touristActivityName.isEmpty() || touristActivityName == null || touristOutingName.isEmpty() || touristOutingName ==null || touristName.isEmpty() || touristName == null || numTourists.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Please fill all the fields", "Inscription To Tourist Outing",
+        if (touristActivityName == null || touristActivityName.isEmpty() || touristOutingName ==null || touristOutingName.isEmpty() || touristName == null || touristName.isEmpty() || numTourists.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos", "Inscripcion a salida turistica",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -476,7 +476,7 @@ public class InscriptionToTouristOuting extends JInternalFrame{
         try {
             Integer.parseInt(numTourists);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El numero de turistas debe ser un numero", "Inscription To Tourist Outing",
+            JOptionPane.showMessageDialog(this, "El numero de turistas debe ser un numero", "Inscripcion a salida turistica",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }

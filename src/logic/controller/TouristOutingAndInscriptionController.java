@@ -5,15 +5,16 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.HashSet;
 
-import exceptions.ActivityDoesNotExistException;
+//import exceptions.ActivityDoesNotExistException;
 import exceptions.RepeatedTouristOutingException;
 import exceptions.TouristOutingDoesNotExistException;
 import logic.dto.DtInscriptionTouristOuting;
 import logic.dto.DtTouristOuting;
-import logic.dto.DtUser;
+//import logic.dto.DtUser;
 import logic.entity.Inscription;
 import logic.entity.TouristOuting;
 import logic.handler.TouristActivityHandler;
+//import logic.handler.TouristActivityHandler;
 import logic.handler.TouristOutingAndInscrptionHandler;
 import logic.interfaces.ITouristOutingAndInscriptionController;
 import exceptions.RepeatedInscriptionToTouristOutingException;
@@ -28,29 +29,32 @@ public class TouristOutingAndInscriptionController implements ITouristOutingAndI
 		TouristOutingAndInscrptionHandler toih = TouristOutingAndInscrptionHandler.getIntance();
         TouristOuting to = toih.getTouristOutingByName(outingName);                    
         if (to != null) 
-            return new DtTouristOuting(to.getOutingName() , to.getMaxNumTourists(), to.getDeparturePoint(), to.getDepartureDate(), to.getDischargeDate());
+            return new DtTouristOuting(to.getOutingName() , to.getMaxNumTourists(), to.getDeparturePoint(), to.getDepartureDate(), to.getDischargeDate(), to.getActivity().getActivityName());
         else
             throw new TouristOutingDoesNotExistException("La salida turistica de nombre " + outingName + " no existe");
 	}
 	
-	public void outingDataEntry(DtTouristOuting dtTouristOuting, String activityName) throws RepeatedTouristOutingException {
+	public void outingDataEntry(DtTouristOuting dtTouristOuting) throws RepeatedTouristOutingException {
 
- 		this.dtNewTouristOuting = dtTouristOuting;
- 		
- 		TouristOutingAndInscrptionHandler mto = TouristOutingAndInscrptionHandler.getIntance();
-		String tourisOutingName = dtTouristOuting.getTipName();
-        TouristOuting to = mto.getTouristOutingByName(tourisOutingName);
-        
-        if (to != null)
-            throw new RepeatedTouristOutingException("La salida de nombre " + tourisOutingName + " ya esta registrada. Por favor, ingrese un nuevo nombre");
+// 		this.dtNewTouristOuting = dtTouristOuting;
+// 		
+// 		TouristOutingAndInscrptionHandler mto = TouristOutingAndInscrptionHandler.getIntance();
+//		String tourisOutingName = dtTouristOuting.getTipName();
+//        TouristOuting to = mto.getTouristOutingByName(tourisOutingName);
+//        
+//        if (to != null)
+//            throw new RepeatedTouristOutingException("La salida de nombre " + tourisOutingName + " ya esta registrada. Por favor, ingrese un nuevo nombre");
+//		
+//        int maxNumTourists = dtTouristOuting.getMaxNumTourists();
+//        String departurePoint = dtTouristOuting.getDeparturePoint();
+//        LocalDateTime departureDate = dtTouristOuting.getDepartureDate();
+//        LocalDate dischargeDate = dtTouristOuting.getDischargeDate();
+//        
+//        to = new TouristOuting(tourisOutingName, maxNumTourists, departurePoint, departureDate, dischargeDate);
+//        mto.addTouristOuting(to);
 		
-        int maxNumTourists = dtTouristOuting.getMaxNumTourists();
-        String departurePoint = dtTouristOuting.getDeparturePoint();
-        LocalDateTime departureDate = dtTouristOuting.getDepartureDate();
-        LocalDate dischargeDate = dtTouristOuting.getDischargeDate();
-        
-        to = new TouristOuting(tourisOutingName, maxNumTourists, departurePoint, departureDate, dischargeDate);
-        mto.addTouristOuting(to);
+		TouristOutingAndInscrptionHandler.getIntance().addTouristOuting(dtTouristOuting.toEntity());
+
 	}
 
 	public void inscriptionDataEntry(DtInscriptionTouristOuting dtInscriptionOuting, String userNickname, String outingName) throws RepeatedInscriptionToTouristOutingException{

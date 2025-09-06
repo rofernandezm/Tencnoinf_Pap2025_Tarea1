@@ -57,15 +57,15 @@ public class Main {
 		ITAC = factoryUyTourism.getITouristActivityController();
 		IOIC = factoryUyTourism.getITouristOutingAndInscriptionController();
 
-    creUsrInternalFrame = new CreateUser(IUC);
+		creUsrInternalFrame = new CreateUser(IUC);
 
 		frmTourismUy.getContentPane().add(creUsrInternalFrame);
 
-		touristOutingRegistrationInternalFrame = new TouristOutingRegistration(IOIC);
+		touristOutingRegistrationInternalFrame = new TouristOutingRegistration(IOIC, ITAC);
 		touristOutingRegistrationInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(touristOutingRegistrationInternalFrame);
 
-		consultTouristOutingInternalFrame = new ConsultTouristOuting(IOIC);
+		consultTouristOutingInternalFrame = new ConsultTouristOuting(IOIC, ITAC);
 		consultTouristOutingInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(consultTouristOutingInternalFrame);
 
@@ -138,6 +138,7 @@ public class Main {
 		menuItemAddAct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				hideAllComponents();
+				creActInternalFrame.init();
 				creActInternalFrame.setVisible(true);
 
 			}
@@ -147,6 +148,7 @@ public class Main {
 		menuActivities.add(mnConsultActivity);
 		mnConsultActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				consultActInternalFrame.init();
 				consultActInternalFrame.setVisible(true);
 
 			}
@@ -178,6 +180,7 @@ public class Main {
 		mnCreateOuting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				hideAllComponents();
+				touristOutingRegistrationInternalFrame.init();
 				touristOutingRegistrationInternalFrame.setVisible(true);
 			}
 		});
@@ -215,7 +218,7 @@ public class Main {
 		JMenu menuSystem = new JMenu("Sistema");
 		menuBar.add(menuSystem);
 
-		JMenuItem menuExit = new JMenuItem("Exit");
+		JMenuItem menuExit = new JMenuItem("Salir");
 		menuExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				hideAllComponents();
