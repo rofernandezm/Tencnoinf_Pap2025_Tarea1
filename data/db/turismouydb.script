@@ -29,7 +29,7 @@ SET FILES NIO TRUE
 SET FILES NIO SIZE 256
 SET FILES LOG TRUE
 SET FILES LOG SIZE 50
-SET FILES CHECK 2135
+SET FILES CHECK 2625
 SET DATABASE COLLATION "SQL_TEXT" PAD SPACE
 CREATE USER SA PASSWORD DIGEST 'd41d8cd98f00b204e9800998ecf8427e'
 ALTER USER SA SET LOCAL TRUE
@@ -55,7 +55,13 @@ GRANT DBA TO SA
 SET SCHEMA SYSTEM_LOBS
 INSERT INTO BLOCKS VALUES(0,2147483647,0)
 SET SCHEMA PUBLIC
+INSERT INTO USERS VALUES('usuario1','Tourist','1999-09-07','usuuno@gmail.com','Uno','Usuario')
+INSERT INTO USERS VALUES('usuario2','Supplier','2000-09-07','usudos@gmail.com','Dos','Usuario')
 INSERT INTO USERS VALUES('vaalesant','Supplier','1999-08-22','vaalesant@gmail.com','Santillan','Valeria')
 INSERT INTO USERS VALUES('vaalesf','Supplier','1999-08-22','vaalesf@gmail.com','Santillan','Valeria')
+INSERT INTO SUPPLIER VALUES('usuario2','Actividades en Montevideo. ','')
 INSERT INTO SUPPLIER VALUES('vaalesant','Actividades turisticas en Salto. ','')
 INSERT INTO SUPPLIER VALUES('vaalesf','Proveedor salidas en Maldonado','')
+INSERT INTO TOURIST VALUES('usuario1','Uurguayo')
+INSERT INTO TOURISTACTIVITY VALUES('Paseo en ciudad vieja.','Montevideo.','Gastronomia, arquitectura y cultura.','2025-09-07','aced00057372000d6a6176612e74696d652e536572955d84ba1b2248b20c00007870770d0100000000000054600000000078',1000.0E0,'usuario2',NULL)
+INSERT INTO TOURISTOUTING VALUES('Salida matutina','2025-09-07 09:00:00.000000','Mercado del puerto.','2025-09-07',10,'Paseo en ciudad vieja.',NULL)

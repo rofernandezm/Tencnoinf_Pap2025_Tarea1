@@ -1,6 +1,7 @@
 package logic.handler;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -52,10 +53,10 @@ public class TouristOutingAndInscrptionHandler {
 	}
 	
 //	Key is tourist nickname, then outingName as key and inscription as value of internal map
-	public void addInscription(String touristNickname, TouristOuting touristOuting, Inscription inscription) {
-		String touristOutingName = touristOuting.getOutingName();
-		this.mapOutingTourist.put(touristOutingName, inscription);
-		this.inscriptions.put(touristNickname, mapOutingTourist);
+	public void addInscription(Inscription inscription) {
+//		String touristOutingName = touristOuting.getOutingName();
+//		this.mapOutingTourist.put(touristOutingName, inscription);
+//		this.inscriptions.put(touristNickname, mapOutingTourist);
 		EntityManager em = PersistenceHandler.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
@@ -84,6 +85,9 @@ public class TouristOutingAndInscrptionHandler {
 		Map<String, Inscription> auxMap = new HashMap<>();
 		
 		auxMap = inscriptions.get(nickname);
+		if (auxMap == null || auxMap.isEmpty()) {
+			return Collections.emptySet();
+		}
 		Set<Inscription> inscriptionsSet = new HashSet<>(auxMap.values());
 		if (inscriptionsSet.isEmpty()) { 
 			return null;
@@ -155,12 +159,14 @@ public class TouristOutingAndInscrptionHandler {
 		return false;
 	}
 	
-	public Inscription getInscriptionByDtInscriptionTouristOuting(DtInscriptionTouristOuting dtInscriptionTouristOuting) {
+	//No usar 
+	public Inscription getInscriptionByDtInscriptionTouristOuting(DtInscriptionTouristOuting dtInscriptionTouristOuting, Tourist tourist, TouristOuting touristOuting) {
 		int numTourists = dtInscriptionTouristOuting.getTouristAmount();
 		float totalRegistrationCost = dtInscriptionTouristOuting.getTotalCost();
 		LocalDate inscriptionDate = dtInscriptionTouristOuting.getInscriptionDate();
 		
-		Inscription inscription = new Inscription(numTourists, totalRegistrationCost, inscriptionDate);
+		
+		Inscription inscription = new Inscription(numTourists, totalRegistrationCost, inscriptionDate, tourist, touristOuting);
 		return inscription;
 	}
 	

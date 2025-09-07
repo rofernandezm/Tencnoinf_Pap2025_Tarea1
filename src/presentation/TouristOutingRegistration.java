@@ -177,18 +177,6 @@ public class TouristOutingRegistration extends JInternalFrame{
         gbc_spinnerDepartureDate.gridx = 1;
         gbc_spinnerDepartureDate.gridy = 4;
         getContentPane().add(spinnerDepartureDate, gbc_spinnerDepartureDate);
-        
-//        dateChooserDepDate = new JDateChooser();
-//        dateChooserDepDate.setDateFormatString("yyyy-MM-dd HH:mm");
-//        getContentPane().add(dateChooserDepDate, gbc_lblEnterDepartureDate);
-//
-//        GridBagConstraints gbc_dateChooser = new GridBagConstraints();
-//        gbc_dateChooser.gridwidth = 2;
-//        gbc_dateChooser.fill = GridBagConstraints.BOTH;
-//        gbc_dateChooser.insets = new Insets(0, 0, 5, 0);
-//        gbc_dateChooser.gridx = 1;
-//        gbc_dateChooser.gridy = 4;
-//        getContentPane().add(dateChooserDepDate, gbc_dateChooser);
 
         btnConfirm = new JButton("Confirmar");
         btnConfirm.addActionListener(new ActionListener() {

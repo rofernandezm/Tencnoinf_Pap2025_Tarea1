@@ -8,6 +8,7 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import logic.entity.Supplier;
+import logic.entity.Tourist;
 import logic.entity.User;
 
 public class UserHandler {
@@ -95,6 +96,14 @@ public class UserHandler {
 
 		EntityManager em = PersistenceHandler.getEntityManager();
 		Supplier userByNickname = em.find(Supplier.class, nickname);
+		em.close();
+		return userByNickname;
+	}
+	
+	public Tourist getTouristByNickname(String nickname) {
+
+		EntityManager em = PersistenceHandler.getEntityManager();
+		Tourist userByNickname = em.find(Tourist.class, nickname);
 		em.close();
 		return userByNickname;
 	}

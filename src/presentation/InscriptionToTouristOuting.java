@@ -459,7 +459,7 @@ public class InscriptionToTouristOuting extends JInternalFrame{
     	    } 
         	
         	if (touristOutingToAddTourist != null) {
-        		newInscriptionToTouristOuting = new DtInscriptionTouristOuting(textFieldNumTouristsTOint, costTotalInsc, dischargeDateITO, touristOutingToAddTourist);
+        		newInscriptionToTouristOuting = new DtInscriptionTouristOuting(textFieldNumTouristsTOint, costTotalInsc, dischargeDateITO, touristOutingToAddTourist, touristName);
         	}
 
 
@@ -496,6 +496,11 @@ public class InscriptionToTouristOuting extends JInternalFrame{
 
         try {
             Integer.parseInt(numTourists);
+            int textFieldNumTouristsTOint = Integer.parseInt(numTourists); 
+            //Verificar que el numero ingresado sea viable respecto a los cupos disponibles
+//            if(textFieldNumTouristsTOint < ) {
+//            	
+//            }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "El numero de turistas debe ser un numero", "Inscripcion a salida turistica",
                     JOptionPane.ERROR_MESSAGE);
