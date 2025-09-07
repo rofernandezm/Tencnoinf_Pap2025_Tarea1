@@ -143,12 +143,14 @@ public class ModifyActivity extends JInternalFrame {
 		
 		if (currentActivity != null) {
 			try {
+
 				DtTouristActivity updated = new DtTouristActivity(currentActivity.getActivityName(),
 						txtDescription.getText(), Duration.ofHours((int) spnDuration.getValue()),
 						Float.parseFloat(txtTouristFee.getText()), txtCity.getText(),
 						currentActivity.getRegistratioDate(), currentActivity.getSupplierNickname());
 
 				iActivityController.modifyActivity(updated);
+
 
 				JOptionPane.showMessageDialog(this, "Actividad modificada correctamente.", "Éxito",
 						JOptionPane.INFORMATION_MESSAGE);
