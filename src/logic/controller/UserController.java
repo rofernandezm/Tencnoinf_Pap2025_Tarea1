@@ -50,7 +50,7 @@ public class UserController implements IUserController {
 	}
 
 	public String[] listSuppliers() {
-		return UserHandler.getIntance().listUsers();
+		return UserHandler.getIntance().listSuppliers();
 	}
 
 	public DtUserProfile selectUser(String nickname) {

@@ -1,15 +1,12 @@
 package logic.handler;
 
-import java.time.Duration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import jakarta.persistence.EntityManager;
-
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 import logic.dto.DtTouristActivity;
+import logic.entity.Supplier;
 import logic.entity.TouristActivity;
 
 public class TouristActivityHandler {
@@ -27,12 +24,12 @@ public class TouristActivityHandler {
 		return instance;
 	}
 	
-	public void addTouristActivity(TouristActivity touristActivity) {
+	public void addTouristActivity(DtTouristActivity touristActivity) {
 		EntityManager em = PersistenceHandler.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		 try {
 		        tx.begin();
-		        em.persist(touristActivity);
+		        em.persist(DtToEntity(touristActivity));
 		        tx.commit();
 		    } catch (Exception e) {
 		        if (tx.isActive()) {
@@ -42,6 +39,26 @@ public class TouristActivityHandler {
 		    } finally {
 		        em.close();
 		    }
+	}
+	
+	public TouristActivity DtToEntity(DtTouristActivity dta) {
+		 Supplier supplier = UserHandler.getIntance().getSupplierByNickname(dta.getSupplierNickname());
+		    if (supplier == null) {
+		        throw new IllegalArgumentException("Supplier no encontrado: " + dta.getSupplierNickname());
+		    }
+
+		    TouristActivity ta = new TouristActivity(
+		    		dta.getActivityName(),
+		    		dta.getDescription(),
+		    		dta.getDuration(),
+		    		dta.getCostTurist(),
+		    		dta.getCity(),
+		    		dta.getRegistratioDate()
+		    		);
+
+		    ta.setSupplier(supplier);
+
+		    return ta;
 	}
 
 	public TouristActivity getTouristActivityByName(String activityName) {

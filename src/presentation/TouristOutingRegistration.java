@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
@@ -23,7 +22,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import com.toedter.calendar.JDateChooser;
 import exceptions.ActivityDoesNotExistException;
 import exceptions.RepeatedTouristOutingException;
 import logic.dto.DtTouristOuting;
@@ -32,6 +30,10 @@ import logic.interfaces.ITouristOutingAndInscriptionController;
 
 public class TouristOutingRegistration extends JInternalFrame{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ITouristOutingAndInscriptionController itoic;
 	private ITouristActivityController itac;
 	
@@ -180,18 +182,6 @@ public class TouristOutingRegistration extends JInternalFrame{
         gbc_spinnerDepartureDate.gridy = 4;
         getContentPane().add(spinnerDepartureDate, gbc_spinnerDepartureDate);
         
-//        dateChooserDepDate = new JDateChooser();
-//        dateChooserDepDate.setDateFormatString("yyyy-MM-dd HH:mm");
-//        getContentPane().add(dateChooserDepDate, gbc_lblEnterDepartureDate);
-//
-//        GridBagConstraints gbc_dateChooser = new GridBagConstraints();
-//        gbc_dateChooser.gridwidth = 2;
-//        gbc_dateChooser.fill = GridBagConstraints.BOTH;
-//        gbc_dateChooser.insets = new Insets(0, 0, 5, 0);
-//        gbc_dateChooser.gridx = 1;
-//        gbc_dateChooser.gridy = 4;
-//        getContentPane().add(dateChooserDepDate, gbc_dateChooser);
-
         btnConfirm = new JButton("Confirmar");
         btnConfirm.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
