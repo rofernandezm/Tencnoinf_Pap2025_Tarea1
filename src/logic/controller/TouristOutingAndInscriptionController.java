@@ -30,28 +30,29 @@ public class TouristOutingAndInscriptionController implements ITouristOutingAndI
 		TouristOutingAndInscrptionHandler toih = TouristOutingAndInscrptionHandler.getIntance();
         TouristOuting to = toih.getTouristOutingByName(outingName);                    
         if (to != null) 
-            return new DtTouristOuting(to.getOutingName() , to.getMaxNumTourists(), to.getDeparturePoint(), to.getDepartureDate(), to.getDischargeDate());
+            return new DtTouristOuting(to.getOutingName() , to.getMaxNumTourists(), to.getDeparturePoint(), to.getDepartureDate(), to.getDischargeDate(), to.getActivity().getActivityName());
         else
             throw new TouristOutingDoesNotExistException("La salida turistica de nombre " + outingName + " no existe");
 	}
 	
-	public void outingDataEntry(DtTouristOuting dtTouristOuting, String activityName) throws RepeatedTouristOutingException {
-
- 		this.dtNewTouristOuting = dtTouristOuting;
+	public void outingDataEntry(DtTouristOuting dtTouristOuting) throws RepeatedTouristOutingException {
+// 		this.dtNewTouristOuting = dtTouristOuting;
  		
- 		TouristOutingAndInscrptionHandler mto = TouristOutingAndInscrptionHandler.getIntance();
-		String touristOutingName = dtTouristOuting.getTipName();
-        TouristOuting to = mto.getTouristOutingByName(touristOutingName);
+// 		TouristOutingAndInscrptionHandler mto = TouristOutingAndInscrptionHandler.getIntance();
+//	  String touristOutingName = dtTouristOuting.getTipName();
+//    TouristOuting to = mto.getTouristOutingByName(touristOutingName);
         
-        if (to != null)
-            throw new RepeatedTouristOutingException("La salida de nombre " + touristOutingName + " ya esta registrada. Por favor, ingrese un nuevo nombre");
+//    if (to != null)
+//      throw new RepeatedTouristOutingException("La salida de nombre " + touristOutingName + " ya esta registrada. Por favor, ingrese un nuevo nombre");
         
-        TouristActivityHandler tah = TouristActivityHandler.getIntance();
-        TouristActivity touristActivity = tah.getTouristActivityByName(activityName);
+//        TouristActivityHandler tah = TouristActivityHandler.getIntance();
+//        TouristActivity touristActivity = tah.getTouristActivityByName(activityName);
         
-        to = dtTouristOuting.toEntity();
-        to.setActivity(touristActivity);
-        mto.addTouristOuting(to);
+//        to = dtTouristOuting.toEntity();
+//        to.setActivity(touristActivity);
+//        mto.addTouristOuting(to);
+		
+		TouristOutingAndInscrptionHandler.getIntance().addTouristOuting(dtTouristOuting.toEntity());
 	}
 
 	public void inscriptionDataEntry(DtInscriptionTouristOuting dtInscriptionOuting, String userNickname, String outingName) throws RepeatedInscriptionToTouristOutingException{

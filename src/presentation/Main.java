@@ -29,6 +29,7 @@ public class Main {
 	private InscriptionToTouristOuting inscriptionToTouristOutingInternalFrame;
 	private ModifyActivity modifyActivityInternalFrame;
 	private ConsultTouristInscription consultInscriptionInternalFrame;
+	private ActivityRanking activityRankingInternalFrame;
 
 	public static void main(String[] args) {
 
@@ -56,7 +57,7 @@ public class Main {
 		ITAC = factoryUyTourism.getITouristActivityController();
 		IOIC = factoryUyTourism.getITouristOutingAndInscriptionController();
 
-    creUsrInternalFrame = new CreateUser(IUC);
+		creUsrInternalFrame = new CreateUser(IUC);
 
 		frmTourismUy.getContentPane().add(creUsrInternalFrame);
 
@@ -64,7 +65,7 @@ public class Main {
 		touristOutingRegistrationInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(touristOutingRegistrationInternalFrame);
 
-		consultTouristOutingInternalFrame = new ConsultTouristOuting(IOIC);
+		consultTouristOutingInternalFrame = new ConsultTouristOuting(IOIC, ITAC);
 		consultTouristOutingInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(consultTouristOutingInternalFrame);
 
@@ -87,6 +88,10 @@ public class Main {
 		consultInscriptionInternalFrame = new ConsultTouristInscription(IOIC);
 		consultInscriptionInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(consultInscriptionInternalFrame);
+		
+		activityRankingInternalFrame = new ActivityRanking(ITAC);
+		activityRankingInternalFrame.setVisible(false);
+		frmTourismUy.getContentPane().add(activityRankingInternalFrame);
 
 	}
 	private void initialize() {
@@ -133,6 +138,7 @@ public class Main {
 		menuItemAddAct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				hideAllComponents();
+				creActInternalFrame.init();
 				creActInternalFrame.setVisible(true);
 
 			}
@@ -142,6 +148,7 @@ public class Main {
 		menuActivities.add(mnConsultActivity);
 		mnConsultActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				consultActInternalFrame.init();
 				consultActInternalFrame.setVisible(true);
 
 			}
@@ -158,6 +165,12 @@ public class Main {
 
 		JMenuItem mnRankingActivity = new JMenuItem("Ranking Actividades");
 		menuActivities.add(mnRankingActivity);
+		mnRankingActivity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				hideAllComponents();
+				activityRankingInternalFrame.setVisible(true);
+			}
+		});
 
 		JMenu mnOuting = new JMenu("Salidas");
 		menuBar.add(mnOuting);

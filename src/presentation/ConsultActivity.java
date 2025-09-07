@@ -52,8 +52,8 @@ public class ConsultActivity extends JInternalFrame {
 		super("Consultar actividad", true, true, true, true);
 		
 		this.itac = itac;
-		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-		setBounds(new Rectangle(0, 0, 400, 420));
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		setBounds(new Rectangle(35, 35, 400, 420));
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JPanel formContent = new JPanel();
@@ -111,6 +111,7 @@ public class ConsultActivity extends JInternalFrame {
 		try {
 			
 			String[] data = itac.listTouristActivities();
+			System.out.println("Datos de actividades cargados: " + data);
 			if (data != null) {
 				String[] dataWithNull = new String[data.length + 1];
 				dataWithNull[0] = null; // Primera opción nula
@@ -131,6 +132,10 @@ public class ConsultActivity extends JInternalFrame {
 			try {
 				activityWithOutingsData = itac.consultTouristActivityData(selectedActivity);
 				DtTouristActivity activityData = activityWithOutingsData.getActivity();
+				if (activityData == null) {
+					throw new RuntimeException("Error al obtener dtActivity.");
+					
+				}
 				txtActName.setText(activityData.getActivityName());
 				txtActDescription.setText(activityData.getDescription());
 				txtActDuration.setText(activityData.getDuration().toString());
@@ -138,17 +143,17 @@ public class ConsultActivity extends JInternalFrame {
 				txtActCity.setText(activityData.getCity());
 				txtActRegDate.setText(activityData.getRegistratioDate().format(formatter));
 				
-				loadComboActSelectOutings(cmbSelActivity, activityWithOutingsData.getOutings());
+				loadComboActSelectOutings(activityWithOutingsData.getOutings());
 				
 			} catch (ActivityDoesNotExistException ex) {
-				clearForm();
+				clearActivityData();
 			}
 		} else {
-			clearForm();
+			clearActivityData();
 		}
 	}
 	
-	private void loadComboActSelectOutings(JComboBox<String> combo, Set<DtTouristOuting> outings) {
+	private void loadComboActSelectOutings(Set<DtTouristOuting> outings) {
 		DefaultComboBoxModel<String> model;
 		// Crear un array con una opción nula al principio
 		String[] data = outings.stream().map(DtTouristOuting::getTipName).toArray(String[]::new);
@@ -156,7 +161,7 @@ public class ConsultActivity extends JInternalFrame {
 		dataWithNull[0] = null; // Primera opción nula
 		System.arraycopy(data, 0, dataWithNull, 1, data.length);
 		model = new DefaultComboBoxModel<String>(dataWithNull);
-		combo.setModel(model);
+		cmbActOutings.setModel(model);
 	}
 	
 	private JPanel dataActivity() {
@@ -450,6 +455,7 @@ public class ConsultActivity extends JInternalFrame {
 	
 	private void clearForm() {
 		clearActivityData();
+		cmbSelActivity.setSelectedItem(null);
 	}
 	
 	private void clearActivityData() {
@@ -459,6 +465,7 @@ public class ConsultActivity extends JInternalFrame {
 		txtActCost.setText("");
 		txtActCity.setText("");
 		txtActRegDate.setText("");
+		cmbActOutings.setSelectedItem(null);
 		clearOutingData();
 	}
 	
@@ -468,6 +475,11 @@ public class ConsultActivity extends JInternalFrame {
 		txtOutDepPoint.setText("");
 		txtOutDepDate.setText("");
 		txtOutDesDate.setText("");
+	}
+	
+	public void init() {
+		loadComboSelectActivity(cmbSelActivity);
+		clearForm();
 	}
 	
 }
