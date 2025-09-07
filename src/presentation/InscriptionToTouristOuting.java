@@ -64,9 +64,11 @@ public class InscriptionToTouristOuting extends JInternalFrame{
     private JButton btnConfirm;
 	private JButton btnCancel;
 	
-	public InscriptionToTouristOuting(ITouristOutingAndInscriptionController itoic) {
+	public InscriptionToTouristOuting(ITouristOutingAndInscriptionController itoic, ITouristActivityController itac, IUserController iuc) {
 
         controlTouristOutingAndInscription = itoic;
+        controlTouristActivity = itac;
+        controlUser = iuc;
         
         setResizable(true);
         setIconifiable(true);
@@ -80,7 +82,7 @@ public class InscriptionToTouristOuting extends JInternalFrame{
         gridBagLayout.columnWidths = new int[] { 180, 105, 105, 5 };
         gridBagLayout.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30 };
         gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
-        gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+        gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
         getContentPane().setLayout(gridBagLayout);
 
         lblTouristActivities = new JLabel("Actividades turisticas:");
@@ -142,6 +144,7 @@ public class InscriptionToTouristOuting extends JInternalFrame{
         getContentPane().add(lblTouristOutingName, gbc_lblTouristOutingName);
 
         textFieldTouristOutingName = new JTextField();
+        textFieldTouristOutingName.setEnabled(false);
         textFieldTouristOutingName.setEditable(false);
         GridBagConstraints gbc_textFieldTouristOutingName = new GridBagConstraints();
         gbc_textFieldTouristOutingName.gridwidth = 2;
@@ -162,6 +165,7 @@ public class InscriptionToTouristOuting extends JInternalFrame{
         getContentPane().add(lblMaxNumTourists, gbc_lblMaxNumTourists);
 
         textFieldMaxNumTourists = new JTextField();
+        textFieldMaxNumTourists.setEnabled(false);
         textFieldMaxNumTourists.setEditable(false);
         GridBagConstraints gbc_textFieldMaxNumTourists = new GridBagConstraints();
         gbc_textFieldMaxNumTourists.gridwidth = 2;
@@ -182,6 +186,7 @@ public class InscriptionToTouristOuting extends JInternalFrame{
         getContentPane().add(lblDeparturePoint, gbc_lblDeparturePoint); 
 
         textFieldDeparturePoint = new JTextField();
+        textFieldDeparturePoint.setEnabled(false);
         textFieldDeparturePoint.setEditable(false);
         GridBagConstraints gbc_textFieldDeparturePoint = new GridBagConstraints();
         gbc_textFieldDeparturePoint.gridwidth = 2;
@@ -202,6 +207,7 @@ public class InscriptionToTouristOuting extends JInternalFrame{
         getContentPane().add(lblDepartureDate, gbc_lblDepartureDate); 
 
         textFieldDepartureDate = new JTextField();
+        textFieldDepartureDate.setEnabled(false);
         textFieldDepartureDate.setEditable(false);
         textFieldDepartureDate.setColumns(10);
         GridBagConstraints gbc_textFieldDepartureDate = new GridBagConstraints();
@@ -222,6 +228,7 @@ public class InscriptionToTouristOuting extends JInternalFrame{
         getContentPane().add(lblDischargeDate, gbc_lblDischargeDate); 
 
         textFieldDischargeDate = new JTextField();
+        textFieldDischargeDate.setEnabled(false);
         textFieldDischargeDate.setEditable(false);
         textFieldDischargeDate.setColumns(10);
         GridBagConstraints gbc_textFieldDischargeDate = new GridBagConstraints();
@@ -280,6 +287,7 @@ public class InscriptionToTouristOuting extends JInternalFrame{
         getContentPane().add(lblinscriptionDate, gbc_lblinscriptionDate); 
 
         textFieldinscriptionDate = new JTextField();
+        textFieldinscriptionDate.setEnabled(false);
         textFieldinscriptionDate.setEditable(false);
         textFieldinscriptionDate.setColumns(10);
         GridBagConstraints gbc_textFieldinscriptionDate = new GridBagConstraints();
@@ -300,6 +308,7 @@ public class InscriptionToTouristOuting extends JInternalFrame{
         getContentPane().add(lblTotalRegistrationCost, gbc_lblTotalRegistrationCost);
 
         textFieldTotalRegistrationCost = new JTextField();
+        textFieldTotalRegistrationCost.setEnabled(false);
         textFieldTotalRegistrationCost.setEditable(false);
         GridBagConstraints gbc_textFieldTotalRegistrationCost = new GridBagConstraints();
         gbc_textFieldTotalRegistrationCost.gridwidth = 2;
@@ -336,16 +345,20 @@ public class InscriptionToTouristOuting extends JInternalFrame{
         gbc_btnCancel.gridx = 2;
         gbc_btnCancel.gridy = 11;
         getContentPane().add(btnCancel, gbc_btnCancel);
+        
+        init();
     }
     
     public void loadTouristActivities() {
         DefaultComboBoxModel<String> model; 
         try {                                    
-            model = new DefaultComboBoxModel<String>(controlTouristActivity.listTouristActivities()); 
-            comboBoxTouristActivities.setModel(model);        
+            model = new DefaultComboBoxModel<String>(controlTouristActivity.listTouristActivities());    
+            comboBoxTouristActivities.setModel(model);
         } catch (ActivityDoesNotExistException e) {
             // We will not show any tourist activity
+        	//model = new DefaultComboBoxModel<String>(new String[] {"No existen actividades turísticas registradas."});
         }
+        
     }
     
     protected void loadTouristOutings() {
@@ -366,9 +379,16 @@ public class InscriptionToTouristOuting extends JInternalFrame{
     			Set<DtTouristOuting> allTouristOutings = activityWithOutings.getOutings();
     			//Tengo un set de dtTouristOuting, me quiero quedar con una lista de nombres de touristOuting para mostrar en el combo box
     			
-    	    	DefaultComboBoxModel<String> model;                                    
-    	        model = new DefaultComboBoxModel<String>(controlTouristOutingAndInscription.listTouristOutingsNames(allTouristOutings)); 
-    	        comboBoxTouristOutings.setModel(model);        
+    			//y si la actividad no tiene salidas?
+    	    	DefaultComboBoxModel<String> model;  
+    	    	try {
+    	    		model = new DefaultComboBoxModel<String>(controlTouristOutingAndInscription.listTouristOutingsNames(allTouristOutings)); 
+    	    		comboBoxTouristOutings.setModel(model);
+    	    	} catch (TouristOutingDoesNotExistException e) {
+    	    		// We will not show any tourist outing
+    	    		//model = new DefaultComboBoxModel<String>(new String[] {"No existen salidas turísticas asociadas."});
+    	    	}
+    	                
     	        
     		}
     		
@@ -406,11 +426,12 @@ public class InscriptionToTouristOuting extends JInternalFrame{
     public void loadTourists() {
         DefaultComboBoxModel<String> model; 
         //try {                                    
-            model = new DefaultComboBoxModel<String>(controlUser.listTourists()); 
-            comboBoxTourists.setModel(model);        
+            model = new DefaultComboBoxModel<String>(controlUser.listTourists());
         //} catch (ActivityDoesNotExistException e) {
             // We will not show any tourist activity
+            //model = new DefaultComboBoxModel<String>(new String[] {"No existen turistas registrados."});
         //}
+        comboBoxTourists.setModel(model);   
     }
    
     protected void cmdInscriptionToTouristOutingActionPerformed(ActionEvent arg0) {
@@ -497,6 +518,13 @@ public class InscriptionToTouristOuting extends JInternalFrame{
     	textFieldinscriptionDate.setText("");
     	textFieldTotalRegistrationCost.setText("");
     	
+    }
+    
+    public void init() {
+    	clearForm();
+    	loadTouristActivities();
+    	loadTouristOutings();
+    	loadTourists();
     }
 }
     

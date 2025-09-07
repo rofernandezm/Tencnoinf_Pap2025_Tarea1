@@ -1,5 +1,6 @@
 package logic.handler;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import jakarta.persistence.EntityManager;
 
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
+import logic.dto.DtTouristActivity;
 import logic.entity.TouristActivity;
 
 public class TouristActivityHandler {
@@ -61,7 +63,6 @@ public class TouristActivityHandler {
 	}
 
 	public String[] listTouristActivities() {
-
 		EntityManager em = PersistenceHandler.getEntityManager();
 		try {
 	        TypedQuery<TouristActivity> query = em.createQuery("SELECT t FROM TouristActivity t", TouristActivity.class);
@@ -79,4 +80,48 @@ public class TouristActivityHandler {
 	    }
 	}
 
+		
+//		EntityManager em = PersistenceHandler.getEntityManager();
+//	    TypedQuery<TouristActivity> query = em.createQuery("SELECT t FROM TouristActivity t", TouristActivity.class);
+//	    List<TouristActivity> result = query.getResultList();
+//	    String[] activities = result.size() > 0 ? new String[result.size()] : null;
+//	    for (int i = 0; i < result.size(); i++) {
+//	    	activities[i] = result.get(i).getActivityName();
+//	    }
+//	    em.close();
+//		return activities;
+//	}
+
+	
+	public void updateActivity(DtTouristActivity dto) {
+	    EntityManager em = PersistenceHandler.getEntityManager();
+	    EntityTransaction tx = em.getTransaction();
+	    tx.begin();
+	    TouristActivity ta = em.find(TouristActivity.class, dto.getActivityName());
+	    if (ta != null) {
+	        ta.setDescription(dto.getDescription());
+	        ta.setDuration(dto.getDuration());
+	        ta.setTouristFee(dto.getCostTurist());
+	        ta.setCity(dto.getCity());
+
+	    }
+	    tx.commit();
+	    em.close();
+	}
+
+
+//	private Map<String, TouristActivity> updateTouristActivitiesFromDB() {
+//			
+//			EntityManager em = PersistenceHandler.getEntityManager();
+//			TypedQuery<TouristActivity> query = em.createQuery("SELECT ta FROM TouristActivity ta", TouristActivity.class);
+//			
+//			List<TouristActivity> result = query.getResultList();
+//	
+//			for (TouristActivity activity : result) {
+//				touristActivities.put(activity.getActivityName(), activity);
+//		    }
+//			
+//			em.close();
+//			return touristActivities;
+//		}
 }

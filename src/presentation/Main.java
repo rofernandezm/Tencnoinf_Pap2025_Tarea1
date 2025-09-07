@@ -77,7 +77,7 @@ public class Main {
 		consultActInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(consultActInternalFrame);
 
-		inscriptionToTouristOutingInternalFrame = new InscriptionToTouristOuting(IOIC);
+		inscriptionToTouristOutingInternalFrame = new InscriptionToTouristOuting(IOIC, ITAC, IUC);
 		inscriptionToTouristOutingInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(inscriptionToTouristOutingInternalFrame);
 
@@ -85,7 +85,7 @@ public class Main {
 		modifyActivityInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(modifyActivityInternalFrame);
 
-		consultInscriptionInternalFrame = new ConsultTouristInscription(IOIC);
+		consultInscriptionInternalFrame = new ConsultTouristInscription(IOIC, ITAC);
 		consultInscriptionInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(consultInscriptionInternalFrame);
 		
@@ -159,6 +159,7 @@ public class Main {
 		mnModifyActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				hideAllComponents();
+				modifyActivityInternalFrame.init();
 				modifyActivityInternalFrame.setVisible(true);
 			}
 		});
@@ -168,6 +169,7 @@ public class Main {
 		mnRankingActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				hideAllComponents();
+				activityRankingInternalFrame.init();
 				activityRankingInternalFrame.setVisible(true);
 			}
 		});
@@ -202,6 +204,7 @@ public class Main {
 		mnCreateInscription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				hideAllComponents();
+				inscriptionToTouristOutingInternalFrame.init();
 				inscriptionToTouristOutingInternalFrame.setVisible(true);
 			}
 		});

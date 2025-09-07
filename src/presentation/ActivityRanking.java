@@ -3,6 +3,7 @@ package presentation;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import logic.dto.DtRanking;
 import logic.interfaces.ITouristActivityController;
 
 import java.awt.*;
@@ -37,6 +38,28 @@ public class ActivityRanking extends JInternalFrame {
 	}
 
 	private void loadRanking() {
+		DefaultTableModel model = (DefaultTableModel) tableRanking.getModel();
+		model.setRowCount(0);
+
+		DtRanking[] ranking = iActivityController.getActivityRanking();
+
+		if (ranking != null && ranking.length > 0) {
+			for (DtRanking r : ranking) {
+				if (r != null) {
+					model.addRow(new Object[] { r.getActivity(), r.getOutings() });
+				}
+			}
+		}
+	}
+
+	public void init() {
+		clearForm();
+		loadRanking();
+	}
+
+	private void clearForm() {
+		DefaultTableModel model = (DefaultTableModel) tableRanking.getModel();
+		model.setRowCount(0);
 	}
 
 }

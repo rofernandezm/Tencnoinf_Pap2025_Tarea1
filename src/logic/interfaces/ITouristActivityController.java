@@ -19,10 +19,14 @@ public interface ITouristActivityController {
 	//The method ListarSalidasActividad(nombreActividad: String) : DtActividadConSalida has same response and parameters than consultTouristActivityData method
 		
 	
-	public DtRanking consultRankingActivities();
+	public DtRanking[]  getActivityRanking();
 	
 	public DtTouristActivity consultTouristActivityBasicData(String activityName) throws ActivityDoesNotExistException;
 
 	public float getActivityCostTourist(String activityName);
+
+//	public void modifyDuration(Duration ofHours);
+	
+	public void modifyActivity(DtTouristActivity dto);
 }
 
