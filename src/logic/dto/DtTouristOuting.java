@@ -29,7 +29,7 @@ public class DtTouristOuting {
 		this.activityName = activityName;
 	}
 	
-	public String getTipName() {
+	public String getOutingName() {
 		return outingName;
 	}
 

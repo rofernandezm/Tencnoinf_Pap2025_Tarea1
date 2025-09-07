@@ -54,7 +54,7 @@ public class ActivityRanking extends JInternalFrame {
 
 	public void init() {
 		clearForm();
-		loadRanking();
+		loadRanking();	
 	}
 
 	private void clearForm() {

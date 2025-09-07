@@ -214,6 +214,7 @@ public class Main {
 		mnConsultInscription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				hideAllComponents();
+				consultInscriptionInternalFrame.init();
 				consultInscriptionInternalFrame.setVisible(true);
 			}
 		});

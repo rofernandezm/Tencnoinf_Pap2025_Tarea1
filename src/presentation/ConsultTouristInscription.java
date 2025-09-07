@@ -102,7 +102,7 @@ public class ConsultTouristInscription extends JInternalFrame {
 
 			if (dtActivity != null && dtActivity.getOutings() != null) {
 				for (DtTouristOuting outing : dtActivity.getOutings()) {
-					cbSalida.addItem(outing.getTipName());
+					cbSalida.addItem(outing.getOutingName());
 				}
 			}
 
@@ -130,8 +130,8 @@ public class ConsultTouristInscription extends JInternalFrame {
 	}
 
 	public void init() {
-		clearForm();
 		loadTouristActivities();
+		clearForm();
 	}
 
 	private void clearForm() {
