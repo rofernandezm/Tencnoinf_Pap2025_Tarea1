@@ -108,10 +108,10 @@ public class ModifyActivity extends JInternalFrame {
 		DtTouristActivity act = (DtTouristActivity) cbActividad.getSelectedItem();
 		if (act != null) {
 			try {
-				iActivityController.modifyDescription(txtDescripcion.getText());
-				iActivityController.modifyDuration(Duration.ofHours((int) spnDuracion.getValue()));
-				iActivityController.modifyTouristFee(Float.parseFloat(txtCosto.getText()));
-				iActivityController.modifyCity(txtCiudad.getText());
+				//iActivityController.modifyDescription(txtDescripcion.getText());
+				//iActivityController.modifyDuration(Duration.ofHours((int) spnDuracion.getValue()));
+				//iActivityController.modifyTouristFee(Float.parseFloat(txtCosto.getText()));
+				//iActivityController.modifyCity(txtCiudad.getText());
 
 				JOptionPane.showMessageDialog(this, "Actividad modificada correctamente.", "Éxito",
 						JOptionPane.INFORMATION_MESSAGE);
