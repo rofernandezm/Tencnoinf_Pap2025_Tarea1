@@ -3,6 +3,7 @@ package presentation;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import exceptions.ActivityDoesNotExistException;
 import logic.controller.TouristActivityController;
 import logic.dto.DtTouristActivity;
 import logic.interfaces.ITouristActivityController;
@@ -15,13 +16,15 @@ import java.time.format.DateTimeFormatter;
 public class ModifyActivity extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JComboBox<DtTouristActivity> cbActividad;
-	private JTextField txtNombre;
-	private JTextArea txtDescripcion;
-	private JSpinner spnDuracion;
-	private JTextField txtCosto;
-	private JTextField txtCiudad;
-	private JTextField txtFechaAlta;
+	private JComboBox<String> cbActivity;
+	private JTextField txtActivityName;
+	private JTextArea txtDescription;
+	private JSpinner spnDuration;
+	private JTextField txtTouristFee;
+	private JTextField txtCity;
+	private JTextField txtDischargeDate;
+
+	private DtTouristActivity currentActivity;
 
 	private ITouristActivityController iActivityController;
 
@@ -39,87 +42,182 @@ public class ModifyActivity extends JInternalFrame {
 
 		JPanel panelSelect = new JPanel();
 		panelSelect.add(new JLabel("Actividad:"));
-		cbActividad = new JComboBox<>();
-		panelSelect.add(cbActividad);
+		cbActivity = new JComboBox<>();
+		panelSelect.add(cbActivity);
 		getContentPane().add(panelSelect, BorderLayout.NORTH);
 
 		JPanel formPanel = new JPanel(new GridLayout(6, 2, 10, 10));
 		formPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
 		formPanel.add(new JLabel("Nombre:"));
-		txtNombre = new JTextField();
-		txtNombre.setEditable(false);
-		formPanel.add(txtNombre);
+		txtActivityName = new JTextField();
+		txtActivityName.setEnabled(false);
+		txtActivityName.setEditable(false);
+		formPanel.add(txtActivityName);
 
 		formPanel.add(new JLabel("Descripción:"));
-		txtDescripcion = new JTextArea(3, 20);
-		formPanel.add(new JScrollPane(txtDescripcion));
+		txtDescription = new JTextArea(3, 20);
+		formPanel.add(new JScrollPane(txtDescription));
 
 		formPanel.add(new JLabel("Duración (horas):"));
-		spnDuracion = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
-		formPanel.add(spnDuracion);
+		spnDuration = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
+		formPanel.add(spnDuration);
 
 		formPanel.add(new JLabel("Costo por turista:"));
-		txtCosto = new JTextField();
-		formPanel.add(txtCosto);
+		txtTouristFee = new JTextField();
+		formPanel.add(txtTouristFee);
 
 		formPanel.add(new JLabel("Ciudad:"));
-		txtCiudad = new JTextField();
-		formPanel.add(txtCiudad);
+		txtCity = new JTextField();
+		formPanel.add(txtCity);
 
 		formPanel.add(new JLabel("Fecha Alta:"));
-		txtFechaAlta = new JTextField();
-		txtFechaAlta.setEditable(false);
-		formPanel.add(txtFechaAlta);
+		txtDischargeDate = new JTextField();
+		txtDischargeDate.setEnabled(false);
+		txtDischargeDate.setEditable(false);
+		formPanel.add(txtDischargeDate);
 
 		getContentPane().add(formPanel, BorderLayout.CENTER);
 
 		JPanel panelButtons = new JPanel();
-		JButton btnGuardar = new JButton("Guardar");
-		JButton btnCancelar = new JButton("Cancelar");
-		panelButtons.add(btnGuardar);
-		panelButtons.add(btnCancelar);
+		JButton btnModify = new JButton("Guardar");
+		JButton btnCancel = new JButton("Cancelar");
+		panelButtons.add(btnModify);
+		panelButtons.add(btnCancel);
 		getContentPane().add(panelButtons, BorderLayout.SOUTH);
 
-		cbActividad.addActionListener(this::onActivitySelected);
-		btnGuardar.addActionListener(this::onGuardar);
-		btnCancelar.addActionListener(e -> dispose());
+		cbActivity.addActionListener(this::onActivitySelected);
+		btnModify.addActionListener(e -> onGuardar(e));
+		btnCancel.addActionListener(e -> {
+		    clearForm();
+		    dispose();
+		});
 
 		loadActivities();
 	}
 
 	private void loadActivities() {
+		DefaultComboBoxModel<String> model;
+		try {
+
+			String[] data = iActivityController.listTouristActivities();
+			System.out.println("Datos de actividades cargados: " + data);
+			if (data != null) {
+				String[] dataWithNull = new String[data.length + 1];
+				dataWithNull[0] = null; // Primera opción nula
+				System.arraycopy(data, 0, dataWithNull, 1, data.length);
+				model = new DefaultComboBoxModel<String>(dataWithNull);
+				cbActivity.setModel(model);
+			}
+
+		} catch (ActivityDoesNotExistException e) {
+			cbActivity.setModel(new DefaultComboBoxModel<String>());
+		}
 
 	}
 
 	private void onActivitySelected(ActionEvent e) {
-		DtTouristActivity act = (DtTouristActivity) cbActividad.getSelectedItem();
-		if (act != null) {
-			txtNombre.setText(act.getActivityName());
-			txtDescripcion.setText(act.getDescription());
-			spnDuracion.setValue(act.getDuration().toHours());
-			txtCosto.setText(String.valueOf(act.getCostTurist()));
-			txtCiudad.setText(act.getCity());
-			txtFechaAlta.setText(act.getRegistratioDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+		String selectedName = (String) cbActivity.getSelectedItem();
+		if (selectedName != null) {
+			try {
+				currentActivity = iActivityController.consultTouristActivityBasicData(selectedName);
+
+				txtActivityName.setText(currentActivity.getActivityName());
+				txtDescription.setText(currentActivity.getDescription());
+				spnDuration.setValue(currentActivity.getDuration().toHours());
+				txtTouristFee.setText(String.valueOf(currentActivity.getCostTurist()));
+				txtCity.setText(currentActivity.getCity());
+				txtDischargeDate.setText(
+						currentActivity.getRegistratioDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(this, "No se pudo cargar la actividad seleccionada.", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 
 	private void onGuardar(ActionEvent e) {
-		DtTouristActivity act = (DtTouristActivity) cbActividad.getSelectedItem();
-		if (act != null) {
+		  if (!validateInputs()) {
+		        return;
+		    }
+		
+		if (currentActivity != null) {
 			try {
-				//iActivityController.modifyDescription(txtDescripcion.getText());
-				//iActivityController.modifyDuration(Duration.ofHours((int) spnDuracion.getValue()));
-				//iActivityController.modifyTouristFee(Float.parseFloat(txtCosto.getText()));
-				//iActivityController.modifyCity(txtCiudad.getText());
+
+				DtTouristActivity updated = new DtTouristActivity(currentActivity.getActivityName(),
+						txtDescription.getText(), Duration.ofHours((int) spnDuration.getValue()),
+						Float.parseFloat(txtTouristFee.getText()), txtCity.getText(),
+						currentActivity.getRegistratioDate(), currentActivity.getSupplierNickname());
+
+				iActivityController.modifyActivity(updated);
+
 
 				JOptionPane.showMessageDialog(this, "Actividad modificada correctamente.", "Éxito",
 						JOptionPane.INFORMATION_MESSAGE);
 				dispose();
 			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(this, "Error al modificar actividad: " + ex.getMessage(), "Error",
+				JOptionPane.showMessageDialog(this, "Error al modificar la actividad: " + ex.getMessage(), "Error",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
+
+	public void init() {
+		clearForm();
+		loadActivities();
+	}
+
+	private void clearForm() {
+		cbActivity.setSelectedItem(null);
+		txtActivityName.setText("");
+		txtDescription.setText("");
+		txtTouristFee.setText("");
+		txtCity.setText("");
+		txtDischargeDate.setText("");
+		spnDuration.setValue(1);
+		currentActivity = null;
+	}
+
+	private boolean validateInputs() {
+		String description = txtDescription.getText().trim();
+		String city = txtCity.getText().trim();
+		String costoText = txtTouristFee.getText().trim();
+		Object duracionValue = spnDuration.getValue();
+
+		if (description.isEmpty() || city.isEmpty() || costoText.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "Todos los campos son requeridos", "Error de validación",
+					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+
+		int duracionHoras = 0;
+		try {
+			duracionHoras = (int) duracionValue;
+			if (duracionHoras <= 0) {
+				JOptionPane.showMessageDialog(this, "La duración debe ser mayor que 0", "Error de validación",
+						JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(this, "La duración debe ser un número entero", "Error de validación",
+					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+
+		try {
+			float costo = Float.parseFloat(costoText);
+			if (costo <= 0) {
+				JOptionPane.showMessageDialog(this, "El costo debe ser mayor que 0", "Error de validación",
+						JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+		} catch (NumberFormatException ex) {
+			JOptionPane.showMessageDialog(this, "El costo debe ser numérico", "Error de validación",
+					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+
+		return true;
+	}
+
 }
