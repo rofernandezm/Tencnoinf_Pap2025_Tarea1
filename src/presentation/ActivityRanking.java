@@ -52,4 +52,14 @@ public class ActivityRanking extends JInternalFrame {
 		}
 	}
 
+	public void init() {
+		clearForm();
+		loadRanking();
+	}
+
+	private void clearForm() {
+		DefaultTableModel model = (DefaultTableModel) tableRanking.getModel();
+		model.setRowCount(0);
+	}
+
 }

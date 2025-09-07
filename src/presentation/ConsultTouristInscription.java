@@ -70,67 +70,75 @@ public class ConsultTouristInscription extends JInternalFrame {
 		loadTouristActivities();
 
 		cbActividad.addActionListener(e -> {
-		    String actName = (String) cbActividad.getSelectedItem();
-		    if (actName != null) {
-		        loadOutings(actName);
-		    }
+			String actName = (String) cbActividad.getSelectedItem();
+			if (actName != null) {
+				loadOutings(actName);
+			}
 		});
 		cbSalida.addActionListener(e -> {
-		    String outingName = (String) cbSalida.getSelectedItem();
-		    if (outingName != null) {
-		        loadInscriptions(outingName);
-		    }
+			String outingName = (String) cbSalida.getSelectedItem();
+			if (outingName != null) {
+				loadInscriptions(outingName);
+			}
 		});
 	}
 
-	   public void loadTouristActivities() {
-		   	cbActividad.removeAllItems();
-	        DefaultComboBoxModel<String> model; 
-	        try {                                    
-	            model = new DefaultComboBoxModel<String>(iActivityController.listTouristActivities()); 
-	            cbActividad.setModel(model);        
-	        } catch (ActivityDoesNotExistException e) {
-	            // We will not show any tourist activity
-	        	model = new DefaultComboBoxModel<>(new String[] {"No existen actividades turísticas registradas."});
-	        }
-	    }
-
-	   private void loadOutings(String activityName) {
-		    cbSalida.removeAllItems();
-		    try {
-		        DtActivityWithOutings dtActivity = iActivityController.consultTouristActivityData(activityName);
-
-		        if (dtActivity != null && dtActivity.getOutings() != null) {
-		            for (DtTouristOuting outing : dtActivity.getOutings()) {
-		                cbSalida.addItem(outing.getTipName()); 
-		            }
-		        }
-
-		    } catch (Exception e) {
-		        JOptionPane.showMessageDialog(this,
-		                "Error al cargar salidas: " + e.getMessage(),
-		                "Error", JOptionPane.ERROR_MESSAGE);
-		    }
+	public void loadTouristActivities() {
+		cbActividad.removeAllItems();
+		DefaultComboBoxModel<String> model;
+		try {
+			model = new DefaultComboBoxModel<String>(iActivityController.listTouristActivities());
+			cbActividad.setModel(model);
+		} catch (ActivityDoesNotExistException e) {
+			// We will not show any tourist activity
+			model = new DefaultComboBoxModel<>(new String[] { "No existen actividades turísticas registradas." });
 		}
+	}
+
+	private void loadOutings(String activityName) {
+		cbSalida.removeAllItems();
+		try {
+			DtActivityWithOutings dtActivity = iActivityController.consultTouristActivityData(activityName);
+
+			if (dtActivity != null && dtActivity.getOutings() != null) {
+				for (DtTouristOuting outing : dtActivity.getOutings()) {
+					cbSalida.addItem(outing.getTipName());
+				}
+			}
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "Error al cargar salidas: " + e.getMessage(), "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
 
 	private void loadInscriptions(String outingName) {
-	    tableModel.setRowCount(0); 
+		tableModel.setRowCount(0);
 
-	    try {
-	        DtInscriptionTouristOuting[] inscriptions = iOutingController.listOutingInscription(outingName);
+		try {
+			DtInscriptionTouristOuting[] inscriptions = iOutingController.listOutingInscription(outingName);
 
-	        for (DtInscriptionTouristOuting ins : inscriptions) {
-	            tableModel.addRow(new Object[]{
-	                ins.getTouristAmount(),
-	                ins.getTotalCost(),
-	                ins.getInscriptionDate()
-	            });
-	        }
+			for (DtInscriptionTouristOuting ins : inscriptions) {
+				tableModel
+						.addRow(new Object[] { ins.getTouristAmount(), ins.getTotalCost(), ins.getInscriptionDate() });
+			}
 
-	    } catch (Exception e) {
-	        JOptionPane.showMessageDialog(this,
-	                "Error al cargar inscripciones: " + e.getMessage(),
-	                "Error", JOptionPane.ERROR_MESSAGE);
-	    }
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "Error al cargar inscripciones: " + e.getMessage(), "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	public void init() {
+		clearForm();
+		loadTouristActivities();
+	}
+
+	private void clearForm() {
+		cbActividad.setSelectedItem(null);
+		cbSalida.setSelectedItem(null);
+		cbSalida.removeAllItems();
+		tableModel.setRowCount(0);
+
 	}
 }

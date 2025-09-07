@@ -159,6 +159,7 @@ public class Main {
 		mnModifyActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				hideAllComponents();
+				modifyActivityInternalFrame.init();
 				modifyActivityInternalFrame.setVisible(true);
 			}
 		});
@@ -168,6 +169,7 @@ public class Main {
 		mnRankingActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				hideAllComponents();
+				activityRankingInternalFrame.init();
 				activityRankingInternalFrame.setVisible(true);
 			}
 		});

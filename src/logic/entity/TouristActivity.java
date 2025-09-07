@@ -27,7 +27,9 @@ public class TouristActivity {
 	// Relation with one or many TouristOuting
 	// We use a map collection with the name of the TouristOuting as key and the
 	// object its self as value
+	
 	@OneToMany(mappedBy = "activity", cascade = CascadeType.ALL, orphanRemoval = true)
+	@MapKey(name = "outingName")
 	private Map<String, TouristOuting> touristOutings;
 
 	public TouristActivity() {
