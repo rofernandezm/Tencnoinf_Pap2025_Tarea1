@@ -130,7 +130,7 @@ public class ConsultTouristOuting extends JInternalFrame {
 			try {
 				DtTouristOuting dtoOuting = itoic.consultTouristOutingData(selectedOuting);
 				if (dtoOuting != null) {
-					txtOutName.setText(dtoOuting.getTipName());
+					txtOutName.setText(dtoOuting.getOutingName());
 					txtOutMax.setText(String.valueOf(dtoOuting.getMaxNumTourists()));
 					txtOutDepPoint.setText(dtoOuting.getDeparturePoint());
 					txtOutDepDate.setText(dtoOuting.getDepartureDate().format(formatter));

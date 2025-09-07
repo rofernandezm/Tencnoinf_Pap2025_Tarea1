@@ -307,7 +307,7 @@ public class ConsultTouristOutingBKP extends JInternalFrame{
         	
 	            to = controlTouristOutingAndInscription.consultTouristOutingData(touristOutingName);
 	            
-	            textFieldTouristOutingName.setText(to.getTipName());
+	            textFieldTouristOutingName.setText(to.getOutingName());
 	            textFieldMaxNumTourists.setText(String.valueOf(to.getMaxNumTourists()));
 	        	textFieldDeparturePoint.setText(to.getDeparturePoint());
 	        	textFieldDepartureDate.setText(to.getDepartureDate().format(formatter));

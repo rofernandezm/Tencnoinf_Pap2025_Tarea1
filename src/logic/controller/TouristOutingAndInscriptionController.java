@@ -127,7 +127,7 @@ public class TouristOutingAndInscriptionController implements ITouristOutingAndI
 			Set<String> touristOutingNames = new HashSet<>();
 			
 			for(DtTouristOuting touristOuting : allTouristOutings) {
-				String touristOutingName = touristOuting.getTipName();
+				String touristOutingName = touristOuting.getOutingName();
 				touristOutingNames.add(touristOutingName);
 			}	
 			

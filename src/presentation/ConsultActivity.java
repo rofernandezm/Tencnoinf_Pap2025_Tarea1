@@ -156,7 +156,7 @@ public class ConsultActivity extends JInternalFrame {
 	private void loadComboActSelectOutings(Set<DtTouristOuting> outings) {
 		DefaultComboBoxModel<String> model;
 		// Crear un array con una opción nula al principio
-		String[] data = outings.stream().map(DtTouristOuting::getTipName).toArray(String[]::new);
+		String[] data = outings.stream().map(DtTouristOuting::getOutingName).toArray(String[]::new);
 		String[] dataWithNull = new String[data.length + 1];
 		dataWithNull[0] = null; // Primera opción nula
 		System.arraycopy(data, 0, dataWithNull, 1, data.length);
@@ -330,11 +330,11 @@ public class ConsultActivity extends JInternalFrame {
 		String selectedOuting = (String) cmbActOutings.getSelectedItem();
 		if (selectedOuting != null && activityWithOutingsData != null) {
 			DtTouristOuting outingData = activityWithOutingsData.getOutings().stream()
-					.filter(outing -> outing.getTipName().equals(selectedOuting))
+					.filter(outing -> outing.getOutingName().equals(selectedOuting))
 					.findFirst()
 					.orElse(null);
 			if (outingData != null) {
-				textOutName.setText(outingData.getTipName());
+				textOutName.setText(outingData.getOutingName());
 				txtOutMax.setText(String.valueOf(outingData.getMaxNumTourists()));
 				txtOutDepPoint.setText(outingData.getDeparturePoint());
 				txtOutDepDate.setText(outingData.getDepartureDate().format(formatter));
