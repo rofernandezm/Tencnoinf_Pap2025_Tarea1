@@ -45,11 +45,16 @@ public class TouristOutingRegistration extends JInternalFrame{
 	private JLabel lblEnterDepartureDate;
 	private JButton btnConfirm;
 	private JButton btnCancel;
-	
+
 	 public TouristOutingRegistration(ITouristOutingAndInscriptionController itoic, ITouristActivityController itac) {
 
         this.itoic = itoic;
         this.itac = itac;
+//	 public TouristOutingRegistration(ITouristOutingAndInscriptionController itoic, ITouristActivityController icta) {
+
+//        iControlTouristOutingAndInscription = itoic;
+//        iControlTouristActivity = icta;
+
 
         setResizable(true);
         setIconifiable(true);
@@ -208,7 +213,9 @@ public class TouristOutingRegistration extends JInternalFrame{
         gbc_btnCancel.gridx = 2;
         gbc_btnCancel.gridy = 5;
         getContentPane().add(btnCancel, gbc_btnCancel);
-	}
+        
+ //       init();
+ }
 	 
 	
 	
@@ -218,14 +225,13 @@ public class TouristOutingRegistration extends JInternalFrame{
         String outingNameTO = this.textFieldTouristOutingName.getText();
         String maxNumTouristsTO = this.textFieldMaxNumTourists.getText();
         String departurePointTO = this.textFieldDeparturePoint.getText();
-        //String departureDateTO = this.textFieldDepartureDate.getText(); Componente a verificar si se elimina
-        Date date = (Date) dateChooserDepDate.getDate();
+
+        Date date = (Date) spinnerDepartureDate.getValue();
         LocalDateTime departureDateTOldt = date.toInstant()
                                                  .atZone(java.time.ZoneId.systemDefault())
                                                  .toLocalDateTime();
         System.out.println("FECHA" + departureDateTOldt);
         
-        //LocalDateTime departureDateTOldt = LocalDateTime.parse(departureDateTO); Componente a verificar si se elimina
         LocalDate dischargeDateTO = LocalDate.now(); 
         
         String touristActivityName = (String) comboBoxTouristActivities.getSelectedItem();
@@ -294,8 +300,7 @@ public class TouristOutingRegistration extends JInternalFrame{
     	textFieldTouristOutingName.setText("");
     	textFieldMaxNumTourists.setText("");
     	textFieldDeparturePoint.setText("");
-    	//textFieldDepartureDate.setText("");
-    	dateChooserDepDate.setDate(null);
+    	spinnerDepartureDate.setValue(new Date());
     	comboBoxTouristActivities.removeAllItems();
     }
     
@@ -317,9 +322,21 @@ public class TouristOutingRegistration extends JInternalFrame{
 			comboBoxTouristActivities.setModel(new DefaultComboBoxModel<String>());
 		}
     }
-    public void init() {
-    	clearForm();		
-    	loadTouristActivities();
-    			
+   
+//        DefaultComboBoxModel<String> model; 
+//        try {                                    
+//            model = new DefaultComboBoxModel<String>(iControlTouristActivity.listTouristActivities()); 
+//            comboBoxTouristActivities.setModel(model);
+//        } catch (ActivityDoesNotExistException e) {
+            // We will not show any tourist activity
+        	//model = new DefaultComboBoxModel<String>(new String[] {"No existen actividades turísticas registradas."});
+//        }
+       
     }
+    
+    public void init() {
+    	clearForm();
+    	loadTouristActivities();
+    }
+    
 }

@@ -12,6 +12,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 import logic.entity.TouristOuting;
+import logic.entity.User;
 import logic.entity.Tourist;
 import logic.handler.PersistenceHandler;
 import logic.dto.DtInscriptionTouristOuting;
@@ -19,7 +20,7 @@ import logic.entity.Inscription;
 
 public class TouristOutingAndInscrptionHandler {
 	
-	private Map<String, TouristOuting> touristOutings;
+	//private Map<String, TouristOuting> touristOutings;
 	//Key nickname, second map outingName as key and inscription as value 
 	private Map<String, Inscription> mapOutingTourist;
 	private Map<String, Map<String, Inscription>> inscriptions;
@@ -27,7 +28,7 @@ public class TouristOutingAndInscrptionHandler {
 	private static TouristOutingAndInscrptionHandler instance = null;
 	
 	private TouristOutingAndInscrptionHandler() {
-		touristOutings = new HashMap<String, TouristOuting>();
+		//touristOutings = new HashMap<String, TouristOuting>();
 		mapOutingTourist = new HashMap<String, Inscription>();
 		inscriptions = new HashMap<String, Map<String, Inscription>>();
 	}
@@ -39,9 +40,9 @@ public class TouristOutingAndInscrptionHandler {
 	}
 	
 	public void addTouristOuting(TouristOuting touristOuting) {
-		String outingName = touristOuting.getOutingName();
-		this.touristOutings = updateTouristOutingsFromDB();
-		touristOutings.put(outingName, touristOuting);
+//		String outingName = touristOuting.getOutingName();
+//		this.touristOutings = updateTouristOutingsFromDB();
+//		touristOutings.put(outingName, touristOuting);
 		EntityManager em = PersistenceHandler.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
@@ -111,24 +112,24 @@ public class TouristOutingAndInscrptionHandler {
 	}
 	
 	public Boolean existOutingName(String outingName) {
-		this.touristOutings = updateTouristOutingsFromDB();
-		return touristOutings.containsKey(outingName);
+		Boolean exist = false;
+		EntityManager em = PersistenceHandler.getEntityManager();
+		exist = (em.find(TouristOuting.class, outingName) != null);
+		em.close();
+		return exist;
 	}
 
 	public String[] listTouristOutings() {
-		this.touristOutings = updateTouristOutingsFromDB();
-		if (touristOutings.isEmpty())
-			return null;
-		else {
-			Set<String> keySet = touristOutings.keySet();
-			Object[] keys = keySet.toArray();
-			String[] outingsNames = new String[touristOutings.size()];
-			for (int ind = 0; ind < keys.length; ind++) {
-				outingsNames[ind] = keys[ind].toString();
-			}
-			return outingsNames;
+		
+		EntityManager em = PersistenceHandler.getEntityManager();
+		TypedQuery<TouristOuting> q = em.createQuery("SELECT u FROM TouristOuting u", TouristOuting.class);
+		List<TouristOuting> obj_touristOuting = q.getResultList();
+		String[] touristOutingNames = new String[obj_touristOuting.size()];
+		for (int ind = 0; ind < obj_touristOuting.size(); ind++) {
+			touristOutingNames[ind] = obj_touristOuting.get(ind).getOutingName();
 		}
-
+		em.close();
+		return touristOutingNames;
 	}
 
 	public Boolean existInscription(String nickname, String touristOutingName) {
@@ -163,20 +164,20 @@ public class TouristOutingAndInscrptionHandler {
 		return inscription;
 	}
 	
-	private Map<String, TouristOuting> updateTouristOutingsFromDB() {
-		
-		EntityManager em = PersistenceHandler.getEntityManager();
-		TypedQuery<TouristOuting> query = em.createQuery("SELECT to FROM TouristOuting to", TouristOuting.class);
-		
-		List<TouristOuting> result = query.getResultList();
-
-		for (TouristOuting outing : result) {
-	        touristOutings.put(outing.getOutingName(), outing);
-	    }
-		
-		em.close();
-		return touristOutings;
-	}
+//	private Map<String, TouristOuting> updateTouristOutingsFromDB() {
+//		
+//		EntityManager em = PersistenceHandler.getEntityManager();
+//		TypedQuery<TouristOuting> query = em.createQuery("SELECT to FROM TouristOuting to", TouristOuting.class);
+//		
+//		List<TouristOuting> result = query.getResultList();
+//
+//		for (TouristOuting outing : result) {
+//	        touristOutings.put(outing.getOutingName(), outing);
+//	    }
+//		
+//		em.close();
+//		return touristOutings;
+//	}
 	
 	private Map<String, Map<String, Inscription>> updateInscriptionsFromDB() {
 		

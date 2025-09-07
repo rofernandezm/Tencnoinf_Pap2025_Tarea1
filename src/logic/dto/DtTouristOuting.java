@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import logic.entity.TouristActivity;
 import logic.entity.TouristOuting;
 import logic.handler.TouristActivityHandler;
+import logic.entity.Tourist;
+import logic.entity.User;
 
 public class DtTouristOuting {
 	
@@ -46,6 +48,7 @@ public class DtTouristOuting {
 	public LocalDate getDischargeDate() {
 		return dischargeDate;
 	}
+
 	public String getActivityName() {
 		return activityName;
 	}
@@ -65,5 +68,8 @@ public class DtTouristOuting {
 	    to.setActivity(activity); 
 
 	    return to;
+	
+//	public TouristOuting toEntity() {
+//		return new TouristOuting(this.getTipName(), this.getMaxNumTourists(), this.getDeparturePoint(), this.getDepartureDate(), this.getDischargeDate());
 	}
 }
