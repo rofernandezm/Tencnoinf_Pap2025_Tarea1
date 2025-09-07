@@ -93,7 +93,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_cmbSelActivity.gridy = 1;
 		selectActivity.add(cmbSelActivity, gbc_cmbSelActivity);
 		
-		loadComboSelectActivity(cmbSelActivity);
+		loadComboSelectActivity();
 		
 		cmbSelActivity.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -106,7 +106,7 @@ public class ConsultActivity extends JInternalFrame {
 	
 
 	
-	private void loadComboSelectActivity(JComboBox<String> combo) {
+	private void loadComboSelectActivity() {
 		DefaultComboBoxModel<String> model; 
 		try {
 			
@@ -117,11 +117,11 @@ public class ConsultActivity extends JInternalFrame {
 				dataWithNull[0] = null; // Primera opción nula
 				System.arraycopy(data, 0, dataWithNull, 1, data.length);
 				model = new DefaultComboBoxModel<String>(dataWithNull); 
-				combo.setModel(model);
+				cmbSelActivity.setModel(model);
 			}
 				
 		}catch (ActivityDoesNotExistException e) {
-			combo.setModel(new DefaultComboBoxModel<String>());
+			cmbSelActivity.setModel(new DefaultComboBoxModel<String>());
 		}
 	}
 	
@@ -454,8 +454,8 @@ public class ConsultActivity extends JInternalFrame {
 	}
 	
 	private void clearForm() {
+		cmbSelActivity.removeAllItems();
 		clearActivityData();
-		cmbSelActivity.setSelectedItem(null);
 	}
 	
 	private void clearActivityData() {
@@ -465,7 +465,7 @@ public class ConsultActivity extends JInternalFrame {
 		txtActCost.setText("");
 		txtActCity.setText("");
 		txtActRegDate.setText("");
-		cmbActOutings.setSelectedItem(null);
+		cmbActOutings.removeAllItems();
 		clearOutingData();
 	}
 	
@@ -478,8 +478,8 @@ public class ConsultActivity extends JInternalFrame {
 	}
 	
 	public void init() {
-		loadComboSelectActivity(cmbSelActivity);
 		clearForm();
+		loadComboSelectActivity();
 	}
 	
 }

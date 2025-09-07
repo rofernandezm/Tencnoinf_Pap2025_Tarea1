@@ -16,6 +16,7 @@ import logic.entity.User;
 import logic.entity.Tourist;
 import logic.handler.PersistenceHandler;
 import logic.dto.DtInscriptionTouristOuting;
+import logic.dto.DtTouristOuting;
 import logic.entity.Inscription;
 
 public class TouristOutingAndInscrptionHandler {
@@ -39,7 +40,9 @@ public class TouristOutingAndInscrptionHandler {
 		return instance;
 	}
 
+
 	public void addTouristOuting(TouristOuting touristOuting) {
+
 //		String outingName = touristOuting.getOutingName();
 //		this.touristOutings = updateTouristOutingsFromDB();
 //		touristOutings.put(outingName, touristOuting);

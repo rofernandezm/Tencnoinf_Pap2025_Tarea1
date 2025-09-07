@@ -18,6 +18,7 @@ import logic.handler.TouristActivityHandler;
 //import logic.handler.TouristActivityHandler;
 import logic.handler.TouristOutingAndInscrptionHandler;
 import logic.interfaces.ITouristOutingAndInscriptionController;
+import exceptions.RepeatedActivityNameException;
 import exceptions.RepeatedInscriptionToTouristOutingException;
 
 public class TouristOutingAndInscriptionController implements ITouristOutingAndInscriptionController {
@@ -36,23 +37,13 @@ public class TouristOutingAndInscriptionController implements ITouristOutingAndI
 	}
 	
 	public void outingDataEntry(DtTouristOuting dtTouristOuting) throws RepeatedTouristOutingException {
-// 		this.dtNewTouristOuting = dtTouristOuting;
  		
-// 		TouristOutingAndInscrptionHandler mto = TouristOutingAndInscrptionHandler.getIntance();
-//	  String touristOutingName = dtTouristOuting.getTipName();
-//    TouristOuting to = mto.getTouristOutingByName(touristOutingName);
+		if (TouristOutingAndInscrptionHandler.getIntance().existOutingName(dtTouristOuting.getTipName())) {
+			throw new RepeatedTouristOutingException("Ya existe una salida turistica con ese nombre.");
+		}
         
-//    if (to != null)
-//      throw new RepeatedTouristOutingException("La salida de nombre " + touristOutingName + " ya esta registrada. Por favor, ingrese un nuevo nombre");
-        
-//        TouristActivityHandler tah = TouristActivityHandler.getIntance();
-//        TouristActivity touristActivity = tah.getTouristActivityByName(activityName);
-        
-//        to = dtTouristOuting.toEntity();
-//        to.setActivity(touristActivity);
-//        mto.addTouristOuting(to);
+		TouristOutingAndInscrptionHandler.getIntance().addTouristOuting(dtTouristOuting);
 		
-		TouristOutingAndInscrptionHandler.getIntance().addTouristOuting(dtTouristOuting.toEntity());
 	}
 
 	public void inscriptionDataEntry(DtInscriptionTouristOuting dtInscriptionOuting, String userNickname, String outingName) throws RepeatedInscriptionToTouristOutingException{
