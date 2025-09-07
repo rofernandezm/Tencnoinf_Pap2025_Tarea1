@@ -126,7 +126,7 @@ public class TouristOutingAndInscriptionController implements ITouristOutingAndI
 	}
 	
 
-	public String[] listTouristOutingsNames(Set<DtTouristOuting> allTouristOutings) {
+	public String[] listTouristOutingsNames(Set<DtTouristOuting> allTouristOutings) throws TouristOutingDoesNotExistException{
 		
 		String[] rtn = null ;
 		
@@ -145,6 +145,8 @@ public class TouristOutingAndInscriptionController implements ITouristOutingAndI
 			for (int ind = 0; ind < touristOutingNamesString.length; ind++) {
 				rtn[ind] = touristOutingNamesString[ind].toString();
 			}
+		}else {
+			throw new TouristOutingDoesNotExistException("No existen salidas turisticas registradas.");
 		}
 		
 		return rtn;

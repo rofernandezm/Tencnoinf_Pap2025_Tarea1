@@ -76,7 +76,7 @@ public class Main {
 		consultActInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(consultActInternalFrame);
 
-		inscriptionToTouristOutingInternalFrame = new InscriptionToTouristOuting(IOIC);
+		inscriptionToTouristOutingInternalFrame = new InscriptionToTouristOuting(IOIC, ITAC, IUC);
 		inscriptionToTouristOutingInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(inscriptionToTouristOutingInternalFrame);
 
@@ -189,6 +189,7 @@ public class Main {
 		mnCreateInscription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				hideAllComponents();
+				inscriptionToTouristOutingInternalFrame.init();
 				inscriptionToTouristOutingInternalFrame.setVisible(true);
 			}
 		});

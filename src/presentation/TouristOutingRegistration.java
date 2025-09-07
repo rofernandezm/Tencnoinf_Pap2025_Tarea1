@@ -310,11 +310,12 @@ public class TouristOutingRegistration extends JInternalFrame{
         DefaultComboBoxModel<String> model; 
         try {                                    
             model = new DefaultComboBoxModel<String>(iControlTouristActivity.listTouristActivities()); 
+            comboBoxTouristActivities.setModel(model);
         } catch (ActivityDoesNotExistException e) {
             // We will not show any tourist activity
-        	model = new DefaultComboBoxModel<String>(new String[] {"No existen actividades turísticas registradas."});
+        	//model = new DefaultComboBoxModel<String>(new String[] {"No existen actividades turísticas registradas."});
         }
-        comboBoxTouristActivities.setModel(model);
+        
     }
     
     public void init() {

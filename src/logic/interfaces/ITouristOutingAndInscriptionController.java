@@ -35,7 +35,7 @@ public interface ITouristOutingAndInscriptionController {
 
 	public String[] listTouristOutings() throws TouristOutingDoesNotExistException;
 	
-	public String[] listTouristOutingsNames(Set<DtTouristOuting> allTouristOutings);
+	public String[] listTouristOutingsNames(Set<DtTouristOuting> allTouristOutings) throws TouristOutingDoesNotExistException;
 	
 	public float inscriptionTotalCost(float touristActivityCost, int numTourists);
 }
