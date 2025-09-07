@@ -77,7 +77,7 @@ public class ConsultTouristOuting extends JInternalFrame {
 		gbl_selectOuting.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		selectOuting.setLayout(gbl_selectOuting);
 		
-		JLabel lblSelectOuting = new JLabel("Seleccionar actividad");
+		JLabel lblSelectOuting = new JLabel("Seleccionar salida turistica");
 		GridBagConstraints gbc_lblSelectOuting = new GridBagConstraints();
 		gbc_lblSelectOuting.anchor = GridBagConstraints.WEST;
 		gbc_lblSelectOuting.insets = new Insets(0, 0, 0, 5);
@@ -420,7 +420,7 @@ public class ConsultTouristOuting extends JInternalFrame {
 	
 	private void clearForm() {
 		clearActivityData();
-		cmbSelOuting.setSelectedItem(null);
+		cmbSelOuting.removeAllItems();
 	}
 	
 	private void clearActivityData() {
@@ -442,8 +442,8 @@ public class ConsultTouristOuting extends JInternalFrame {
 	}
 	
 	public void init() {
-		loadComboSelectOuting();
 		clearForm();
+		loadComboSelectOuting();
 	}
 	
 }

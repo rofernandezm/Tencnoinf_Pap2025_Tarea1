@@ -3,9 +3,12 @@ package presentation;
 import javax.swing.JInternalFrame;
 
 import logic.interfaces.*;
+import logic.dto.DtActivityWithOutings;
+import logic.dto.DtTouristActivity;
 import logic.dto.DtTouristOuting;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Set;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -29,6 +32,10 @@ import java.awt.event.ActionEvent;
 
 public class ConsultTouristOutingBKP extends JInternalFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ITouristOutingAndInscriptionController controlTouristOutingAndInscription;
 	private ITouristActivityController controlTouristActivity;
 	
@@ -49,10 +56,13 @@ public class ConsultTouristOutingBKP extends JInternalFrame{
     private JLabel lblInfoTouristOuting;
     private JButton btnSearchTouristOuting;
     private JButton btnCloseWindow;
+	private DtActivityWithOutings activityWithOutingsData;
+
     
-    public ConsultTouristOutingBKP(ITouristOutingAndInscriptionController itoic) {
+    public ConsultTouristOutingBKP(ITouristOutingAndInscriptionController itoic, ITouristActivityController itac) {
 
         controlTouristOutingAndInscription = itoic;
+        controlTouristActivity = itac;
         
         setResizable(true);
         setIconifiable(true);
@@ -86,6 +96,11 @@ public class ConsultTouristOutingBKP extends JInternalFrame{
         gbc_comboBoxTouristActivities.gridx = 1;
         gbc_comboBoxTouristActivities.gridy = 0;
         getContentPane().add(comboBoxTouristActivities, gbc_comboBoxTouristActivities);
+        comboBoxTouristActivities.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cmdSelectActivityActionPerformed(e);
+			}
+		});
         
         lblTouristOutings = new JLabel("Salidas turisticas");
         lblTouristOutings.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -104,28 +119,12 @@ public class ConsultTouristOutingBKP extends JInternalFrame{
         gbc_comboBoxTouristOutings.gridx = 1;
         gbc_comboBoxTouristOutings.gridy = 1;
         getContentPane().add(comboBoxTouristOutings, gbc_comboBoxTouristOutings);
-        
-        lblInfoTouristOuting = new JLabel("¿Desea informacion de esta salida?");
-        lblInfoTouristOuting.setHorizontalAlignment(SwingConstants.RIGHT);
-        GridBagConstraints gbc_lblInfoTouristOuting = new GridBagConstraints();
-        gbc_lblInfoTouristOuting.gridwidth = 2;
-        gbc_lblInfoTouristOuting.fill = GridBagConstraints.BOTH;
-        gbc_lblInfoTouristOuting.insets = new Insets(0, 0, 5, 5);
-        gbc_lblInfoTouristOuting.gridx = 0;
-        gbc_lblInfoTouristOuting.gridy = 2;
-        getContentPane().add(lblInfoTouristOuting, gbc_lblInfoTouristOuting);
-        
-        btnSearchTouristOuting = new JButton("Consultar");
-        btnSearchTouristOuting.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                cmdTouristOutingActionPerformed(arg0);
-            }
+        comboBoxTouristOutings.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cmdTouristOutingActionPerformed(e);
+			}
         });
-        GridBagConstraints gbc_btnSearchTouristOuting = new GridBagConstraints();
-        gbc_btnSearchTouristOuting.fill = GridBagConstraints.BOTH;
-        gbc_btnSearchTouristOuting.gridx = 2;
-        gbc_btnSearchTouristOuting.gridy = 2;
-        getContentPane().add(btnSearchTouristOuting, gbc_btnSearchTouristOuting);
+        
         
         lblTouristOutingName = new JLabel("Nombre de salida turistica:");
         lblTouristOutingName.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -249,32 +248,60 @@ public class ConsultTouristOutingBKP extends JInternalFrame{
     public void loadTouristActivities(){
         DefaultComboBoxModel<String> model; 
         try {                                    
-            model = new DefaultComboBoxModel<String>(controlTouristActivity.listTouristActivities()); 
-            comboBoxTouristActivities.setModel(model);    
+        	String[] data = controlTouristActivity.listTouristActivities();
+			System.out.println("Datos de actividades cargados: " + data);
+			if (data != null) {
+				String[] dataWithNull = new String[data.length + 1];
+				dataWithNull[0] = null; // Primera opción nula
+				System.arraycopy(data, 0, dataWithNull, 1, data.length);
+				model = new DefaultComboBoxModel<String>(dataWithNull); 
+				comboBoxTouristActivities.setModel(model);
+			}
             
         } catch (ActivityDoesNotExistException e) {
             // We will not show any tourist activity
         }
     }
     
-    public void loadTouristOutings() {
-        DefaultComboBoxModel<String> model; 
-        try {                                    
-            model = new DefaultComboBoxModel<String>(controlTouristOutingAndInscription.listTouristOutings()); 
-            comboBoxTouristOutings.setModel(model);    
-            
-        } catch (TouristOutingDoesNotExistException e) {
-            // We will not show any tourist outing
-        }
-    }
+    protected void cmdSelectActivityActionPerformed(ActionEvent e) {
+		String selectedActivity = (String) comboBoxTouristActivities.getSelectedItem();
+		clearActivitiData();
+		if (selectedActivity != null) {
+			try {
+				activityWithOutingsData = controlTouristActivity.consultTouristActivityData(selectedActivity);
+				DtTouristActivity activityData = activityWithOutingsData.getActivity();
+				if (activityData == null) {
+					throw new RuntimeException("Error al obtener dtActivity.");
+					
+				}
+				
+				loadComboActSelectOutings(activityWithOutingsData.getOutings());
+				
+			} catch (ActivityDoesNotExistException ex) {
+			}
+		} 
+	}
+    
+    private void loadComboActSelectOutings(Set<DtTouristOuting> outings) {
+		DefaultComboBoxModel<String> model;
+		// Crear un array con una opción nula al principio
+		String[] data = outings.stream().map(DtTouristOuting::getTipName).toArray(String[]::new);
+		String[] dataWithNull = new String[data.length + 1];
+		dataWithNull[0] = null; // Primera opción nula
+		System.arraycopy(data, 0, dataWithNull, 1, data.length);
+		model = new DefaultComboBoxModel<String>(dataWithNull);
+		comboBoxTouristOutings.setModel(model);
+	}
     
     protected void cmdTouristOutingActionPerformed(ActionEvent e) {
     	
     	String touristOutingName = (String) comboBoxTouristOutings.getSelectedItem();
-    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    	DtTouristOuting to;
+    	clearOutingData();
     	
     	if (touristOutingName != null ) {
+    		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    		DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    		DtTouristOuting to;
     		
     		try {
         	
@@ -284,27 +311,37 @@ public class ConsultTouristOutingBKP extends JInternalFrame{
 	            textFieldMaxNumTourists.setText(String.valueOf(to.getMaxNumTourists()));
 	        	textFieldDeparturePoint.setText(to.getDeparturePoint());
 	        	textFieldDepartureDate.setText(to.getDepartureDate().format(formatter));
-	        	textFieldDischargeDate.setText(to.getDischargeDate().format(formatter));
+	        	textFieldDischargeDate.setText(to.getDischargeDate().format(formatter2));
 	        	
         	}catch (TouristOutingDoesNotExistException e1) {
 	            
 	            JOptionPane.showMessageDialog(this, e1.getMessage(), "Consultar salida turistica", JOptionPane.ERROR_MESSAGE);
 	            clearForm();
 	        }
-        }else {
-        	JOptionPane.showMessageDialog(this, "Debe seleccionar un valor en el campo «Salidas turisticas».", "Consultar salida turistica",
-                    JOptionPane.ERROR_MESSAGE);
         }
     }
     
     private void clearForm() {
     	comboBoxTouristActivities.removeAllItems();
+    	clearActivitiData();
+    }
+    private void clearActivitiData() {
     	comboBoxTouristOutings.removeAllItems();
-    	textFieldTouristOutingName.setText("");
-    	textFieldMaxNumTourists.setText("");
-    	textFieldDeparturePoint.setText("");
-    	textFieldDepartureDate.setText("");
-    	textFieldDischargeDate.setText("");
+    	clearOutingData();
+    }
+    
+    private void clearOutingData() {
+		textFieldTouristOutingName.setText("");
+		textFieldMaxNumTourists.setText("");
+		textFieldDeparturePoint.setText("");
+		textFieldDepartureDate.setText("");
+		textFieldDischargeDate.setText("");
+	}
+    
+    public void init() {
+    	clearForm();
+    	loadTouristActivities();
+    	
     }
 
 }

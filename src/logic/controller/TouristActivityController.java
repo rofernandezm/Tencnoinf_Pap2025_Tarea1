@@ -1,6 +1,5 @@
 package logic.controller;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -19,14 +18,13 @@ import logic.interfaces.ITouristActivityController;
 
 public class TouristActivityController implements ITouristActivityController {
 
-	public Boolean activityDataEntry(DtTouristActivity dtTouristActivity) throws RepeatedActivityNameException {
+	public void activityDataEntry(DtTouristActivity dtTouristActivity) throws RepeatedActivityNameException {
 		if (TouristActivityHandler.getIntance().existActivityName(dtTouristActivity.getActivityName())) {
 			throw new RepeatedActivityNameException("Ya existe una actividad turistica con ese nombre.");
 		}
 
-		TouristActivityHandler.getIntance().addTouristActivity(dtTouristActivity.toEntity());
+		TouristActivityHandler.getIntance().addTouristActivity(dtTouristActivity);
 
-		return true;
 	}
 
 	public String[] listTouristActivities() throws ActivityDoesNotExistException {

@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import exceptions.RepeatedActivityNameException;
 import logic.dto.DtTouristActivity;
 import logic.interfaces.ITouristActivityController;
 import logic.interfaces.IUserController;
@@ -226,21 +227,18 @@ public class CreateActivity extends JInternalFrame  {
 			try {
 				DtTouristActivity dtActivity = parseData();
 				
-				if (iTouristActivityController.activityDataEntry(dtActivity)) {
-					JOptionPane.showMessageDialog(null, "Actividad creada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-					clearForm();
-					setVisible(false);
-					return;
-				} 
+				iTouristActivityController.activityDataEntry(dtActivity);
 				
-				JOptionPane.showMessageDialog(null, "No se pudo crear la actividad", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Actividad creada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+				clearForm();
+				setVisible(false);
 				
-			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null,
-						"Error al crear actividad: " + ex.getMessage(),
-						"Error",
-						JOptionPane.ERROR_MESSAGE);
-			}
+			}  catch (RepeatedActivityNameException e) {
+                // Error message
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Alta de actividad turistica", JOptionPane.ERROR_MESSAGE);
+                
+                txtActivityName.setText("");
+            }
 		}
 	}
 	

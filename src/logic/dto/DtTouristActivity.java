@@ -3,10 +3,6 @@ package logic.dto;
 import java.time.Duration;
 import java.time.LocalDate;
 
-import logic.entity.Supplier;
-import logic.entity.TouristActivity;
-import logic.handler.UserHandler;
-
 public class DtTouristActivity {
 	
 	private String activityName;
@@ -57,23 +53,5 @@ public class DtTouristActivity {
 		return supplierNickname;
 	}
 	
-	public TouristActivity toEntity() {
-		 Supplier supplier = UserHandler.getIntance().getSupplierByNickname(this.supplierNickname);
-		    if (supplier == null) {
-		        throw new IllegalArgumentException("Supplier no encontrado: " + this.supplierNickname);
-		    }
-
-		    TouristActivity ta = new TouristActivity(
-		        this.activityName,
-		        this.description,
-		        this.duration,
-		        this.costTurist,          // tu DTO lo llama costTurist
-		        this.city,
-		        this.registratioDate      // registratioDate en DTO
-		    );
-
-		    ta.setSupplier(supplier);
-
-		    return ta;
-	}
+	
 }
