@@ -1,6 +1,7 @@
 package logic.handler;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -79,6 +80,7 @@ public class TouristOutingAndInscrptionHandler {
 	    em.persist(inscription);
 	    tx.commit();
 	    em.close();
+
 	}
 
 
@@ -99,6 +101,7 @@ public class TouristOutingAndInscrptionHandler {
 
 	public Set<Inscription> getInscriptionsByTouristNickname(String nickname) {
 		this.inscriptions = updateInscriptionsFromDB();
+
 		Map<String, Inscription> auxMap = inscriptions.get(nickname);
 		if (auxMap == null) {
 			return new HashSet<>();
@@ -180,6 +183,10 @@ public class TouristOutingAndInscrptionHandler {
 		LocalDate inscriptionDate = dtInscriptionTouristOuting.getInscriptionDate();
 
 		Inscription inscription = new Inscription(numTourists, totalRegistrationCost, inscriptionDate);
+
+		
+		
+		Inscription inscription = new Inscription(numTourists, totalRegistrationCost, inscriptionDate, tourist, touristOuting);
 		return inscription;
 	}
 

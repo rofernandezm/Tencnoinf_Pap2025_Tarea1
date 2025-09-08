@@ -181,7 +181,7 @@ public class TouristOutingRegistration extends JInternalFrame{
         gbc_spinnerDepartureDate.gridx = 1;
         gbc_spinnerDepartureDate.gridy = 4;
         getContentPane().add(spinnerDepartureDate, gbc_spinnerDepartureDate);
-        
+    
         btnConfirm = new JButton("Confirmar");
         btnConfirm.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {

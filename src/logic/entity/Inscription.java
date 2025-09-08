@@ -39,6 +39,14 @@ public class Inscription {
 		this.inscriptionDate = inscriptionDate;
 	};
 
+	public Inscription(int numTourists, float totalRegistrationCost, LocalDate inscriptionDate, Tourist tourist, TouristOuting touristOuting) {
+		this.numTourists = numTourists;
+		this.totalRegistrationCost = totalRegistrationCost;
+		this.inscriptionDate = inscriptionDate;
+		this.tourist = tourist;
+		this.touristOuting = touristOuting;
+	};
+	
 	public int getNumTourists() {
 		return numTourists;
 	}

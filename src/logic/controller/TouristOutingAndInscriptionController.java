@@ -12,11 +12,13 @@ import logic.dto.DtInscriptionTouristOuting;
 import logic.dto.DtTouristOuting;
 //import logic.dto.DtUser;
 import logic.entity.Inscription;
+import logic.entity.Tourist;
 import logic.entity.TouristActivity;
 import logic.entity.TouristOuting;
 import logic.handler.TouristActivityHandler;
 //import logic.handler.TouristActivityHandler;
 import logic.handler.TouristOutingAndInscrptionHandler;
+import logic.handler.UserHandler;
 import logic.interfaces.ITouristOutingAndInscriptionController;
 import exceptions.RepeatedActivityNameException;
 import exceptions.RepeatedInscriptionToTouristOutingException;
@@ -54,10 +56,14 @@ public class TouristOutingAndInscriptionController implements ITouristOutingAndI
 		if (inscription)
             throw new RepeatedInscriptionToTouristOutingException("La inscripcion para este usuario en esta salida ya esta registrada. Por favor, ingrese un nuevo nombre");
 		
-		Inscription inscriptionToAdd = mto.getInscriptionByDtInscriptionTouristOuting(dtInscriptionOuting);
 		TouristOuting to = mto.getTouristOutingByName(outingName);
 		
-		mto.addInscription(userNickname, to, inscriptionToAdd);
+		UserHandler uh = UserHandler.getIntance();
+		Tourist tourist = uh.getTouristByNickname(userNickname);
+		
+		Inscription inscriptionToAdd = mto.getInscriptionByDtInscriptionTouristOuting(dtInscriptionOuting, tourist, to);
+
+		mto.addInscription(inscriptionToAdd);
 		
 	}
 	

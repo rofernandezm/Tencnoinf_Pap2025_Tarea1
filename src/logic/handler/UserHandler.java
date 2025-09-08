@@ -111,6 +111,5 @@ public class UserHandler {
 		}
 		em.close();
 		return tourist;
-
 	}
 }

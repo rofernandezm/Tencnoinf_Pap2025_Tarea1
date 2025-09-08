@@ -8,6 +8,7 @@ public class DtInscriptionTouristOuting {
 	private float totalCost;
 	private LocalDate inscriptionDate;
 	private DtTouristOuting turistOuting;
+	private String touristNickname;
 	
 	public DtInscriptionTouristOuting() {};
 	
@@ -16,6 +17,14 @@ public class DtInscriptionTouristOuting {
 		this.totalCost = totalCost;
 		this.inscriptionDate = inscriptionDate;
 		this.turistOuting = turistOuting;
+	}
+	
+	public DtInscriptionTouristOuting( int touristAmount, float totalCost, LocalDate inscriptionDate, DtTouristOuting turistOuting, String touristNickname) {
+		this.touristAmount = touristAmount;
+		this.totalCost = totalCost;
+		this.inscriptionDate = inscriptionDate;
+		this.turistOuting = turistOuting;
+		this.touristNickname = touristNickname;
 	}
 	
 	public int getTouristAmount() {
@@ -32,6 +41,10 @@ public class DtInscriptionTouristOuting {
 
 	public DtTouristOuting getTuristOuting() {
 		return turistOuting;
+	}	
+	
+	public String getTouristNickname() {
+		return touristNickname;
 	}	
 	
 }
