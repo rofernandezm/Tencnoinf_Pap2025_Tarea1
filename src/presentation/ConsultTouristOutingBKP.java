@@ -285,7 +285,7 @@ public class ConsultTouristOutingBKP extends JInternalFrame{
     private void loadComboActSelectOutings(Set<DtTouristOuting> outings) {
 		DefaultComboBoxModel<String> model;
 		// Crear un array con una opción nula al principio
-		String[] data = outings.stream().map(DtTouristOuting::getTipName).toArray(String[]::new);
+		String[] data = outings.stream().map(DtTouristOuting::getOutingName).toArray(String[]::new);
 		String[] dataWithNull = new String[data.length + 1];
 		dataWithNull[0] = null; // Primera opción nula
 		System.arraycopy(data, 0, dataWithNull, 1, data.length);

@@ -37,14 +37,14 @@ public class TouristOutingAndInscriptionController implements ITouristOutingAndI
 	}
 	
 	public void outingDataEntry(DtTouristOuting dtTouristOuting) throws RepeatedTouristOutingException {
- 		
-		if (TouristOutingAndInscrptionHandler.getIntance().existOutingName(dtTouristOuting.getTipName())) {
-			throw new RepeatedTouristOutingException("Ya existe una salida turistica con ese nombre.");
-		}
-        
-		TouristOutingAndInscrptionHandler.getIntance().addTouristOuting(dtTouristOuting);
-		
+	    if (TouristOutingAndInscrptionHandler.getIntance().existOutingName(dtTouristOuting.getOutingName())) {
+	        throw new RepeatedTouristOutingException("Ya existe una salida turistica con ese nombre.");
+	    }
+
+	    TouristOuting entity = dtTouristOuting.toEntity();  
+	    TouristOutingAndInscrptionHandler.getIntance().addTouristOuting(entity);
 	}
+	
 
 	public void inscriptionDataEntry(DtInscriptionTouristOuting dtInscriptionOuting, String userNickname, String outingName) throws RepeatedInscriptionToTouristOutingException{
 		

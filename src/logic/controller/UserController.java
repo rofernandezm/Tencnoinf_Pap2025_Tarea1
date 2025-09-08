@@ -46,7 +46,7 @@ public class UserController implements IUserController {
 	}
 
 	public String[] listTourists() {
-		return UserHandler.getIntance().listUsers();
+		return UserHandler.getIntance().listTourists();
 	}
 
 	public String[] listSuppliers() {
