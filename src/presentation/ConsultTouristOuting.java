@@ -146,7 +146,7 @@ public class ConsultTouristOuting extends JInternalFrame {
 								txtActDuration.setText(String.valueOf(dtActivity.getDuration()));
 								txtActCost.setText(String.valueOf(dtActivity.getCostTurist()));
 								txtActCity.setText(dtActivity.getCity());
-								txtActRegDate.setText(dtActivity.getRegistratioDate().format(formatter));
+								txtActRegDate.setText(dtActivity.getRegistrationDate().format(formatter));
 							}
 						} catch (ActivityDoesNotExistException e1) {
 							// TODO Auto-generated catch block

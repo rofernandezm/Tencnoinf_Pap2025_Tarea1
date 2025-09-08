@@ -25,7 +25,8 @@ public class ActivityRanking extends JInternalFrame {
 
 		setSize(400, 300);
 		getContentPane().setLayout(new BorderLayout());
-
+		
+		@SuppressWarnings("serial")
 		DefaultTableModel model = new DefaultTableModel(new Object[] { "Actividad", "Cantidad de Salidas" }, 0) {
 		};
 
@@ -46,7 +47,7 @@ public class ActivityRanking extends JInternalFrame {
 		if (ranking != null && ranking.length > 0) {
 			for (DtRanking r : ranking) {
 				if (r != null) {
-					model.addRow(new Object[] { r.getActivity(), r.getOutings() });
+					model.addRow(new Object[] { r.getActivityName(), r.getNumberOutings() });
 				}
 			}
 		}

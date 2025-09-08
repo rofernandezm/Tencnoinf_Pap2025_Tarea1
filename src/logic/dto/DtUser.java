@@ -2,19 +2,18 @@ package logic.dto;
 
 import java.time.LocalDate;
 
-import logic.entity.User;
-
 public abstract class DtUser {
-	
+
 	private String nickname;
 	private String name;
 	private String lastName;
 	private String email;
 	private LocalDate birthDate;
 	private UserType userType;
-	
-	public DtUser() {};
-	
+
+	public DtUser() {
+	};
+
 	public DtUser(String nickname, String name, String lastName, String email, LocalDate birthDate, UserType userType) {
 		this.nickname = nickname;
 		this.name = name;
@@ -47,7 +46,4 @@ public abstract class DtUser {
 	public UserType getUserType() {
 		return userType;
 	}
-	
-	public abstract User toEntity();
-	
 }

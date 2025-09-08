@@ -29,9 +29,10 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Set;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class InscriptionToTouristOuting extends JInternalFrame {
 
 	private ITouristOutingAndInscriptionController controlTouristOutingAndInscription;
@@ -58,7 +59,6 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 	private JLabel lblEnterNumTourists;
 	private JLabel lblinscriptionDate;
 	private JLabel lblTotalRegistrationCost;
-	// private JLabel lblInfoTouristOuting;
 	private JComboBox<String> comboBoxTourists;
 	private JLabel lblTourists;
 	private JButton btnConfirm;
@@ -103,7 +103,6 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		gbc_comboBoxTouristActivities.gridx = 1;
 		gbc_comboBoxTouristActivities.gridy = 0;
 		getContentPane().add(comboBoxTouristActivities, gbc_comboBoxTouristActivities);
-		// textFieldTouristOutingName.setColumns(10);
 
 		lblTouristOutings = new JLabel("Salidas turisticas:");
 		lblTouristOutings.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -122,18 +121,6 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		gbc_comboBoxTouristOutings.gridx = 1;
 		gbc_comboBoxTouristOutings.gridy = 1;
 		getContentPane().add(comboBoxTouristOutings, gbc_comboBoxTouristOutings);
-		// textFieldTouristOutingName.setColumns(10);
-
-		/*
-		 * lblInfoTouristOuting = new JLabel("Tourist Outing Information:");
-		 * lblInfoTouristOuting.setHorizontalAlignment(SwingConstants.RIGHT);
-		 * GridBagConstraints gbc_lblInfoTouristOuting = new GridBagConstraints();
-		 * gbc_lblInfoTouristOuting.fill = GridBagConstraints.BOTH;
-		 * gbc_lblInfoTouristOuting.insets = new Insets(0, 0, 5, 5);
-		 * gbc_lblInfoTouristOuting.gridx = 0; gbc_lblInfoTouristOuting.gridy = 2;
-		 * getContentPane().add(lblInfoTouristOuting, gbc_lblInfoTouristOuting);
-		 * textFieldTouristOutingName.setColumns(10);
-		 */
 
 		lblTouristOutingName = new JLabel("Nombre de salida turistica:");
 		lblTouristOutingName.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -349,7 +336,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 
 		comboBoxTouristActivities.addActionListener(e -> loadTouristOutings());
 		comboBoxTouristOutings.addActionListener(e -> showOutingDetails());
-		
+
 		init();
 	}
 
@@ -381,21 +368,20 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 			}
 
 			if (activityWithOutings != null) {
-				Set<DtTouristOuting> allTouristOutings = activityWithOutings.getOutings();
-				// Tengo un set de dtTouristOuting, me quiero quedar con una lista de nombres de
-				// touristOuting para mostrar en el combo box
+				List<DtTouristOuting> allTouristOutings = activityWithOutings.getOutings();
+				String[] touristOutingNames = new String[allTouristOutings.size()];
 
-				// y si la actividad no tiene salidas?
-				DefaultComboBoxModel<String> model;
-				try {
-					model = new DefaultComboBoxModel<String>(
-							controlTouristOutingAndInscription.listTouristOutingsNames(allTouristOutings));
-					comboBoxTouristOutings.setModel(model);
-				} catch (TouristOutingDoesNotExistException e) {
-					// We will not show any tourist outing
-					// model = new DefaultComboBoxModel<String>(new String[] {"No existen salidas
-					// turísticas asociadas."});
+				// Tengo una List de dtTouristOuting, me quiero quedar con una lista de nombres de
+				// touristOuting para mostrar en el combo box
+				for (int ind = 0; ind < allTouristOutings.size(); ind++) {
+					touristOutingNames[ind] = allTouristOutings.get(ind).getOutingName();
 				}
+				
+				touristOutingNames = allTouristOutings.size() > 0 ? touristOutingNames : new String[] {"No existen salidas turísticas para la actividad seleccionada."};
+				DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(touristOutingNames);
+
+				comboBoxTouristOutings.setModel(model);
+				comboBoxTouristOutings.setSelectedIndex(-1);
 			}
 		}
 	}
@@ -457,6 +443,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		if (checkFormulario()) {
 
 			int textFieldNumTouristsTOint = Integer.parseInt(numTourists);
+			// TODO
 			float costInsc = controlTouristActivity.getActivityCostTourist(touristActivityName);
 			float costTotalInsc = controlTouristOutingAndInscription.inscriptionTotalCost(costInsc,
 					textFieldNumTouristsTOint);

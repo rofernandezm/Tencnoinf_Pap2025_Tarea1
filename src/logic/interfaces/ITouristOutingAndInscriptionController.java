@@ -1,7 +1,6 @@
 package logic.interfaces;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 import exceptions.RepeatedInscriptionToTouristOutingException;
 import exceptions.RepeatedTouristOutingException;
@@ -11,31 +10,26 @@ import logic.dto.DtTouristOuting;
 
 public interface ITouristOutingAndInscriptionController {
 
-	public DtTouristOuting consultTouristOutingData(String outingName)throws TouristOutingDoesNotExistException;
-	
+	public DtTouristOuting consultTouristOutingData(String outingName) throws TouristOutingDoesNotExistException;
+
 	public void outingDataEntry(DtTouristOuting dtTouristOuting) throws RepeatedTouristOutingException;
 
-	public void inscriptionDataEntry(DtInscriptionTouristOuting dtInscriptionOuting, String userNickname, String outingName) throws RepeatedInscriptionToTouristOutingException;
-	
-	public void cancelOutingRegistration();
+	public void inscriptionDataEntry(DtInscriptionTouristOuting dtInscriptionOuting, String userNickname,
+			String outingName) throws RepeatedInscriptionToTouristOutingException;
 
-//	public void confirmOutingRegistration(); not needed
-	
 	public DtInscriptionTouristOuting[] listOutingInscription(String outingName);
-	
-	public void modifyOutingName (String outingName);
-	
+
+	public void modifyOutingName(String outingName);
+
 	public void modifyMaxTourist(int maxTourist);
-	
-	public void modifyExitPoint (String exitPoint);
-	
-	public void modifydateTime (LocalDateTime dateTime);
-	
+
+	public void modifyExitPoint(String exitPoint);
+
+	public void modifydateTime(LocalDateTime dateTime);
+
 	public String getOutingName();
 
 	public String[] listTouristOutings() throws TouristOutingDoesNotExistException;
-	
-	public String[] listTouristOutingsNames(Set<DtTouristOuting> allTouristOutings) throws TouristOutingDoesNotExistException;
-	
+
 	public float inscriptionTotalCost(float touristActivityCost, int numTourists);
 }

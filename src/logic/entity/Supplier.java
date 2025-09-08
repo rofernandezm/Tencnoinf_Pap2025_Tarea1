@@ -5,9 +5,7 @@ import java.util.Map;
 
 import jakarta.persistence.*;
 import logic.dto.DtSupplier;
-import logic.dto.DtSupplierProfile;
 import logic.dto.DtUser;
-import logic.dto.DtUserProfile;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "nickname")
@@ -30,6 +28,13 @@ public class Supplier extends User {
 		super(nickname, name, lastName, email, birthDate);
 		this.description = description;
 		this.webSite = webSite;
+	}
+
+	public Supplier(DtSupplier dtSupplier) {
+		super(dtSupplier.getNickname(), dtSupplier.getName(), dtSupplier.getLastName(), dtSupplier.getEmail(),
+				dtSupplier.getBirthDate());
+		this.description = dtSupplier.getDescription();
+		this.webSite = dtSupplier.getWebSite();
 	}
 
 	public String getDescription() {
@@ -62,9 +67,5 @@ public class Supplier extends User {
 				this.getBirthDate(), this.getDescription(), this.getWebSite());
 
 		return dt;
-	}
-
-	public DtUserProfile createDtUserProfile() {
-		return new DtSupplierProfile();
 	}
 }

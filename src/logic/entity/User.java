@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import jakarta.persistence.*;
 import logic.dto.DtUser;
-import logic.dto.DtUserProfile;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -77,6 +76,4 @@ public abstract class User {
 	};
 
 	public abstract DtUser createDtUser();
-
-	public abstract DtUserProfile createDtUserProfile();
 }

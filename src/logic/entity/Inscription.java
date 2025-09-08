@@ -3,16 +3,17 @@ package logic.entity;
 import java.time.LocalDate;
 
 import jakarta.persistence.*;
+import logic.dto.DtInscriptionTouristOuting;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(name = "uc_tourist_outdating", columnNames = { "tourist_nickname",
 		"touristOuting_name" }), indexes = { @Index(name = "index_insc_outdating", columnList = "touristOuting_name") })
 public class Inscription {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	private int numTourists;
 	private float totalRegistrationCost;
 	private LocalDate inscriptionDate;
@@ -38,6 +39,14 @@ public class Inscription {
 		this.totalRegistrationCost = totalRegistrationCost;
 		this.inscriptionDate = inscriptionDate;
 	};
+
+	public Inscription(DtInscriptionTouristOuting dtInscriptionTouristOuting) {
+
+		this.numTourists = dtInscriptionTouristOuting.getTouristAmount();
+		this.totalRegistrationCost = dtInscriptionTouristOuting.getTotalCost();
+		this.inscriptionDate = dtInscriptionTouristOuting.getInscriptionDate();
+
+	}
 
 	public int getNumTourists() {
 		return numTourists;
@@ -78,5 +87,4 @@ public class Inscription {
 	public void setTourist(Tourist tourist) {
 		this.tourist = tourist;
 	}
-
 }

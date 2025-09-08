@@ -43,6 +43,14 @@ public class TouristOuting {
 		this.dischargeDate = dischargeDate;
 	};
 
+	public TouristOuting(DtTouristOuting dt) {
+		this.outingName = dt.getOutingName();
+		this.maxNumTourists = dt.getMaxNumTourists();
+		this.departurePoint = dt.getDeparturePoint();
+		this.departureDate = dt.getDepartureDate();
+		this.dischargeDate = dt.getDischargeDate();
+	}
+
 	public String getOutingName() {
 		return outingName;
 	}
@@ -98,15 +106,9 @@ public class TouristOuting {
 	public void setInscriptions(Map<Long, Inscription> inscriptions) {
 		this.inscriptions = inscriptions;
 	}
-	
-	public DtTouristOuting toDT() {
-	    return new DtTouristOuting(
-	        getOutingName(),
-	        getMaxNumTourists(),
-	        getDeparturePoint(),
-	        getDepartureDate(),
-	        getDischargeDate(),
-	        getActivity().getActivityName()
-	        );
-	}	
+
+	public DtTouristOuting getDtTouristOuting() {
+		return new DtTouristOuting(this.outingName, this.maxNumTourists, this.departurePoint, this.departureDate,
+				this.dischargeDate, this.activity.getActivityName());
+	}
 }

@@ -1,20 +1,21 @@
 package logic.dto;
 
-import java.util.Set;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DtTouristProfile extends DtUserProfile {
-	
-	private Set<DtInscriptionTouristOuting> inscriptionTourisOuting = new HashSet<>();
-	
-	public DtTouristProfile() {}
 
-	public DtTouristProfile(DtUser user, Set<DtInscriptionTouristOuting> inscriptionTourisOuting) {
+	private List<DtInscriptionTouristOuting> inscriptionTourisOuting = new ArrayList<>();
+
+	public DtTouristProfile() {
+	}
+
+	public DtTouristProfile(DtUser user, List<DtInscriptionTouristOuting> inscriptionTourisOuting) {
 		super(user);
 		this.inscriptionTourisOuting = inscriptionTourisOuting;
 	}
-	
-	public Set<DtInscriptionTouristOuting> getInscriptionTourisOuting() {
+
+	public List<DtInscriptionTouristOuting> getInscriptionTourisOuting() {
 		return inscriptionTourisOuting;
 	}
 }

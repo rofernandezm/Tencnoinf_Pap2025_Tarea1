@@ -1,26 +1,27 @@
 package logic.dto;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DtActivityWithOutings {
-	
+
 	private DtTouristActivity activity;
-	private Set<DtTouristOuting> outings = new HashSet<>();
+	private List<DtTouristOuting> outings = new ArrayList<>();
 
-	public DtActivityWithOutings() {}
+	public DtActivityWithOutings() {
+	}
 
-	public DtActivityWithOutings(DtTouristActivity activity, Set<DtTouristOuting> outings) {
+	public DtActivityWithOutings(DtTouristActivity activity, List<DtTouristOuting> outings) {
 		this.activity = activity;
 		this.outings = outings;
 	}
-	
+
 	public DtTouristActivity getActivity() {
 		return activity;
 	}
-	
-	public Set<DtTouristOuting> getOutings() {
+
+	public List<DtTouristOuting> getOutings() {
 		return outings;
 	}
-	
+
 }

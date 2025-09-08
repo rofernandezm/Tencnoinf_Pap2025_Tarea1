@@ -8,8 +8,9 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.Duration;
 import java.time.format.DateTimeFormatter;
-import java.util.Set;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -44,39 +45,40 @@ public class ConsultActivity extends JInternalFrame {
 	private JTextField txtOutDesDate;
 	private JComboBox<String> cmbSelActivity;
 	private JComboBox<String> cmbActOutings;
-	private DateTimeFormatter formatter;
+	private DateTimeFormatter formatter_YYYYMMDD;
+	private DateTimeFormatter formatter_YYYYMMDD_HHMM;
 	private DtActivityWithOutings activityWithOutingsData;
 	ITouristActivityController itac;
-	
+
 	public ConsultActivity(ITouristActivityController itac) {
 		super("Consultar actividad", true, true, true, true);
-		
+
 		this.itac = itac;
-		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		formatter_YYYYMMDD = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		formatter_YYYYMMDD_HHMM = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		setBounds(new Rectangle(35, 35, 400, 420));
 		getContentPane().setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel formContent = new JPanel();
 		getContentPane().add(formContent, BorderLayout.CENTER);
 		formContent.setLayout(new BorderLayout(0, 0));
-		
+
 		formContent.add(selectActivity(), BorderLayout.NORTH);
-		
+
 		formContent.add(dataActivity(), BorderLayout.CENTER);
-		
-		
+
 	}
-	
+
 	private JPanel selectActivity() {
-		
+
 		JPanel selectActivity = new JPanel();
 		GridBagLayout gbl_selectActivity = new GridBagLayout();
-		gbl_selectActivity.columnWidths = new int[]{74, 116, 95, 40, 0};
-		gbl_selectActivity.rowHeights = new int[]{2, 22, 0};
-		gbl_selectActivity.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_selectActivity.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_selectActivity.columnWidths = new int[] { 74, 116, 95, 40, 0 };
+		gbl_selectActivity.rowHeights = new int[] { 2, 22, 0 };
+		gbl_selectActivity.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_selectActivity.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 		selectActivity.setLayout(gbl_selectActivity);
-		
+
 		JLabel lblSelectActivity = new JLabel("Seleccionar actividad");
 		GridBagConstraints gbc_lblSelectActivity = new GridBagConstraints();
 		gbc_lblSelectActivity.anchor = GridBagConstraints.WEST;
@@ -84,7 +86,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_lblSelectActivity.gridx = 1;
 		gbc_lblSelectActivity.gridy = 1;
 		selectActivity.add(lblSelectActivity, gbc_lblSelectActivity);
-		
+
 		cmbSelActivity = new JComboBox<String>();
 		GridBagConstraints gbc_cmbSelActivity = new GridBagConstraints();
 		gbc_cmbSelActivity.insets = new Insets(0, 0, 0, 5);
@@ -92,39 +94,37 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_cmbSelActivity.gridx = 2;
 		gbc_cmbSelActivity.gridy = 1;
 		selectActivity.add(cmbSelActivity, gbc_cmbSelActivity);
-		
+
 		loadComboSelectActivity();
-		
+
 		cmbSelActivity.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) {
 				cmdSelectActivityActionPerformed(arg0);
 			}
 		});
-		
+
 		return selectActivity;
 	}
-	
 
-	
 	private void loadComboSelectActivity() {
-		DefaultComboBoxModel<String> model; 
+		DefaultComboBoxModel<String> model;
 		try {
-			
+
 			String[] data = itac.listTouristActivities();
 			System.out.println("Datos de actividades cargados: " + data);
 			if (data != null) {
 				String[] dataWithNull = new String[data.length + 1];
 				dataWithNull[0] = null; // Primera opción nula
 				System.arraycopy(data, 0, dataWithNull, 1, data.length);
-				model = new DefaultComboBoxModel<String>(dataWithNull); 
+				model = new DefaultComboBoxModel<String>(dataWithNull);
 				cmbSelActivity.setModel(model);
 			}
-				
-		}catch (ActivityDoesNotExistException e) {
+
+		} catch (ActivityDoesNotExistException e) {
 			cmbSelActivity.setModel(new DefaultComboBoxModel<String>());
 		}
 	}
-	
+
 	protected void cmdSelectActivityActionPerformed(ActionEvent e) {
 		String selectedActivity = (String) cmbSelActivity.getSelectedItem();
 		clearActivityData();
@@ -134,17 +134,17 @@ public class ConsultActivity extends JInternalFrame {
 				DtTouristActivity activityData = activityWithOutingsData.getActivity();
 				if (activityData == null) {
 					throw new RuntimeException("Error al obtener dtActivity.");
-					
+
 				}
 				txtActName.setText(activityData.getActivityName());
 				txtActDescription.setText(activityData.getDescription());
-				txtActDuration.setText(activityData.getDuration().toString());
+				txtActDuration.setText(getFormatedStringByDuration(activityData.getDuration()));
 				txtActCost.setText(String.valueOf(activityData.getCostTurist()));
 				txtActCity.setText(activityData.getCity());
-				txtActRegDate.setText(activityData.getRegistratioDate().format(formatter));
-				
+				txtActRegDate.setText(activityData.getRegistrationDate().format(formatter_YYYYMMDD));
+
 				loadComboActSelectOutings(activityWithOutingsData.getOutings());
-				
+
 			} catch (ActivityDoesNotExistException ex) {
 				clearActivityData();
 			}
@@ -152,8 +152,8 @@ public class ConsultActivity extends JInternalFrame {
 			clearActivityData();
 		}
 	}
-	
-	private void loadComboActSelectOutings(Set<DtTouristOuting> outings) {
+
+	private void loadComboActSelectOutings(List<DtTouristOuting> outings) {
 		DefaultComboBoxModel<String> model;
 		// Crear un array con una opción nula al principio
 		String[] data = outings.stream().map(DtTouristOuting::getOutingName).toArray(String[]::new);
@@ -163,27 +163,29 @@ public class ConsultActivity extends JInternalFrame {
 		model = new DefaultComboBoxModel<String>(dataWithNull);
 		cmbActOutings.setModel(model);
 	}
-	
+
 	private JPanel dataActivity() {
-		
+
 		JPanel dataActivity = new JPanel();
 		dataActivity.setLayout(new BorderLayout(0, 0));
 		dataActivity.add(basicDataActivity(), BorderLayout.NORTH);
-		
+
 		return dataActivity;
 	}
 
 	private JPanel basicDataActivity() {
-		
+
 		JPanel basicDataActivity = new JPanel();
-		basicDataActivity.setBorder(new TitledBorder(null, "Informacion de la actividad", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		basicDataActivity.setBorder(new TitledBorder(null, "Informacion de la actividad", TitledBorder.LEADING,
+				TitledBorder.TOP, null, null));
 		GridBagLayout gbl_basicDataActivity = new GridBagLayout();
-		gbl_basicDataActivity.columnWidths = new int[]{44, 133, 138, 40, 0};
-		gbl_basicDataActivity.rowHeights = new int[]{14, 0, 0, 0, 0, 0, 0, 26, 0, 0, 0};
-		gbl_basicDataActivity.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_basicDataActivity.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_basicDataActivity.columnWidths = new int[] { 44, 133, 138, 40, 0 };
+		gbl_basicDataActivity.rowHeights = new int[] { 14, 0, 0, 0, 0, 0, 0, 26, 0, 0, 0 };
+		gbl_basicDataActivity.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_basicDataActivity.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0,
+				Double.MIN_VALUE };
 		basicDataActivity.setLayout(gbl_basicDataActivity);
-		
+
 		JLabel lblActName = new JLabel("Nombre");
 		GridBagConstraints gbc_lblActName = new GridBagConstraints();
 		gbc_lblActName.insets = new Insets(0, 0, 5, 5);
@@ -191,7 +193,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_lblActName.gridx = 1;
 		gbc_lblActName.gridy = 0;
 		basicDataActivity.add(lblActName, gbc_lblActName);
-		
+
 		txtActName = new JTextField();
 		txtActName.setEditable(false);
 		GridBagConstraints gbc_txtActName = new GridBagConstraints();
@@ -201,7 +203,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_txtActName.gridy = 0;
 		basicDataActivity.add(txtActName, gbc_txtActName);
 		txtActName.setColumns(10);
-		
+
 		JLabel lblActDescription = new JLabel("Descripcion");
 		GridBagConstraints gbc_lblActDescription = new GridBagConstraints();
 		gbc_lblActDescription.anchor = GridBagConstraints.WEST;
@@ -209,7 +211,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_lblActDescription.gridx = 1;
 		gbc_lblActDescription.gridy = 1;
 		basicDataActivity.add(lblActDescription, gbc_lblActDescription);
-		
+
 		txtActDescription = new JTextField();
 		txtActDescription.setEditable(false);
 		GridBagConstraints gbc_txtActDescription = new GridBagConstraints();
@@ -219,7 +221,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_txtActDescription.gridy = 1;
 		basicDataActivity.add(txtActDescription, gbc_txtActDescription);
 		txtActDescription.setColumns(10);
-		
+
 		JLabel lblActDuration = new JLabel("Duracion");
 		GridBagConstraints gbc_lblActDuration = new GridBagConstraints();
 		gbc_lblActDuration.anchor = GridBagConstraints.WEST;
@@ -227,7 +229,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_lblActDuration.gridx = 1;
 		gbc_lblActDuration.gridy = 2;
 		basicDataActivity.add(lblActDuration, gbc_lblActDuration);
-		
+
 		txtActDuration = new JTextField();
 		txtActDuration.setEditable(false);
 		GridBagConstraints gbc_txtActDuration = new GridBagConstraints();
@@ -237,7 +239,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_txtActDuration.gridy = 2;
 		basicDataActivity.add(txtActDuration, gbc_txtActDuration);
 		txtActDuration.setColumns(10);
-		
+
 		JLabel lblActCost = new JLabel("Costo por turista");
 		GridBagConstraints gbc_lblActCost = new GridBagConstraints();
 		gbc_lblActCost.anchor = GridBagConstraints.WEST;
@@ -245,7 +247,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_lblActCost.gridx = 1;
 		gbc_lblActCost.gridy = 3;
 		basicDataActivity.add(lblActCost, gbc_lblActCost);
-		
+
 		txtActCost = new JTextField();
 		txtActCost.setEditable(false);
 		GridBagConstraints gbc_txtActCost = new GridBagConstraints();
@@ -255,7 +257,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_txtActCost.gridy = 3;
 		basicDataActivity.add(txtActCost, gbc_txtActCost);
 		txtActCost.setColumns(10);
-		
+
 		JLabel lblActCity = new JLabel("Ciudad");
 		GridBagConstraints gbc_lblActCity = new GridBagConstraints();
 		gbc_lblActCity.anchor = GridBagConstraints.WEST;
@@ -263,7 +265,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_lblActCity.gridx = 1;
 		gbc_lblActCity.gridy = 4;
 		basicDataActivity.add(lblActCity, gbc_lblActCity);
-		
+
 		txtActCity = new JTextField();
 		txtActCity.setEditable(false);
 		GridBagConstraints gbc_txtActCity = new GridBagConstraints();
@@ -273,7 +275,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_txtActCity.gridy = 4;
 		basicDataActivity.add(txtActCity, gbc_txtActCity);
 		txtActCity.setColumns(10);
-		
+
 		JLabel lblActRegDate = new JLabel("Fecha de registro");
 		GridBagConstraints gbc_lblActRegDate = new GridBagConstraints();
 		gbc_lblActRegDate.anchor = GridBagConstraints.WEST;
@@ -281,7 +283,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_lblActRegDate.gridx = 1;
 		gbc_lblActRegDate.gridy = 5;
 		basicDataActivity.add(lblActRegDate, gbc_lblActRegDate);
-		
+
 		txtActRegDate = new JTextField();
 		txtActRegDate.setEditable(false);
 		GridBagConstraints gbc_textField = new GridBagConstraints();
@@ -291,7 +293,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_textField.gridy = 5;
 		basicDataActivity.add(txtActRegDate, gbc_textField);
 		txtActRegDate.setColumns(10);
-		
+
 		JLabel lblActSelectOuting = new JLabel("Seleccione una salida");
 		GridBagConstraints gbc_lblActSelectOuting = new GridBagConstraints();
 		gbc_lblActSelectOuting.anchor = GridBagConstraints.WEST;
@@ -299,7 +301,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_lblActSelectOuting.gridx = 1;
 		gbc_lblActSelectOuting.gridy = 6;
 		basicDataActivity.add(lblActSelectOuting, gbc_lblActSelectOuting);
-		
+
 		cmbActOutings = new JComboBox<String>();
 		GridBagConstraints gbc_cmbActOutings = new GridBagConstraints();
 		gbc_cmbActOutings.insets = new Insets(0, 0, 5, 5);
@@ -307,13 +309,13 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_cmbActOutings.gridx = 2;
 		gbc_cmbActOutings.gridy = 6;
 		basicDataActivity.add(cmbActOutings, gbc_cmbActOutings);
-		
+
 		cmbActOutings.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) {
 				cmdSelectActOutingsActionPerformed(arg0);
 			}
 		});
-		
+
 		GridBagConstraints gbc_basicDataOuting = new GridBagConstraints();
 		gbc_basicDataOuting.gridheight = 3;
 		gbc_basicDataOuting.gridwidth = 2;
@@ -321,24 +323,23 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_basicDataOuting.fill = GridBagConstraints.BOTH;
 		gbc_basicDataOuting.gridx = 1;
 		gbc_basicDataOuting.gridy = 7;
-		
+
 		basicDataActivity.add(basicDataOuting(), gbc_basicDataOuting);
-		
+
 		return basicDataActivity;
 	}
+
 	protected void cmdSelectActOutingsActionPerformed(ActionEvent e) {
 		String selectedOuting = (String) cmbActOutings.getSelectedItem();
 		if (selectedOuting != null && activityWithOutingsData != null) {
 			DtTouristOuting outingData = activityWithOutingsData.getOutings().stream()
-					.filter(outing -> outing.getOutingName().equals(selectedOuting))
-					.findFirst()
-					.orElse(null);
+					.filter(outing -> outing.getOutingName().equals(selectedOuting)).findFirst().orElse(null);
 			if (outingData != null) {
 				textOutName.setText(outingData.getOutingName());
 				txtOutMax.setText(String.valueOf(outingData.getMaxNumTourists()));
 				txtOutDepPoint.setText(outingData.getDeparturePoint());
-				txtOutDepDate.setText(outingData.getDepartureDate().format(formatter));
-				txtOutDesDate.setText(outingData.getDischargeDate().format(formatter));
+				txtOutDepDate.setText(outingData.getDepartureDate().format(formatter_YYYYMMDD_HHMM));
+				txtOutDesDate.setText(outingData.getDischargeDate().format(formatter_YYYYMMDD));
 			} else {
 				clearOutingData();
 			}
@@ -346,19 +347,20 @@ public class ConsultActivity extends JInternalFrame {
 			clearOutingData();
 		}
 	}
-	
+
 	private JPanel basicDataOuting() {
-		
+
 		JPanel basicDataOuting = new JPanel();
-		basicDataOuting.setBorder(new TitledBorder(new LineBorder(new Color(191, 205, 219)), "Informacion de la salida", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		
+		basicDataOuting.setBorder(new TitledBorder(new LineBorder(new Color(191, 205, 219)), "Informacion de la salida",
+				TitledBorder.LEADING, TitledBorder.TOP, null, null));
+
 		GridBagLayout gbl_basicDataOuting = new GridBagLayout();
-		gbl_basicDataOuting.columnWidths = new int[]{16, 85, 83, 0, 0};
-		gbl_basicDataOuting.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-		gbl_basicDataOuting.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_basicDataOuting.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_basicDataOuting.columnWidths = new int[] { 16, 85, 83, 0, 0 };
+		gbl_basicDataOuting.rowHeights = new int[] { 0, 0, 0, 0, 0, 0 };
+		gbl_basicDataOuting.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_basicDataOuting.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		basicDataOuting.setLayout(gbl_basicDataOuting);
-		
+
 		JLabel lblOutName = new JLabel("Nombre");
 		GridBagConstraints gbc_lblOutName = new GridBagConstraints();
 		gbc_lblOutName.insets = new Insets(0, 0, 5, 5);
@@ -366,7 +368,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_lblOutName.gridx = 1;
 		gbc_lblOutName.gridy = 0;
 		basicDataOuting.add(lblOutName, gbc_lblOutName);
-		
+
 		textOutName = new JTextField();
 		textOutName.setEditable(false);
 		GridBagConstraints gbc_textOutName = new GridBagConstraints();
@@ -376,7 +378,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_textOutName.gridy = 0;
 		basicDataOuting.add(textOutName, gbc_textOutName);
 		textOutName.setColumns(10);
-		
+
 		JLabel lblOutMax = new JLabel("Maximo de turistas");
 		GridBagConstraints gbc_lblOutMax = new GridBagConstraints();
 		gbc_lblOutMax.anchor = GridBagConstraints.WEST;
@@ -384,7 +386,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_lblOutMax.gridx = 1;
 		gbc_lblOutMax.gridy = 1;
 		basicDataOuting.add(lblOutMax, gbc_lblOutMax);
-		
+
 		txtOutMax = new JTextField();
 		txtOutMax.setEditable(false);
 		GridBagConstraints gbc_txtOutMax = new GridBagConstraints();
@@ -394,7 +396,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_txtOutMax.gridy = 1;
 		basicDataOuting.add(txtOutMax, gbc_txtOutMax);
 		txtOutMax.setColumns(10);
-		
+
 		JLabel lblOutDepPoint = new JLabel("Punto de encuentro");
 		GridBagConstraints gbc_lblOutDepPoint = new GridBagConstraints();
 		gbc_lblOutDepPoint.anchor = GridBagConstraints.WEST;
@@ -402,7 +404,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_lblOutDepPoint.gridx = 1;
 		gbc_lblOutDepPoint.gridy = 2;
 		basicDataOuting.add(lblOutDepPoint, gbc_lblOutDepPoint);
-		
+
 		txtOutDepPoint = new JTextField();
 		txtOutDepPoint.setEditable(false);
 		GridBagConstraints gbc_txtOutDepPoint = new GridBagConstraints();
@@ -412,7 +414,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_txtOutDepPoint.gridy = 2;
 		basicDataOuting.add(txtOutDepPoint, gbc_txtOutDepPoint);
 		txtOutDepPoint.setColumns(10);
-		
+
 		JLabel lblOutDepDate = new JLabel("Fecha de salida");
 		GridBagConstraints gbc_lblOutDepDate = new GridBagConstraints();
 		gbc_lblOutDepDate.anchor = GridBagConstraints.WEST;
@@ -420,7 +422,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_lblOutDepDate.gridx = 1;
 		gbc_lblOutDepDate.gridy = 3;
 		basicDataOuting.add(lblOutDepDate, gbc_lblOutDepDate);
-		
+
 		txtOutDepDate = new JTextField();
 		txtOutDepDate.setEditable(false);
 		GridBagConstraints gbc_txtOutDepDate = new GridBagConstraints();
@@ -430,7 +432,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_txtOutDepDate.gridy = 3;
 		basicDataOuting.add(txtOutDepDate, gbc_txtOutDepDate);
 		txtOutDepDate.setColumns(10);
-		
+
 		JLabel lblOutDesDate = new JLabel("Fecha de llegada");
 		GridBagConstraints gbc_lblOutDesDate = new GridBagConstraints();
 		gbc_lblOutDesDate.anchor = GridBagConstraints.WEST;
@@ -438,7 +440,7 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_lblOutDesDate.gridx = 1;
 		gbc_lblOutDesDate.gridy = 4;
 		basicDataOuting.add(lblOutDesDate, gbc_lblOutDesDate);
-		
+
 		txtOutDesDate = new JTextField();
 		txtOutDesDate.setEditable(false);
 		GridBagConstraints gbc_txtOutDesDate = new GridBagConstraints();
@@ -449,15 +451,15 @@ public class ConsultActivity extends JInternalFrame {
 		gbc_txtOutDesDate.gridy = 4;
 		basicDataOuting.add(txtOutDesDate, gbc_txtOutDesDate);
 		txtOutDesDate.setColumns(10);
-		
+
 		return basicDataOuting;
 	}
-	
+
 	private void clearForm() {
 		cmbSelActivity.removeAllItems();
 		clearActivityData();
 	}
-	
+
 	private void clearActivityData() {
 		txtActName.setText("");
 		txtActDescription.setText("");
@@ -468,7 +470,7 @@ public class ConsultActivity extends JInternalFrame {
 		cmbActOutings.removeAllItems();
 		clearOutingData();
 	}
-	
+
 	private void clearOutingData() {
 		textOutName.setText("");
 		txtOutMax.setText("");
@@ -476,10 +478,16 @@ public class ConsultActivity extends JInternalFrame {
 		txtOutDepDate.setText("");
 		txtOutDesDate.setText("");
 	}
-	
+
 	public void init() {
 		clearForm();
 		loadComboSelectActivity();
 	}
-	
+
+	private String getFormatedStringByDuration(Duration duration) {
+		long horas = duration.toHours();
+		long minutos = duration.toMinutesPart();
+		String texto = horas + " horas " + minutos + " minutos";
+		return texto;
+	}
 }

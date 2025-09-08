@@ -2,9 +2,6 @@ package logic.dto;
 
 import java.time.LocalDate;
 
-import logic.entity.Tourist;
-import logic.entity.User;
-
 public class DtTourist extends DtUser {
 
 	private String nationality;
@@ -20,10 +17,5 @@ public class DtTourist extends DtUser {
 
 	public String getNationality() {
 		return nationality;
-	}
-
-	public User toEntity() {
-		return new Tourist(this.getNickname(), this.getName(), this.getLastName(), this.getEmail(), this.getBirthDate(),
-				this.getNationality());
 	}
 }

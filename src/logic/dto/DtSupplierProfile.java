@@ -1,20 +1,21 @@
 package logic.dto;
 
-import java.util.Set;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DtSupplierProfile extends DtUserProfile {
-	
-	private Set<DtActivityWithOutings> activities = new HashSet<>();
-	
-	public DtSupplierProfile() {}
 
-	public DtSupplierProfile(DtUser user, Set<DtActivityWithOutings> activities) {
+	private List<DtActivityWithOutings> activities = new ArrayList<>();
+
+	public DtSupplierProfile() {
+	}
+
+	public DtSupplierProfile(DtUser user, List<DtActivityWithOutings> activities) {
 		super(user);
 		this.activities = activities;
 	}
-	
-	public Set<DtActivityWithOutings> getActivities() {
+
+	public List<DtActivityWithOutings> getActivities() {
 		return activities;
 	}
 }

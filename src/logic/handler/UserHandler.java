@@ -1,11 +1,9 @@
 package logic.handler;
 
-import java.util.Collection;
 import java.util.List;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import logic.entity.Supplier;
 import logic.entity.Tourist;
@@ -70,7 +68,7 @@ public class UserHandler {
 		EntityManager em = PersistenceHandler.getEntityManager();
 		TypedQuery<User> q = em.createQuery("SELECT u FROM User u", User.class);
 		List<User> obj_users = q.getResultList();
-		String[] nicknames = new String[obj_users.size()];
+		String[] nicknames = obj_users.size() > 0 ? new String[obj_users.size()] : null;
 		for (int ind = 0; ind < obj_users.size(); ind++) {
 			nicknames[ind] = obj_users.get(ind).getNickname();
 		}
@@ -90,14 +88,6 @@ public class UserHandler {
 		em.close();
 		return suppliers;
 
-	}
-
-	public Supplier getSupplierByNickname(String nickname) {
-
-		EntityManager em = PersistenceHandler.getEntityManager();
-		Supplier userByNickname = em.find(Supplier.class, nickname);
-		em.close();
-		return userByNickname;
 	}
 
 	public String[] listTourists() {

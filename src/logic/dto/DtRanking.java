@@ -1,22 +1,23 @@
 package logic.dto;
 
 public class DtRanking {
-	
-	private String activity;
+
+	private String activityName;
 	private int outingCount;
 
-	public DtRanking() {}
+	public DtRanking() {
+	}
 
-	public DtRanking(String activity, int outingCount) {
-		this.activity = activity;
+	public DtRanking(String activityName, int outingCount) {
+		this.activityName = activityName;
 		this.outingCount = outingCount;
 	}
-	
-	public String getActivity() {
-		return activity;
+
+	public String getActivityName() {
+		return activityName;
 	}
-	
-	public int getOutings() {
+
+	public int getNumberOutings() {
 		return outingCount;
 	}
 }

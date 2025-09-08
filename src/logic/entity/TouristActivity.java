@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.Map;
 
 import jakarta.persistence.*;
+import logic.dto.DtTouristActivity;
 
 @Entity
 public class TouristActivity {
@@ -27,7 +28,7 @@ public class TouristActivity {
 	// Relation with one or many TouristOuting
 	// We use a map collection with the name of the TouristOuting as key and the
 	// object its self as value
-	
+
 	@OneToMany(mappedBy = "activity", cascade = CascadeType.ALL, orphanRemoval = true)
 	@MapKey(name = "outingName")
 	private Map<String, TouristOuting> touristOutings;
@@ -44,6 +45,15 @@ public class TouristActivity {
 		this.city = city;
 		this.dischargeDate = dischargeDate;
 	};
+
+	public TouristActivity(DtTouristActivity dtTouristActivity) {
+		this.activityName = dtTouristActivity.getActivityName();
+		this.description = dtTouristActivity.getDescription();
+		this.duration = dtTouristActivity.getDuration();
+		this.touristFee = dtTouristActivity.getCostTurist();
+		this.city = dtTouristActivity.getCity();
+		this.dischargeDate = dtTouristActivity.getRegistrationDate();
+	}
 
 	public String getActivityName() {
 		return activityName;
@@ -109,4 +119,8 @@ public class TouristActivity {
 		this.touristOutings = touristOutings;
 	}
 
+	public DtTouristActivity getDtTouristActivity() {
+		return new DtTouristActivity(this.activityName, this.description, this.duration, this.touristFee, this.city,
+				this.dischargeDate, this.supplier.getNickname());
+	}
 }

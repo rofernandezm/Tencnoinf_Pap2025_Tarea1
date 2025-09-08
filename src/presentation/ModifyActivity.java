@@ -128,7 +128,7 @@ public class ModifyActivity extends JInternalFrame {
 				txtTouristFee.setText(String.valueOf(currentActivity.getCostTurist()));
 				txtCity.setText(currentActivity.getCity());
 				txtDischargeDate.setText(
-						currentActivity.getRegistratioDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+						currentActivity.getRegistrationDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(this, "No se pudo cargar la actividad seleccionada.", "Error",
 						JOptionPane.ERROR_MESSAGE);
@@ -147,7 +147,7 @@ public class ModifyActivity extends JInternalFrame {
 				DtTouristActivity updated = new DtTouristActivity(currentActivity.getActivityName(),
 						txtDescription.getText(), Duration.ofHours((int) spnDuration.getValue()),
 						Float.parseFloat(txtTouristFee.getText()), txtCity.getText(),
-						currentActivity.getRegistratioDate(), currentActivity.getSupplierNickname());
+						currentActivity.getRegistrationDate(), currentActivity.getSupplierNickname());
 
 				iActivityController.modifyActivity(updated);
 

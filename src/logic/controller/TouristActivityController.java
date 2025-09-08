@@ -3,7 +3,6 @@ package logic.controller;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import exceptions.ActivityDoesNotExistException;
 import exceptions.RepeatedActivityNameException;
@@ -11,19 +10,28 @@ import logic.dto.DtActivityWithOutings;
 import logic.dto.DtRanking;
 import logic.dto.DtTouristActivity;
 import logic.dto.DtTouristOuting;
+import logic.entity.Supplier;
 import logic.entity.TouristActivity;
 import logic.entity.TouristOuting;
 import logic.handler.TouristActivityHandler;
+import logic.handler.TouristOutingAndInscrptionHandler;
+import logic.handler.UserHandler;
 import logic.interfaces.ITouristActivityController;
 
 public class TouristActivityController implements ITouristActivityController {
 
 	public void activityDataEntry(DtTouristActivity dtTouristActivity) throws RepeatedActivityNameException {
+
 		if (TouristActivityHandler.getIntance().existActivityName(dtTouristActivity.getActivityName())) {
 			throw new RepeatedActivityNameException("Ya existe una actividad turistica con ese nombre.");
 		}
 
-		TouristActivityHandler.getIntance().addTouristActivity(dtTouristActivity);
+		TouristActivity touristActivity = new TouristActivity(dtTouristActivity);
+		Supplier supplier = (Supplier) UserHandler.getIntance()
+				.getUserByNickname(dtTouristActivity.getSupplierNickname());
+		touristActivity.setSupplier(supplier);
+
+		TouristActivityHandler.getIntance().addTouristActivity(touristActivity);
 
 	}
 
@@ -37,76 +45,67 @@ public class TouristActivityController implements ITouristActivityController {
 		return rtn;
 	}
 
-	public DtActivityWithOutings consultTouristActivityData(String activityName) {
-		DtActivityWithOutings rtn = null;
+	// TODO
+	public DtActivityWithOutings consultTouristActivityData(String activityName) throws ActivityDoesNotExistException {
+
 		TouristActivity ta = TouristActivityHandler.getIntance().getTouristActivityByName(activityName);
-		if (ta != null) {
-			DtTouristActivity dtActivity = new DtTouristActivity(ta.getActivityName(), ta.getDescription(),
-					ta.getDuration(), ta.getTouristFee(), ta.getCity(), ta.getDischargeDate(),
-					ta.getSupplier().getNickname());
-			Set<DtTouristOuting> touristOutings = null;
-			new java.util.HashSet<>();
-			if (ta.getTouristOutings() != null) {
-				Iterator<TouristOuting> it = ta.getTouristOutings().values().iterator();
-				if (it != null) {
-					touristOutings = new java.util.HashSet<>();
-					while (it.hasNext()) {
-						TouristOuting to = it.next();
-						touristOutings.add(new DtTouristOuting(to.getOutingName(), to.getMaxNumTourists(),
-								to.getDeparturePoint(), to.getDepartureDate(), to.getDischargeDate(), activityName));
-					}
-				}
-			}
-			rtn = new DtActivityWithOutings(dtActivity, touristOutings);
+
+		if (ta == null) {
+			throw new ActivityDoesNotExistException("No existe actividad para el nombre indicado. Por favor reintente");
 		}
-		return rtn;
+
+		List<String> actOutingNames = TouristOutingAndInscrptionHandler.getIntance()
+				.getTouristOutingByActivityName(activityName);
+		List<DtTouristOuting> dtTouristOuting = new ArrayList<>();
+
+		for (String outing : actOutingNames) {
+			TouristOuting to = TouristOutingAndInscrptionHandler.getIntance().getTouristOutingByName(outing);
+			dtTouristOuting.add(to.getDtTouristOuting());
+		}
+
+		return new DtActivityWithOutings(ta.getDtTouristActivity(), dtTouristOuting);
 	}
 
-	// The method ListarSalidasActividad(nombreActividad: String) :
-	// DtActividadConSalida has same response and parameters than
-	// consultTouristActivityData method
-
+	// TODO
 	public DtRanking[] getActivityRanking() {
-	    String[] activities = TouristActivityHandler.getIntance().listTouristActivities();
-	    if (activities == null || activities.length == 0) {
-	        return new DtRanking[0];
-	    }
+		String[] activities = TouristActivityHandler.getIntance().listTouristActivities();
+		if (activities == null || activities.length == 0) {
+			return new DtRanking[0];
+		}
 
-	    List<DtRanking> rankingList = new ArrayList<>();
+		List<DtRanking> rankingList = new ArrayList<>();
 
-	    for (String activityName : activities) {
-	        TouristActivity ta = TouristActivityHandler.getIntance().getTouristActivityByName(activityName);
+		for (String activityName : activities) {
+			TouristActivity ta = TouristActivityHandler.getIntance().getTouristActivityByName(activityName);
 
-	        int outingCount = 0;
-	        if (ta != null && ta.getTouristOutings() != null) {
-	            outingCount = ta.getTouristOutings().size();
-	        }
+			int outingCount = 0;
+			if (ta != null && ta.getTouristOutings() != null) {
+				outingCount = ta.getTouristOutings().size();
+			}
 
-	        DtRanking newItem = new DtRanking(activityName, outingCount);
+			DtRanking newItem = new DtRanking(activityName, outingCount);
 
-	        int pos = 0;
-	        while (pos < rankingList.size() && rankingList.get(pos).getOutings() >= newItem.getOutings()) {
-	            pos++;
-	        }
-	        rankingList.add(pos, newItem);
-	    }
+			int pos = 0;
+			while (pos < rankingList.size() && rankingList.get(pos).getNumberOutings() >= newItem.getNumberOutings()) {
+				pos++;
+			}
+			rankingList.add(pos, newItem);
+		}
 
-	    return rankingList.toArray(new DtRanking[0]);
+		return rankingList.toArray(new DtRanking[0]);
 	}
-	
+
 	public DtTouristActivity consultTouristActivityBasicData(String activityName) throws ActivityDoesNotExistException {
-		DtTouristActivity rtn = null;
 		TouristActivity ta = TouristActivityHandler.getIntance().getTouristActivityByName(activityName);
-		if (ta != null) {
-			rtn = new DtTouristActivity(ta.getActivityName(), ta.getDescription(),
-					ta.getDuration(), ta.getTouristFee(), ta.getCity(), ta.getDischargeDate(),
-					ta.getSupplier().getNickname());
-		}else {
+
+		if (ta == null) {
 			throw new ActivityDoesNotExistException("No existe una actividad turistica con ese nombre.");
 		}
-		return rtn;
+
+		return ta.getDtTouristActivity();
 	}
-	
+
+	// TODO
 	public float getActivityCostTourist(String activityName) {
 		TouristActivity ta = TouristActivityHandler.getIntance().getTouristActivityByName(activityName);
 		if (ta == null) {
@@ -114,8 +113,8 @@ public class TouristActivityController implements ITouristActivityController {
 		}
 		return ta.getTouristFee();
 	}
-	
+
 	public void modifyActivity(DtTouristActivity dto) {
-	    TouristActivityHandler.getIntance().updateActivity(dto);
+		TouristActivityHandler.getIntance().updateActivity(dto);
 	}
 }

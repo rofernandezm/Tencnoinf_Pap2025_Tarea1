@@ -2,9 +2,6 @@ package logic.dto;
 
 import java.time.LocalDate;
 
-import logic.entity.Supplier;
-import logic.entity.User;
-
 public class DtSupplier extends DtUser {
 
 	private String description;
@@ -26,10 +23,5 @@ public class DtSupplier extends DtUser {
 
 	public String getWebSite() {
 		return webSite;
-	}
-
-	public User toEntity() {
-		return new Supplier(this.getNickname(), this.getName(), this.getLastName(), this.getEmail(),
-				this.getBirthDate(), this.getDescription(), this.getWebSite());
 	}
 }

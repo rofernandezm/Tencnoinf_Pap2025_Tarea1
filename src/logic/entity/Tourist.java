@@ -6,9 +6,7 @@ import java.util.Map;
 
 import jakarta.persistence.*;
 import logic.dto.DtTourist;
-import logic.dto.DtTouristProfile;
 import logic.dto.DtUser;
-import logic.dto.DtUserProfile;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "nickname")
@@ -16,7 +14,7 @@ public class Tourist extends User {
 
 	@Column(updatable = false)
 	private String nationality;
-	
+
 	@OneToMany(mappedBy = "tourist", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Map<String, Inscription> outingInscriptions;
 
@@ -29,6 +27,12 @@ public class Tourist extends User {
 			String nationality) {
 		super(nickname, name, lastName, email, birthDate);
 		this.nationality = nationality;
+	}
+
+	public Tourist(DtTourist dtTourist) {
+		super(dtTourist.getNickname(), dtTourist.getName(), dtTourist.getLastName(), dtTourist.getEmail(),
+				dtTourist.getBirthDate());
+		this.nationality = dtTourist.getNationality();
 	}
 
 	public String getNationality() {
@@ -45,10 +49,6 @@ public class Tourist extends User {
 				this.getBirthDate(), this.getNationality());
 
 		return dt;
-	}
-
-	public DtUserProfile createDtUserProfile() {
-		return new DtTouristProfile();
 	}
 
 	public Map<String, Inscription> getOutingInscriptions() {

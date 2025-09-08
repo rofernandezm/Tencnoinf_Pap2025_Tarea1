@@ -31,6 +31,8 @@ public class Main {
 	private ModifyActivity modifyActivityInternalFrame;
 	private ConsultTouristInscription consultInscriptionInternalFrame;
 	private ActivityRanking activityRankingInternalFrame;
+	private ConsultUser consultUserInternalFrame;
+	private ModifyUser modifyUserInternalFrame;
 
 	public static void main(String[] args) {
 
@@ -59,25 +61,33 @@ public class Main {
 		IOIC = factoryUyTourism.getITouristOutingAndInscriptionController();
 
 		creUsrInternalFrame = new CreateUser(IUC);
-
+		creUsrInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(creUsrInternalFrame);
+
+		consultUserInternalFrame = new ConsultUser(IUC, ITAC, IOIC);
+		consultUserInternalFrame.setVisible(false);
+		frmTourismUy.getContentPane().add(consultUserInternalFrame);
+
+		modifyUserInternalFrame = new ModifyUser(IUC);
+		modifyUserInternalFrame.setVisible(false);
+		frmTourismUy.getContentPane().add(modifyUserInternalFrame);
 
 		touristOutingRegistrationInternalFrame = new TouristOutingRegistration(IOIC, ITAC);
 		touristOutingRegistrationInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(touristOutingRegistrationInternalFrame);
 
-		consultTouristOutingInternalFrame = new ConsultTouristOuting(IOIC, ITAC);
-		consultTouristOutingInternalFrame.setVisible(false);
-		frmTourismUy.getContentPane().add(consultTouristOutingInternalFrame);
+//		consultTouristOutingInternalFrame = new ConsultTouristOuting(IOIC, ITAC);
+//		consultTouristOutingInternalFrame.setVisible(false);
+//		frmTourismUy.getContentPane().add(consultTouristOutingInternalFrame);
 
 		consultTouristOutingInternalFrameBKP = new ConsultTouristOutingBKP(IOIC, ITAC);
 		consultTouristOutingInternalFrameBKP.setVisible(false);
 		frmTourismUy.getContentPane().add(consultTouristOutingInternalFrameBKP);
-		
+
 		creActInternalFrame = new CreateActivity(ITAC, IUC);
 		creActInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(creActInternalFrame);
-		
+
 		consultActInternalFrame = new ConsultActivity(ITAC);
 		consultActInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(consultActInternalFrame);
@@ -93,12 +103,13 @@ public class Main {
 		consultInscriptionInternalFrame = new ConsultTouristInscription(IOIC, ITAC);
 		consultInscriptionInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(consultInscriptionInternalFrame);
-		
+
 		activityRankingInternalFrame = new ActivityRanking(ITAC);
 		activityRankingInternalFrame.setVisible(false);
 		frmTourismUy.getContentPane().add(activityRankingInternalFrame);
 
 	}
+
 	private void initialize() {
 
 		frmTourismUy = new JFrame();
@@ -130,9 +141,21 @@ public class Main {
 
 		JMenuItem mnConsultUser = new JMenuItem("Consultar Usuarios");
 		menuUsers.add(mnConsultUser);
+		mnConsultUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				hideAllComponents();
+				consultUserInternalFrame.setVisible(true);
+			}
+		});
 
 		JMenuItem mnModifyUser = new JMenuItem("Modificar Datos Usuario");
 		menuUsers.add(mnModifyUser);
+		mnModifyUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				hideAllComponents();
+				modifyUserInternalFrame.setVisible(true);
+			}
+		});
 
 		// Menu Activities
 		JMenu menuActivities = new JMenu("Actividades");
@@ -193,17 +216,17 @@ public class Main {
 			}
 		});
 
-		JMenuItem mnConsultOuting = new JMenuItem("Consultar Salida");
-		mnOuting.add(mnConsultOuting);
-		mnConsultOuting.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				hideAllComponents();
-				consultTouristOutingInternalFrame.init();
-				consultTouristOutingInternalFrame.setVisible(true);
-			}
-		});
-		
-		JMenuItem mnConsultOutingBKP = new JMenuItem("Consultar Salida BkP");
+//		JMenuItem mnConsultOuting = new JMenuItem("Consultar Salida");
+//		mnOuting.add(mnConsultOuting);
+//		mnConsultOuting.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				hideAllComponents();
+//				consultTouristOutingInternalFrame.init();
+//				consultTouristOutingInternalFrame.setVisible(true);
+//			}
+//		});
+
+		JMenuItem mnConsultOutingBKP = new JMenuItem("Consultar Salida");
 		mnOuting.add(mnConsultOutingBKP);
 		mnConsultOutingBKP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -247,19 +270,21 @@ public class Main {
 				frmTourismUy.dispose();
 			}
 		});
-		
+
 		menuSystem.add(menuExit);
 	}
-	
+
 	private void hideAllComponents() {
 		creUsrInternalFrame.setVisible(false);
 		creActInternalFrame.setVisible(false);
 		consultActInternalFrame.setVisible(false);
 		touristOutingRegistrationInternalFrame.setVisible(false);
-		consultTouristOutingInternalFrame.setVisible(false);
+//		consultTouristOutingInternalFrame.setVisible(false);
 		consultTouristOutingInternalFrameBKP.setVisible(false);
 		inscriptionToTouristOutingInternalFrame.setVisible(false);
 		modifyActivityInternalFrame.setVisible(false);
 		consultInscriptionInternalFrame.setVisible(false);
+		consultUserInternalFrame.setVisible(false);
+		modifyUserInternalFrame.setVisible(false);
 	}
 }
