@@ -1,40 +1,41 @@
 package presentation;
 
-import javax.swing.JInternalFrame;
-
-import logic.interfaces.*;
-import logic.dto.DtTouristOuting;
-import exceptions.RepeatedTouristOutingException;
-import exceptions.ActivityDoesNotExistException;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-
-import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
-import javax.swing.JFrame;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.awt.event.ActionEvent;
-
 import java.util.Date;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import javax.swing.JSpinner.DateEditor;
 
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import exceptions.ActivityDoesNotExistException;
+import exceptions.RepeatedTouristOutingException;
+import logic.dto.DtTouristOuting;
+import logic.interfaces.ITouristActivityController;
+import logic.interfaces.ITouristOutingAndInscriptionController;
+
 public class TouristOutingRegistration extends JInternalFrame{
 
-	private ITouristOutingAndInscriptionController iControlTouristOutingAndInscription;
-	private ITouristActivityController iControlTouristActivity;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ITouristOutingAndInscriptionController itoic;
+	private ITouristActivityController itac;
 	
 	private JComboBox<String> comboBoxTouristActivities;
     private JLabel lblTouristActivities;
@@ -49,10 +50,16 @@ public class TouristOutingRegistration extends JInternalFrame{
 	private JLabel lblEnterDepartureDate;
 	private JButton btnConfirm;
 	private JButton btnCancel;
-	
-	 public TouristOutingRegistration(ITouristOutingAndInscriptionController itoic) {
 
-        iControlTouristOutingAndInscription = itoic;
+	 public TouristOutingRegistration(ITouristOutingAndInscriptionController itoic, ITouristActivityController itac) {
+
+        this.itoic = itoic;
+        this.itac = itac;
+//	 public TouristOutingRegistration(ITouristOutingAndInscriptionController itoic, ITouristActivityController icta) {
+
+//        iControlTouristOutingAndInscription = itoic;
+//        iControlTouristActivity = icta;
+
 
         setResizable(true);
         setIconifiable(true);
@@ -65,11 +72,16 @@ public class TouristOutingRegistration extends JInternalFrame{
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[] { 180, 105, 105, 5 };
         gridBagLayout.rowHeights = new int[] { 30, 30, 30, 30, 0, 0 };
-        gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
-        gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+        gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 1.0, 1.0 };
+        gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
         getContentPane().setLayout(gridBagLayout);
 
-        lblTouristActivities = new JLabel("Actividades turisticas");
+        dataCreateOuting();
+    }
+	 
+	private void dataCreateOuting() {
+		
+		lblTouristActivities = new JLabel("Actividades turisticas");
         lblTouristActivities.setHorizontalAlignment(SwingConstants.RIGHT);
         GridBagConstraints gbc_lblTouristActivities = new GridBagConstraints();
         gbc_lblTouristActivities.fill = GridBagConstraints.BOTH;
@@ -145,7 +157,6 @@ public class TouristOutingRegistration extends JInternalFrame{
         getContentPane().add(textFieldDeparturePoint, gbc_textFieldDeparturePoint);
         textFieldDeparturePoint.setColumns(10);
         
-        /*  Componente a verificar si se elimina
         lblEnterDepartureDate = new JLabel("Fecha y hora de salida:");
         lblEnterDepartureDate.setHorizontalAlignment(SwingConstants.RIGHT);
         GridBagConstraints gbc_lblEnterDepartureDate = new GridBagConstraints();
@@ -153,33 +164,15 @@ public class TouristOutingRegistration extends JInternalFrame{
         gbc_lblEnterDepartureDate.insets = new Insets(0, 0, 5, 5);
         gbc_lblEnterDepartureDate.gridx = 0;
         gbc_lblEnterDepartureDate.gridy = 4;
-        getContentPane().add(lblEnterDepartureDate, gbc_lblEnterDepartureDate); 
-
-        textFieldDepartureDate = new JTextField();
-        textFieldDepartureDate.setToolTipText("Enter the date in dd/mm/yyyy.");
-        textFieldDepartureDate.setColumns(10);
-        GridBagConstraints gbc_textFieldDepartureDate = new GridBagConstraints();
-        gbc_textFieldDepartureDate.gridwidth = 2;
-        gbc_textFieldDepartureDate.fill = GridBagConstraints.BOTH;
-        gbc_textFieldDepartureDate.insets = new Insets(0, 0, 5, 0);
-        gbc_textFieldDepartureDate.gridx = 1;
-        gbc_textFieldDepartureDate.gridy = 4;
-        getContentPane().add(textFieldDepartureDate, gbc_textFieldDepartureDate);
-*/
-        lblEnterDepartureDate = new JLabel("Fecha y hora de salida:");
-        lblEnterDepartureDate.setHorizontalAlignment(SwingConstants.RIGHT);
-        GridBagConstraints gbc_lblEnterDepartureDate = new GridBagConstraints();
-        gbc_lblEnterDepartureDate.fill = GridBagConstraints.BOTH;
-        gbc_lblEnterDepartureDate.insets = new Insets(0, 0, 5, 5);
-        gbc_lblEnterDepartureDate.gridx = 0;
-        gbc_lblEnterDepartureDate.gridy = 4;
-        getContentPane().add(lblEnterDepartureDate, gbc_lblEnterDepartureDate); 
+//        getContentPane().add(lblEnterDepartureDate, gbc_lblEnterDepartureDate); 
 
         // Spinner para LocalDateTime
+
         SpinnerDateModel dateModel = new SpinnerDateModel(new Date(), null, null, java.util.Calendar.MINUTE);
         spinnerDepartureDate = new JSpinner(dateModel);
         DateEditor timeEditor = new JSpinner.DateEditor(spinnerDepartureDate, "yyyy-MM-dd HH:mm");
         spinnerDepartureDate.setEditor(timeEditor);
+
 
         GridBagConstraints gbc_spinnerDepartureDate = new GridBagConstraints();
         gbc_spinnerDepartureDate.gridwidth = 2;
@@ -188,7 +181,7 @@ public class TouristOutingRegistration extends JInternalFrame{
         gbc_spinnerDepartureDate.gridx = 1;
         gbc_spinnerDepartureDate.gridy = 4;
         getContentPane().add(spinnerDepartureDate, gbc_spinnerDepartureDate);
-
+        
         btnConfirm = new JButton("Confirmar");
         btnConfirm.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -215,7 +208,9 @@ public class TouristOutingRegistration extends JInternalFrame{
         gbc_btnCancel.gridx = 2;
         gbc_btnCancel.gridy = 5;
         getContentPane().add(btnCancel, gbc_btnCancel);
-    }
+        
+ //       init();
+ }
 	 
 	
 	
@@ -225,13 +220,13 @@ public class TouristOutingRegistration extends JInternalFrame{
         String outingNameTO = this.textFieldTouristOutingName.getText();
         String maxNumTouristsTO = this.textFieldMaxNumTourists.getText();
         String departurePointTO = this.textFieldDeparturePoint.getText();
-        //String departureDateTO = this.textFieldDepartureDate.getText(); Componente a verificar si se elimina
+
         Date date = (Date) spinnerDepartureDate.getValue();
         LocalDateTime departureDateTOldt = date.toInstant()
                                                  .atZone(java.time.ZoneId.systemDefault())
                                                  .toLocalDateTime();
+        System.out.println("FECHA" + departureDateTOldt);
         
-        //LocalDateTime departureDateTOldt = LocalDateTime.parse(departureDateTO); Componente a verificar si se elimina
         LocalDate dischargeDateTO = LocalDate.now(); 
         
         String touristActivityName = (String) comboBoxTouristActivities.getSelectedItem();
@@ -240,11 +235,11 @@ public class TouristOutingRegistration extends JInternalFrame{
 	        	
 	            int maxNumTouristsTOint = Integer.parseInt(maxNumTouristsTO); 
 	        	//Create Dt to assign to the method
-	            DtTouristOuting newTouristOuting = new DtTouristOuting(outingNameTO, maxNumTouristsTOint, departurePointTO, departureDateTOldt, dischargeDateTO);
+	            DtTouristOuting newTouristOuting = new DtTouristOuting(outingNameTO, maxNumTouristsTOint, departurePointTO, departureDateTOldt, dischargeDateTO, touristActivityName);
 	            
 	            try {
 	            
-	            	iControlTouristOutingAndInscription.outingDataEntry(newTouristOuting, touristActivityName);
+	            	itoic.outingDataEntry(newTouristOuting);
 	
 	                // Success
 	                JOptionPane.showMessageDialog(this, "La salida turistica fue creada exitosamente.", "Alta de salida turistica",
@@ -300,18 +295,43 @@ public class TouristOutingRegistration extends JInternalFrame{
     	textFieldTouristOutingName.setText("");
     	textFieldMaxNumTourists.setText("");
     	textFieldDeparturePoint.setText("");
-    	//textFieldDepartureDate.setText("");
     	spinnerDepartureDate.setValue(new Date());
     	comboBoxTouristActivities.removeAllItems();
     }
     
     public void loadTouristActivities() {
-        DefaultComboBoxModel<String> model; 
-        try {                                    
-            model = new DefaultComboBoxModel<String>(iControlTouristActivity.listTouristActivities()); 
-            comboBoxTouristActivities.setModel(model);        
-        } catch (ActivityDoesNotExistException e) {
-            // We will not show any tourist activity
-        }
+    	DefaultComboBoxModel<String> model; 
+		try {
+			
+			String[] data = itac.listTouristActivities();
+			System.out.println("Datos de actividades cargados: " + data);
+			if (data != null) {
+				String[] dataWithNull = new String[data.length + 1];
+				dataWithNull[0] = null; // Primera opción nula
+				System.arraycopy(data, 0, dataWithNull, 1, data.length);
+				model = new DefaultComboBoxModel<String>(dataWithNull); 
+				comboBoxTouristActivities.setModel(model);
+			}
+				
+		}catch (ActivityDoesNotExistException e) {
+			comboBoxTouristActivities.setModel(new DefaultComboBoxModel<String>());
+		}
     }
+   
+//        DefaultComboBoxModel<String> model; 
+//        try {                                    
+//            model = new DefaultComboBoxModel<String>(iControlTouristActivity.listTouristActivities()); 
+//            comboBoxTouristActivities.setModel(model);
+//        } catch (ActivityDoesNotExistException e) {
+            // We will not show any tourist activity
+        	//model = new DefaultComboBoxModel<String>(new String[] {"No existen actividades turísticas registradas."});
+//        }
+       
+//   }
+    
+    public void init() {
+    	clearForm();
+    	loadTouristActivities();
+    }
+    
 }

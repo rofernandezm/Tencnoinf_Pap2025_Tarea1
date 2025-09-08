@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import exceptions.RepeatedActivityNameException;
 import logic.dto.DtTouristActivity;
 import logic.interfaces.ITouristActivityController;
 import logic.interfaces.IUserController;
@@ -60,6 +61,11 @@ public class CreateActivity extends JInternalFrame  {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		
+		dataCreateActivity();
+		
+	}
+	
+	private void dataCreateActivity() {
 		lblSupplier = new JLabel("Proveedor");
         lblSupplier.setHorizontalAlignment(SwingConstants.RIGHT);
         GridBagConstraints gbc_lblSupplier= new GridBagConstraints();
@@ -190,7 +196,7 @@ public class CreateActivity extends JInternalFrame  {
 		btnCancel = new JButton("Cancelar");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				limpiarFormulario();
+				clearForm();
 				setVisible(false);
 			}
 			
@@ -199,7 +205,6 @@ public class CreateActivity extends JInternalFrame  {
 		gbc_btnCancel.gridx = 2;
 		gbc_btnCancel.gridy = 8;
 		getContentPane().add(btnCancel, gbc_btnCancel);
-		
 	}
 	
 	public void loadSupplier() {
@@ -207,12 +212,11 @@ public class CreateActivity extends JInternalFrame  {
         String[] data = iUserController.listSuppliers();
         System.out.println(data);
         if (data != null) {
-        	model = new DefaultComboBoxModel<String>(data); 
-       		cmbSupplier.setModel(model);
-        	
-        }else {
-        	model = new DefaultComboBoxModel<String>(new String[] {"Pepe", "Carlos"}); 
-       		cmbSupplier.setModel(model);
+        	String[] dataWithNull = new String[data.length + 1];
+			dataWithNull[0] = null; // Primera opción nula
+			System.arraycopy(data, 0, dataWithNull, 1, data.length);
+			model = new DefaultComboBoxModel<String>(dataWithNull); 
+			cmbSupplier.setModel(model);
         	
         }
 
@@ -221,24 +225,20 @@ public class CreateActivity extends JInternalFrame  {
 	protected void cmdRegisterActivityActionPerformed(ActionEvent arg0) {
 		if (validateInputs()) {
 			try {
-				String supplier = (String) cmbSupplier.getSelectedItem(); 
 				DtTouristActivity dtActivity = parseData();
 				
-				if (iTouristActivityController.activityDataEntry(dtActivity, supplier)) {
-					JOptionPane.showMessageDialog(null, "Actividad creada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-					limpiarFormulario();
-					setVisible(false);
-					return;
-				} 
+				iTouristActivityController.activityDataEntry(dtActivity);
 				
-				JOptionPane.showMessageDialog(null, "No se pudo crear la actividad", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Actividad creada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+				clearForm();
+				setVisible(false);
 				
-			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null,
-						"Error al crear actividad: " + ex.getMessage(),
-						"Error",
-						JOptionPane.ERROR_MESSAGE);
-			}
+			}  catch (RepeatedActivityNameException e) {
+                // Error message
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Alta de actividad turistica", JOptionPane.ERROR_MESSAGE);
+                
+                txtActivityName.setText("");
+            }
 		}
 	}
 	
@@ -284,19 +284,25 @@ public class CreateActivity extends JInternalFrame  {
 		String durationText = txtDuration.getText().trim();
 		String feeText = txtTouristFee.getText().trim();
 		String city = txtCity.getText().trim();
+		String supplier = (String) cmbSupplier.getSelectedItem();
 		
 		Duration duration = Duration.ofHours(Integer.parseInt(durationText));
 		float fee = Float.parseFloat(feeText);
 		LocalDate dischargeDate = LocalDate.now();
 		
-		return new DtTouristActivity(name, description, duration, fee, city, dischargeDate);
+		return new DtTouristActivity(name, description, duration, fee, city, dischargeDate, supplier);
 	}
 	 
-	 private void limpiarFormulario() {
+	 private void clearForm() {
+		cmbSupplier.setSelectedItem(null);;
 		txtActivityName.setText("");
      	txtDescription.setText("");
      	txtDuration.setText("");
      	txtTouristFee.setText("");
      	txtCity.setText("");
      }
+	 
+	 public void init() {
+			clearForm();
+		}
 }

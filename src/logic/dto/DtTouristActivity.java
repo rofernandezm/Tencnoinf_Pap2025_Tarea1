@@ -11,16 +11,18 @@ public class DtTouristActivity {
 	private float costTurist;
 	private String city;
 	private LocalDate registratioDate;
+	private String supplierNickname;
 	
 	public DtTouristActivity() {};
 	
-	public DtTouristActivity( String activityName, String description, Duration duration, float costTurist, String city, LocalDate registratioDate) {
+	public DtTouristActivity( String activityName, String description, Duration duration, float costTurist, String city, LocalDate registratioDate , String supplierNickname) {
 		this.activityName = activityName;
 		this.description = description;
 		this.duration = duration;
 		this.costTurist = costTurist;
 		this.city = city;
 		this.registratioDate = registratioDate;
+		this.supplierNickname = supplierNickname;
 	}
 	
 	public String getActivityName() {
@@ -46,4 +48,10 @@ public class DtTouristActivity {
 	public LocalDate getRegistratioDate() {
 		return registratioDate;
 	}
+	
+	public String getSupplierNickname() {
+		return supplierNickname;
+	}
+	
+	
 }

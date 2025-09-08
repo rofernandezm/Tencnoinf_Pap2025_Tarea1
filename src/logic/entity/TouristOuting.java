@@ -28,7 +28,8 @@ public class TouristOuting {
 	// We use a map collection with the name of the TouristOuting as key and the
 	// object its self as value
 	@OneToMany(mappedBy = "touristOuting", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Map<String, Inscription> inscriptions;
+	@MapKey(name = "id") // campo de Inscription que será la clave
+	private Map<Long, Inscription> inscriptions;
 
 	public TouristOuting() {
 	};
@@ -90,11 +91,11 @@ public class TouristOuting {
 		this.activity = activity;
 	}
 
-	public Map<String, Inscription> getInscriptions() {
+	public Map<Long, Inscription> getInscriptions() {
 		return inscriptions;
 	}
 
-	public void setTouristOutings(Map<String, Inscription> inscriptions) {
+	public void setInscriptions(Map<Long, Inscription> inscriptions) {
 		this.inscriptions = inscriptions;
 	}
 	
@@ -104,7 +105,8 @@ public class TouristOuting {
 	        getMaxNumTourists(),
 	        getDeparturePoint(),
 	        getDepartureDate(),
-	        getDischargeDate()
+	        getDischargeDate(),
+	        getActivity().getActivityName()
 	        );
 	}	
 }
