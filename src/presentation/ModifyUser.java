@@ -134,11 +134,17 @@ public class ModifyUser extends JInternalFrame {
 		getContentPane().add(formContainer);
 		formContainer.setLayout(null);
 
+		formContainer.add(createTopContainer());
+		formContainer.add(createActionButtonsPanel());
+
+	}
+	
+	private JPanel createTopContainer() {
+		
 		topContainer = new JPanel();
 		topContainer.setBounds(0, 0, 504, 299);
 		topContainer.setBorder(null);
 
-		formContainer.add(topContainer);
 		topContainer.setLayout(null);
 		JPanel nicknameComboContainer = new JPanel();
 		nicknameComboContainer.setBounds(28, 12, 442, 99);
@@ -269,10 +275,14 @@ public class ModifyUser extends JInternalFrame {
 		gbc_field_birthDate.gridx = GRID_FIELD_POS;
 		gbc_field_birthDate.gridy = 3;
 		basicDataPanel.add(field_birthDate, gbc_field_birthDate);
-
+		
+		return topContainer;
+	}
+	
+	private JPanel createActionButtonsPanel() {
+		
 		actionButtonsPanel = new JPanel();
 		actionButtonsPanel.setBounds(36, 311, 431, 47);
-		formContainer.add(actionButtonsPanel);
 		actionButtonsPanel.setLayout(null);
 
 		JButton btnGuardar = new JButton("Guardar");
@@ -282,5 +292,7 @@ public class ModifyUser extends JInternalFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(65, 12, 117, 25);
 		actionButtonsPanel.add(btnCancelar);
+		
+		return actionButtonsPanel;
 	}
 }

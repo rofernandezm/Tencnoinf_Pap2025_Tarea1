@@ -6,6 +6,9 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -23,26 +26,22 @@ import java.awt.CardLayout;
 
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
+
+import exceptions.ActivityDoesNotExistException;
+
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
 public class ConsultUser extends JInternalFrame {
-	private IUserController iUserController;
 
-	// Basic form
-	private JLabel labelNickname;
-	private JTextField fieldNickname;
-	private JLabel labelName;
-	private JTextField fieldName;
-	private JLabel labelLastname;
-	private JTextField fieldLastname;
-	private JLabel labelEmail;
-	private JTextField fieldEmail;
-	private JLabel label_birthDate;
-	private JSpinner field_birthDate;
+	private IUserController iUserController;
 
 	// RESOURCES
 	private static final String TITLE = "Registro de usuario";
@@ -59,60 +58,44 @@ public class ConsultUser extends JInternalFrame {
 	private static final String SUPPLIER_TOURIST_OUTING_DETAILS = "SUPPLIER_TOURIST_OUTING_DETAILS";
 	private static final String TOURIST_LAYOUT = "TOURIST_LAYOUT";
 
-//	private static final String SUPPLIER_ACTIVITY_COMBO = "SUPPLIER_LAYOUT";
-
 	// Patterns
 	private static final String BIRTH_DATE_FORMAT = "dd/MM/yyyy";
 
-	// GRID POSITION
-	private static final int GRID_LABEL_POS = 1;
-	private static final int GRID_FIELD_POS = 2;
-	private JPanel topContainer;
-	private JPanel nicknameCombo;
-	private JComboBox nicknameComboBox;
-	private JPanel centerContainer;
+	// TopContainer
+	private JComboBox<String> nicknameComboBox;
+	private JLabel labelNickname;
+	private JTextField fieldNickname;
+	private JLabel labelName;
+	private JTextField fieldName;
+	private JLabel labelLastname;
+	private JTextField fieldLastname;
+	private JLabel labelEmail;
+	private JTextField fieldEmail;
+	private JLabel label_birthDate;
+	private JSpinner field_birthDate;
+
+	// CenterContainer
+
 	private JPanel cl_centerContainer;
-	private JPanel supplierContainer;
-	private JPanel touristContainer;
-	private JPanel selectActivityPanel;
-	private JPanel titleContainer;
-	private JComboBox activityComboBox;
-	private JPanel activityDetailsTitle;
-	private JPanel touristOutingDetailsTitle;
+	private JComboBox<String> activityComboBox;
 	private JTextField fieldActName;
 	private JTextField fieldActCost;
 	private JTextField fieldCity;
-	private JPanel descTitlePanel;
-	private JPanel durTitlePanel;
 	private JSpinner fieldDurAct;
-	private JPanel costTitlePanel;
-	private JPanel citytitlePanel;
-	private JPanel dischDateTitlePanel;
-	private JPanel selectTouristOuting;
 	private JTextField fieldOutingName;
 	private JTextField fieldOutingCantMax;
 	private JTextField fieldOutingPlace;
 	private JSpinner fieldDepartureDate;
 	private JSpinner fieldOutDischargeDate;
-	private JPanel outingNameTitle;
-	private JPanel outingCantMaxTitle;
-	private JPanel outingPlaceTitle;
-	private JPanel outingDateTitle;
-	private JPanel outingDischDateTitle;
-	private JPanel selectRegisteredOutingContainer;
-	private JPanel selectRegisteredOutingTitle;
-	private JComboBox selectRegisteredOutingComboBox;
-	private JPanel registeredOutingDetailsTitle;
+
+	private JComboBox<String> selectRegisteredOutingComboBox;
+	private JComboBox<String> outingActComboBox;
+
 	private JTextField fieldRegisteredOutName;
 	private JTextField fieldRegisteredOutCantMax;
 	private JTextField fieldRegisteredOutPlace;
 	private JSpinner fieldRegisteredOutDepatureDate;
 	private JSpinner fieldRegisteredOutDischargeDate;
-	private JPanel registOutNameTitle;
-	private JPanel registOutCantMaxTitle;
-	private JPanel registOutPlaceTitle;
-	private JPanel registOutDateTitle;
-	private JPanel registOutDischDateTitle;
 
 	public ConsultUser(IUserController iuc) {
 
@@ -133,15 +116,64 @@ public class ConsultUser extends JInternalFrame {
 		getContentPane().add(formContainer);
 		formContainer.setLayout(null);
 
+		// ADD CONTAINERS
+		formContainer.add(createTopContainer());
+		formContainer.add(createCenterContainer());
+
+		// Para resetear formulario cuando se oculta
+		addInternalFrameListener(new InternalFrameAdapter() {
+			@Override
+			public void internalFrameClosing(InternalFrameEvent e) {
+//		        resetFormulario(formContainer);
+			}
+		});
+
+		// Cuando se oculta por codigo setVisible(false)
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentHidden(ComponentEvent e) {
+//		        resetFormulario();
+			}
+		});
+	}
+
+	protected void cmdConsultUserActionPerformed(ActionEvent e) {
+	}
+
+	public void loadUsers() {
+
+//		DefaultComboBoxModel<String> model;
+//		try {
+//			model = new DefaultComboBoxModel<String>(controlTouristActivity.listTouristActivities());
+//			comboBoxTouristActivities.setModel(model);
+//
+//		} catch (ActivityDoesNotExistException e) {
+//			// We will not show any tourist activity
+//		}
+	}
+
+	public void loadActivities() {
+	}
+
+	public void loadTouristOutingByActivity() {
+	}
+
+	public void loadTouristOutingByUser() {
+	}
+
+	private JPanel createTopContainer() {
 		// BasicData - [UserComboBox, Basic data form]
-		topContainer = new JPanel();
+		JPanel topContainer = new JPanel();
 		topContainer.setBounds(0, 0, 920, 188);
 		topContainer.setBorder(null);
 		topContainer.setLayout(null);
+		topContainer.add(createNicknameCombo());
+		topContainer.add(createBasicDataForm());
 
-		formContainer.add(topContainer); // Va al final, ya que agrega el topContainer a formContainer
+		return topContainer;
+	}
 
-		// ####################### NICKNAME COMBO BOX #######################
+	private JPanel createNicknameCombo() {
 
 		JPanel nicknameComboContainer = new JPanel();
 		nicknameComboContainer.setBounds(23, 11, 372, 155);
@@ -153,7 +185,7 @@ public class ConsultUser extends JInternalFrame {
 		gbl_nicknameComboContainer.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		nicknameComboContainer.setLayout(gbl_nicknameComboContainer);
 
-		nicknameCombo = new JPanel();
+		JPanel nicknameCombo = new JPanel();
 		GridBagConstraints gbc_nicknameCombo = new GridBagConstraints();
 		gbc_nicknameCombo.insets = new Insets(0, 0, 5, 0);
 		gbc_nicknameCombo.fill = GridBagConstraints.BOTH;
@@ -179,11 +211,10 @@ public class ConsultUser extends JInternalFrame {
 		nicknameCombo.add(nicknameComboBox, gbc_nicknameComboBox);
 		nicknameComboBox.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-		// ####################### NICKNAME COMBO BOX #######################
+		return nicknameComboContainer;
+	}
 
-		topContainer.add(nicknameComboContainer);
-
-		// ####################### BASIC DATA FORM #######################
+	private JPanel createBasicDataForm() {
 
 		JPanel basicDataPanel = new JPanel();
 		basicDataPanel.setBounds(400, 0, 492, 178);
@@ -201,7 +232,7 @@ public class ConsultUser extends JInternalFrame {
 		GridBagConstraints gbc_label_Nickname = new GridBagConstraints();
 		gbc_label_Nickname.anchor = GridBagConstraints.WEST;
 		gbc_label_Nickname.insets = new Insets(0, 0, 5, 5);
-		gbc_label_Nickname.gridx = GRID_LABEL_POS;
+		gbc_label_Nickname.gridx = 1;
 		gbc_label_Nickname.gridy = 1;
 		basicDataPanel.add(labelNickname, gbc_label_Nickname);
 
@@ -213,7 +244,7 @@ public class ConsultUser extends JInternalFrame {
 		GridBagConstraints gbc_field_Nickname = new GridBagConstraints();
 		gbc_field_Nickname.fill = GridBagConstraints.HORIZONTAL;
 		gbc_field_Nickname.insets = new Insets(0, 0, 5, 5);
-		gbc_field_Nickname.gridx = GRID_FIELD_POS;
+		gbc_field_Nickname.gridx = 2;
 		gbc_field_Nickname.gridy = 1;
 		basicDataPanel.add(fieldNickname, gbc_field_Nickname);
 		fieldNickname.setColumns(10);
@@ -222,7 +253,7 @@ public class ConsultUser extends JInternalFrame {
 		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
 		gbc_lblNombre.anchor = GridBagConstraints.WEST;
 		gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNombre.gridx = GRID_LABEL_POS;
+		gbc_lblNombre.gridx = 1;
 		gbc_lblNombre.gridy = 2;
 		basicDataPanel.add(labelName, gbc_lblNombre);
 
@@ -233,7 +264,7 @@ public class ConsultUser extends JInternalFrame {
 		GridBagConstraints gbc_field_Name = new GridBagConstraints();
 		gbc_field_Name.insets = new Insets(0, 0, 5, 5);
 		gbc_field_Name.fill = GridBagConstraints.HORIZONTAL;
-		gbc_field_Name.gridx = GRID_FIELD_POS;
+		gbc_field_Name.gridx = 2;
 		gbc_field_Name.gridy = 2;
 		basicDataPanel.add(fieldName, gbc_field_Name);
 		fieldName.setColumns(10);
@@ -242,7 +273,7 @@ public class ConsultUser extends JInternalFrame {
 		GridBagConstraints gbc_label_Lastname = new GridBagConstraints();
 		gbc_label_Lastname.anchor = GridBagConstraints.WEST;
 		gbc_label_Lastname.insets = new Insets(0, 0, 5, 5);
-		gbc_label_Lastname.gridx = GRID_LABEL_POS;
+		gbc_label_Lastname.gridx = 1;
 		gbc_label_Lastname.gridy = 3;
 		basicDataPanel.add(labelLastname, gbc_label_Lastname);
 
@@ -253,7 +284,7 @@ public class ConsultUser extends JInternalFrame {
 		GridBagConstraints gbc_field_Lastname = new GridBagConstraints();
 		gbc_field_Lastname.insets = new Insets(0, 0, 5, 5);
 		gbc_field_Lastname.fill = GridBagConstraints.HORIZONTAL;
-		gbc_field_Lastname.gridx = GRID_FIELD_POS;
+		gbc_field_Lastname.gridx = 2;
 		gbc_field_Lastname.gridy = 3;
 		basicDataPanel.add(fieldLastname, gbc_field_Lastname);
 		fieldLastname.setColumns(10);
@@ -262,7 +293,7 @@ public class ConsultUser extends JInternalFrame {
 		GridBagConstraints gbc_label_Email = new GridBagConstraints();
 		gbc_label_Email.insets = new Insets(0, 0, 5, 5);
 		gbc_label_Email.anchor = GridBagConstraints.WEST;
-		gbc_label_Email.gridx = GRID_LABEL_POS;
+		gbc_label_Email.gridx = 1;
 		gbc_label_Email.gridy = 4;
 		basicDataPanel.add(labelEmail, gbc_label_Email);
 
@@ -273,7 +304,7 @@ public class ConsultUser extends JInternalFrame {
 		GridBagConstraints gbc_field_Email = new GridBagConstraints();
 		gbc_field_Email.insets = new Insets(0, 0, 5, 5);
 		gbc_field_Email.fill = GridBagConstraints.HORIZONTAL;
-		gbc_field_Email.gridx = GRID_FIELD_POS;
+		gbc_field_Email.gridx = 2;
 		gbc_field_Email.gridy = 4;
 		basicDataPanel.add(fieldEmail, gbc_field_Email);
 		fieldEmail.setColumns(10);
@@ -282,7 +313,7 @@ public class ConsultUser extends JInternalFrame {
 		GridBagConstraints gbc_label_birthDate = new GridBagConstraints();
 		gbc_label_birthDate.anchor = GridBagConstraints.WEST;
 		gbc_label_birthDate.insets = new Insets(0, 0, 0, 5);
-		gbc_label_birthDate.gridx = GRID_LABEL_POS;
+		gbc_label_birthDate.gridx = 1;
 		gbc_label_birthDate.gridy = 5;
 		basicDataPanel.add(label_birthDate, gbc_label_birthDate);
 
@@ -294,19 +325,17 @@ public class ConsultUser extends JInternalFrame {
 		GridBagConstraints gbc_field_birthDate = new GridBagConstraints();
 		gbc_field_birthDate.fill = GridBagConstraints.HORIZONTAL;
 		gbc_field_birthDate.insets = new Insets(0, 0, 0, 5);
-		gbc_field_birthDate.gridx = GRID_FIELD_POS;
+		gbc_field_birthDate.gridx = 2;
 		gbc_field_birthDate.gridy = 5;
 		basicDataPanel.add(field_birthDate, gbc_field_birthDate);
 
-		// ####################### BASIC DATA FORM #######################
+		return basicDataPanel;
+	}
 
-		topContainer.add(basicDataPanel);
+	private JPanel createCenterContainer() {
 
-		// ####################### CENTER PANEL #######################
-
-		centerContainer = new JPanel();
+		JPanel centerContainer = new JPanel();
 		centerContainer.setBounds(0, 196, 920, 469);
-		formContainer.add(centerContainer); // MOVER AL FINAL
 		centerContainer.setLayout(null);
 
 		cl_centerContainer = new JPanel();
@@ -315,14 +344,29 @@ public class ConsultUser extends JInternalFrame {
 		cl_centerContainer.setLayout(new CardLayout(0, 0));
 
 		// ####################### SUPPLIER PANEL #######################
+		cl_centerContainer.add(createSupplierCard(), SUPPLIER_LAYOUT);
 
-		supplierContainer = new JPanel();
-		cl_centerContainer.add(supplierContainer, SUPPLIER_LAYOUT); // MOVER AL FINAL DE LA CONSTRUCCION
+		// ####################### TOURIST LAYOUT #######################
+		cl_centerContainer.add(createTouristCard(), TOURIST_LAYOUT);
+
+		return centerContainer;
+	}
+
+	private JPanel createSupplierCard() {
+		JPanel supplierContainer = new JPanel();
 		supplierContainer.setLayout(new BorderLayout(12, 0));
 
 		// ####################### SUPPLIER ACTIVITY COMBO #######################
+		supplierContainer.add(createSupplierActivitiesCombo(), BorderLayout.NORTH);
 
-		selectActivityPanel = new JPanel();
+		// ####################### SUPPLIER ACTIVITY DETAILS #######################
+		supplierContainer.add(createSupplierActivityDetails(), BorderLayout.CENTER);
+
+		return supplierContainer;
+	}
+
+	private JPanel createSupplierActivitiesCombo() {
+		JPanel selectActivityPanel = new JPanel();
 
 		GridBagLayout gbl_selectActivityPanel = new GridBagLayout();
 		gbl_selectActivityPanel.columnWidths = new int[] { 30, 353, 0, 0 };
@@ -331,7 +375,7 @@ public class ConsultUser extends JInternalFrame {
 		gbl_selectActivityPanel.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		selectActivityPanel.setLayout(gbl_selectActivityPanel);
 
-		titleContainer = new JPanel();
+		JPanel titleContainer = new JPanel();
 		titleContainer.setBorder(new CompoundBorder(
 				new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Seleccione actividad:",
 						TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)),
@@ -343,28 +387,35 @@ public class ConsultUser extends JInternalFrame {
 		gbc_titleContainer.gridx = 1;
 		gbc_titleContainer.gridy = 0;
 		titleContainer.setLayout(new CardLayout(0, 0));
+
 		activityComboBox = new JComboBox();
 		titleContainer.add(activityComboBox, SUPPLIER_ACTIVITY_COMBO);
 
 		selectActivityPanel.add(titleContainer, gbc_titleContainer);
 
-		supplierContainer.add(selectActivityPanel, BorderLayout.NORTH); // MOVER AL FINAL DE LA CONSTRUCCION
+		return selectActivityPanel;
+	}
 
-		// ####################### SUPPLIER ACTIVITY COMBO #######################
-
-		// ####################### SUPPLIER ACTIVITY DETAILS #######################
+	private JPanel createSupplierActivityDetails() {
 
 		JPanel activityAndTouristOutingDetailsContainer = new JPanel();
 		activityAndTouristOutingDetailsContainer.setBorder(new EmptyBorder(10, 30, 0, 0));
-		supplierContainer.add(activityAndTouristOutingDetailsContainer, BorderLayout.CENTER); // MOVER AL FINAL
 		activityAndTouristOutingDetailsContainer.setLayout(null);
 
-		activityDetailsTitle = new JPanel();
+		activityAndTouristOutingDetailsContainer.add(createSupplierActivityDetailsContainer());
+		activityAndTouristOutingDetailsContainer.add(createSupplierTouristOutingCombo());
+		activityAndTouristOutingDetailsContainer.add(createSupplierTouristOutingDetails());
+
+		return activityAndTouristOutingDetailsContainer;
+	}
+
+	private JPanel createSupplierActivityDetailsContainer() {
+
+		JPanel activityDetailsTitle = new JPanel();
 		activityDetailsTitle.setBounds(30, 10, 352, 369);
 		activityDetailsTitle.setBorder(new CompoundBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)),
 				"Informaci\u00F3n de la actividad seleccionada:", TitledBorder.LEADING, TitledBorder.TOP, null,
 				new Color(51, 51, 51)), new EmptyBorder(15, 15, 15, 15)));
-		activityAndTouristOutingDetailsContainer.add(activityDetailsTitle);
 		GridBagLayout gbl_activityDetailsTitle = new GridBagLayout();
 		gbl_activityDetailsTitle.columnWidths = new int[] { 293 };
 		gbl_activityDetailsTitle.rowHeights = new int[] { 30, 30, 30, 30, 30, 0 };
@@ -398,7 +449,7 @@ public class ConsultUser extends JInternalFrame {
 		nameTitlePanel.add(fieldActName, gbc_fieldActName);
 		fieldActName.setColumns(10);
 
-		descTitlePanel = new JPanel();
+		JPanel descTitlePanel = new JPanel();
 		descTitlePanel.setBorder(new TitledBorder(new EmptyBorder(0, 0, 0, 0), "Descripci\u00F3n:",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		GridBagConstraints gbc_descTitlePanel = new GridBagConstraints();
@@ -424,7 +475,7 @@ public class ConsultUser extends JInternalFrame {
 		gbc_fieldActDesc.gridy = 0;
 		descTitlePanel.add(fieldActDesc, gbc_fieldActDesc);
 
-		durTitlePanel = new JPanel();
+		JPanel durTitlePanel = new JPanel();
 		durTitlePanel.setBorder(new TitledBorder(new EmptyBorder(0, 0, 0, 0), "Duraci\u00F3n", TitledBorder.LEADING,
 				TitledBorder.TOP, null, new Color(51, 51, 51)));
 		GridBagConstraints gbc_durTitlePanel = new GridBagConstraints();
@@ -448,7 +499,7 @@ public class ConsultUser extends JInternalFrame {
 		gbc_fieldDurAct.gridy = 0;
 		durTitlePanel.add(fieldDurAct, gbc_fieldDurAct);
 
-		costTitlePanel = new JPanel();
+		JPanel costTitlePanel = new JPanel();
 		costTitlePanel.setBorder(new TitledBorder(new EmptyBorder(0, 0, 0, 0), "Costo por turista:",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		GridBagConstraints gbc_costTitlePanel = new GridBagConstraints();
@@ -474,7 +525,7 @@ public class ConsultUser extends JInternalFrame {
 		costTitlePanel.add(fieldActCost, gbc_fieldActCost);
 		fieldActCost.setColumns(10);
 
-		citytitlePanel = new JPanel();
+		JPanel citytitlePanel = new JPanel();
 		citytitlePanel.setBorder(new TitledBorder(new EmptyBorder(0, 0, 0, 0), "Ciudad:", TitledBorder.LEADING,
 				TitledBorder.TOP, null, new Color(51, 51, 51)));
 		GridBagConstraints gbc_citytitlePanel = new GridBagConstraints();
@@ -500,7 +551,7 @@ public class ConsultUser extends JInternalFrame {
 		citytitlePanel.add(fieldCity, gbc_fieldCity);
 		fieldCity.setColumns(10);
 
-		dischDateTitlePanel = new JPanel();
+		JPanel dischDateTitlePanel = new JPanel();
 		dischDateTitlePanel.setBorder(new TitledBorder(new EmptyBorder(0, 0, 0, 0), "Fecha de alta:",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		GridBagConstraints gbc_dischDateTitlePanel = new GridBagConstraints();
@@ -523,9 +574,12 @@ public class ConsultUser extends JInternalFrame {
 		gbc_fieldActDischargeDate.gridy = 0;
 		dischDateTitlePanel.add(fieldActDischargeDate, gbc_fieldActDischargeDate);
 
-		// ####################### SUPPLIER TOURIST OUTING COMBO #######################
+		return activityDetailsTitle;
+	}
 
-		selectTouristOuting = new JPanel();
+	private JPanel createSupplierTouristOutingCombo() {
+
+		JPanel selectTouristOuting = new JPanel();
 		selectTouristOuting.setBorder(new CompoundBorder(
 				new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Seleccione salida tur\u00EDstica:",
 						TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)),
@@ -552,19 +606,19 @@ public class ConsultUser extends JInternalFrame {
 		gbl_selectContainer.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		selectContainer.setLayout(gbl_selectContainer);
 
-		JComboBox outingActComboBox = new JComboBox();
+		outingActComboBox = new JComboBox();
 		GridBagConstraints gbc_outingActComboBox = new GridBagConstraints();
 		gbc_outingActComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_outingActComboBox.gridx = 0;
 		gbc_outingActComboBox.gridy = 0;
 		selectContainer.add(outingActComboBox, gbc_outingActComboBox);
 
-		activityAndTouristOutingDetailsContainer.add(selectTouristOuting); // MOVER AL FINAL
+		return selectTouristOuting;
+	}
 
-		// ####################### SUPPLIER TOURIST OUTING DETAILS
-		// #######################
+	private JPanel createSupplierTouristOutingDetails() {
 
-		touristOutingDetailsTitle = new JPanel();
+		JPanel touristOutingDetailsTitle = new JPanel();
 		touristOutingDetailsTitle
 				.setBorder(new CompoundBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)),
 						"Informaci\u00F3n de la salida seleccionada:", TitledBorder.LEADING, TitledBorder.TOP, null,
@@ -578,7 +632,7 @@ public class ConsultUser extends JInternalFrame {
 		gbl_touristOutingDetailsTitle.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		touristOutingDetailsTitle.setLayout(gbl_touristOutingDetailsTitle);
 
-		outingNameTitle = new JPanel();
+		JPanel outingNameTitle = new JPanel();
 		outingNameTitle.setBorder(new TitledBorder(new EmptyBorder(0, 0, 0, 0), "Nombre:", TitledBorder.LEADING,
 				TitledBorder.TOP, null, new Color(51, 51, 51)));
 		GridBagConstraints gbc_outingNameTitle = new GridBagConstraints();
@@ -604,7 +658,7 @@ public class ConsultUser extends JInternalFrame {
 		outingNameTitle.add(fieldOutingName, gbc_fieldOutingName);
 		fieldOutingName.setColumns(10);
 
-		outingCantMaxTitle = new JPanel();
+		JPanel outingCantMaxTitle = new JPanel();
 		outingCantMaxTitle.setBorder(new TitledBorder(new EmptyBorder(0, 0, 0, 0), "Cantidad m\u00E1xima:",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		GridBagConstraints gbc_outingCantMaxTitle = new GridBagConstraints();
@@ -630,7 +684,7 @@ public class ConsultUser extends JInternalFrame {
 		outingCantMaxTitle.add(fieldOutingCantMax, gbc_fieldOutingCantMax);
 		fieldOutingCantMax.setColumns(10);
 
-		outingPlaceTitle = new JPanel();
+		JPanel outingPlaceTitle = new JPanel();
 		outingPlaceTitle.setBorder(new TitledBorder(new EmptyBorder(0, 0, 0, 0), "Lugar de salida:",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		GridBagConstraints gbc_outingPlaceTitle = new GridBagConstraints();
@@ -656,7 +710,7 @@ public class ConsultUser extends JInternalFrame {
 		outingPlaceTitle.add(fieldOutingPlace, gbc_fieldOutingPlace);
 		fieldOutingPlace.setColumns(10);
 
-		outingDateTitle = new JPanel();
+		JPanel outingDateTitle = new JPanel();
 		outingDateTitle.setBorder(new TitledBorder(new EmptyBorder(0, 0, 0, 0), "Fecha y hora:", TitledBorder.LEADING,
 				TitledBorder.TOP, null, new Color(51, 51, 51)));
 		GridBagConstraints gbc_outingDateTitle = new GridBagConstraints();
@@ -680,7 +734,7 @@ public class ConsultUser extends JInternalFrame {
 		gbc_fieldDepartureDate.gridy = 0;
 		outingDateTitle.add(fieldDepartureDate, gbc_fieldDepartureDate);
 
-		outingDischDateTitle = new JPanel();
+		JPanel outingDischDateTitle = new JPanel();
 		outingDischDateTitle.setBorder(new TitledBorder(new EmptyBorder(0, 0, 0, 0), "Fecha de alta:",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		GridBagConstraints gbc_outingDischDateTitle = new GridBagConstraints();
@@ -703,18 +757,21 @@ public class ConsultUser extends JInternalFrame {
 		gbc_fieldOutDischargeDate.gridy = 0;
 		outingDischDateTitle.add(fieldOutDischargeDate, gbc_fieldOutDischargeDate);
 
-		activityAndTouristOutingDetailsContainer.add(touristOutingDetailsTitle); // MOVER AL FINAL
+		return touristOutingDetailsTitle;
+	}
 
-		// ####################### TOURIST LAYOUT #######################
+	private JPanel createTouristCard() {
 
-		touristContainer = new JPanel();
-		cl_centerContainer.add(touristContainer, TOURIST_LAYOUT); // MOVER AL FINAL
+		JPanel touristContainer = new JPanel();
 		touristContainer.setLayout(new BorderLayout(0, 0));
+		touristContainer.add(createTouristRegisteredOutingCombo(), BorderLayout.CENTER); // MOVER AL FINAL
 
-		// ####################### TOURIST REGISTERED OUTING SELECT
-		// #######################
+		return touristContainer;
+	}
 
-		selectRegisteredOutingContainer = new JPanel();
+	private JPanel createTouristRegisteredOutingCombo() {
+
+		JPanel selectRegisteredOutingContainer = new JPanel();
 		GridBagLayout gbl_selectRegisteredOutingContainer = new GridBagLayout();
 		gbl_selectRegisteredOutingContainer.columnWidths = new int[] { 211, 419, 195, 0 };
 		gbl_selectRegisteredOutingContainer.rowHeights = new int[] { 20, 81, 0, 0 };
@@ -722,7 +779,7 @@ public class ConsultUser extends JInternalFrame {
 		gbl_selectRegisteredOutingContainer.rowWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		selectRegisteredOutingContainer.setLayout(gbl_selectRegisteredOutingContainer);
 
-		selectRegisteredOutingTitle = new JPanel();
+		JPanel selectRegisteredOutingTitle = new JPanel();
 		selectRegisteredOutingTitle.setBorder(new CompoundBorder(
 				new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Seleccione salida tur\u00EDstica:",
 						TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)),
@@ -750,22 +807,25 @@ public class ConsultUser extends JInternalFrame {
 		selectRegisteredOutingContainer.add(selectRegisteredOutingTitle, gbc_selectRegisteredOutingTitle);
 		selectRegisteredOutingTitle.add(selectRegisteredOutingComboBox, gbc_selectRegisteredOutingComboBox);
 
-		touristContainer.add(selectRegisteredOutingContainer, BorderLayout.CENTER); // MOVER AL FINAL
-
-		// ####################### TOURIST REGISTERED OUTING DETAILS
-		// #######################
-
-		registeredOutingDetailsTitle = new JPanel();
-		registeredOutingDetailsTitle.setBorder(new CompoundBorder(
-				new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Informaci\u00F3n de salida tur\u00EDstica:",
-						TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)),
-				new EmptyBorder(10, 10, 10, 10)));
 		GridBagConstraints gbc_registeredOutingDetailsTitle = new GridBagConstraints();
 		gbc_registeredOutingDetailsTitle.insets = new Insets(0, 0, 0, 5);
 		gbc_registeredOutingDetailsTitle.fill = GridBagConstraints.BOTH;
 		gbc_registeredOutingDetailsTitle.gridx = 1;
 		gbc_registeredOutingDetailsTitle.gridy = 2;
-		
+
+		selectRegisteredOutingContainer.add(createTouristRegisteredOutingDetails(), gbc_registeredOutingDetailsTitle);
+
+		return selectRegisteredOutingContainer;
+	}
+
+	private JPanel createTouristRegisteredOutingDetails() {
+
+		JPanel registeredOutingDetailsTitle = new JPanel();
+		registeredOutingDetailsTitle.setBorder(new CompoundBorder(
+				new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Informaci\u00F3n de salida tur\u00EDstica:",
+						TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)),
+				new EmptyBorder(10, 10, 10, 10)));
+
 		GridBagLayout gbl_registeredOutingDetailsTitle = new GridBagLayout();
 		gbl_registeredOutingDetailsTitle.columnWidths = new int[] { 350 };
 		gbl_registeredOutingDetailsTitle.rowHeights = new int[] { 30, 30, 30, 30, 30 };
@@ -773,7 +833,7 @@ public class ConsultUser extends JInternalFrame {
 		gbl_registeredOutingDetailsTitle.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		registeredOutingDetailsTitle.setLayout(gbl_registeredOutingDetailsTitle);
 
-		registOutNameTitle = new JPanel();
+		JPanel registOutNameTitle = new JPanel();
 		registOutNameTitle.setBorder(new TitledBorder(new EmptyBorder(0, 0, 0, 0), "Nombre:", TitledBorder.LEADING,
 				TitledBorder.TOP, null, new Color(51, 51, 51)));
 		GridBagConstraints gbc_registOutNameTitle = new GridBagConstraints();
@@ -799,7 +859,7 @@ public class ConsultUser extends JInternalFrame {
 		registOutNameTitle.add(fieldRegisteredOutName, gbc_fieldRegisteredOutName);
 		fieldRegisteredOutName.setColumns(10);
 
-		registOutCantMaxTitle = new JPanel();
+		JPanel registOutCantMaxTitle = new JPanel();
 		registOutCantMaxTitle.setBorder(new TitledBorder(new EmptyBorder(0, 0, 0, 0), "Cantidad m\u00E1xima:",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		GridBagConstraints gbc_registOutCantMaxTitle = new GridBagConstraints();
@@ -825,7 +885,7 @@ public class ConsultUser extends JInternalFrame {
 		registOutCantMaxTitle.add(fieldRegisteredOutCantMax, gbc_fieldRegisteredOutCantMax);
 		fieldRegisteredOutCantMax.setColumns(10);
 
-		registOutPlaceTitle = new JPanel();
+		JPanel registOutPlaceTitle = new JPanel();
 		registOutPlaceTitle.setBorder(new TitledBorder(new EmptyBorder(0, 0, 0, 0), "Lugar de salida:",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		GridBagConstraints gbc_registOutPlaceTitle = new GridBagConstraints();
@@ -851,7 +911,7 @@ public class ConsultUser extends JInternalFrame {
 		registOutPlaceTitle.add(fieldRegisteredOutPlace, gbc_fieldRegisteredOutPlace);
 		fieldRegisteredOutPlace.setColumns(10);
 
-		registOutDateTitle = new JPanel();
+		JPanel registOutDateTitle = new JPanel();
 		registOutDateTitle.setBorder(new TitledBorder(new EmptyBorder(0, 0, 0, 0), "Fecha y hora:",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		GridBagConstraints gbc_registOutDateTitle = new GridBagConstraints();
@@ -877,7 +937,7 @@ public class ConsultUser extends JInternalFrame {
 		gbc_fieldRegisteredOutDepatureDate.gridy = 0;
 		registOutDateTitle.add(fieldRegisteredOutDepatureDate, gbc_fieldRegisteredOutDepatureDate);
 
-		registOutDischDateTitle = new JPanel();
+		JPanel registOutDischDateTitle = new JPanel();
 		registOutDischDateTitle.setBorder(new TitledBorder(new EmptyBorder(0, 0, 0, 0), "Fecha de alta:",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		GridBagConstraints gbc_registOutDischDateTitle = new GridBagConstraints();
@@ -901,7 +961,7 @@ public class ConsultUser extends JInternalFrame {
 		gbc_fieldRegisteredOutDischargeDate.gridx = 0;
 		gbc_fieldRegisteredOutDischargeDate.gridy = 0;
 		registOutDischDateTitle.add(fieldRegisteredOutDischargeDate, gbc_fieldRegisteredOutDischargeDate);
-		
-		selectRegisteredOutingContainer.add(registeredOutingDetailsTitle, gbc_registeredOutingDetailsTitle);
+
+		return registeredOutingDetailsTitle;
 	}
 }
