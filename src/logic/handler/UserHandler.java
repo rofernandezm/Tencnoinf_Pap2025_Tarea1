@@ -82,7 +82,7 @@ public class UserHandler {
 		EntityManager em = PersistenceHandler.getEntityManager();
 		TypedQuery<Supplier> q = em.createQuery("SELECT s FROM Supplier s", Supplier.class);
 		List<Supplier> obj_suppliers = q.getResultList();
-		String[] suppliers = new String[obj_suppliers.size()];
+		String[] suppliers = obj_suppliers.size() > 0 ? new String[obj_suppliers.size()] : null;
 		for (int ind = 0; ind < obj_suppliers.size(); ind++) {
 			suppliers[ind] = obj_suppliers.get(ind).getNickname();
 		}

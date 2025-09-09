@@ -109,7 +109,6 @@ public class ConsultActivity extends JInternalFrame {
 		try {
 
 			String[] data = itac.listTouristActivities();
-			System.out.println("Datos de actividades cargados: " + data);
 			if (data != null) {
 				String[] dataWithNull = new String[data.length + 1];
 				dataWithNull[0] = null; // Primera opción nula

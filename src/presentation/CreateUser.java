@@ -15,6 +15,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -153,6 +155,13 @@ public class CreateUser extends JInternalFrame {
 
 		// Form: Action buttons
 		formContainer.add(initActionButtons(), BorderLayout.SOUTH);
+
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				clearForm();
+			}
+		});
 	}
 
 	private JPanel initBasicDataFormPanel() {
@@ -424,7 +433,7 @@ public class CreateUser extends JInternalFrame {
 				iUserController.dataEntry(dtUser);
 				iUserController.confirmRegistration();
 				// Muestro éxito de la operación
-				JOptionPane.showMessageDialog(this, "El usuario ha sido registrado con éxito.", "Registrar Usuario",
+				JOptionPane.showMessageDialog(this, "El usuario ha sido registrado con éxito.", TITLE,
 						JOptionPane.INFORMATION_MESSAGE);
 
 				// Limpio el internal frame antes de cerrar la ventana
@@ -433,11 +442,11 @@ public class CreateUser extends JInternalFrame {
 
 			} catch (RepeatedUserNicknameException e) {
 				// Muestro error de registro
-				JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, e.getMessage(), TITLE, JOptionPane.ERROR_MESSAGE);
 
 			} catch (RepeatedUserEmailException e) {
 				// Muestro error de registro
-				JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, e.getMessage(), TITLE, JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
@@ -474,6 +483,7 @@ public class CreateUser extends JInternalFrame {
 		this.fieldName.setText("");
 		this.fieldLastname.setText("");
 		this.fieldEmail.setText("");
+		this.field_birthDate.setValue(new Date());
 		this.fieldNationality.setText("");
 		this.textAreaDescription.setText("");
 		this.fieldSitioweb.setText("");
@@ -483,7 +493,7 @@ public class CreateUser extends JInternalFrame {
 
 		// Empty basic fields
 		if (isEmptyFormBasicData()) {
-			JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
+			JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", TITLE,
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
@@ -492,27 +502,27 @@ public class CreateUser extends JInternalFrame {
 		if (!isEmail(this.fieldEmail.getText())) {
 			JOptionPane.showMessageDialog(this,
 					"El formato de correo electrónico es incorrecto. Por favor, verifique y vuelva a intentar.",
-					"Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+					TITLE, JOptionPane.ERROR_MESSAGE);
 			this.fieldEmail.requestFocusInWindow();
 			return false;
 		}
 
 		// At least 18 years old
 		if (!isLegalAdult()) {
-			JOptionPane.showMessageDialog(this, "La edad mínima requerida es de 18 años.", "Registrar Usuario",
+			JOptionPane.showMessageDialog(this, "La edad mínima requerida es de 18 años.", TITLE,
 					JOptionPane.ERROR_MESSAGE);
 			this.field_birthDate.requestFocusInWindow();
 			return false;
 		}
 
 		if (this.rdbtnTourist.isSelected() && this.fieldNationality.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(this, "El campo nacionalidad no puede estar vacío", "Registrar Usuario",
+			JOptionPane.showMessageDialog(this, "El campo nacionalidad no puede estar vacío", TITLE,
 					JOptionPane.ERROR_MESSAGE);
 			this.fieldNationality.requestFocusInWindow();
 			return false;
 		} else if (this.rdbtnSupplier.isSelected() && this.textAreaDescription.getText().isEmpty()) {
 
-			JOptionPane.showMessageDialog(this, "El campo descripción no puede estar vacío", "Registrar Usuario",
+			JOptionPane.showMessageDialog(this, "El campo descripción no puede estar vacío", TITLE,
 					JOptionPane.ERROR_MESSAGE);
 			this.textAreaDescription.requestFocusInWindow();
 			return false;
@@ -523,7 +533,7 @@ public class CreateUser extends JInternalFrame {
 			if (!isValidURL()) {
 				JOptionPane.showMessageDialog(this,
 						"El sitio web ingresado es inválido, por favor verifique y vuelva a intentar.",
-						"Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+						TITLE, JOptionPane.ERROR_MESSAGE);
 				this.textAreaDescription.requestFocusInWindow();
 				return false;
 			}

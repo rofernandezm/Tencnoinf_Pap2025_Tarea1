@@ -57,7 +57,7 @@ public class TouristOutingRegistration extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Alta de salida turistica");
-		setBounds(10, 40, 360, 210);
+		setBounds(10, 40, 528, 252);
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 180, 105, 105, 5 };
@@ -205,7 +205,6 @@ public class TouristOutingRegistration extends JInternalFrame {
 
 		Date date = (Date) spinnerDepartureDate.getValue();
 		LocalDateTime departureDateTOldt = date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDateTime();
-		System.out.println("FECHA" + departureDateTOldt);
 
 		LocalDate dischargeDateTO = LocalDate.now();
 
@@ -283,7 +282,6 @@ public class TouristOutingRegistration extends JInternalFrame {
 		try {
 
 			String[] data = itac.listTouristActivities();
-			System.out.println("Datos de actividades cargados: " + data);
 			if (data != null) {
 				String[] dataWithNull = new String[data.length + 1];
 				dataWithNull[0] = null; // Primera opción nula

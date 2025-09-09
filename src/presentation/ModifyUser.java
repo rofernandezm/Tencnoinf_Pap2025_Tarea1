@@ -80,12 +80,12 @@ public class ModifyUser extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		iUserController = iuc;
-		setBounds(0, 0, 521, 409);
+		setBounds(0, 0, 595, 410);
 		getContentPane().setLayout(null);
 
 		// Form and actions container
 		JPanel formContainer = new JPanel();
-		formContainer.setBounds(0, 0, 501, 367);
+		formContainer.setBounds(0, 0, 558, 367);
 		formContainer.setBorder(null);
 		getContentPane().add(formContainer);
 		formContainer.setLayout(null);
@@ -109,15 +109,15 @@ public class ModifyUser extends JInternalFrame {
 	private JPanel createTopContainer() {
 
 		topContainer = new JPanel();
-		topContainer.setBounds(0, 0, 504, 299);
+		topContainer.setBounds(0, 0, 569, 299);
 		topContainer.setBorder(null);
 
 		topContainer.setLayout(null);
 		JPanel nicknameComboContainer = new JPanel();
-		nicknameComboContainer.setBounds(28, 12, 442, 99);
+		nicknameComboContainer.setBounds(35, 12, 522, 99);
 		topContainer.add(nicknameComboContainer);
 		GridBagLayout gbl_nicknameComboContainer = new GridBagLayout();
-		gbl_nicknameComboContainer.columnWidths = new int[] { 447, 0 };
+		gbl_nicknameComboContainer.columnWidths = new int[] { 536, 0 };
 		gbl_nicknameComboContainer.rowHeights = new int[] { 44 };
 		gbl_nicknameComboContainer.columnWeights = new double[] { 0.0, Double.MIN_VALUE };
 		gbl_nicknameComboContainer.rowWeights = new double[] { 0.0 };
@@ -133,7 +133,7 @@ public class ModifyUser extends JInternalFrame {
 				new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Seleccione el nickname de usuario:",
 						TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51))));
 		GridBagLayout gbl_nicknameCombo = new GridBagLayout();
-		gbl_nicknameCombo.columnWidths = new int[] { 423, 0 };
+		gbl_nicknameCombo.columnWidths = new int[] { 510, 0 };
 		gbl_nicknameCombo.rowHeights = new int[] { 44, 0 };
 		gbl_nicknameCombo.columnWeights = new double[] { 0.0, Double.MIN_VALUE };
 		gbl_nicknameCombo.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
@@ -150,7 +150,7 @@ public class ModifyUser extends JInternalFrame {
 		nicknameComboBox.addActionListener(e -> onUserSelected(e));
 
 		JPanel basicDataPanel = new JPanel();
-		basicDataPanel.setBounds(35, 123, 435, 159);
+		basicDataPanel.setBounds(38, 123, 522, 159);
 		topContainer.add(basicDataPanel);
 		basicDataPanel
 				.setBorder(new CompoundBorder(
@@ -247,7 +247,7 @@ public class ModifyUser extends JInternalFrame {
 	private JPanel createActionButtonsPanel() {
 
 		actionButtonsPanel = new JPanel();
-		actionButtonsPanel.setBounds(36, 311, 431, 47);
+		actionButtonsPanel.setBounds(73, 311, 431, 47);
 		actionButtonsPanel.setLayout(null);
 
 		ActionListener cancelAction = e -> {
@@ -255,9 +255,11 @@ public class ModifyUser extends JInternalFrame {
 			setVisible(false);
 		};
 		ActionListener confirmAction = e -> {
-			cmdModifyUserActionPerformed(e);
-			cleanForm();
-			setVisible(false);
+			if (checkForm()) {
+				cmdModifyUserActionPerformed(e);
+				cleanForm();
+				setVisible(false);
+			}
 		};
 
 		JButton btnGuardar = new JButton("Guardar");
@@ -328,5 +330,55 @@ public class ModifyUser extends JInternalFrame {
 		fieldName.setText("");
 		fieldLastname.setText("");
 		fieldEmail.setText("");
+	}
+
+	private boolean checkForm() {
+
+		if (nicknameComboBox.getSelectedIndex() == -1
+				|| ((String) nicknameComboBox.getSelectedItem()).equals(MSG_NO_REGISTERED_USERS)) {
+			JOptionPane.showMessageDialog(this,
+					"Debe seleccionar un usuario para modificar, verifique e intente nuevamente.", TITLE,
+					JOptionPane.ERROR_MESSAGE);
+			this.nicknameComboBox.requestFocusInWindow();
+			return false;
+		}
+
+		// Email format
+		if (isEmptyFormBasicData()) {
+			JOptionPane.showMessageDialog(this, "No puede haber campos vacíos.", TITLE, JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+
+		// At least 18 years old
+		if (!isLegalAdult()) {
+			JOptionPane.showMessageDialog(this, "La edad mínima requerida es de 18 años.", "Registrar Usuario",
+					JOptionPane.ERROR_MESSAGE);
+			this.field_birthDate.requestFocusInWindow();
+			return false;
+		}
+
+		return true;
+	}
+
+	// BASIC DATA FORM VALIDATION
+	private boolean isEmptyFormBasicData() {
+
+		JTextField[] fields = { this.fieldName, this.fieldLastname };
+
+		for (JTextField field : fields) {
+			if (field.getText().isEmpty()) {
+				field.requestFocusInWindow();
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private boolean isLegalAdult() {
+
+		LocalDate date = jSpinnerValueToLocalDate(this.field_birthDate);
+		LocalDate legalAdult = LocalDate.now().minusYears(18);
+		return date != null && !date.isAfter(legalAdult);
 	}
 }

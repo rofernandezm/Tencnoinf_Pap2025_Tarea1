@@ -66,7 +66,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 	private JButton btnConfirm;
 	private JButton btnCancel;
 
-	private final String MSG_ACTIVITIES_NOT_FOUND = " No existen actividades turísticas registradas.";
+	private static final String MSG_ACTIVITIES_NOT_FOUND = " No existen actividades turísticas registradas.";
 
 	public InscriptionToTouristOuting(ITouristOutingAndInscriptionController itoic, ITouristActivityController itac,
 			IUserController iuc) {
@@ -81,12 +81,12 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Inscripcion a salida turistica");
-		setBounds(10, 40, 360, 400);
+		setBounds(10, 40, 501, 450);
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 180, 105, 105, 5 };
+		gridBagLayout.columnWidths = new int[] { 0, 180, 105, 105, 0, 5 };
 		gridBagLayout.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30 };
-		gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
+		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 		getContentPane().setLayout(gridBagLayout);
 
@@ -95,7 +95,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_lblTouristActivities = new GridBagConstraints();
 		gbc_lblTouristActivities.fill = GridBagConstraints.BOTH;
 		gbc_lblTouristActivities.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTouristActivities.gridx = 0;
+		gbc_lblTouristActivities.gridx = 1;
 		gbc_lblTouristActivities.gridy = 0;
 		getContentPane().add(lblTouristActivities, gbc_lblTouristActivities);
 
@@ -103,8 +103,8 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_comboBoxTouristActivities = new GridBagConstraints();
 		gbc_comboBoxTouristActivities.gridwidth = 2;
 		gbc_comboBoxTouristActivities.fill = GridBagConstraints.BOTH;
-		gbc_comboBoxTouristActivities.insets = new Insets(0, 0, 5, 0);
-		gbc_comboBoxTouristActivities.gridx = 1;
+		gbc_comboBoxTouristActivities.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxTouristActivities.gridx = 2;
 		gbc_comboBoxTouristActivities.gridy = 0;
 		getContentPane().add(comboBoxTouristActivities, gbc_comboBoxTouristActivities);
 
@@ -113,7 +113,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_lblTouristOutings = new GridBagConstraints();
 		gbc_lblTouristOutings.fill = GridBagConstraints.BOTH;
 		gbc_lblTouristOutings.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTouristOutings.gridx = 0;
+		gbc_lblTouristOutings.gridx = 1;
 		gbc_lblTouristOutings.gridy = 1;
 		getContentPane().add(lblTouristOutings, gbc_lblTouristOutings);
 
@@ -121,8 +121,8 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_comboBoxTouristOutings = new GridBagConstraints();
 		gbc_comboBoxTouristOutings.gridwidth = 2;
 		gbc_comboBoxTouristOutings.fill = GridBagConstraints.BOTH;
-		gbc_comboBoxTouristOutings.insets = new Insets(0, 0, 5, 0);
-		gbc_comboBoxTouristOutings.gridx = 1;
+		gbc_comboBoxTouristOutings.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxTouristOutings.gridx = 2;
 		gbc_comboBoxTouristOutings.gridy = 1;
 		getContentPane().add(comboBoxTouristOutings, gbc_comboBoxTouristOutings);
 
@@ -131,7 +131,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_lblTouristOutingName = new GridBagConstraints();
 		gbc_lblTouristOutingName.fill = GridBagConstraints.BOTH;
 		gbc_lblTouristOutingName.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTouristOutingName.gridx = 0;
+		gbc_lblTouristOutingName.gridx = 1;
 		gbc_lblTouristOutingName.gridy = 2;
 		getContentPane().add(lblTouristOutingName, gbc_lblTouristOutingName);
 
@@ -141,8 +141,8 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_textFieldTouristOutingName = new GridBagConstraints();
 		gbc_textFieldTouristOutingName.gridwidth = 2;
 		gbc_textFieldTouristOutingName.fill = GridBagConstraints.BOTH;
-		gbc_textFieldTouristOutingName.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldTouristOutingName.gridx = 1;
+		gbc_textFieldTouristOutingName.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldTouristOutingName.gridx = 2;
 		gbc_textFieldTouristOutingName.gridy = 2;
 		getContentPane().add(textFieldTouristOutingName, gbc_textFieldTouristOutingName);
 		textFieldTouristOutingName.setColumns(10);
@@ -152,7 +152,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_lblMaxNumTourists = new GridBagConstraints();
 		gbc_lblMaxNumTourists.fill = GridBagConstraints.BOTH;
 		gbc_lblMaxNumTourists.insets = new Insets(0, 0, 5, 5);
-		gbc_lblMaxNumTourists.gridx = 0;
+		gbc_lblMaxNumTourists.gridx = 1;
 		gbc_lblMaxNumTourists.gridy = 3;
 		getContentPane().add(lblMaxNumTourists, gbc_lblMaxNumTourists);
 
@@ -162,8 +162,8 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_textFieldMaxNumTourists = new GridBagConstraints();
 		gbc_textFieldMaxNumTourists.gridwidth = 2;
 		gbc_textFieldMaxNumTourists.fill = GridBagConstraints.BOTH;
-		gbc_textFieldMaxNumTourists.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldMaxNumTourists.gridx = 1;
+		gbc_textFieldMaxNumTourists.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldMaxNumTourists.gridx = 2;
 		gbc_textFieldMaxNumTourists.gridy = 3;
 		getContentPane().add(textFieldMaxNumTourists, gbc_textFieldMaxNumTourists);
 		textFieldMaxNumTourists.setColumns(10);
@@ -173,7 +173,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_lblDeparturePoint = new GridBagConstraints();
 		gbc_lblDeparturePoint.fill = GridBagConstraints.BOTH;
 		gbc_lblDeparturePoint.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDeparturePoint.gridx = 0;
+		gbc_lblDeparturePoint.gridx = 1;
 		gbc_lblDeparturePoint.gridy = 4;
 		getContentPane().add(lblDeparturePoint, gbc_lblDeparturePoint);
 
@@ -183,8 +183,8 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_textFieldDeparturePoint = new GridBagConstraints();
 		gbc_textFieldDeparturePoint.gridwidth = 2;
 		gbc_textFieldDeparturePoint.fill = GridBagConstraints.BOTH;
-		gbc_textFieldDeparturePoint.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldDeparturePoint.gridx = 1;
+		gbc_textFieldDeparturePoint.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldDeparturePoint.gridx = 2;
 		gbc_textFieldDeparturePoint.gridy = 4;
 		getContentPane().add(textFieldDeparturePoint, gbc_textFieldDeparturePoint);
 		textFieldDeparturePoint.setColumns(10);
@@ -194,7 +194,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_lblDepartureDate = new GridBagConstraints();
 		gbc_lblDepartureDate.fill = GridBagConstraints.BOTH;
 		gbc_lblDepartureDate.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDepartureDate.gridx = 0;
+		gbc_lblDepartureDate.gridx = 1;
 		gbc_lblDepartureDate.gridy = 5;
 		getContentPane().add(lblDepartureDate, gbc_lblDepartureDate);
 
@@ -205,8 +205,8 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_textFieldDepartureDate = new GridBagConstraints();
 		gbc_textFieldDepartureDate.gridwidth = 2;
 		gbc_textFieldDepartureDate.fill = GridBagConstraints.BOTH;
-		gbc_textFieldDepartureDate.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldDepartureDate.gridx = 1;
+		gbc_textFieldDepartureDate.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldDepartureDate.gridx = 2;
 		gbc_textFieldDepartureDate.gridy = 5;
 		getContentPane().add(textFieldDepartureDate, gbc_textFieldDepartureDate);
 
@@ -215,7 +215,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_lblDischargeDate = new GridBagConstraints();
 		gbc_lblDischargeDate.fill = GridBagConstraints.BOTH;
 		gbc_lblDischargeDate.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDischargeDate.gridx = 0;
+		gbc_lblDischargeDate.gridx = 1;
 		gbc_lblDischargeDate.gridy = 6;
 		getContentPane().add(lblDischargeDate, gbc_lblDischargeDate);
 
@@ -226,8 +226,8 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_textFieldDischargeDate = new GridBagConstraints();
 		gbc_textFieldDischargeDate.gridwidth = 2;
 		gbc_textFieldDischargeDate.fill = GridBagConstraints.BOTH;
-		gbc_textFieldDischargeDate.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldDischargeDate.gridx = 1;
+		gbc_textFieldDischargeDate.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldDischargeDate.gridx = 2;
 		gbc_textFieldDischargeDate.gridy = 6;
 		getContentPane().add(textFieldDischargeDate, gbc_textFieldDischargeDate);
 
@@ -236,7 +236,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_lblTourists = new GridBagConstraints();
 		gbc_lblTourists.fill = GridBagConstraints.BOTH;
 		gbc_lblTourists.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTourists.gridx = 0;
+		gbc_lblTourists.gridx = 1;
 		gbc_lblTourists.gridy = 7;
 		getContentPane().add(lblTourists, gbc_lblTourists);
 
@@ -244,8 +244,8 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_comboBoxTourists = new GridBagConstraints();
 		gbc_comboBoxTourists.gridwidth = 2;
 		gbc_comboBoxTourists.fill = GridBagConstraints.BOTH;
-		gbc_comboBoxTourists.insets = new Insets(0, 0, 5, 0);
-		gbc_comboBoxTourists.gridx = 1;
+		gbc_comboBoxTourists.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxTourists.gridx = 2;
 		gbc_comboBoxTourists.gridy = 7;
 		getContentPane().add(comboBoxTourists, gbc_comboBoxTourists);
 
@@ -254,7 +254,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_lblEnterNumTourists = new GridBagConstraints();
 		gbc_lblEnterNumTourists.fill = GridBagConstraints.BOTH;
 		gbc_lblEnterNumTourists.insets = new Insets(0, 0, 5, 5);
-		gbc_lblEnterNumTourists.gridx = 0;
+		gbc_lblEnterNumTourists.gridx = 1;
 		gbc_lblEnterNumTourists.gridy = 8;
 		getContentPane().add(lblEnterNumTourists, gbc_lblEnterNumTourists);
 
@@ -262,8 +262,8 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_textFieldNumTourists = new GridBagConstraints();
 		gbc_textFieldNumTourists.gridwidth = 2;
 		gbc_textFieldNumTourists.fill = GridBagConstraints.BOTH;
-		gbc_textFieldNumTourists.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldNumTourists.gridx = 1;
+		gbc_textFieldNumTourists.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldNumTourists.gridx = 2;
 		gbc_textFieldNumTourists.gridy = 8;
 		getContentPane().add(textFieldNumTourists, gbc_textFieldNumTourists);
 		textFieldNumTourists.setColumns(10);
@@ -273,7 +273,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_lblinscriptionDate = new GridBagConstraints();
 		gbc_lblinscriptionDate.fill = GridBagConstraints.BOTH;
 		gbc_lblinscriptionDate.insets = new Insets(0, 0, 5, 5);
-		gbc_lblinscriptionDate.gridx = 0;
+		gbc_lblinscriptionDate.gridx = 1;
 		gbc_lblinscriptionDate.gridy = 9;
 		getContentPane().add(lblinscriptionDate, gbc_lblinscriptionDate);
 
@@ -284,8 +284,8 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_textFieldinscriptionDate = new GridBagConstraints();
 		gbc_textFieldinscriptionDate.gridwidth = 2;
 		gbc_textFieldinscriptionDate.fill = GridBagConstraints.BOTH;
-		gbc_textFieldinscriptionDate.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldinscriptionDate.gridx = 1;
+		gbc_textFieldinscriptionDate.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldinscriptionDate.gridx = 2;
 		gbc_textFieldinscriptionDate.gridy = 9;
 		getContentPane().add(textFieldinscriptionDate, gbc_textFieldinscriptionDate);
 
@@ -294,7 +294,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_lblTotalRegistrationCost = new GridBagConstraints();
 		gbc_lblTotalRegistrationCost.fill = GridBagConstraints.BOTH;
 		gbc_lblTotalRegistrationCost.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTotalRegistrationCost.gridx = 0;
+		gbc_lblTotalRegistrationCost.gridx = 1;
 		gbc_lblTotalRegistrationCost.gridy = 10;
 		getContentPane().add(lblTotalRegistrationCost, gbc_lblTotalRegistrationCost);
 
@@ -304,8 +304,8 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_textFieldTotalRegistrationCost = new GridBagConstraints();
 		gbc_textFieldTotalRegistrationCost.gridwidth = 2;
 		gbc_textFieldTotalRegistrationCost.fill = GridBagConstraints.BOTH;
-		gbc_textFieldTotalRegistrationCost.insets = new Insets(0, 0, 5, 0);
-		gbc_textFieldTotalRegistrationCost.gridx = 1;
+		gbc_textFieldTotalRegistrationCost.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldTotalRegistrationCost.gridx = 2;
 		gbc_textFieldTotalRegistrationCost.gridy = 10;
 		getContentPane().add(textFieldTotalRegistrationCost, gbc_textFieldTotalRegistrationCost);
 		textFieldTotalRegistrationCost.setColumns(10);
@@ -320,7 +320,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		GridBagConstraints gbc_btnConfirm = new GridBagConstraints();
 		gbc_btnConfirm.fill = GridBagConstraints.BOTH;
 		gbc_btnConfirm.insets = new Insets(0, 0, 0, 5);
-		gbc_btnConfirm.gridx = 1;
+		gbc_btnConfirm.gridx = 2;
 		gbc_btnConfirm.gridy = 11;
 		getContentPane().add(btnConfirm, gbc_btnConfirm);
 
@@ -332,8 +332,9 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 			}
 		});
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
+		gbc_btnCancel.insets = new Insets(0, 0, 0, 5);
 		gbc_btnCancel.fill = GridBagConstraints.BOTH;
-		gbc_btnCancel.gridx = 2;
+		gbc_btnCancel.gridx = 3;
 		gbc_btnCancel.gridy = 11;
 		getContentPane().add(btnCancel, gbc_btnCancel);
 

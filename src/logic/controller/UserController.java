@@ -72,7 +72,6 @@ public class UserController implements IUserController {
 		return UserHandler.getIntance().listSuppliers();
 	}
 
-	// TODO
 	public DtUserProfile selectUser(String nickname) {
 
 		User selected = UserHandler.getIntance().getUserByNickname(nickname);

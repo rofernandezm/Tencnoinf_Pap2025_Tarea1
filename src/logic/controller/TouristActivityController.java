@@ -44,7 +44,6 @@ public class TouristActivityController implements ITouristActivityController {
 		return rtn;
 	}
 
-	// TODO
 	public DtActivityWithOutings consultTouristActivityData(String activityName) throws ActivityDoesNotExistException {
 
 		TouristActivity ta = TouristActivityHandler.getIntance().getTouristActivityByName(activityName);

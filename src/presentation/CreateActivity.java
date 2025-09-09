@@ -5,6 +5,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.time.Duration;
 import java.time.LocalDate;
 
@@ -62,6 +64,18 @@ public class CreateActivity extends JInternalFrame {
 		getContentPane().setLayout(gridBagLayout);
 
 		dataCreateActivity();
+		
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				clearForm();
+			}
+
+			@Override
+			public void componentShown(ComponentEvent e) {
+				loadSupplier();
+			}
+		});
 
 	}
 
@@ -210,7 +224,6 @@ public class CreateActivity extends JInternalFrame {
 	public void loadSupplier() {
 		DefaultComboBoxModel<String> model;
 		String[] data = iUserController.listSuppliers();
-		System.out.println(data);
 		if (data != null) {
 			String[] dataWithNull = new String[data.length + 1];
 			dataWithNull[0] = null; // Primera opción nula
@@ -300,8 +313,7 @@ public class CreateActivity extends JInternalFrame {
 	}
 
 	private void clearForm() {
-		cmbSupplier.setSelectedItem(null);
-		;
+		cmbSupplier.setSelectedItem(-1);
 		txtActivityName.setText("");
 		txtDescription.setText("");
 		txtDuration.setText("");

@@ -17,6 +17,10 @@ import logic.dto.DtInscriptionTouristOuting;
 import logic.dto.DtTouristOuting;
 import logic.interfaces.ITouristActivityController;
 import logic.interfaces.ITouristOutingAndInscriptionController;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.border.EmptyBorder;
 
 public class ConsultTouristInscription extends JInternalFrame {
 
@@ -45,12 +49,55 @@ public class ConsultTouristInscription extends JInternalFrame {
 		getContentPane().setLayout(new BorderLayout());
 
 		JPanel panelSelect = new JPanel();
-		panelSelect.add(new JLabel("Actividad:"));
+		panelSelect.setBorder(new EmptyBorder(10, 0, 10, 0));
+		GridBagLayout gbl_panelSelect = new GridBagLayout();
+		gbl_panelSelect.columnWidths = new int[] { 60, 80, 158, 80, 158, 48, 0 };
+		gbl_panelSelect.rowHeights = new int[] { 24, 0 };
+		gbl_panelSelect.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panelSelect.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
+		panelSelect.setLayout(gbl_panelSelect);
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(0, 0, 0, 5);
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		JLabel label = new JLabel("Actividad:");
+		panelSelect.add(label, gbc);
 		cbActividad = new JComboBox<>();
-		panelSelect.add(cbActividad);
-		panelSelect.add(new JLabel("Salida:"));
+		GridBagConstraints gbc_cbActividad = new GridBagConstraints();
+		gbc_cbActividad.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbActividad.anchor = GridBagConstraints.NORTH;
+		gbc_cbActividad.insets = new Insets(0, 0, 0, 5);
+		gbc_cbActividad.gridx = 2;
+		gbc_cbActividad.gridy = 0;
+		panelSelect.add(cbActividad, gbc_cbActividad);
+
+		cbActividad.addActionListener(e -> {
+			String actName = (String) cbActividad.getSelectedItem();
+			if (actName != null) {
+				loadOutings(actName);
+			}
+		});
+		GridBagConstraints gbc_1 = new GridBagConstraints();
+		gbc_1.insets = new Insets(0, 0, 0, 5);
+		gbc_1.gridx = 3;
+		gbc_1.gridy = 0;
+		JLabel label_1 = new JLabel("Salida:");
+		panelSelect.add(label_1, gbc_1);
 		cbSalida = new JComboBox<>();
-		panelSelect.add(cbSalida);
+		GridBagConstraints gbc_cbSalida = new GridBagConstraints();
+		gbc_cbSalida.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbSalida.insets = new Insets(0, 0, 0, 5);
+		gbc_cbSalida.anchor = GridBagConstraints.NORTH;
+		gbc_cbSalida.gridx = 4;
+		gbc_cbSalida.gridy = 0;
+		panelSelect.add(cbSalida, gbc_cbSalida);
+		cbSalida.addActionListener(e -> {
+			String outingName = (String) cbSalida.getSelectedItem();
+			if (outingName != null) {
+				loadInscriptions(outingName);
+			}
+		});
+
 		getContentPane().add(panelSelect, BorderLayout.NORTH);
 
 		tableModel = new DefaultTableModel();
@@ -64,19 +111,6 @@ public class ConsultTouristInscription extends JInternalFrame {
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 
 		loadTouristActivities();
-
-		cbActividad.addActionListener(e -> {
-			String actName = (String) cbActividad.getSelectedItem();
-			if (actName != null) {
-				loadOutings(actName);
-			}
-		});
-		cbSalida.addActionListener(e -> {
-			String outingName = (String) cbSalida.getSelectedItem();
-			if (outingName != null) {
-				loadInscriptions(outingName);
-			}
-		});
 	}
 
 	public void loadTouristActivities() {
