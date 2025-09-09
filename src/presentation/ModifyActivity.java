@@ -4,7 +4,6 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import exceptions.ActivityDoesNotExistException;
-import logic.controller.TouristActivityController;
 import logic.dto.DtTouristActivity;
 import logic.interfaces.ITouristActivityController;
 
@@ -89,8 +88,8 @@ public class ModifyActivity extends JInternalFrame {
 		cbActivity.addActionListener(this::onActivitySelected);
 		btnModify.addActionListener(e -> onGuardar(e));
 		btnCancel.addActionListener(e -> {
-		    clearForm();
-		    dispose();
+			clearForm();
+			dispose();
 		});
 
 		loadActivities();
@@ -137,10 +136,10 @@ public class ModifyActivity extends JInternalFrame {
 	}
 
 	private void onGuardar(ActionEvent e) {
-		  if (!validateInputs()) {
-		        return;
-		    }
-		
+		if (!validateInputs()) {
+			return;
+		}
+
 		if (currentActivity != null) {
 			try {
 
@@ -150,7 +149,6 @@ public class ModifyActivity extends JInternalFrame {
 						currentActivity.getRegistrationDate(), currentActivity.getSupplierNickname());
 
 				iActivityController.modifyActivity(updated);
-
 
 				JOptionPane.showMessageDialog(this, "Actividad modificada correctamente.", "Éxito",
 						JOptionPane.INFORMATION_MESSAGE);

@@ -1,12 +1,16 @@
 package logic.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import exceptions.RepeatedUserEmailException;
 import exceptions.RepeatedUserNicknameException;
 import logic.dto.DtActivityWithOutings;
+import logic.dto.DtInscriptionTouristOuting;
 import logic.dto.DtSupplier;
+import logic.dto.DtSupplierProfile;
 import logic.dto.DtTourist;
+import logic.dto.DtTouristOuting;
 import logic.dto.DtTouristProfile;
 import logic.dto.DtUser;
 import logic.dto.DtUserProfile;
@@ -16,6 +20,7 @@ import logic.entity.Tourist;
 import logic.entity.TouristActivity;
 import logic.entity.User;
 import logic.handler.TouristActivityHandler;
+import logic.handler.TouristOutingAndInscrptionHandler;
 import logic.handler.UserHandler;
 import logic.interfaces.IUserController;
 
@@ -71,28 +76,36 @@ public class UserController implements IUserController {
 	public DtUserProfile selectUser(String nickname) {
 
 		User selected = UserHandler.getIntance().getUserByNickname(nickname);
-		DtUserProfile dtprofile;
+		TouristOutingAndInscrptionHandler toaih = TouristOutingAndInscrptionHandler.getIntance();
 
 		if (selected instanceof Supplier) {
 			TouristActivityHandler tah = TouristActivityHandler.getIntance();
+
 			List<String> activities = tah.listTouristActivitiesBySupplierNickname(nickname);
-			List<DtActivityWithOutings> dtActWithOut;
+			List<DtActivityWithOutings> dtActWithOut = new ArrayList<>();
 
 			for (String act : activities) {
 
-				TouristActivity ta = tah.getTouristActivityByName(nickname);
-
+				TouristActivity ta = tah.getTouristActivityByName(act);
+				List<DtTouristOuting> toList = toaih.getDtTouristOutingListByActivityName(nickname);
+				dtActWithOut.add(new DtActivityWithOutings(ta.getDtTouristActivity(), toList));
 			}
+
+			return new DtSupplierProfile(selected.createDtUser(), dtActWithOut);
 
 		} else {
 
+			List<DtInscriptionTouristOuting> dts = toaih.getDtInscriptionTouristOutingListByTouristName(nickname);
+			return new DtTouristProfile(selected.createDtUser(), dts);
 		}
-
-		return new DtTouristProfile();
 	}
 
 	public DtUser consultUserData(String nickname) {
 		User selected = UserHandler.getIntance().getUserByNickname(nickname);
 		return selected.createDtUser();
+	}
+	
+	public void modifyUserDate(DtUser dtUser) {
+		UserHandler.getIntance().updateUser(dtUser);
 	}
 }

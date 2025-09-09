@@ -22,7 +22,7 @@ import logic.dto.DtTouristActivity;
 import logic.interfaces.ITouristActivityController;
 import logic.interfaces.IUserController;
 
-public class CreateActivity extends JInternalFrame  {
+public class CreateActivity extends JInternalFrame {
 
 	private ITouristActivityController iTouristActivityController;
 	private IUserController iUserController;
@@ -42,51 +42,51 @@ public class CreateActivity extends JInternalFrame  {
 	private JTextField txtActivityName;
 	private JButton btnAccept;
 	private JButton btnCancel;
-	
+
 	public CreateActivity(ITouristActivityController iTouristActivityController, IUserController iUserController) {
-		
+
 		this.iTouristActivityController = iTouristActivityController;
 		this.iUserController = iUserController;
-		
+
 		setResizable(true);
 		setMaximizable(true);
 		setIconifiable(true);
 		setTitle("Crear Actividad");
 		setClosable(true);
-        setBounds(50, 50, 450, 400);
+		setBounds(50, 50, 450, 400);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{10, 101, 101, 101, 10};
-		gridBagLayout.rowHeights = new int[]{10, 30, 30, 30, 30, 30, 30, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[] { 10, 101, 101, 101, 10 };
+		gridBagLayout.rowHeights = new int[] { 10, 30, 30, 30, 30, 30, 30, 0, 0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		getContentPane().setLayout(gridBagLayout);
-		
+
 		dataCreateActivity();
-		
+
 	}
-	
+
 	private void dataCreateActivity() {
 		lblSupplier = new JLabel("Proveedor");
-        lblSupplier.setHorizontalAlignment(SwingConstants.RIGHT);
-        GridBagConstraints gbc_lblSupplier= new GridBagConstraints();
-        gbc_lblSupplier.anchor = GridBagConstraints.EAST;
-        gbc_lblSupplier.insets = new Insets(0, 0, 5, 5);
-        gbc_lblSupplier.gridx = 1;
-        gbc_lblSupplier.gridy = 1;
-        getContentPane().add(lblSupplier, gbc_lblSupplier); 
-        
-        // Combo supplier
-        cmbSupplier = new JComboBox<String>();
-        GridBagConstraints gbc_cmbSupplier = new GridBagConstraints();
-        gbc_cmbSupplier.gridwidth = 2;
-        gbc_cmbSupplier.insets = new Insets(0, 0, 5, 5);
-        gbc_cmbSupplier.fill = GridBagConstraints.HORIZONTAL;
-        gbc_cmbSupplier.gridx = 2;
-        gbc_cmbSupplier.gridy = 1;
-        getContentPane().add(cmbSupplier, gbc_cmbSupplier);
-        
-        loadSupplier();
-        
+		lblSupplier.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblSupplier = new GridBagConstraints();
+		gbc_lblSupplier.anchor = GridBagConstraints.EAST;
+		gbc_lblSupplier.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSupplier.gridx = 1;
+		gbc_lblSupplier.gridy = 1;
+		getContentPane().add(lblSupplier, gbc_lblSupplier);
+
+		// Combo supplier
+		cmbSupplier = new JComboBox<String>();
+		GridBagConstraints gbc_cmbSupplier = new GridBagConstraints();
+		gbc_cmbSupplier.gridwidth = 2;
+		gbc_cmbSupplier.insets = new Insets(0, 0, 5, 5);
+		gbc_cmbSupplier.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cmbSupplier.gridx = 2;
+		gbc_cmbSupplier.gridy = 1;
+		getContentPane().add(cmbSupplier, gbc_cmbSupplier);
+
+		loadSupplier();
+
 		lblActivityName = new JLabel("Nombre");
 		lblActivityName.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblActivityName = new GridBagConstraints();
@@ -95,7 +95,7 @@ public class CreateActivity extends JInternalFrame  {
 		gbc_lblActivityName.gridx = 1;
 		gbc_lblActivityName.gridy = 2;
 		getContentPane().add(lblActivityName, gbc_lblActivityName);
-		
+
 		txtActivityName = new JTextField();
 		txtActivityName.setColumns(10);
 		GridBagConstraints gbc_txfActivityName = new GridBagConstraints();
@@ -105,7 +105,7 @@ public class CreateActivity extends JInternalFrame  {
 		gbc_txfActivityName.gridx = 2;
 		gbc_txfActivityName.gridy = 2;
 		getContentPane().add(txtActivityName, gbc_txfActivityName);
-		
+
 		lblDescription = new JLabel("Descripcion");
 		lblDescription.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblDescription = new GridBagConstraints();
@@ -114,7 +114,7 @@ public class CreateActivity extends JInternalFrame  {
 		gbc_lblDescription.gridx = 1;
 		gbc_lblDescription.gridy = 3;
 		getContentPane().add(lblDescription, gbc_lblDescription);
-		
+
 		txtDescription = new JTextField();
 		GridBagConstraints gbc_txtDescription = new GridBagConstraints();
 		gbc_txtDescription.fill = GridBagConstraints.BOTH;
@@ -124,7 +124,7 @@ public class CreateActivity extends JInternalFrame  {
 		gbc_txtDescription.gridy = 3;
 		getContentPane().add(txtDescription, gbc_txtDescription);
 		txtDescription.setColumns(10);
-		
+
 		lblDuration = new JLabel("Duracion");
 		lblDuration.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblDuration = new GridBagConstraints();
@@ -133,7 +133,7 @@ public class CreateActivity extends JInternalFrame  {
 		gbc_lblDuration.gridx = 1;
 		gbc_lblDuration.gridy = 4;
 		getContentPane().add(lblDuration, gbc_lblDuration);
-		
+
 		txtDuration = new JTextField();
 		txtDuration.setColumns(10);
 		GridBagConstraints gbc_txtDuration = new GridBagConstraints();
@@ -143,7 +143,7 @@ public class CreateActivity extends JInternalFrame  {
 		gbc_txtDuration.gridx = 2;
 		gbc_txtDuration.gridy = 4;
 		getContentPane().add(txtDuration, gbc_txtDuration);
-		
+
 		lblTouristFee = new JLabel("Costo por turista");
 		lblTouristFee.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblTouristFee = new GridBagConstraints();
@@ -152,7 +152,7 @@ public class CreateActivity extends JInternalFrame  {
 		gbc_lblTouristFee.gridx = 1;
 		gbc_lblTouristFee.gridy = 5;
 		getContentPane().add(lblTouristFee, gbc_lblTouristFee);
-		
+
 		txtTouristFee = new JTextField();
 		txtTouristFee.setColumns(10);
 		GridBagConstraints gbc_txtTouristFee = new GridBagConstraints();
@@ -162,7 +162,7 @@ public class CreateActivity extends JInternalFrame  {
 		gbc_txtTouristFee.gridx = 2;
 		gbc_txtTouristFee.gridy = 5;
 		getContentPane().add(txtTouristFee, gbc_txtTouristFee);
-		
+
 		lblCity = new JLabel("Ciudad");
 		lblCity.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblCity = new GridBagConstraints();
@@ -171,7 +171,7 @@ public class CreateActivity extends JInternalFrame  {
 		gbc_lblCity.gridx = 1;
 		gbc_lblCity.gridy = 6;
 		getContentPane().add(lblCity, gbc_lblCity);
-		
+
 		txtCity = new JTextField();
 		txtCity.setColumns(10);
 		GridBagConstraints gbc_txtCity = new GridBagConstraints();
@@ -181,7 +181,7 @@ public class CreateActivity extends JInternalFrame  {
 		gbc_txtCity.gridx = 2;
 		gbc_txtCity.gridy = 6;
 		getContentPane().add(txtCity, gbc_txtCity);
-		
+
 		btnAccept = new JButton("Aceptar");
 		btnAccept.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -192,92 +192,98 @@ public class CreateActivity extends JInternalFrame  {
 		gbc_btnAccept.gridx = 3;
 		gbc_btnAccept.gridy = 8;
 		getContentPane().add(btnAccept, gbc_btnAccept);
-		
+
 		btnCancel = new JButton("Cancelar");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clearForm();
 				setVisible(false);
 			}
-			
+
 		});
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
 		gbc_btnCancel.gridx = 2;
 		gbc_btnCancel.gridy = 8;
 		getContentPane().add(btnCancel, gbc_btnCancel);
 	}
-	
+
 	public void loadSupplier() {
-        DefaultComboBoxModel<String> model; 
-        String[] data = iUserController.listSuppliers();
-        System.out.println(data);
-        if (data != null) {
-        	String[] dataWithNull = new String[data.length + 1];
+		DefaultComboBoxModel<String> model;
+		String[] data = iUserController.listSuppliers();
+		System.out.println(data);
+		if (data != null) {
+			String[] dataWithNull = new String[data.length + 1];
 			dataWithNull[0] = null; // Primera opción nula
 			System.arraycopy(data, 0, dataWithNull, 1, data.length);
-			model = new DefaultComboBoxModel<String>(dataWithNull); 
+			model = new DefaultComboBoxModel<String>(dataWithNull);
 			cmbSupplier.setModel(model);
-        	
-        }
 
-    }
-	 
+		}
+
+	}
+
 	protected void cmdRegisterActivityActionPerformed(ActionEvent arg0) {
 		if (validateInputs()) {
 			try {
 				DtTouristActivity dtActivity = parseData();
-				
+
 				iTouristActivityController.activityDataEntry(dtActivity);
-				
-				JOptionPane.showMessageDialog(null, "Actividad creada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+				JOptionPane.showMessageDialog(null, "Actividad creada correctamente", "Éxito",
+						JOptionPane.INFORMATION_MESSAGE);
 				clearForm();
 				setVisible(false);
-				
-			}  catch (RepeatedActivityNameException e) {
-                // Error message
-                JOptionPane.showMessageDialog(this, e.getMessage(), "Alta de actividad turistica", JOptionPane.ERROR_MESSAGE);
-                
-                txtActivityName.setText("");
-            }
+
+			} catch (RepeatedActivityNameException e) {
+				// Error message
+				JOptionPane.showMessageDialog(this, e.getMessage(), "Alta de actividad turistica",
+						JOptionPane.ERROR_MESSAGE);
+
+				txtActivityName.setText("");
+			}
 		}
 	}
-	
+
 	protected boolean validateInputs() {
 		String name = txtActivityName.getText().trim();
-        String description = txtDescription.getText().trim();
-        String durationText = txtDuration.getText().trim();
-        String feeText = txtTouristFee.getText().trim();
-        String city = txtCity.getText().trim();
-        
-        String supplier = "";
-        if(cmbSupplier.getSelectedItem() != null && !((String)cmbSupplier.getSelectedItem()).isEmpty()) {
-        	supplier = (String) cmbSupplier.getSelectedItem();
-        }
-        
-        if (supplier.isEmpty() || name.isEmpty() || description.isEmpty() || durationText.isEmpty() || feeText.isEmpty() || city.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Todos los campos son requeridos", "Validation Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-	    }
-        
-        try {
-            Integer.parseInt(durationText);
-        } catch (NumberFormatException ex) {
-        	txtDuration.setText("");
-            JOptionPane.showMessageDialog(null, "El campo " + lblDuration.getText() + " debe ser numerico", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        
-        try {
-        	Float.parseFloat(feeText);
-        } catch (NumberFormatException ex) {
-        	txtTouristFee.setText("");
-            JOptionPane.showMessageDialog(null, "El campo " + lblTouristFee.getText() + " debe ser numerico", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        	
+		String description = txtDescription.getText().trim();
+		String durationText = txtDuration.getText().trim();
+		String feeText = txtTouristFee.getText().trim();
+		String city = txtCity.getText().trim();
+
+		String supplier = "";
+		if (cmbSupplier.getSelectedItem() != null && !((String) cmbSupplier.getSelectedItem()).isEmpty()) {
+			supplier = (String) cmbSupplier.getSelectedItem();
+		}
+
+		if (supplier.isEmpty() || name.isEmpty() || description.isEmpty() || durationText.isEmpty() || feeText.isEmpty()
+				|| city.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Todos los campos son requeridos", "Validation Error",
+					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+
+		try {
+			Integer.parseInt(durationText);
+		} catch (NumberFormatException ex) {
+			txtDuration.setText("");
+			JOptionPane.showMessageDialog(null, "El campo " + lblDuration.getText() + " debe ser numerico", "Error",
+					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+
+		try {
+			Float.parseFloat(feeText);
+		} catch (NumberFormatException ex) {
+			txtTouristFee.setText("");
+			JOptionPane.showMessageDialog(null, "El campo " + lblTouristFee.getText() + " debe ser numerico", "Error",
+					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+
 		return true;
 	}
-	
+
 	private DtTouristActivity parseData() {
 		String name = txtActivityName.getText().trim();
 		String description = txtDescription.getText().trim();
@@ -285,24 +291,25 @@ public class CreateActivity extends JInternalFrame  {
 		String feeText = txtTouristFee.getText().trim();
 		String city = txtCity.getText().trim();
 		String supplier = (String) cmbSupplier.getSelectedItem();
-		
+
 		Duration duration = Duration.ofHours(Integer.parseInt(durationText));
 		float fee = Float.parseFloat(feeText);
 		LocalDate dischargeDate = LocalDate.now();
-		
+
 		return new DtTouristActivity(name, description, duration, fee, city, dischargeDate, supplier);
 	}
-	 
-	 private void clearForm() {
-		cmbSupplier.setSelectedItem(null);;
+
+	private void clearForm() {
+		cmbSupplier.setSelectedItem(null);
+		;
 		txtActivityName.setText("");
-     	txtDescription.setText("");
-     	txtDuration.setText("");
-     	txtTouristFee.setText("");
-     	txtCity.setText("");
-     }
-	 
-	 public void init() {
-			clearForm();
-		}
+		txtDescription.setText("");
+		txtDuration.setText("");
+		txtTouristFee.setText("");
+		txtCity.setText("");
+	}
+
+	public void init() {
+		clearForm();
+	}
 }

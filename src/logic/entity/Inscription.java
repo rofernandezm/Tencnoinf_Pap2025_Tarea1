@@ -87,4 +87,8 @@ public class Inscription {
 	public void setTourist(Tourist tourist) {
 		this.tourist = tourist;
 	}
+	
+	public DtInscriptionTouristOuting getDtInscriptionTouristOuting() {
+		return new DtInscriptionTouristOuting(this.numTourists, this.totalRegistrationCost, this.inscriptionDate, touristOuting.getDtTouristOuting());
+	}
 }

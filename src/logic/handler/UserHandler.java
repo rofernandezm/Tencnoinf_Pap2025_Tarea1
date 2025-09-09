@@ -5,6 +5,7 @@ import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
+import logic.dto.DtUser;
 import logic.entity.Supplier;
 import logic.entity.Tourist;
 import logic.entity.User;
@@ -101,6 +102,20 @@ public class UserHandler {
 		}
 		em.close();
 		return tourist;
-
 	}
+
+	public void updateUser(DtUser dtUser) {
+		EntityManager em = PersistenceHandler.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		User user = em.find(User.class, dtUser.getNickname());
+		if (user != null) {
+			user.setName(dtUser.getName());
+			user.setLastName(dtUser.getLastName());
+			user.setBirthDate(dtUser.getBirthDate());
+		}
+		tx.commit();
+		em.close();
+	}
+
 }

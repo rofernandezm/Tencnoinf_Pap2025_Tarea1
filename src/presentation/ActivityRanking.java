@@ -25,7 +25,7 @@ public class ActivityRanking extends JInternalFrame {
 
 		setSize(400, 300);
 		getContentPane().setLayout(new BorderLayout());
-		
+
 		@SuppressWarnings("serial")
 		DefaultTableModel model = new DefaultTableModel(new Object[] { "Actividad", "Cantidad de Salidas" }, 0) {
 		};
@@ -55,7 +55,7 @@ public class ActivityRanking extends JInternalFrame {
 
 	public void init() {
 		clearForm();
-		loadRanking();	
+		loadRanking();
 	}
 
 	private void clearForm() {

@@ -66,7 +66,7 @@ public class TouristActivityHandler {
 
 			List<TouristActivity> result = query.getResultList();
 
-			String[] activities = new String[result.size()];
+			String[] activities = result.size() > 0 ? new String[result.size()] : null;
 			for (int i = 0; i < result.size(); i++) {
 				activities[i] = result.get(i).getActivityName();
 			}

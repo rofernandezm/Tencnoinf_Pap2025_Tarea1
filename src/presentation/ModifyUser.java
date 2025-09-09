@@ -6,14 +6,20 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.regex.Pattern;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
@@ -23,9 +29,16 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import logic.dto.DtSupplier;
+import logic.dto.DtTourist;
+import logic.dto.DtUser;
+import logic.dto.UserType;
 import logic.interfaces.IUserController;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class ModifyUser extends JInternalFrame {
 
 	private IUserController iUserController;
@@ -40,76 +53,19 @@ public class ModifyUser extends JInternalFrame {
 
 	private JPanel topContainer;
 	private JPanel nicknameCombo;
-	private JComboBox nicknameComboBox;
-	private JPanel centerContainer;
-	private JPanel cl_centerContainer;
-	private JPanel supplierContainer;
-	private JPanel touristContainer;
-	private JPanel selectActivityPanel;
-	private JPanel titleContainer;
-	private JComboBox activityComboBox;
-	private JPanel activityDetailsTitle;
-	private JPanel touristOutingDetailsTitle;
-	private JTextField fieldActName;
-	private JTextField fieldActCost;
-	private JTextField fieldCity;
-	private JPanel descTitlePanel;
-	private JPanel durTitlePanel;
-	private JSpinner fieldDurAct;
-	private JPanel costTitlePanel;
-	private JPanel citytitlePanel;
-	private JPanel dischDateTitlePanel;
-	private JPanel selectTouristOuting;
-	private JTextField fieldOutingName;
-	private JTextField fieldOutingCantMax;
-	private JTextField fieldOutingPlace;
-	private JSpinner fieldDepartureDate;
-	private JSpinner fieldOutDischargeDate;
-	private JPanel outingNameTitle;
-	private JPanel outingCantMaxTitle;
-	private JPanel outingPlaceTitle;
-	private JPanel outingDateTitle;
-	private JPanel outingDischDateTitle;
-	private JPanel selectRegisteredOutingContainer;
-	private JPanel selectRegisteredOutingTitle;
-	private JComboBox selectRegisteredOutingComboBox;
-	private JPanel registeredOutingDetailsTitle;
-	private JTextField fieldRegisteredOutName;
-	private JTextField fieldRegisteredOutCantMax;
-	private JTextField fieldRegisteredOutPlace;
-	private JSpinner fieldRegisteredOutDepatureDate;
-	private JSpinner fieldRegisteredOutDischargeDate;
-	private JPanel registOutNameTitle;
-	private JPanel registOutCantMaxTitle;
-	private JPanel registOutPlaceTitle;
-	private JPanel registOutDateTitle;
-	private JPanel registOutDischDateTitle;
+	private JComboBox<String> nicknameComboBox;
 
 	// RESOURCES
-	private static final String TITLE = "Registro de usuario";
-	private static final String SUBTITLE = "Complete la información del usuario";
-	private static final String NICKNAME = "Nickname:";
-	private static final String NICKNAME_TOOLTIP = "Nickname que identificará al usuario dentro del sistema.";
+	private static final String TITLE = "Modificación de usuario";
 	private static final String NAME = "Nombre:";
 	private static final String LASTNAME = "Apellido:";
 	private static final String EMAIL = "Correo electrónico:";
 	private static final String BIRTH_DATE = "Fecha de nacimiento:";
-	private static final String USER_TYPE = "Tipo de usuario:";
-	private static final String TOURIST = "Turista";
-	private static final String SUPPLIER = "Proveedor";
-	private static final String ADDITIONAL_DATA = "Datos adicionales:";
-	private static final String TOURIST_NATIONALITY = "Nacionalidad:";
-	private static final String SUPPLIER_DESC = "Descripción:";
-	private static final String SUPPLIER_WEBSITE = "Sitio web:";
-	private static final String BUTTON_CONFIRM = "Confirmar";
-	private static final String BUTTON_CANCEL = "Cancelar";
-	private static final String TOURIST_FORM = "touristForm";
-	private static final String SUPPLIER_FORM = "supplierForm";
+
+	private static final String MSG_NO_REGISTERED_USERS = "No hay usuarios registrados";
 
 	// Patterns
 	private static final String BIRTH_DATE_FORMAT = "dd/MM/yyyy";
-	private static final Pattern EMAIL_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$",
-			Pattern.CASE_INSENSITIVE);
 
 	// GRID POSITION
 	private static final int GRID_LABEL_POS = 1;
@@ -137,10 +93,21 @@ public class ModifyUser extends JInternalFrame {
 		formContainer.add(createTopContainer());
 		formContainer.add(createActionButtonsPanel());
 
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				cleanForm();
+			}
+
+			@Override
+			public void componentShown(ComponentEvent e) {
+				loadUsersCombo();
+			}
+		});
 	}
-	
+
 	private JPanel createTopContainer() {
-		
+
 		topContainer = new JPanel();
 		topContainer.setBounds(0, 0, 504, 299);
 		topContainer.setBorder(null);
@@ -172,13 +139,15 @@ public class ModifyUser extends JInternalFrame {
 		gbl_nicknameCombo.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		nicknameCombo.setLayout(gbl_nicknameCombo);
 
-		nicknameComboBox = new JComboBox();
+		nicknameComboBox = new JComboBox<String>();
 		GridBagConstraints gbc_nicknameComboBox = new GridBagConstraints();
 		gbc_nicknameComboBox.fill = GridBagConstraints.BOTH;
 		gbc_nicknameComboBox.gridx = 0;
 		gbc_nicknameComboBox.gridy = 0;
 		nicknameCombo.add(nicknameComboBox, gbc_nicknameComboBox);
 		nicknameComboBox.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+		nicknameComboBox.addActionListener(e -> onUserSelected(e));
 
 		JPanel basicDataPanel = new JPanel();
 		basicDataPanel.setBounds(35, 123, 435, 159);
@@ -205,8 +174,7 @@ public class ModifyUser extends JInternalFrame {
 		basicDataPanel.add(labelName, gbc_lblNombre);
 
 		fieldName = new JTextField();
-		fieldName.setEnabled(false);
-		fieldName.setEditable(false);
+		fieldName.setBackground(new Color(255, 255, 255));
 		labelName.setLabelFor(fieldName);
 		GridBagConstraints gbc_field_Name = new GridBagConstraints();
 		gbc_field_Name.insets = new Insets(0, 0, 5, 5);
@@ -225,8 +193,6 @@ public class ModifyUser extends JInternalFrame {
 		basicDataPanel.add(labelLastname, gbc_label_Lastname);
 
 		fieldLastname = new JTextField();
-		fieldLastname.setEnabled(false);
-		fieldLastname.setEditable(false);
 		labelLastname.setLabelFor(fieldLastname);
 		GridBagConstraints gbc_field_Lastname = new GridBagConstraints();
 		gbc_field_Lastname.insets = new Insets(0, 0, 5, 5);
@@ -245,7 +211,7 @@ public class ModifyUser extends JInternalFrame {
 		basicDataPanel.add(labelEmail, gbc_label_Email);
 
 		fieldEmail = new JTextField();
-		fieldEmail.setEnabled(false);
+		fieldEmail.setBackground(new Color(255, 255, 255));
 		fieldEmail.setEditable(false);
 		labelEmail.setLabelFor(fieldEmail);
 		GridBagConstraints gbc_field_Email = new GridBagConstraints();
@@ -265,7 +231,6 @@ public class ModifyUser extends JInternalFrame {
 		basicDataPanel.add(label_birthDate, gbc_label_birthDate);
 
 		field_birthDate = new JSpinner();
-		field_birthDate.setEnabled(false);
 		label_birthDate.setLabelFor(field_birthDate);
 		field_birthDate.setModel(new SpinnerDateModel(new Date(1757197346329L), null, null, Calendar.DAY_OF_MONTH));
 		field_birthDate.setEditor(new JSpinner.DateEditor(field_birthDate, BIRTH_DATE_FORMAT));
@@ -275,24 +240,93 @@ public class ModifyUser extends JInternalFrame {
 		gbc_field_birthDate.gridx = GRID_FIELD_POS;
 		gbc_field_birthDate.gridy = 3;
 		basicDataPanel.add(field_birthDate, gbc_field_birthDate);
-		
+
 		return topContainer;
 	}
-	
+
 	private JPanel createActionButtonsPanel() {
-		
+
 		actionButtonsPanel = new JPanel();
 		actionButtonsPanel.setBounds(36, 311, 431, 47);
 		actionButtonsPanel.setLayout(null);
+
+		ActionListener cancelAction = e -> {
+			cleanForm();
+			setVisible(false);
+		};
+		ActionListener confirmAction = e -> {
+			cmdModifyUserActionPerformed(e);
+			cleanForm();
+			setVisible(false);
+		};
 
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.setBounds(247, 12, 117, 25);
 		actionButtonsPanel.add(btnGuardar);
 
+		btnGuardar.addActionListener(confirmAction);
+
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(65, 12, 117, 25);
 		actionButtonsPanel.add(btnCancelar);
-		
+
+		btnCancelar.addActionListener(cancelAction);
+
 		return actionButtonsPanel;
+	}
+
+	private void cmdModifyUserActionPerformed(ActionEvent arg0) {
+
+		String selectedName = (String) nicknameComboBox.getSelectedItem();
+		DtUser dt = iUserController.consultUserData(selectedName);
+		String newName = fieldName.getText();
+		String newLastName = fieldLastname.getText();
+		LocalDate newBirthDate = jSpinnerValueToLocalDate(field_birthDate);
+
+		DtUser modified = dt.getUserType() == UserType.SUPPLIER
+				? new DtSupplier(selectedName, newName, newLastName, null, newBirthDate, null, null)
+				: new DtTourist(selectedName, newName, newLastName, null, newBirthDate, null);
+
+		iUserController.modifyUserDate(modified);
+
+		JOptionPane.showMessageDialog(this, "Usuario modificado correctamente.", "Éxito",
+				JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	private LocalDate jSpinnerValueToLocalDate(JSpinner jspinner) {
+		LocalDate date = ((Date) this.field_birthDate.getValue()).toInstant().atZone(ZoneId.systemDefault())
+				.toLocalDate();
+		return date;
+	}
+
+	private void onUserSelected(ActionEvent e) {
+		String selectedName = (String) nicknameComboBox.getSelectedItem();
+		if (selectedName != null && !selectedName.equals(MSG_NO_REGISTERED_USERS)) {
+			DtUser user = iUserController.consultUserData(selectedName);
+
+			fieldName.setText(user.getName());
+			fieldLastname.setText(user.getLastName());
+			fieldEmail.setText(user.getEmail());
+			// Formateo de la fecha de nacimiento obtenida del DT
+			Date date = Date.from(user.getBirthDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+			field_birthDate.setValue(date);
+		}
+	}
+
+	private void loadUsersCombo() {
+		DefaultComboBoxModel<String> model;
+		String[] users = iUserController.listUsers();
+		if (users == null) {
+			users = new String[] { MSG_NO_REGISTERED_USERS };
+		}
+		model = new DefaultComboBoxModel<String>(users);
+		nicknameComboBox.setModel(model);
+		nicknameComboBox.setSelectedIndex(-1);
+	}
+
+	private void cleanForm() {
+		fieldName.setText("");
+		fieldLastname.setText("");
+		fieldEmail.setText("");
 	}
 }

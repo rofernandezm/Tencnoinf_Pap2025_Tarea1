@@ -12,13 +12,9 @@ import java.awt.BorderLayout;
 import javax.swing.table.DefaultTableModel;
 
 import exceptions.ActivityDoesNotExistException;
-import logic.controller.TouristActivityController;
 import logic.dto.DtActivityWithOutings;
 import logic.dto.DtInscriptionTouristOuting;
-import logic.dto.DtTouristActivity;
 import logic.dto.DtTouristOuting;
-import logic.entity.TouristActivity;
-import logic.entity.TouristOuting;
 import logic.interfaces.ITouristActivityController;
 import logic.interfaces.ITouristOutingAndInscriptionController;
 

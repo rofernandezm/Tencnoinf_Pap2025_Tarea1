@@ -28,9 +28,7 @@ import logic.dto.DtTouristOuting;
 import logic.interfaces.ITouristActivityController;
 
 public class ConsultActivity extends JInternalFrame {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JTextField txtActName;
 	private JTextField txtActDescription;

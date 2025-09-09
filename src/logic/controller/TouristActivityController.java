@@ -1,7 +1,6 @@
 package logic.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import exceptions.ActivityDoesNotExistException;
@@ -56,6 +55,7 @@ public class TouristActivityController implements ITouristActivityController {
 
 		List<String> actOutingNames = TouristOutingAndInscrptionHandler.getIntance()
 				.getTouristOutingByActivityName(activityName);
+		
 		List<DtTouristOuting> dtTouristOuting = new ArrayList<>();
 
 		for (String outing : actOutingNames) {
@@ -116,5 +116,16 @@ public class TouristActivityController implements ITouristActivityController {
 
 	public void modifyActivity(DtTouristActivity dto) {
 		TouristActivityHandler.getIntance().updateActivity(dto);
+	}
+
+	public String[] listTouristActivitiesBySupplierNickname(String nickname) {
+		List<String> activitiesList = TouristActivityHandler.getIntance()
+				.listTouristActivitiesBySupplierNickname(nickname);
+		String[] activitiesName = activitiesList.size() > 0 ? new String[activitiesList.size()] : null;
+
+		for (int ind = 0; ind < activitiesList.size(); ind++) {
+			activitiesName[ind] = activitiesList.get(ind);
+		}
+		return activitiesName;
 	}
 }
