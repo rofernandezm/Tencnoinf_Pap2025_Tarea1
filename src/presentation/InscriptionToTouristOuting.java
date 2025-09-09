@@ -10,6 +10,8 @@ import logic.interfaces.*;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import exceptions.ActivityDoesNotExistException;
 import exceptions.RepeatedInscriptionToTouristOutingException;
@@ -336,6 +338,32 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 
 		comboBoxTouristActivities.addActionListener(e -> loadTouristOutings());
 		comboBoxTouristOutings.addActionListener(e -> showOutingDetails());
+		textFieldNumTourists.getDocument().addDocumentListener(new DocumentListener() {
+		    @Override
+		    public void insertUpdate(DocumentEvent e) {
+		        cambio();
+		    }
+
+		    @Override
+		    public void changedUpdate(DocumentEvent e) {
+		        cambio();
+		    }
+		    @Override
+		    public void removeUpdate(DocumentEvent e) {
+		    	textFieldinscriptionDate.setText("");
+		    }
+
+		    private void cambio() {
+				textFieldinscriptionDate.setText(localDateFormatterToString(LocalDate.now(), "dd/MM/yyyy"));
+
+				String numTourists = textFieldNumTourists.getText();
+				int textFieldNumTouristsTOint = Integer.parseInt(numTourists);
+				String touristActivityName = (String) comboBoxTouristActivities.getSelectedItem();
+				float costInsc = controlTouristActivity.getActivityCostTourist(touristActivityName);
+				float costTotalInsc = controlTouristOutingAndInscription.inscriptionTotalCost(costInsc, textFieldNumTouristsTOint);
+				textFieldTotalRegistrationCost.setText(String.valueOf(costTotalInsc));
+		    }
+		});
 
 		init();
 	}
@@ -460,27 +488,64 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 			}
 
 			if (touristOutingToAddTourist != null) {
-				newInscriptionToTouristOuting = new DtInscriptionTouristOuting(textFieldNumTouristsTOint, costTotalInsc,
-						dischargeDateITO, touristOutingToAddTourist);
+				
+				//Verifico que el numero de turistas a inscribir no sea mayor a la cantidad de turistas adminitidos en la salida
+				if(textFieldNumTouristsTOint <= touristOutingToAddTourist.getMaxNumTourists() ) {
+					
+					//verifico que la cantidad de inscriptos mas la nueva inscripcion no supera la cantidad de turistas adminitidos en la salida
+					DtInscriptionTouristOuting[] totalInscripTouristOuting = controlTouristOutingAndInscription.listOutingInscription(touristOutingName);
+					int totalInscriptos = 0; 
+					
+					if (totalInscripTouristOuting != null && totalInscripTouristOuting.length > 0) {
+						for (DtInscriptionTouristOuting insc : totalInscripTouristOuting) {
+							totalInscriptos += insc.getTouristAmount();
+						}
+					}
+					
+					//cantDisp me da cuantos cupos hay al dia de hoy disponibles para esa salida cantDisp >= 0
+					int cantDisp = touristOutingToAddTourist.getMaxNumTourists() - totalInscriptos;
+					
+					
+					//supongo que hay cupos suficientes
+					if ((cantDisp - textFieldNumTouristsTOint ) >= 0) {
+						newInscriptionToTouristOuting = new DtInscriptionTouristOuting(textFieldNumTouristsTOint, costTotalInsc,
+								dischargeDateITO, touristOutingToAddTourist);
+						try {
+
+							controlTouristOutingAndInscription.inscriptionDataEntry(newInscriptionToTouristOuting, touristName,
+									touristOutingName);
+							
+							// Success
+							JOptionPane.showMessageDialog(this, "La inscripcion a la salida turistica fue creada exitosamente.",
+									"Inscripcion a salida turistica", JOptionPane.INFORMATION_MESSAGE);
+							
+			                setVisible(false);
+
+						} catch (RepeatedInscriptionToTouristOutingException e) {
+							// Error message
+							JOptionPane.showMessageDialog(this, e.getMessage(), "Inscripcion a salida turistica",
+									JOptionPane.ERROR_MESSAGE);
+
+							clearForm();
+							
+						}
+					} //cierro el supongo que hay cupos suficientes
+					// cantidad ingresada es menor a la disponible
+					else if (cantDisp  < textFieldNumTouristsTOint && cantDisp >0){
+							JOptionPane.showMessageDialog(this, "Solo quedan disponibles " + cantDisp + " cupos en la salida seleccionada",
+									"Inscripcion a salida turistica", JOptionPane.INFORMATION_MESSAGE);
+							textFieldNumTourists.setText("");
+					}else {
+							JOptionPane.showMessageDialog(this, "No quedan cupos en la salida seleccionada",
+									"Inscripcion a salida turistica", JOptionPane.INFORMATION_MESSAGE);
+							textFieldNumTourists.setText("");
+						}
+				}else { //El numero de turistas a inscribir es mayor a la cantidad de turistas adminitidos en la salida
+					JOptionPane.showMessageDialog(this, "El numero de turistas ingresado supera el cupo de turistas admitidos en la salida",
+							"Inscripcion a salida turistica", JOptionPane.INFORMATION_MESSAGE);
+					textFieldNumTourists.setText("");
+				}
 			}
-
-			try {
-
-				controlTouristOutingAndInscription.inscriptionDataEntry(newInscriptionToTouristOuting, touristName,
-						touristOutingName);
-				// Success
-				JOptionPane.showMessageDialog(this, "La inscripcion a la salida turistica fue creada exitosamente.",
-						"Inscripcion a salida turistica", JOptionPane.INFORMATION_MESSAGE);
-
-			} catch (RepeatedInscriptionToTouristOutingException e) {
-				// Error message
-				JOptionPane.showMessageDialog(this, e.getMessage(), "Inscripcion a salida turistica",
-						JOptionPane.ERROR_MESSAGE);
-
-				comboBoxTourists.removeAllItems();
-				comboBoxTouristOutings.removeAllItems();
-			}
-
 		}
 	}
 
@@ -531,4 +596,10 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		loadTourists();
 		clearForm();
 	}
+	
+	private String localDateFormatterToString(LocalDate date, String pattern) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+		return date.format(formatter);
+	}
+
 }
