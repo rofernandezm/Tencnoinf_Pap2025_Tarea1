@@ -2,7 +2,7 @@ package logic.controller;
 
 import java.time.LocalDateTime;
 import java.util.Set;
-import java.util.HashSet;
+import java.util.List;
 
 import exceptions.RepeatedTouristOutingException;
 import exceptions.TouristOutingDoesNotExistException;
@@ -113,4 +113,22 @@ public class TouristOutingAndInscriptionController implements ITouristOutingAndI
 		return touristActivityCost * numTourists;
 	}
 
+	public String[] listInscriptionTouristOutingByTourist(String nickname) {
+		List<DtInscriptionTouristOuting> list = TouristOutingAndInscrptionHandler.getIntance()
+				.getDtInscriptionTouristOutingListByTouristName(nickname);
+		String[] listInscriptionTouristOuting = list.size() > 0 ? new String[list.size()] : null;
+		for (int ind = 0; ind < list.size(); ind++) {
+			listInscriptionTouristOuting[ind] = list.get(ind).getTuristOuting().getOutingName();
+		}
+		return listInscriptionTouristOuting;
+	}
+
+	public String[] listTouristOutingByActivity(String activityName) {
+		List<DtTouristOuting> list = TouristOutingAndInscrptionHandler.getIntance().getDtTouristOutingListByActivityName(activityName);
+		String[] listTouristOuting = list.size() > 0 ? new String[list.size()] : null;
+		for (int ind = 0; ind < list.size(); ind++) {
+			listTouristOuting[ind] = list.get(ind).getOutingName();
+		}
+		return listTouristOuting;
+	}
 }

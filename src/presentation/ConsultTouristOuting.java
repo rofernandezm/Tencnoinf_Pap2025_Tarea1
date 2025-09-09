@@ -1,449 +1,337 @@
 package presentation;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.time.format.DateTimeFormatter;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
+
+import logic.interfaces.*;
+import logic.dto.DtActivityWithOutings;
+import logic.dto.DtTouristActivity;
+import logic.dto.DtTouristOuting;
+
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 
 import exceptions.ActivityDoesNotExistException;
 import exceptions.TouristOutingDoesNotExistException;
-import logic.dto.DtTouristActivity;
-import logic.dto.DtTouristOuting;
-import logic.interfaces.ITouristActivityController;
-import logic.interfaces.ITouristOutingAndInscriptionController;
+
+import javax.swing.JTextField;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.JFrame;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ConsultTouristOuting extends JInternalFrame {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
-	private JTextField txtOutName;
-	private JTextField txtOutMax;
-	private JTextField txtOutDepPoint;
-	private JTextField txtOutDepDate;
-	private JTextField txtOutDesDate;
-	private JTextField txtActName;
-	private JTextField txtActDescription;
-	private JTextField txtActDuration;
-	private JTextField txtActCost;
-	private JTextField txtActCity;
-	private JTextField txtActRegDate;
-	private JComboBox<String> cmbSelOuting;
-	private DateTimeFormatter formatter;
-	private ITouristOutingAndInscriptionController itoic;
-	private ITouristActivityController itac;
-	
+	private ITouristOutingAndInscriptionController controlTouristOutingAndInscription;
+	private ITouristActivityController controlTouristActivity;
+
+	private JComboBox<String> comboBoxTouristActivities;
+	private JLabel lblTouristActivities;
+	private JComboBox<String> comboBoxTouristOutings;
+	private JLabel lblTouristOutings;
+	private JTextField textFieldTouristOutingName;
+	private JTextField textFieldMaxNumTourists;
+	private JTextField textFieldDeparturePoint;
+	private JTextField textFieldDepartureDate;
+	private JTextField textFieldDischargeDate;
+	private JLabel lblTouristOutingName;
+	private JLabel lblMaxNumTourists;
+	private JLabel lblDeparturePoint;
+	private JLabel lblDepartureDate;
+	private JLabel lblDischargeDate;
+	private JButton btnCloseWindow;
+	private DtActivityWithOutings activityWithOutingsData;
+
 	public ConsultTouristOuting(ITouristOutingAndInscriptionController itoic, ITouristActivityController itac) {
-		super("Consultar salida turistica", true, true, true, true);
-		
-		this.itoic = itoic;
-		this.itac = itac;
-		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		setBounds(new Rectangle(35, 35, 400, 420));
-		getContentPane().setLayout(new BorderLayout(0, 0));
-		
-		JPanel formContent = new JPanel();
-		getContentPane().add(formContent, BorderLayout.CENTER);
-		formContent.setLayout(new BorderLayout(0, 0));
-		
-		formContent.add(selectOuting(), BorderLayout.NORTH);
-		
-		formContent.add(dataOuting(), BorderLayout.CENTER);
-		
-		
-	}
-	
-	private JPanel selectOuting() {
-		
-		JPanel selectOuting = new JPanel();
-		GridBagLayout gbl_selectOuting = new GridBagLayout();
-		gbl_selectOuting.columnWidths = new int[]{74, 116, 95, 40, 0};
-		gbl_selectOuting.rowHeights = new int[]{2, 22, 0};
-		gbl_selectOuting.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_selectOuting.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		selectOuting.setLayout(gbl_selectOuting);
-		
-		JLabel lblSelectOuting = new JLabel("Seleccionar salida turistica");
-		GridBagConstraints gbc_lblSelectOuting = new GridBagConstraints();
-		gbc_lblSelectOuting.anchor = GridBagConstraints.WEST;
-		gbc_lblSelectOuting.insets = new Insets(0, 0, 0, 5);
-		gbc_lblSelectOuting.gridx = 1;
-		gbc_lblSelectOuting.gridy = 1;
-		selectOuting.add(lblSelectOuting, gbc_lblSelectOuting);
-		
-		cmbSelOuting = new JComboBox<String>();
-		GridBagConstraints gbc_cmbSelOuting = new GridBagConstraints();
-		gbc_cmbSelOuting.insets = new Insets(0, 0, 0, 5);
-		gbc_cmbSelOuting.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cmbSelOuting.gridx = 2;
-		gbc_cmbSelOuting.gridy = 1;
-		selectOuting.add(cmbSelOuting, gbc_cmbSelOuting);
-		
-		loadComboSelectOuting();
-		
-		cmbSelOuting.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-				cmdSelectOutingActionPerformed(arg0);
+
+		controlTouristOutingAndInscription = itoic;
+		controlTouristActivity = itac;
+
+		setResizable(true);
+		setIconifiable(true);
+		setMaximizable(true);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setClosable(true);
+		setTitle("Consultar salida turistica");
+		setBounds(10, 40, 360, 320);
+
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[] { 180, 105, 105, 5 };
+		gridBagLayout.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 30, 30, 30 };
+		gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+		getContentPane().setLayout(gridBagLayout);
+
+		lblTouristActivities = new JLabel("Actividades turisticas");
+		lblTouristActivities.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblTouristActivities = new GridBagConstraints();
+		gbc_lblTouristActivities.fill = GridBagConstraints.BOTH;
+		gbc_lblTouristActivities.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTouristActivities.gridx = 0;
+		gbc_lblTouristActivities.gridy = 0;
+		getContentPane().add(lblTouristActivities, gbc_lblTouristActivities);
+
+		comboBoxTouristActivities = new JComboBox<String>();
+		GridBagConstraints gbc_comboBoxTouristActivities = new GridBagConstraints();
+		gbc_comboBoxTouristActivities.gridwidth = 2;
+		gbc_comboBoxTouristActivities.fill = GridBagConstraints.BOTH;
+		gbc_comboBoxTouristActivities.insets = new Insets(0, 0, 5, 0);
+		gbc_comboBoxTouristActivities.gridx = 1;
+		gbc_comboBoxTouristActivities.gridy = 0;
+		getContentPane().add(comboBoxTouristActivities, gbc_comboBoxTouristActivities);
+		comboBoxTouristActivities.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cmdSelectActivityActionPerformed(e);
 			}
 		});
-		
-		return selectOuting;
+
+		lblTouristOutings = new JLabel("Salidas turisticas");
+		lblTouristOutings.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblTouristOutings = new GridBagConstraints();
+		gbc_lblTouristOutings.fill = GridBagConstraints.BOTH;
+		gbc_lblTouristOutings.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTouristOutings.gridx = 0;
+		gbc_lblTouristOutings.gridy = 1;
+		getContentPane().add(lblTouristOutings, gbc_lblTouristOutings);
+
+		comboBoxTouristOutings = new JComboBox<String>();
+		GridBagConstraints gbc_comboBoxTouristOutings = new GridBagConstraints();
+		gbc_comboBoxTouristOutings.gridwidth = 2;
+		gbc_comboBoxTouristOutings.fill = GridBagConstraints.BOTH;
+		gbc_comboBoxTouristOutings.insets = new Insets(0, 0, 5, 0);
+		gbc_comboBoxTouristOutings.gridx = 1;
+		gbc_comboBoxTouristOutings.gridy = 1;
+		getContentPane().add(comboBoxTouristOutings, gbc_comboBoxTouristOutings);
+		comboBoxTouristOutings.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cmdTouristOutingActionPerformed(e);
+			}
+		});
+
+		lblTouristOutingName = new JLabel("Nombre de salida turistica:");
+		lblTouristOutingName.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblTouristOutingName = new GridBagConstraints();
+		gbc_lblTouristOutingName.fill = GridBagConstraints.BOTH;
+		gbc_lblTouristOutingName.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTouristOutingName.gridx = 0;
+		gbc_lblTouristOutingName.gridy = 3;
+		getContentPane().add(lblTouristOutingName, gbc_lblTouristOutingName);
+
+		textFieldTouristOutingName = new JTextField();
+		textFieldTouristOutingName.setEditable(false);
+		GridBagConstraints gbc_textFieldTouristOutingName = new GridBagConstraints();
+		gbc_textFieldTouristOutingName.gridwidth = 2;
+		gbc_textFieldTouristOutingName.fill = GridBagConstraints.BOTH;
+		gbc_textFieldTouristOutingName.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldTouristOutingName.gridx = 1;
+		gbc_textFieldTouristOutingName.gridy = 3;
+
+		getContentPane().add(textFieldTouristOutingName, gbc_textFieldTouristOutingName);
+		textFieldTouristOutingName.setColumns(10);
+
+		lblMaxNumTourists = new JLabel("Maxima cantidad de turistas:");
+		lblMaxNumTourists.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblMaxNumTourists = new GridBagConstraints();
+		gbc_lblMaxNumTourists.fill = GridBagConstraints.BOTH;
+		gbc_lblMaxNumTourists.insets = new Insets(0, 0, 5, 5);
+		gbc_lblMaxNumTourists.gridx = 0;
+		gbc_lblMaxNumTourists.gridy = 4;
+		getContentPane().add(lblMaxNumTourists, gbc_lblMaxNumTourists);
+
+		textFieldMaxNumTourists = new JTextField();
+		textFieldMaxNumTourists.setEditable(false);
+		GridBagConstraints gbc_textFieldMaxNumTourists = new GridBagConstraints();
+		gbc_textFieldMaxNumTourists.gridwidth = 2;
+		gbc_textFieldMaxNumTourists.fill = GridBagConstraints.BOTH;
+		gbc_textFieldMaxNumTourists.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldMaxNumTourists.gridx = 1;
+
+		gbc_textFieldMaxNumTourists.gridy = 4;
+		getContentPane().add(textFieldMaxNumTourists, gbc_textFieldMaxNumTourists);
+		textFieldMaxNumTourists.setColumns(10);
+
+		lblDeparturePoint = new JLabel("Lugar de salida:");
+		lblDeparturePoint.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblDeparturePoint = new GridBagConstraints();
+		gbc_lblDeparturePoint.fill = GridBagConstraints.BOTH;
+		gbc_lblDeparturePoint.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDeparturePoint.gridx = 0;
+		gbc_lblDeparturePoint.gridy = 5;
+		getContentPane().add(lblDeparturePoint, gbc_lblDeparturePoint);
+
+		textFieldDeparturePoint = new JTextField();
+		textFieldDeparturePoint.setEditable(false);
+		GridBagConstraints gbc_textFieldDeparturePoint = new GridBagConstraints();
+		gbc_textFieldDeparturePoint.gridwidth = 2;
+		gbc_textFieldDeparturePoint.fill = GridBagConstraints.BOTH;
+		gbc_textFieldDeparturePoint.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldDeparturePoint.gridx = 1;
+		gbc_textFieldDeparturePoint.gridy = 5;
+		getContentPane().add(textFieldDeparturePoint, gbc_textFieldDeparturePoint);
+		textFieldDeparturePoint.setColumns(10);
+
+		lblDepartureDate = new JLabel("Fecha y hora de salida:");
+		lblDepartureDate.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblDepartureDate = new GridBagConstraints();
+		gbc_lblDepartureDate.fill = GridBagConstraints.BOTH;
+		gbc_lblDepartureDate.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDepartureDate.gridx = 0;
+		gbc_lblDepartureDate.gridy = 6;
+		getContentPane().add(lblDepartureDate, gbc_lblDepartureDate);
+
+		textFieldDepartureDate = new JTextField();
+		textFieldDepartureDate.setEditable(false);
+		textFieldDepartureDate.setToolTipText("Enter the date in dd/mm/yyyy format.");
+		textFieldDepartureDate.setColumns(10);
+		GridBagConstraints gbc_textFieldDepartureDate = new GridBagConstraints();
+		gbc_textFieldDepartureDate.gridwidth = 2;
+		gbc_textFieldDepartureDate.fill = GridBagConstraints.BOTH;
+		gbc_textFieldDepartureDate.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldDepartureDate.gridx = 1;
+		gbc_textFieldDepartureDate.gridy = 6;
+		getContentPane().add(textFieldDepartureDate, gbc_textFieldDepartureDate);
+
+		lblDischargeDate = new JLabel("Fecha de alta:");
+		lblDischargeDate.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblDischargeDate = new GridBagConstraints();
+		gbc_lblDischargeDate.fill = GridBagConstraints.BOTH;
+		gbc_lblDischargeDate.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDischargeDate.gridx = 0;
+		gbc_lblDischargeDate.gridy = 7;
+		getContentPane().add(lblDischargeDate, gbc_lblDischargeDate);
+
+		textFieldDischargeDate = new JTextField();
+		textFieldDischargeDate.setEditable(false);
+		textFieldDischargeDate.setColumns(10);
+		GridBagConstraints gbc_textFieldDischargeDate = new GridBagConstraints();
+		gbc_textFieldDischargeDate.gridwidth = 2;
+		gbc_textFieldDischargeDate.fill = GridBagConstraints.BOTH;
+		gbc_textFieldDischargeDate.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldDischargeDate.gridx = 1;
+		gbc_textFieldDischargeDate.gridy = 7;
+		getContentPane().add(textFieldDischargeDate, gbc_textFieldDischargeDate);
+
+		btnCloseWindow = new JButton("Salir");
+		btnCloseWindow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				clearForm();
+				setVisible(false);
+			}
+		});
+		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
+		gbc_btnCancel.fill = GridBagConstraints.BOTH;
+		gbc_btnCancel.gridx = 2;
+		gbc_btnCancel.gridy = 8;
+		getContentPane().add(btnCloseWindow, gbc_btnCancel);
 	}
-	
-	private void loadComboSelectOuting() {
-		DefaultComboBoxModel<String> model; 
+
+	public void loadTouristActivities() {
+		DefaultComboBoxModel<String> model;
 		try {
-			
-			String[] data = itoic.listTouristOutings();
-			System.out.println("Datos de salida cargados: " + data);
+			String[] data = controlTouristActivity.listTouristActivities();
+			System.out.println("Datos de actividades cargados: " + data);
 			if (data != null) {
 				String[] dataWithNull = new String[data.length + 1];
 				dataWithNull[0] = null; // Primera opción nula
 				System.arraycopy(data, 0, dataWithNull, 1, data.length);
-				model = new DefaultComboBoxModel<String>(dataWithNull); 
-				cmbSelOuting.setModel(model);
+				model = new DefaultComboBoxModel<String>(dataWithNull);
+				comboBoxTouristActivities.setModel(model);
 			}
-				
-		}catch (TouristOutingDoesNotExistException e) {
-			cmbSelOuting.setModel(new DefaultComboBoxModel<String>());
+		} catch (ActivityDoesNotExistException e) {
+			// We will not show any tourist activity
 		}
-	}
-	
-	protected void cmdSelectOutingActionPerformed(ActionEvent e) {
-		String selectedOuting = (String) cmbSelOuting.getSelectedItem();
-		clearOutingData();
-		if (selectedOuting != null) {
-			try {
-				DtTouristOuting dtoOuting = itoic.consultTouristOutingData(selectedOuting);
-				if (dtoOuting != null) {
-					txtOutName.setText(dtoOuting.getOutingName());
-					txtOutMax.setText(String.valueOf(dtoOuting.getMaxNumTourists()));
-					txtOutDepPoint.setText(dtoOuting.getDeparturePoint());
-					txtOutDepDate.setText(dtoOuting.getDepartureDate().format(formatter));
-					txtOutDesDate.setText(dtoOuting.getDischargeDate().format(formatter));
-					
-					if (dtoOuting.getActivityName() != null) {
-						DtTouristActivity dtActivity;
-						try {
-							dtActivity = itac.consultTouristActivityBasicData(dtoOuting.getActivityName());
-							if (dtActivity != null) {
-								txtActName.setText(dtActivity.getActivityName());
-								txtActDescription.setText(dtActivity.getDescription());
-								txtActDuration.setText(String.valueOf(dtActivity.getDuration()));
-								txtActCost.setText(String.valueOf(dtActivity.getCostTurist()));
-								txtActCity.setText(dtActivity.getCity());
-								txtActRegDate.setText(dtActivity.getRegistrationDate().format(formatter));
-							}
-						} catch (ActivityDoesNotExistException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}
-				} 
-				
-			} catch (TouristOutingDoesNotExistException ex) {
-				ex.printStackTrace();
-			}
-		}
-	}
-	
-//	private void loadComboActSelectOutings(Set<DtTouristOuting> outings) {
-//		DefaultComboBoxModel<String> model;
-//		// Crear un array con una opción nula al principio
-//		String[] data = outings.stream().map(DtTouristOuting::getTipName).toArray(String[]::new);
-//		String[] dataWithNull = new String[data.length + 1];
-//		dataWithNull[0] = null; // Primera opción nula
-//		System.arraycopy(data, 0, dataWithNull, 1, data.length);
-//		model = new DefaultComboBoxModel<String>(dataWithNull);
-//		cmbActOutings.setModel(model);
-//	}
-	
-	private JPanel dataOuting() {
-		
-		JPanel dataOuting = new JPanel();
-		dataOuting.setLayout(new BorderLayout(0, 0));
-		dataOuting.add(basicDataOuting(), BorderLayout.NORTH);
-		
-		return dataOuting;
 	}
 
-	private JPanel basicDataOuting() {
-		
-		JPanel basicDataOuting = new JPanel();
-		basicDataOuting.setBorder(new TitledBorder(null, "Informacion de la Salida turistica", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagLayout gbl_basicDataOuting = new GridBagLayout();
-		gbl_basicDataOuting.columnWidths = new int[]{44, 133, 138, 40, 0};
-		gbl_basicDataOuting.rowHeights = new int[]{14, 0, 0, 0, 0, 0, 0, 26, 0, 0, 0};
-		gbl_basicDataOuting.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_basicDataOuting.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
-		basicDataOuting.setLayout(gbl_basicDataOuting);
-		
-		JLabel lblOutName = new JLabel("Nombre");
-		GridBagConstraints gbc_lblOutName = new GridBagConstraints();
-		gbc_lblOutName.insets = new Insets(0, 0, 5, 5);
-		gbc_lblOutName.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblOutName.gridx = 1;
-		gbc_lblOutName.gridy = 0;
-		basicDataOuting.add(lblOutName, gbc_lblOutName);
-		
-		txtOutName = new JTextField();
-		txtOutName.setEditable(false);
-		GridBagConstraints gbc_txtOutName = new GridBagConstraints();
-		gbc_txtOutName.insets = new Insets(0, 0, 5, 5);
-		gbc_txtOutName.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtOutName.gridx = 2;
-		gbc_txtOutName.gridy = 0;
-		basicDataOuting.add(txtOutName, gbc_txtOutName);
-		txtOutName.setColumns(10);
-		
-		JLabel lblOutDepPoint = new JLabel("Punto de encuentro");
-		GridBagConstraints gbc_lblOutDepPoint = new GridBagConstraints();
-		gbc_lblOutDepPoint.anchor = GridBagConstraints.WEST;
-		gbc_lblOutDepPoint.insets = new Insets(0, 0, 5, 5);
-		gbc_lblOutDepPoint.gridx = 1;
-		gbc_lblOutDepPoint.gridy = 1;
-		basicDataOuting.add(lblOutDepPoint, gbc_lblOutDepPoint);
-		
-		txtOutDepPoint = new JTextField();
-		txtOutDepPoint.setEditable(false);
-		GridBagConstraints gbc_txtOutDepPoint = new GridBagConstraints();
-		gbc_txtOutDepPoint.insets = new Insets(0, 0, 5, 5);
-		gbc_txtOutDepPoint.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtOutDepPoint.gridx = 2;
-		gbc_txtOutDepPoint.gridy = 1;
-		basicDataOuting.add(txtOutDepPoint, gbc_txtOutDepPoint);
-		txtOutDepPoint.setColumns(10);
-		
-		JLabel lblOutMax = new JLabel("Maximo de turistas");
-		GridBagConstraints gbc_lblOutMax = new GridBagConstraints();
-		gbc_lblOutMax.anchor = GridBagConstraints.WEST;
-		gbc_lblOutMax.insets = new Insets(0, 0, 5, 5);
-		gbc_lblOutMax.gridx = 1;
-		gbc_lblOutMax.gridy = 2;
-		basicDataOuting.add(lblOutMax, gbc_lblOutMax);
-		
-		txtOutMax = new JTextField();
-		txtOutMax.setEditable(false);
-		GridBagConstraints gbc_txtOutMax = new GridBagConstraints();
-		gbc_txtOutMax.insets = new Insets(0, 0, 5, 5);
-		gbc_txtOutMax.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtOutMax.gridx = 2;
-		gbc_txtOutMax.gridy = 2;
-		basicDataOuting.add(txtOutMax, gbc_txtOutMax);
-		txtOutMax.setColumns(10);
-		
-		JLabel lblOutDepDate = new JLabel("Fecha de salida");
-		GridBagConstraints gbc_lblOutDepDate = new GridBagConstraints();
-		gbc_lblOutDepDate.anchor = GridBagConstraints.WEST;
-		gbc_lblOutDepDate.insets = new Insets(0, 0, 5, 5);
-		gbc_lblOutDepDate.gridx = 1;
-		gbc_lblOutDepDate.gridy = 3;
-		basicDataOuting.add(lblOutDepDate, gbc_lblOutDepDate);
-		
-		txtOutDepDate = new JTextField();
-		txtOutDepDate.setEditable(false);
-		GridBagConstraints gbc_txtOutDepDate = new GridBagConstraints();
-		gbc_txtOutDepDate.insets = new Insets(0, 0, 5, 5);
-		gbc_txtOutDepDate.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtOutDepDate.gridx = 2;
-		gbc_txtOutDepDate.gridy = 3;
-		basicDataOuting.add(txtOutDepDate, gbc_txtOutDepDate);
-		txtOutDepDate.setColumns(10);
-		
-		JLabel lblOutDesDate = new JLabel("Fecha de llegada");
-		GridBagConstraints gbc_lblOutDesDate = new GridBagConstraints();
-		gbc_lblOutDesDate.anchor = GridBagConstraints.WEST;
-		gbc_lblOutDesDate.insets = new Insets(0, 0, 5, 5);
-		gbc_lblOutDesDate.gridx = 1;
-		gbc_lblOutDesDate.gridy = 4;
-		basicDataOuting.add(lblOutDesDate, gbc_lblOutDesDate);
-		
-		txtOutDesDate = new JTextField();
-		txtOutDesDate.setEditable(false);
-		GridBagConstraints gbc_txtOutDesDate = new GridBagConstraints();
-		gbc_txtOutDesDate.insets = new Insets(0, 0, 5, 5);
-		gbc_txtOutDesDate.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtOutDesDate.gridx = 2;
-		gbc_txtOutDesDate.gridy = 4;
-		basicDataOuting.add(txtOutDesDate, gbc_txtOutDesDate);
-		txtOutDesDate.setColumns(10);
-		
-		GridBagConstraints gbc_basicDataActivity = new GridBagConstraints();
-		gbc_basicDataActivity.gridheight = 5;
-		gbc_basicDataActivity.gridwidth = 2;
-		gbc_basicDataActivity.insets = new Insets(0, 0, 0, 5);
-		gbc_basicDataActivity.fill = GridBagConstraints.BOTH;
-		gbc_basicDataActivity.gridx = 1;
-		gbc_basicDataActivity.gridy = 5;
-		
-		basicDataOuting.add(basicDataActivity(), gbc_basicDataActivity);
-		
-		return basicDataOuting;
+	protected void cmdSelectActivityActionPerformed(ActionEvent e) {
+		String selectedActivity = (String) comboBoxTouristActivities.getSelectedItem();
+		clearActivitiData();
+		if (selectedActivity != null) {
+			try {
+				activityWithOutingsData = controlTouristActivity.consultTouristActivityData(selectedActivity);
+				DtTouristActivity activityData = activityWithOutingsData.getActivity();
+				if (activityData == null) {
+					throw new RuntimeException("Error al obtener dtActivity.");
+				}
+
+				loadComboActSelectOutings(activityWithOutingsData.getOutings());
+
+			} catch (ActivityDoesNotExistException ex) {
+			}
+		}
 	}
-	
-	private JPanel basicDataActivity() {
-		
-		JPanel basicDataActivity = new JPanel();
-		basicDataActivity.setBorder(new TitledBorder(new LineBorder(new Color(191, 205, 219)), "Informacion de la Actividad asociada", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		
-		GridBagLayout gbl_basicDataActivity = new GridBagLayout();
-		gbl_basicDataActivity.columnWidths = new int[]{16, 85, 83, 0, 0};
-		gbl_basicDataActivity.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-		gbl_basicDataActivity.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_basicDataActivity.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		basicDataActivity.setLayout(gbl_basicDataActivity);
-		
-		JLabel lblActName = new JLabel("Nombre");
-		GridBagConstraints gbc_lblActName = new GridBagConstraints();
-		gbc_lblActName.insets = new Insets(0, 0, 5, 5);
-		gbc_lblActName.anchor = GridBagConstraints.WEST;
-		gbc_lblActName.gridx = 1;
-		gbc_lblActName.gridy = 0;
-		basicDataActivity.add(lblActName, gbc_lblActName);
-		
-		txtActName = new JTextField();
-		txtActName.setEditable(false);
-		GridBagConstraints gbc_txtActName = new GridBagConstraints();
-		gbc_txtActName.insets = new Insets(0, 0, 5, 5);
-		gbc_txtActName.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtActName.gridx = 2;
-		gbc_txtActName.gridy = 0;
-		basicDataActivity.add(txtActName, gbc_txtActName);
-		txtActName.setColumns(10);
-		
-		JLabel lblActDescription = new JLabel("Descripcion");
-		GridBagConstraints gbc_lblActDescription = new GridBagConstraints();
-		gbc_lblActDescription.anchor = GridBagConstraints.WEST;
-		gbc_lblActDescription.insets = new Insets(0, 0, 5, 5);
-		gbc_lblActDescription.gridx = 1;
-		gbc_lblActDescription.gridy = 1;
-		basicDataActivity.add(lblActDescription, gbc_lblActDescription);
-		
-		txtActDescription = new JTextField();
-		txtActDescription.setEditable(false);
-		GridBagConstraints gbc_txtActDescription = new GridBagConstraints();
-		gbc_txtActDescription.insets = new Insets(0, 0, 5, 5);
-		gbc_txtActDescription.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtActDescription.gridx = 2;
-		gbc_txtActDescription.gridy = 1;
-		basicDataActivity.add(txtActDescription, gbc_txtActDescription);
-		txtActDescription.setColumns(10);
-		
-		JLabel lblActDuration = new JLabel("Duracion");
-		GridBagConstraints gbc_lblActDuration = new GridBagConstraints();
-		gbc_lblActDuration.anchor = GridBagConstraints.WEST;
-		gbc_lblActDuration.insets = new Insets(0, 0, 5, 5);
-		gbc_lblActDuration.gridx = 1;
-		gbc_lblActDuration.gridy = 2;
-		basicDataActivity.add(lblActDuration, gbc_lblActDuration);
-		
-		txtActDuration = new JTextField();
-		txtActDuration.setEditable(false);
-		GridBagConstraints gbc_txtActDuration = new GridBagConstraints();
-		gbc_txtActDuration.insets = new Insets(0, 0, 5, 5);
-		gbc_txtActDuration.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtActDuration.gridx = 2;
-		gbc_txtActDuration.gridy = 2;
-		basicDataActivity.add(txtActDuration, gbc_txtActDuration);
-		txtActDuration.setColumns(10);
-		
-		JLabel lblActCost = new JLabel("Costo por turista");
-		GridBagConstraints gbc_lblActCost = new GridBagConstraints();
-		gbc_lblActCost.anchor = GridBagConstraints.WEST;
-		gbc_lblActCost.insets = new Insets(0, 0, 5, 5);
-		gbc_lblActCost.gridx = 1;
-		gbc_lblActCost.gridy = 3;
-		basicDataActivity.add(lblActCost, gbc_lblActCost);
-		
-		txtActCost = new JTextField();
-		txtActCost.setEditable(false);
-		GridBagConstraints gbc_txtActCost = new GridBagConstraints();
-		gbc_txtActCost.insets = new Insets(0, 0, 5, 5);
-		gbc_txtActCost.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtActCost.gridx = 2;
-		gbc_txtActCost.gridy = 3;
-		basicDataActivity.add(txtActCost, gbc_txtActCost);
-		txtActCost.setColumns(10);
-		
-		JLabel lblActCity = new JLabel("Ciudad");
-		GridBagConstraints gbc_lblActCity = new GridBagConstraints();
-		gbc_lblActCity.anchor = GridBagConstraints.WEST;
-		gbc_lblActCity.insets = new Insets(0, 0, 5, 5);
-		gbc_lblActCity.gridx = 1;
-		gbc_lblActCity.gridy = 4;
-		basicDataActivity.add(lblActCity, gbc_lblActCity);
-		
-		txtActCity = new JTextField();
-		txtActCity.setEditable(false);
-		GridBagConstraints gbc_txtActCity = new GridBagConstraints();
-		gbc_txtActCity.insets = new Insets(0, 0, 5, 5);
-		gbc_txtActCity.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtActCity.gridx = 2;
-		gbc_txtActCity.gridy = 4;
-		basicDataActivity.add(txtActCity, gbc_txtActCity);
-		txtActCity.setColumns(10);
-		
-		JLabel lblActRegDate = new JLabel("Fecha de registro");
-		GridBagConstraints gbc_lblActRegDate = new GridBagConstraints();
-		gbc_lblActRegDate.anchor = GridBagConstraints.WEST;
-		gbc_lblActRegDate.insets = new Insets(0, 0, 5, 5);
-		gbc_lblActRegDate.gridx = 1;
-		gbc_lblActRegDate.gridy = 5;
-		basicDataActivity.add(lblActRegDate, gbc_lblActRegDate);
-		
-		txtActRegDate = new JTextField();
-		txtActRegDate.setEditable(false);
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 2;
-		gbc_textField.gridy = 5;
-		basicDataActivity.add(txtActRegDate, gbc_textField);
-		txtActRegDate.setColumns(10);
-		
-		return basicDataActivity;
+
+	private void loadComboActSelectOutings(List<DtTouristOuting> outings) {
+		DefaultComboBoxModel<String> model;
+		// Crear un array con una opción nula al principio
+		String[] data = outings.stream().map(DtTouristOuting::getOutingName).toArray(String[]::new);
+		String[] dataWithNull = new String[data.length + 1];
+		dataWithNull[0] = null; // Primera opción nula
+		System.arraycopy(data, 0, dataWithNull, 1, data.length);
+		model = new DefaultComboBoxModel<String>(dataWithNull);
+		comboBoxTouristOutings.setModel(model);
 	}
-	
+
+	protected void cmdTouristOutingActionPerformed(ActionEvent e) {
+
+		String touristOutingName = (String) comboBoxTouristOutings.getSelectedItem();
+		clearOutingData();
+
+		if (touristOutingName != null) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+			DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			DtTouristOuting to;
+
+			try {
+
+				to = controlTouristOutingAndInscription.consultTouristOutingData(touristOutingName);
+
+				textFieldTouristOutingName.setText(to.getOutingName());
+				textFieldMaxNumTourists.setText(String.valueOf(to.getMaxNumTourists()));
+				textFieldDeparturePoint.setText(to.getDeparturePoint());
+				textFieldDepartureDate.setText(to.getDepartureDate().format(formatter));
+				textFieldDischargeDate.setText(to.getDischargeDate().format(formatter2));
+
+			} catch (TouristOutingDoesNotExistException e1) {
+
+				JOptionPane.showMessageDialog(this, e1.getMessage(), "Consultar salida turistica",
+						JOptionPane.ERROR_MESSAGE);
+				clearForm();
+			}
+		}
+	}
+
 	private void clearForm() {
-		clearActivityData();
-		cmbSelOuting.removeAllItems();
+		comboBoxTouristActivities.removeAllItems();
+		clearActivitiData();
 	}
-	
-	private void clearActivityData() {
-		txtActName.setText("");
-		txtActDescription.setText("");
-		txtActDuration.setText("");
-		txtActCost.setText("");
-		txtActCity.setText("");
-		txtActRegDate.setText("");
+
+	private void clearActivitiData() {
+		comboBoxTouristOutings.removeAllItems();
+		clearOutingData();
 	}
-	
+
 	private void clearOutingData() {
-		txtOutName.setText("");
-		txtOutMax.setText("");
-		txtOutDepPoint.setText("");
-		txtOutDepDate.setText("");
-		txtOutDesDate.setText("");
-		clearActivityData();
+		textFieldTouristOutingName.setText("");
+		textFieldMaxNumTourists.setText("");
+		textFieldDeparturePoint.setText("");
+		textFieldDepartureDate.setText("");
+		textFieldDischargeDate.setText("");
 	}
-	
+
 	public void init() {
 		clearForm();
-		loadComboSelectOuting();
+		loadTouristActivities();
+
 	}
-	
 }

@@ -21,5 +21,7 @@ public interface ITouristActivityController {
 	public float getActivityCostTourist(String activityName);
 	
 	public void modifyActivity(DtTouristActivity dto);
+	
+	public String[] listTouristActivitiesBySupplierNickname(String nickname);
 }
 

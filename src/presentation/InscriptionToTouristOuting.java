@@ -64,6 +64,8 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 	private JButton btnConfirm;
 	private JButton btnCancel;
 
+	private final String MSG_ACTIVITIES_NOT_FOUND = " No existen actividades turísticas registradas.";
+
 	public InscriptionToTouristOuting(ITouristOutingAndInscriptionController itoic, ITouristActivityController itac,
 			IUserController iuc) {
 
@@ -244,7 +246,6 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		gbc_comboBoxTourists.gridx = 1;
 		gbc_comboBoxTourists.gridy = 7;
 		getContentPane().add(comboBoxTourists, gbc_comboBoxTourists);
-		// textFieldTourists.setColumns(10);
 
 		lblEnterNumTourists = new JLabel("Numero de turistas:");
 		lblEnterNumTourists.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -347,9 +348,9 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 			comboBoxTouristActivities.setModel(model);
 		} catch (ActivityDoesNotExistException e) {
 			// We will not show any tourist activity
-			// model = new DefaultComboBoxModel<String>(new String[] {"No existen
-			// actividades turísticas registradas."});
+			model = new DefaultComboBoxModel<String>(new String[] { MSG_ACTIVITIES_NOT_FOUND });
 		}
+		comboBoxTouristActivities.setModel(model);
 
 	}
 
@@ -357,7 +358,8 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 
 		String touristActivityName = (String) comboBoxTouristActivities.getSelectedItem();
 
-		if (touristActivityName != null && !touristActivityName.isEmpty()) {
+		if (touristActivityName != null && !touristActivityName.isEmpty()
+				&& !touristActivityName.equals(touristActivityName)) {
 
 			DtActivityWithOutings activityWithOutings = null;
 
@@ -371,13 +373,15 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 				List<DtTouristOuting> allTouristOutings = activityWithOutings.getOutings();
 				String[] touristOutingNames = new String[allTouristOutings.size()];
 
-				// Tengo una List de dtTouristOuting, me quiero quedar con una lista de nombres de
+				// Tengo una List de dtTouristOuting, me quiero quedar con una lista de nombres
+				// de
 				// touristOuting para mostrar en el combo box
 				for (int ind = 0; ind < allTouristOutings.size(); ind++) {
 					touristOutingNames[ind] = allTouristOutings.get(ind).getOutingName();
 				}
-				
-				touristOutingNames = allTouristOutings.size() > 0 ? touristOutingNames : new String[] {"No existen salidas turísticas para la actividad seleccionada."};
+
+				touristOutingNames = allTouristOutings.size() > 0 ? touristOutingNames
+						: new String[] { "No existen salidas turísticas para la actividad seleccionada." };
 				DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(touristOutingNames);
 
 				comboBoxTouristOutings.setModel(model);

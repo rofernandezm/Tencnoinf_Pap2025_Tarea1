@@ -1,5 +1,6 @@
 package logic.handler;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,6 +13,8 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 import logic.entity.TouristOuting;
 import logic.entity.Tourist;
+import logic.dto.DtInscriptionTouristOuting;
+import logic.dto.DtTouristOuting;
 import logic.entity.Inscription;
 
 public class TouristOutingAndInscrptionHandler {
@@ -187,5 +190,27 @@ public class TouristOutingAndInscrptionHandler {
 		em.close();
 
 		return outingNames;
+	}
+
+	public List<DtTouristOuting> getDtTouristOutingListByActivityName(String activityName) {
+
+		List<DtTouristOuting> dtTouristOuting = new ArrayList<>();
+		List<String> outingNames = getTouristOutingByActivityName(activityName);
+
+		for (String outing : outingNames) {
+
+			TouristOuting to = getTouristOutingByName(outing);
+			dtTouristOuting.add(to.getDtTouristOuting());
+		}
+		return dtTouristOuting;
+	}
+
+	public List<DtInscriptionTouristOuting> getDtInscriptionTouristOutingListByTouristName(String nickname) {
+		Set<Inscription> inscriptions = getInscriptionsByTouristNickname(nickname);
+		List<DtInscriptionTouristOuting> dts = new ArrayList<>();
+		for (Inscription insc : inscriptions) {
+			dts.add(insc.getDtInscriptionTouristOuting());
+		}
+		return dts;
 	}
 }

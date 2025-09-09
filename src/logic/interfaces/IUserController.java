@@ -23,4 +23,5 @@ public interface IUserController {
 
 	public DtUser consultUserData(String nickname);
 
+	public void modifyUserDate(DtUser dtUser);
 }
