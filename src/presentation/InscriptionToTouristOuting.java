@@ -268,7 +268,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		getContentPane().add(textFieldNumTourists, gbc_textFieldNumTourists);
 		textFieldNumTourists.setColumns(10);
 
-		lblinscriptionDate = new JLabel("Fecha de alta:");
+		lblinscriptionDate = new JLabel("Fecha de inscripcion:");
 		lblinscriptionDate.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblinscriptionDate = new GridBagConstraints();
 		gbc_lblinscriptionDate.fill = GridBagConstraints.BOTH;
@@ -387,9 +387,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 
 		String touristActivityName = (String) comboBoxTouristActivities.getSelectedItem();
 
-		if (touristActivityName != null && !touristActivityName.isEmpty()
-				&& !touristActivityName.equals(touristActivityName)) {
-
+		if (touristActivityName != null && !touristActivityName.isEmpty()) {
 			DtActivityWithOutings activityWithOutings = null;
 
 			try {
@@ -402,8 +400,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 				List<DtTouristOuting> allTouristOutings = activityWithOutings.getOutings();
 				String[] touristOutingNames = new String[allTouristOutings.size()];
 
-				// Tengo una List de dtTouristOuting, me quiero quedar con una lista de nombres
-				// de
+				// Tengo una List de dtTouristOuting, me quiero quedar con una lista de nombres de
 				// touristOuting para mostrar en el combo box
 				for (int ind = 0; ind < allTouristOutings.size(); ind++) {
 					touristOutingNames[ind] = allTouristOutings.get(ind).getOutingName();

@@ -5,8 +5,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.time.Duration;
 import java.time.LocalDate;
 
@@ -64,18 +62,6 @@ public class CreateActivity extends JInternalFrame {
 		getContentPane().setLayout(gridBagLayout);
 
 		dataCreateActivity();
-		
-		addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentHidden(ComponentEvent e) {
-				clearForm();
-			}
-
-			@Override
-			public void componentShown(ComponentEvent e) {
-				loadSupplier();
-			}
-		});
 
 	}
 
@@ -98,9 +84,7 @@ public class CreateActivity extends JInternalFrame {
 		gbc_cmbSupplier.gridx = 2;
 		gbc_cmbSupplier.gridy = 1;
 		getContentPane().add(cmbSupplier, gbc_cmbSupplier);
-
-		loadSupplier();
-
+		
 		lblActivityName = new JLabel("Nombre");
 		lblActivityName.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblActivityName = new GridBagConstraints();
@@ -219,20 +203,19 @@ public class CreateActivity extends JInternalFrame {
 		gbc_btnCancel.gridx = 2;
 		gbc_btnCancel.gridy = 8;
 		getContentPane().add(btnCancel, gbc_btnCancel);
+		
+
 	}
 
 	public void loadSupplier() {
 		DefaultComboBoxModel<String> model;
 		String[] data = iUserController.listSuppliers();
-		if (data != null) {
-			String[] dataWithNull = new String[data.length + 1];
-			dataWithNull[0] = null; // Primera opción nula
-			System.arraycopy(data, 0, dataWithNull, 1, data.length);
-			model = new DefaultComboBoxModel<String>(dataWithNull);
-			cmbSupplier.setModel(model);
-
+		if (data == null) {
+			data = new String[] { "No hay proveedores registrados" };
 		}
-
+		model = new DefaultComboBoxModel<String>(data);
+		cmbSupplier.setModel(model);
+		cmbSupplier.setSelectedIndex(-1);
 	}
 
 	protected void cmdRegisterActivityActionPerformed(ActionEvent arg0) {
@@ -313,7 +296,7 @@ public class CreateActivity extends JInternalFrame {
 	}
 
 	private void clearForm() {
-		cmbSupplier.setSelectedItem(-1);
+		cmbSupplier.setSelectedItem(null);
 		txtActivityName.setText("");
 		txtDescription.setText("");
 		txtDuration.setText("");
@@ -323,5 +306,6 @@ public class CreateActivity extends JInternalFrame {
 
 	public void init() {
 		clearForm();
+        loadSupplier();
 	}
 }

@@ -153,6 +153,7 @@ public class TouristOutingRegistration extends JInternalFrame {
 		gbc_lblEnterDepartureDate.insets = new Insets(0, 0, 5, 5);
 		gbc_lblEnterDepartureDate.gridx = 0;
 		gbc_lblEnterDepartureDate.gridy = 4;
+		getContentPane().add(lblEnterDepartureDate, gbc_lblEnterDepartureDate);
 
 		// Spinner para LocalDateTime
 		SpinnerDateModel dateModel = new SpinnerDateModel(new Date(), null, null, java.util.Calendar.MINUTE);
