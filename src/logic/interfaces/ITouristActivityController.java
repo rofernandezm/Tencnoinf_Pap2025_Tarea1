@@ -18,7 +18,7 @@ public interface ITouristActivityController {
 	
 	public DtTouristActivity consultTouristActivityBasicData(String activityName) throws ActivityDoesNotExistException;
 
-	public float getActivityCostTourist(String activityName);
+	public float getActivityCostTourist(String activityName) throws ActivityDoesNotExistException;
 	
 	public void modifyActivity(DtTouristActivity dto);
 	

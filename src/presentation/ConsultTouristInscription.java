@@ -21,6 +21,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
 
 public class ConsultTouristInscription extends JInternalFrame {
 
@@ -33,6 +34,7 @@ public class ConsultTouristInscription extends JInternalFrame {
 
 	private ITouristActivityController iActivityController;
 	private ITouristOutingAndInscriptionController iOutingController;
+	private JTextField textField;
 
 	public ConsultTouristInscription(ITouristOutingAndInscriptionController iOIC, ITouristActivityController iTAC) {
 
@@ -100,6 +102,23 @@ public class ConsultTouristInscription extends JInternalFrame {
 
 		getContentPane().add(panelSelect, BorderLayout.NORTH);
 
+		JPanel touristOutingData = new JPanel();
+		getContentPane().add(touristOutingData, BorderLayout.CENTER);
+		GridBagLayout gbl_touristOutingData = new GridBagLayout();
+		gbl_touristOutingData.columnWidths = new int[] {0, 30, 30, 30, 30};
+		gbl_touristOutingData.rowHeights = new int[] {0, 30};
+		gbl_touristOutingData.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_touristOutingData.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		touristOutingData.setLayout(gbl_touristOutingData);
+		
+		textField = new JTextField();
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridx = 0;
+		gbc_textField.gridy = 0;
+		touristOutingData.add(textField, gbc_textField);
+		textField.setColumns(10);
+		
 		tableModel = new DefaultTableModel();
 
 		tableModel.addColumn("Cliente");
@@ -108,7 +127,9 @@ public class ConsultTouristInscription extends JInternalFrame {
 		tableInscripciones = new JTable(tableModel);
 		tableInscripciones.setFillsViewportHeight(true);
 		JScrollPane scrollPane = new JScrollPane(tableInscripciones);
-		getContentPane().add(scrollPane, BorderLayout.CENTER);
+		getContentPane().add(scrollPane, BorderLayout.SOUTH);
+		
+		
 
 		loadTouristActivities();
 	}
@@ -134,6 +155,9 @@ public class ConsultTouristInscription extends JInternalFrame {
 				for (DtTouristOuting outing : dtActivity.getOutings()) {
 					cbSalida.addItem(outing.getOutingName());
 				}
+
+				//Llenar campos con los valores de la salida 
+				
 			}
 
 		} catch (Exception e) {

@@ -249,7 +249,7 @@ public class ConsultTouristOuting extends JInternalFrame {
 				comboBoxTouristActivities.setModel(model);
 			}
 		} catch (ActivityDoesNotExistException e) {
-			// We will not show any tourist activity
+			e.printStackTrace();
 		}
 	}
 
@@ -267,6 +267,7 @@ public class ConsultTouristOuting extends JInternalFrame {
 				loadComboActSelectOutings(activityWithOutingsData.getOutings());
 
 			} catch (ActivityDoesNotExistException ex) {
+				ex.printStackTrace();
 			}
 		}
 	}

@@ -1214,7 +1214,7 @@ public class ConsultUser extends JInternalFrame {
 					.setText(dt.getDischargeDate().format(DateTimeFormatter.ofPattern(DATE_FORMAT_DDMMYYY)));
 
 		} catch (TouristOutingDoesNotExistException e) {
-
+			e.printStackTrace();
 		}
 	}
 
@@ -1231,7 +1231,7 @@ public class ConsultUser extends JInternalFrame {
 					.setText(dt.getDischargeDate().format(DateTimeFormatter.ofPattern(DATE_FORMAT_DDMMYYY)));
 
 		} catch (TouristOutingDoesNotExistException e) {
-
+			e.printStackTrace();
 		}
 	}
 

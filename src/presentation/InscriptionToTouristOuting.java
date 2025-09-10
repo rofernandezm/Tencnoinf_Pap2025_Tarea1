@@ -361,9 +361,15 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 				String numTourists = textFieldNumTourists.getText();
 				int textFieldNumTouristsTOint = Integer.parseInt(numTourists);
 				String touristActivityName = (String) comboBoxTouristActivities.getSelectedItem();
-				float costInsc = controlTouristActivity.getActivityCostTourist(touristActivityName);
-				float costTotalInsc = controlTouristOutingAndInscription.inscriptionTotalCost(costInsc, textFieldNumTouristsTOint);
-				textFieldTotalRegistrationCost.setText(String.valueOf(costTotalInsc));
+				
+				try {
+					float costInsc = controlTouristActivity.getActivityCostTourist(touristActivityName);
+					float costTotalInsc = controlTouristOutingAndInscription.inscriptionTotalCost(costInsc, textFieldNumTouristsTOint);
+					textFieldTotalRegistrationCost.setText(String.valueOf(costTotalInsc));
+				}catch (ActivityDoesNotExistException e) {
+					// We will not show any tourist activity
+				}
+				
 		    }
 		});
 
@@ -393,7 +399,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 			try {
 				activityWithOutings = controlTouristActivity.consultTouristActivityData(touristActivityName);
 			} catch (ActivityDoesNotExistException e) {
-				// We will not show any tourist outing
+				e.printStackTrace();
 			}
 
 			if (activityWithOutings != null) {
@@ -427,7 +433,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 			try {
 				to = controlTouristOutingAndInscription.consultTouristOutingData(touristOutingName);
 			} catch (TouristOutingDoesNotExistException e) {
-				// We will not show any tourist activity
+				e.printStackTrace();
 			}
 
 			if (to != null) {
@@ -471,12 +477,17 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		String numTourists = this.textFieldNumTourists.getText();
 
 		if (checkFormulario()) {
-
 			int textFieldNumTouristsTOint = Integer.parseInt(numTourists);
 			// TODO
-			float costInsc = controlTouristActivity.getActivityCostTourist(touristActivityName);
-			float costTotalInsc = controlTouristOutingAndInscription.inscriptionTotalCost(costInsc,
-					textFieldNumTouristsTOint);
+			float costTotalInsc = 0;
+			try{
+				float costInsc = controlTouristActivity.getActivityCostTourist(touristActivityName);
+				costTotalInsc = controlTouristOutingAndInscription.inscriptionTotalCost(costInsc,
+						textFieldNumTouristsTOint);
+			}catch(ActivityDoesNotExistException e) {
+				e.printStackTrace();
+			}
+			
 
 			LocalDate dischargeDateITO = LocalDate.now();
 			DtTouristOuting touristOutingToAddTourist = null;
@@ -486,7 +497,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 				touristOutingToAddTourist = controlTouristOutingAndInscription
 						.consultTouristOutingData(touristOutingName);
 			} catch (TouristOutingDoesNotExistException e) {
-				// We will not show any tourist activity
+				e.printStackTrace();
 			}
 
 			if (touristOutingToAddTourist != null) {
@@ -563,6 +574,13 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 				|| numTourists.isEmpty()) {
 			JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos", "Inscripcion a salida turistica",
 					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		try {
+			controlTouristActivity.consultTouristActivityBasicData(touristActivityName);
+		}catch (ActivityDoesNotExistException e){
+			JOptionPane.showMessageDialog(this, "La actividad seleccionada no es correcta. Intente nuevamente",
+					"Inscripcion a salida turistica", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 
