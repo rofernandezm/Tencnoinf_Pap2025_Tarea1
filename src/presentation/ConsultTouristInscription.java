@@ -13,7 +13,6 @@ import javax.swing.table.DefaultTableModel;
 
 import exceptions.ActivityDoesNotExistException;
 import exceptions.TouristOutingDoesNotExistException;
-import logic.dto.DtActivityWithOutings;
 import logic.dto.DtInscriptionTouristOuting;
 import logic.dto.DtTouristOuting;
 import logic.interfaces.ITouristActivityController;

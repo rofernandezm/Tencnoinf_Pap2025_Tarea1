@@ -113,7 +113,7 @@ public class Main {
 				frmTourismUy.pack();
 			}
 		});
-		frmTourismUy.setTitle("Tourism Uy");
+		frmTourismUy.setTitle("Turismo UY");
 		frmTourismUy.setBounds(100, 100, 800, 600);
 		frmTourismUy.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

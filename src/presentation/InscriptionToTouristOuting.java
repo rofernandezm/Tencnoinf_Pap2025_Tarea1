@@ -33,6 +33,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class InscriptionToTouristOuting extends JInternalFrame {
@@ -136,6 +137,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		getContentPane().add(lblTouristOutingName, gbc_lblTouristOutingName);
 
 		textFieldTouristOutingName = new JTextField();
+		textFieldTouristOutingName.setBackground(new Color(255, 255, 255));
 		textFieldTouristOutingName.setEnabled(false);
 		textFieldTouristOutingName.setEditable(false);
 		GridBagConstraints gbc_textFieldTouristOutingName = new GridBagConstraints();
@@ -157,6 +159,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		getContentPane().add(lblMaxNumTourists, gbc_lblMaxNumTourists);
 
 		textFieldMaxNumTourists = new JTextField();
+		textFieldMaxNumTourists.setBackground(new Color(255, 255, 255));
 		textFieldMaxNumTourists.setEnabled(false);
 		textFieldMaxNumTourists.setEditable(false);
 		GridBagConstraints gbc_textFieldMaxNumTourists = new GridBagConstraints();
@@ -178,6 +181,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		getContentPane().add(lblDeparturePoint, gbc_lblDeparturePoint);
 
 		textFieldDeparturePoint = new JTextField();
+		textFieldDeparturePoint.setBackground(new Color(255, 255, 255));
 		textFieldDeparturePoint.setEnabled(false);
 		textFieldDeparturePoint.setEditable(false);
 		GridBagConstraints gbc_textFieldDeparturePoint = new GridBagConstraints();
@@ -199,6 +203,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		getContentPane().add(lblDepartureDate, gbc_lblDepartureDate);
 
 		textFieldDepartureDate = new JTextField();
+		textFieldDepartureDate.setBackground(new Color(255, 255, 255));
 		textFieldDepartureDate.setEnabled(false);
 		textFieldDepartureDate.setEditable(false);
 		textFieldDepartureDate.setColumns(10);
@@ -220,6 +225,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		getContentPane().add(lblDischargeDate, gbc_lblDischargeDate);
 
 		textFieldDischargeDate = new JTextField();
+		textFieldDischargeDate.setBackground(new Color(255, 255, 255));
 		textFieldDischargeDate.setEnabled(false);
 		textFieldDischargeDate.setEditable(false);
 		textFieldDischargeDate.setColumns(10);
@@ -278,6 +284,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		getContentPane().add(lblinscriptionDate, gbc_lblinscriptionDate);
 
 		textFieldinscriptionDate = new JTextField();
+		textFieldinscriptionDate.setBackground(new Color(255, 255, 255));
 		textFieldinscriptionDate.setEnabled(false);
 		textFieldinscriptionDate.setEditable(false);
 		textFieldinscriptionDate.setColumns(10);
@@ -299,6 +306,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 		getContentPane().add(lblTotalRegistrationCost, gbc_lblTotalRegistrationCost);
 
 		textFieldTotalRegistrationCost = new JTextField();
+		textFieldTotalRegistrationCost.setBackground(new Color(255, 255, 255));
 		textFieldTotalRegistrationCost.setEnabled(false);
 		textFieldTotalRegistrationCost.setEditable(false);
 		GridBagConstraints gbc_textFieldTotalRegistrationCost = new GridBagConstraints();

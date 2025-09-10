@@ -123,7 +123,7 @@ public class CreateActivity extends JInternalFrame {
 		getContentPane().add(txtDescription, gbc_txtDescription);
 		txtDescription.setColumns(10);
 
-		lblDuration = new JLabel("Duracion");
+		lblDuration = new JLabel("Duración (horas):");
 		lblDuration.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblDuration = new GridBagConstraints();
 		gbc_lblDuration.fill = GridBagConstraints.BOTH;

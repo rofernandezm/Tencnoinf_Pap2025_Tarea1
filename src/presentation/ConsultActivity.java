@@ -219,7 +219,7 @@ public class ConsultActivity extends JInternalFrame {
 		basicDataActivity.add(txtActDescription, gbc_txtActDescription);
 		txtActDescription.setColumns(10);
 
-		JLabel lblActDuration = new JLabel("Duracion");
+		JLabel lblActDuration = new JLabel("Duración (horas):");
 		GridBagConstraints gbc_lblActDuration = new GridBagConstraints();
 		gbc_lblActDuration.anchor = GridBagConstraints.WEST;
 		gbc_lblActDuration.insets = new Insets(0, 0, 5, 5);

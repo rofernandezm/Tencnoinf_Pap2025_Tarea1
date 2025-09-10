@@ -10,6 +10,7 @@ import logic.interfaces.ITouristActivityController;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class ModifyActivity extends JInternalFrame {
@@ -18,7 +19,7 @@ public class ModifyActivity extends JInternalFrame {
 	private JComboBox<String> cbActivity;
 	private JTextField txtActivityName;
 	private JTextArea txtDescription;
-	private JSpinner spnDuration;
+	private JTextField txtDuration;
 	private JTextField txtTouristFee;
 	private JTextField txtCity;
 	private JTextField txtDischargeDate;
@@ -59,8 +60,8 @@ public class ModifyActivity extends JInternalFrame {
 		formPanel.add(new JScrollPane(txtDescription));
 
 		formPanel.add(new JLabel("Duración (horas):"));
-		spnDuration = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
-		formPanel.add(spnDuration);
+		txtDuration = new JTextField();
+		formPanel.add(txtDuration);
 
 		formPanel.add(new JLabel("Costo por turista:"));
 		txtTouristFee = new JTextField();
@@ -122,7 +123,7 @@ public class ModifyActivity extends JInternalFrame {
 
 				txtActivityName.setText(currentActivity.getActivityName());
 				txtDescription.setText(currentActivity.getDescription());
-				spnDuration.setValue(currentActivity.getDuration().toHours());
+				txtDuration.setText(String.valueOf(currentActivity.getDuration().toHours()));
 				txtTouristFee.setText(String.valueOf(currentActivity.getCostTurist()));
 				txtCity.setText(currentActivity.getCity());
 				txtDischargeDate.setText(
@@ -142,10 +143,11 @@ public class ModifyActivity extends JInternalFrame {
 		if (currentActivity != null) {
 			try {
 
+				Duration duration = Duration.ofHours(Integer.parseInt(txtDuration.getText()));
 				DtTouristActivity updated = new DtTouristActivity(currentActivity.getActivityName(),
-						txtDescription.getText(), Duration.ofHours((int) spnDuration.getValue()),
-						Float.parseFloat(txtTouristFee.getText()), txtCity.getText(),
-						currentActivity.getRegistrationDate(), currentActivity.getSupplierNickname());
+						txtDescription.getText(), duration, Float.parseFloat(txtTouristFee.getText()),
+						txtCity.getText(), currentActivity.getRegistrationDate(),
+						currentActivity.getSupplierNickname());
 
 				iActivityController.modifyActivity(updated);
 
@@ -171,7 +173,7 @@ public class ModifyActivity extends JInternalFrame {
 		txtTouristFee.setText("");
 		txtCity.setText("");
 		txtDischargeDate.setText("");
-		spnDuration.setValue(1);
+		txtDuration.setText("");
 		currentActivity = null;
 	}
 
@@ -179,7 +181,7 @@ public class ModifyActivity extends JInternalFrame {
 		String description = txtDescription.getText().trim();
 		String city = txtCity.getText().trim();
 		String costoText = txtTouristFee.getText().trim();
-		Object duracionValue = spnDuration.getValue();
+		String duracionValue = txtDuration.getText();
 
 		if (description.isEmpty() || city.isEmpty() || costoText.isEmpty()) {
 			JOptionPane.showMessageDialog(this, "Todos los campos son requeridos", "Error de validación",
@@ -189,7 +191,7 @@ public class ModifyActivity extends JInternalFrame {
 
 		int duracionHoras = 0;
 		try {
-			duracionHoras = (int) duracionValue;
+			duracionHoras = Integer.parseInt(duracionValue);
 			if (duracionHoras <= 0) {
 				JOptionPane.showMessageDialog(this, "La duración debe ser mayor que 0", "Error de validación",
 						JOptionPane.ERROR_MESSAGE);
