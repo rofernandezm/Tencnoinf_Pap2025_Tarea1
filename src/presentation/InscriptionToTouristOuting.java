@@ -66,7 +66,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 	private JButton btnConfirm;
 	private JButton btnCancel;
 
-	private static final String MSG_ACTIVITIES_NOT_FOUND = " No existen actividades turísticas registradas.";
+	private static final String MSG_ACTIVITIES_NOT_FOUND = "No existen actividades turísticas registradas.";
 
 	public InscriptionToTouristOuting(ITouristOutingAndInscriptionController itoic, ITouristActivityController itac,
 			IUserController iuc) {
@@ -393,7 +393,7 @@ public class InscriptionToTouristOuting extends JInternalFrame {
 
 		String touristActivityName = (String) comboBoxTouristActivities.getSelectedItem();
 
-		if (touristActivityName != null && !touristActivityName.isEmpty()) {
+		if (touristActivityName != null && !touristActivityName.isEmpty() && !touristActivityName.equals(MSG_ACTIVITIES_NOT_FOUND)) {
 			DtActivityWithOutings activityWithOutings = null;
 
 			try {
