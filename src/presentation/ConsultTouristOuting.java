@@ -53,6 +53,8 @@ public class ConsultTouristOuting extends JInternalFrame {
 	private JButton btnCloseWindow;
 	private DtActivityWithOutings activityWithOutingsData;
 
+
+	
 	public ConsultTouristOuting(ITouristOutingAndInscriptionController itoic, ITouristActivityController itac) {
 
 		controlTouristOutingAndInscription = itoic;

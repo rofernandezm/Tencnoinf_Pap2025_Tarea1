@@ -12,6 +12,7 @@ import java.awt.BorderLayout;
 import javax.swing.table.DefaultTableModel;
 
 import exceptions.ActivityDoesNotExistException;
+import exceptions.TouristOutingDoesNotExistException;
 import logic.dto.DtActivityWithOutings;
 import logic.dto.DtInscriptionTouristOuting;
 import logic.dto.DtTouristOuting;
@@ -20,6 +21,8 @@ import logic.interfaces.ITouristOutingAndInscriptionController;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.time.format.DateTimeFormatter;
+
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
@@ -49,6 +52,10 @@ public class ConsultTouristInscription extends JInternalFrame {
 	private JPanel borderOutingDeparturePoint;
 	private JPanel borderOutingDepartureDate;
 	private JPanel borderOutingDischargeDate;
+
+	// Patterns
+	private static final String DATE_FORMAT_DDMMYYY = "dd/MM/yyyy";
+	private static final String DATE_FORMAT_DDMMYYY_HHMM = "dd/MM/yyyy HH:mm";
 
 	public ConsultTouristInscription(ITouristOutingAndInscriptionController iOIC, ITouristActivityController iTAC) {
 
@@ -281,6 +288,7 @@ public class ConsultTouristInscription extends JInternalFrame {
 	private void checkOutingName() {
 		String outingName = (String) cbSalida.getSelectedItem();
 		if (outingName != null) {
+			fillOutingDetailsForm();
 			loadInscriptions(outingName);
 		}
 	}
@@ -343,7 +351,35 @@ public class ConsultTouristInscription extends JInternalFrame {
 		cbActividad.setSelectedItem(null);
 		cbSalida.setSelectedItem(null);
 		cbSalida.removeAllItems();
+		cleanOutingDetailsForm();
 		tableModel.setRowCount(0);
 
+	}
+
+	private void cleanOutingDetailsForm() {
+		fieldOutingName.setText("");
+		fieldOutingMaxCant.setText("");
+		fieldOutingDeparturePoint.setText("");
+		fieldOutingDepartureDate.setText("");
+		fieldOutingDischDate.setText("");
+	}
+
+	private void fillOutingDetailsForm() {
+		String outingName = (String) cbSalida.getSelectedItem();
+
+		try {
+			DtTouristOuting dt = iOutingController.consultTouristOutingData(outingName);
+
+			fieldOutingName.setText(dt.getOutingName());
+			fieldOutingMaxCant.setText(String.valueOf(dt.getMaxNumTourists()));
+			fieldOutingDeparturePoint.setText(dt.getDeparturePoint());
+			fieldOutingDepartureDate
+					.setText(dt.getDepartureDate().format(DateTimeFormatter.ofPattern(DATE_FORMAT_DDMMYYY_HHMM)));
+			fieldOutingDischDate
+					.setText(dt.getDischargeDate().format(DateTimeFormatter.ofPattern(DATE_FORMAT_DDMMYYY)));
+
+		} catch (TouristOutingDoesNotExistException e) {
+			e.printStackTrace();
+		}
 	}
 }
