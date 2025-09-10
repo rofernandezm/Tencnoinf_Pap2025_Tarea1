@@ -144,6 +144,7 @@ public class ConsultTouristInscription extends JInternalFrame {
 		gbl_touristOutingData.columnWeights = new double[] { 1.0, 1.0 };
 		gbl_touristOutingData.rowWeights = new double[] { 0.0, 0.0, 0.0 };
 		touristOutingData.setLayout(gbl_touristOutingData);
+		touristOutingData.setVisible(false);
 
 		borderOutingName = new JPanel();
 		borderOutingName.setBorder(new TitledBorder(new EmptyBorder(0, 0, 0, 0), "Nombre de salida:",
@@ -162,6 +163,8 @@ public class ConsultTouristInscription extends JInternalFrame {
 		borderOutingName.setLayout(gbl_borderOutingName);
 
 		fieldOutingName = new JTextField();
+		fieldOutingName.setBackground(new Color(255, 255, 255));
+		fieldOutingName.setEditable(false);
 		GridBagConstraints gbc_fieldOutingName = new GridBagConstraints();
 		gbc_fieldOutingName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_fieldOutingName.gridx = 0;
@@ -186,6 +189,8 @@ public class ConsultTouristInscription extends JInternalFrame {
 		borderOutingDepartureDate.setLayout(gbl_borderOutingDepartureDate);
 
 		fieldOutingDepartureDate = new JTextField();
+		fieldOutingDepartureDate.setBackground(new Color(255, 255, 255));
+		fieldOutingDepartureDate.setEditable(false);
 		GridBagConstraints gbc_fieldOutingDepartureDate = new GridBagConstraints();
 		gbc_fieldOutingDepartureDate.fill = GridBagConstraints.HORIZONTAL;
 		gbc_fieldOutingDepartureDate.gridx = 0;
@@ -210,6 +215,8 @@ public class ConsultTouristInscription extends JInternalFrame {
 		borderOutingMaxNum.setLayout(gbl_borderOutingMaxNum);
 
 		fieldOutingMaxCant = new JTextField();
+		fieldOutingMaxCant.setBackground(new Color(255, 255, 255));
+		fieldOutingMaxCant.setEditable(false);
 		GridBagConstraints gbc_fieldOutingMaxCant = new GridBagConstraints();
 		gbc_fieldOutingMaxCant.fill = GridBagConstraints.HORIZONTAL;
 		gbc_fieldOutingMaxCant.gridx = 0;
@@ -234,6 +241,8 @@ public class ConsultTouristInscription extends JInternalFrame {
 		borderOutingDischargeDate.setLayout(gbl_borderOutingDischargeDate);
 
 		fieldOutingDischDate = new JTextField();
+		fieldOutingDischDate.setBackground(new Color(255, 255, 255));
+		fieldOutingDischDate.setEditable(false);
 		GridBagConstraints gbc_fieldOutingDischDate = new GridBagConstraints();
 		gbc_fieldOutingDischDate.fill = GridBagConstraints.HORIZONTAL;
 		gbc_fieldOutingDischDate.gridx = 0;
@@ -258,6 +267,8 @@ public class ConsultTouristInscription extends JInternalFrame {
 		borderOutingDeparturePoint.setLayout(gbl_borderOutingDeparturePoint);
 
 		fieldOutingDeparturePoint = new JTextField();
+		fieldOutingDeparturePoint.setBackground(new Color(255, 255, 255));
+		fieldOutingDeparturePoint.setEditable(false);
 		GridBagConstraints gbc_fieldOutingDeparturePoint = new GridBagConstraints();
 		gbc_fieldOutingDeparturePoint.fill = GridBagConstraints.HORIZONTAL;
 		gbc_fieldOutingDeparturePoint.gridx = 0;
@@ -267,7 +278,7 @@ public class ConsultTouristInscription extends JInternalFrame {
 
 		tableModel = new DefaultTableModel();
 
-		tableModel.addColumn("Cliente");
+		tableModel.addColumn("Número de inscriptos");
 		tableModel.addColumn("Costo Total");
 		tableModel.addColumn("Fecha Inscripción");
 		tableInscripciones = new JTable(tableModel);
@@ -287,7 +298,7 @@ public class ConsultTouristInscription extends JInternalFrame {
 
 	private void checkOutingName() {
 		String outingName = (String) cbSalida.getSelectedItem();
-		if (outingName != null) {
+		if (outingName != null ) {
 			fillOutingDetailsForm();
 			loadInscriptions(outingName);
 		}
@@ -307,22 +318,12 @@ public class ConsultTouristInscription extends JInternalFrame {
 
 	private void loadOutings(String activityName) {
 		cbSalida.removeAllItems();
-		try {
-			DtActivityWithOutings dtActivity = iActivityController.consultTouristActivityData(activityName);
-
-			if (dtActivity != null && dtActivity.getOutings() != null) {
-				for (DtTouristOuting outing : dtActivity.getOutings()) {
-					cbSalida.addItem(outing.getOutingName());
-				}
-
-				// Llenar campos con los valores de la salida
-
-			}
-
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "Error al cargar salidas: " + e.getMessage(), "Error",
-					JOptionPane.ERROR_MESSAGE);
-		}
+		
+		String[] outingsByActivity = iOutingController.listTouristOutingByActivity(activityName);
+		outingsByActivity = outingsByActivity == null ? new String[]{"No existen salidas registradas"} : outingsByActivity;
+		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(outingsByActivity);
+		cbSalida.setModel(model);
+		cbSalida.setSelectedItem(null); 
 	}
 
 	private void loadInscriptions(String outingName) {
@@ -357,6 +358,7 @@ public class ConsultTouristInscription extends JInternalFrame {
 	}
 
 	private void cleanOutingDetailsForm() {
+		touristOutingData.setVisible(false);
 		fieldOutingName.setText("");
 		fieldOutingMaxCant.setText("");
 		fieldOutingDeparturePoint.setText("");
@@ -370,6 +372,8 @@ public class ConsultTouristInscription extends JInternalFrame {
 		try {
 			DtTouristOuting dt = iOutingController.consultTouristOutingData(outingName);
 
+			touristOutingData.setVisible(true);
+			
 			fieldOutingName.setText(dt.getOutingName());
 			fieldOutingMaxCant.setText(String.valueOf(dt.getMaxNumTourists()));
 			fieldOutingDeparturePoint.setText(dt.getDeparturePoint());
