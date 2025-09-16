@@ -10,7 +10,6 @@ import logic.interfaces.ITouristActivityController;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class ModifyActivity extends JInternalFrame {

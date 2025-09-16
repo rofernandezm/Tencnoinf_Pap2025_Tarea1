@@ -108,7 +108,7 @@ public class Main {
 
 	private void initialize() {
 
-		ResourceBundle texts = ResourceBundle.getBundle("resources.resources");
+		ResourceBundle texts = ResourceBundle.getBundle("resources.texts");
 		
 		frmTourismUy = new JFrame();
 		frmTourismUy.addContainerListener(new ContainerAdapter() {
@@ -198,6 +198,16 @@ public class Main {
 				hideAllComponents();
 				activityRankingInternalFrame.init();
 				activityRankingInternalFrame.setVisible(true);
+			}
+		});
+		
+		JMenuItem mnApprovalActivity = new JMenuItem(texts.getString("main.menu.activities.approval"));
+		menuActivities.add(mnApprovalActivity);
+		mnApprovalActivity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				hideAllComponents();
+//				activityRankingInternalFrame.init();
+//				activityRankingInternalFrame.setVisible(true);
 			}
 		});
 
