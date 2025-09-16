@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ContainerAdapter;
 import java.awt.event.ContainerEvent;
+import java.util.ResourceBundle;
 
 public class Main {
 
@@ -50,6 +51,7 @@ public class Main {
 	}
 
 	public Main() {
+		
 		initialize();
 
 		FactoryUyTourism factoryUyTourism = FactoryUyTourism.getInstance();
@@ -106,6 +108,8 @@ public class Main {
 
 	private void initialize() {
 
+		ResourceBundle texts = ResourceBundle.getBundle("resources.resources");
+		
 		frmTourismUy = new JFrame();
 		frmTourismUy.addContainerListener(new ContainerAdapter() {
 			@Override
@@ -113,7 +117,7 @@ public class Main {
 				frmTourismUy.pack();
 			}
 		});
-		frmTourismUy.setTitle("Turismo UY");
+		frmTourismUy.setTitle(texts.getString("main.title"));
 		frmTourismUy.setBounds(100, 100, 800, 600);
 		frmTourismUy.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -121,10 +125,10 @@ public class Main {
 		frmTourismUy.setJMenuBar(menuBar);
 
 		// Menu Users
-		JMenu menuUsers = new JMenu("Usuarios");
+		JMenu menuUsers = new JMenu(texts.getString("main.menu.users"));
 		menuBar.add(menuUsers);
 
-		JMenuItem createUser = new JMenuItem("Alta Usuario");
+		JMenuItem createUser = new JMenuItem(texts.getString("main.menu.users.create"));
 		menuUsers.add(createUser);
 		createUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -133,7 +137,7 @@ public class Main {
 			}
 		});
 
-		JMenuItem mnConsultUser = new JMenuItem("Consultar Usuarios");
+		JMenuItem mnConsultUser = new JMenuItem(texts.getString("main.menu.users.consult"));
 		menuUsers.add(mnConsultUser);
 		mnConsultUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -142,7 +146,7 @@ public class Main {
 			}
 		});
 
-		JMenuItem mnModifyUser = new JMenuItem("Modificar Datos Usuario");
+		JMenuItem mnModifyUser = new JMenuItem(texts.getString("main.menu.users.modify"));
 		menuUsers.add(mnModifyUser);
 		mnModifyUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -152,10 +156,10 @@ public class Main {
 		});
 
 		// Menu Activities
-		JMenu menuActivities = new JMenu("Actividades");
+		JMenu menuActivities = new JMenu(texts.getString("main.menu.activities"));
 		menuBar.add(menuActivities);
 
-		JMenuItem menuItemAddAct = new JMenuItem("Alta Actividad");
+		JMenuItem menuItemAddAct = new JMenuItem(texts.getString("main.menu.activities.create"));
 		menuActivities.add(menuItemAddAct);
 		menuItemAddAct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -166,7 +170,7 @@ public class Main {
 			}
 		});
 
-		JMenuItem mnConsultActivity = new JMenuItem("Consultar Actividad");
+		JMenuItem mnConsultActivity = new JMenuItem(texts.getString("main.menu.activities.consult"));
 		menuActivities.add(mnConsultActivity);
 		mnConsultActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -177,7 +181,7 @@ public class Main {
 			}
 		});
 
-		JMenuItem mnModifyActivity = new JMenuItem("Modificar Actividad");
+		JMenuItem mnModifyActivity = new JMenuItem(texts.getString("main.menu.activities.modify"));
 		menuActivities.add(mnModifyActivity);
 		mnModifyActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -187,7 +191,7 @@ public class Main {
 			}
 		});
 
-		JMenuItem mnRankingActivity = new JMenuItem("Ranking Actividades");
+		JMenuItem mnRankingActivity = new JMenuItem(texts.getString("main.menu.activities.ranking"));
 		menuActivities.add(mnRankingActivity);
 		mnRankingActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -197,10 +201,10 @@ public class Main {
 			}
 		});
 
-		JMenu mnOuting = new JMenu("Salidas");
+		JMenu mnOuting = new JMenu(texts.getString("main.menu.outings"));
 		menuBar.add(mnOuting);
 
-		JMenuItem mnCreateOuting = new JMenuItem("Alta Salida");
+		JMenuItem mnCreateOuting = new JMenuItem(texts.getString("main.menu.outings.create"));
 		mnOuting.add(mnCreateOuting);
 		mnCreateOuting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -210,7 +214,7 @@ public class Main {
 			}
 		});
 
-		JMenuItem mnConsultOutingBKP = new JMenuItem("Consultar Salida");
+		JMenuItem mnConsultOutingBKP = new JMenuItem(texts.getString("main.menu.outings.consult"));
 		mnOuting.add(mnConsultOutingBKP);
 		mnConsultOutingBKP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -220,10 +224,10 @@ public class Main {
 			}
 		});
 
-		JMenu mnInscription = new JMenu("Inscripciones");
+		JMenu mnInscription = new JMenu(texts.getString("main.menu.inscriptions"));
 		menuBar.add(mnInscription);
 
-		JMenuItem mnCreateInscription = new JMenuItem("Nueva Inscripcion");
+		JMenuItem mnCreateInscription = new JMenuItem(texts.getString("main.menu.inscriptions.create"));
 		mnInscription.add(mnCreateInscription);
 		mnCreateInscription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -233,7 +237,7 @@ public class Main {
 			}
 		});
 
-		JMenuItem mnConsultInscription = new JMenuItem("Consultar Inscripciones");
+		JMenuItem mnConsultInscription = new JMenuItem(texts.getString("main.menu.inscriptions.consult"));
 		mnInscription.add(mnConsultInscription);
 		mnConsultInscription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -243,10 +247,10 @@ public class Main {
 			}
 		});
 
-		JMenu menuSystem = new JMenu("Sistema");
+		JMenu menuSystem = new JMenu(texts.getString("main.menu.system"));
 		menuBar.add(menuSystem);
 
-		JMenuItem menuExit = new JMenuItem("Salir");
+		JMenuItem menuExit = new JMenuItem(texts.getString("main.menu.system.exit"));
 		menuExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				hideAllComponents();
