@@ -283,5 +283,6 @@ public class Main {
 		consultInscriptionInternalFrame.setVisible(false);
 		consultUserInternalFrame.setVisible(false);
 		modifyUserInternalFrame.setVisible(false);
+		activityRankingInternalFrame.setVisible(false);
 	}
 }
