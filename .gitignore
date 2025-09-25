@@ -25,4 +25,4 @@ replay_pid*
 /bin/
 
 !/backend/lib/*jar
-!/data/db/
+!/backend/data/db/
