@@ -12,6 +12,7 @@ public class DtTouristActivity {
 	private String city;
 	private LocalDate registratioDate;
 	private String supplierNickname;
+	private TouristActivityStatus status;
 
 	public DtTouristActivity() {
 	};
@@ -53,5 +54,13 @@ public class DtTouristActivity {
 
 	public String getSupplierNickname() {
 		return supplierNickname;
+	}
+
+	public TouristActivityStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(TouristActivityStatus status) {
+		this.status = status;
 	}
 }
