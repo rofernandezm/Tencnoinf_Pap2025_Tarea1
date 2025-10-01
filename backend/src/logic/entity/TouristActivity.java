@@ -6,6 +6,7 @@ import java.util.Map;
 
 import jakarta.persistence.*;
 import logic.dto.DtTouristActivity;
+import logic.dto.TouristActivityStatus;
 
 @Entity
 public class TouristActivity {
@@ -18,6 +19,7 @@ public class TouristActivity {
 	private float touristFee;
 	private String city;
 	private LocalDate dischargeDate;
+	private TouristActivityStatus status;
 
 	// Relation with one Supplier
 	// We use an attribute with the name supplier as link with the parent
@@ -44,6 +46,7 @@ public class TouristActivity {
 		this.touristFee = touristFee;
 		this.city = city;
 		this.dischargeDate = dischargeDate;
+		this.status = TouristActivityStatus.ADDED;
 	};
 
 	public TouristActivity(DtTouristActivity dtTouristActivity) {
@@ -122,5 +125,13 @@ public class TouristActivity {
 	public DtTouristActivity getDtTouristActivity() {
 		return new DtTouristActivity(this.activityName, this.description, this.duration, this.touristFee, this.city,
 				this.dischargeDate, this.supplier.getNickname());
+	}
+
+	public TouristActivityStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(TouristActivityStatus status) {
+		this.status = status;
 	}
 }
