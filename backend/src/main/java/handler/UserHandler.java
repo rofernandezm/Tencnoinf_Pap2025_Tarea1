@@ -1,0 +1,121 @@
+package handler;
+
+import java.util.List;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
+import dto.DtUser;
+import entity.Supplier;
+import entity.Tourist;
+import entity.User;
+
+public class UserHandler {
+	private static UserHandler instance = null;
+
+	private UserHandler() {
+	}
+
+	public static UserHandler getIntance() {
+
+		if (instance == null)
+			instance = new UserHandler();
+
+		return instance;
+	}
+
+	public void addUser(User user) {
+
+		EntityManager em = PersistenceHandler.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		em.persist(user);
+		tx.commit();
+		em.close();
+	}
+
+	public User getUserByNickname(String nickname) {
+
+		EntityManager em = PersistenceHandler.getEntityManager();
+		User userByNickname = em.find(User.class, nickname);
+		em.close();
+		return userByNickname;
+	}
+
+	public Boolean existNickname(String nickname) {
+
+		Boolean exist = false;
+		EntityManager em = PersistenceHandler.getEntityManager();
+		exist = (em.find(User.class, nickname) != null);
+		em.close();
+		return exist;
+	}
+
+	public Boolean existEmail(String email) {
+
+		Boolean exist = false;
+		EntityManager em = PersistenceHandler.getEntityManager();
+		// A diferencia de Query, no requiere casteo de tipo
+		TypedQuery<User> q = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
+		q.setParameter("email", email);
+		exist = !q.getResultList().isEmpty();
+
+		em.close();
+		return exist;
+	}
+
+	public String[] listUsers() {
+
+		EntityManager em = PersistenceHandler.getEntityManager();
+		TypedQuery<User> q = em.createQuery("SELECT u FROM User u", User.class);
+		List<User> obj_users = q.getResultList();
+		String[] nicknames = obj_users.size() > 0 ? new String[obj_users.size()] : null;
+		for (int ind = 0; ind < obj_users.size(); ind++) {
+			nicknames[ind] = obj_users.get(ind).getNickname();
+		}
+		em.close();
+		return nicknames;
+	}
+
+	public String[] listSuppliers() {
+
+		EntityManager em = PersistenceHandler.getEntityManager();
+		TypedQuery<Supplier> q = em.createQuery("SELECT s FROM Supplier s", Supplier.class);
+		List<Supplier> obj_suppliers = q.getResultList();
+		String[] suppliers = obj_suppliers.size() > 0 ? new String[obj_suppliers.size()] : null;
+		for (int ind = 0; ind < obj_suppliers.size(); ind++) {
+			suppliers[ind] = obj_suppliers.get(ind).getNickname();
+		}
+		em.close();
+		return suppliers;
+
+	}
+
+	public String[] listTourists() {
+
+		EntityManager em = PersistenceHandler.getEntityManager();
+		TypedQuery<Tourist> q = em.createQuery("SELECT s FROM Tourist s", Tourist.class);
+		List<Tourist> obj_tourist = q.getResultList();
+		String[] tourist = new String[obj_tourist.size()];
+		for (int ind = 0; ind < obj_tourist.size(); ind++) {
+			tourist[ind] = obj_tourist.get(ind).getNickname();
+		}
+		em.close();
+		return tourist;
+	}
+
+	public void updateUser(DtUser dtUser) {
+		EntityManager em = PersistenceHandler.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		User user = em.find(User.class, dtUser.getNickname());
+		if (user != null) {
+			user.setName(dtUser.getName());
+			user.setLastName(dtUser.getLastName());
+			user.setBirthDate(dtUser.getBirthDate());
+		}
+		tx.commit();
+		em.close();
+	}
+
+}
