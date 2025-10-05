@@ -26,4 +26,4 @@ replay_pid*
 
 !/backend/lib/*jar
 !/backend/data/db/
-!/server/apache-tomcat-11.0.11/*jar
+!/server/apache-tomcat-11.0.11/lib/*.jar
