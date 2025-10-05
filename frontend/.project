@@ -3,6 +3,7 @@
 	<name>turismouy.UI</name>
 	<comment></comment>
 	<projects>
+		<project>turismouy.Backend</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
