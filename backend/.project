@@ -25,4 +25,10 @@
 			</matcher>
 		</filter>
 	</filteredResources>
+	<variableList>
+		<variable>
+			<name>TURISMO_LIBS</name>
+			<value>file:/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/lib</value>
+		</variable>
+	</variableList>
 </projectDescription>
