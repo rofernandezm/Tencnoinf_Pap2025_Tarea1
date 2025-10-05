@@ -21,11 +21,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import dto.DtTouristOuting;
-import exceptions.ActivityDoesNotExistException;
-import exceptions.RepeatedTouristOutingException;
-import interfaces.ITouristActivityController;
-import interfaces.ITouristOutingAndInscriptionController;
+import turismouyapp.core.dto.DtTouristOuting;
+import turismouyapp.core.exceptions.ActivityDoesNotExistException;
+import turismouyapp.core.exceptions.RepeatedTouristOutingException;
+import turismouyapp.core.interfaces.ITouristActivityController;
+import turismouyapp.core.interfaces.ITouristOutingAndInscriptionController;
 
 public class TouristOutingRegistration extends JInternalFrame {
 

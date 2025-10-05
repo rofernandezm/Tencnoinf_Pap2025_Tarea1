@@ -17,10 +17,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import dto.DtTouristActivity;
-import exceptions.RepeatedActivityNameException;
-import interfaces.ITouristActivityController;
-import interfaces.IUserController;
+import turismouyapp.core.dto.DtTouristActivity;
+import turismouyapp.core.exceptions.RepeatedActivityNameException;
+import turismouyapp.core.interfaces.ITouristActivityController;
+import turismouyapp.core.interfaces.IUserController;
 
 public class CreateActivity extends JInternalFrame {
 

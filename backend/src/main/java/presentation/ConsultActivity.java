@@ -21,11 +21,11 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import dto.DtActivityWithOutings;
-import dto.DtTouristActivity;
-import dto.DtTouristOuting;
-import exceptions.ActivityDoesNotExistException;
-import interfaces.ITouristActivityController;
+import turismouyapp.core.dto.DtActivityWithOutings;
+import turismouyapp.core.dto.DtTouristActivity;
+import turismouyapp.core.dto.DtTouristOuting;
+import turismouyapp.core.exceptions.ActivityDoesNotExistException;
+import turismouyapp.core.interfaces.ITouristActivityController;
 
 public class ConsultActivity extends JInternalFrame {
 

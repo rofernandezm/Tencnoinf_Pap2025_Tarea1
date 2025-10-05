@@ -2,15 +2,15 @@ package presentation;
 
 import javax.swing.JInternalFrame;
 
-import dto.DtActivityWithOutings;
-import dto.DtInscriptionTouristOuting;
-import dto.DtTouristOuting;
-import exceptions.ActivityDoesNotExistException;
-import exceptions.RepeatedInscriptionToTouristOutingException;
-import exceptions.TouristOutingDoesNotExistException;
-import interfaces.ITouristActivityController;
-import interfaces.ITouristOutingAndInscriptionController;
-import interfaces.IUserController;
+import turismouyapp.core.dto.DtActivityWithOutings;
+import turismouyapp.core.dto.DtInscriptionTouristOuting;
+import turismouyapp.core.dto.DtTouristOuting;
+import turismouyapp.core.exceptions.ActivityDoesNotExistException;
+import turismouyapp.core.exceptions.RepeatedInscriptionToTouristOutingException;
+import turismouyapp.core.exceptions.TouristOutingDoesNotExistException;
+import turismouyapp.core.interfaces.ITouristActivityController;
+import turismouyapp.core.interfaces.ITouristOutingAndInscriptionController;
+import turismouyapp.core.interfaces.IUserController;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

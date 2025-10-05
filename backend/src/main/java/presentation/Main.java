@@ -6,10 +6,10 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import factory.FactoryUyTourism;
-import interfaces.ITouristActivityController;
-import interfaces.ITouristOutingAndInscriptionController;
-import interfaces.IUserController;
+import turismouyapp.core.factory.FactoryUyTourism;
+import turismouyapp.core.interfaces.ITouristActivityController;
+import turismouyapp.core.interfaces.ITouristOutingAndInscriptionController;
+import turismouyapp.core.interfaces.IUserController;
 
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent;

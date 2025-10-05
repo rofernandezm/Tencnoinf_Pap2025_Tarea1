@@ -2,12 +2,12 @@ package presentation;
 
 import javax.swing.JInternalFrame;
 
-import dto.DtSupplier;
-import dto.DtTourist;
-import dto.DtUser;
-import exceptions.RepeatedUserEmailException;
-import exceptions.RepeatedUserNicknameException;
-import interfaces.IUserController;
+import turismouyapp.core.dto.DtSupplier;
+import turismouyapp.core.dto.DtTourist;
+import turismouyapp.core.dto.DtUser;
+import turismouyapp.core.exceptions.RepeatedUserEmailException;
+import turismouyapp.core.exceptions.RepeatedUserNicknameException;
+import turismouyapp.core.interfaces.IUserController;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

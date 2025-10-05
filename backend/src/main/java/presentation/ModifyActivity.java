@@ -3,9 +3,9 @@ package presentation;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import dto.DtTouristActivity;
-import exceptions.ActivityDoesNotExistException;
-import interfaces.ITouristActivityController;
+import turismouyapp.core.dto.DtTouristActivity;
+import turismouyapp.core.exceptions.ActivityDoesNotExistException;
+import turismouyapp.core.interfaces.ITouristActivityController;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

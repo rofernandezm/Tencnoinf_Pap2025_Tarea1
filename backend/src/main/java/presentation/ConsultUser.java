@@ -18,16 +18,16 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 
-import dto.DtTouristActivity;
-import dto.DtTouristOuting;
-import dto.DtUser;
-import dto.DtUserProfile;
-import dto.UserType;
-import exceptions.ActivityDoesNotExistException;
-import exceptions.TouristOutingDoesNotExistException;
-import interfaces.ITouristActivityController;
-import interfaces.ITouristOutingAndInscriptionController;
-import interfaces.IUserController;
+import turismouyapp.core.dto.DtTouristActivity;
+import turismouyapp.core.dto.DtTouristOuting;
+import turismouyapp.core.dto.DtUser;
+import turismouyapp.core.dto.DtUserProfile;
+import turismouyapp.core.dto.UserType;
+import turismouyapp.core.exceptions.ActivityDoesNotExistException;
+import turismouyapp.core.exceptions.TouristOutingDoesNotExistException;
+import turismouyapp.core.interfaces.ITouristActivityController;
+import turismouyapp.core.interfaces.ITouristOutingAndInscriptionController;
+import turismouyapp.core.interfaces.IUserController;
 
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;

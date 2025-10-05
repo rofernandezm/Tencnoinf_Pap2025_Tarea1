@@ -2,13 +2,13 @@ package presentation;
 
 import javax.swing.JInternalFrame;
 
-import dto.DtActivityWithOutings;
-import dto.DtTouristActivity;
-import dto.DtTouristOuting;
-import exceptions.ActivityDoesNotExistException;
-import exceptions.TouristOutingDoesNotExistException;
-import interfaces.ITouristActivityController;
-import interfaces.ITouristOutingAndInscriptionController;
+import turismouyapp.core.dto.DtActivityWithOutings;
+import turismouyapp.core.dto.DtTouristActivity;
+import turismouyapp.core.dto.DtTouristOuting;
+import turismouyapp.core.exceptions.ActivityDoesNotExistException;
+import turismouyapp.core.exceptions.TouristOutingDoesNotExistException;
+import turismouyapp.core.interfaces.ITouristActivityController;
+import turismouyapp.core.interfaces.ITouristOutingAndInscriptionController;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;

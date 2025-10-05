@@ -3,8 +3,8 @@ package presentation;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import dto.DtRanking;
-import interfaces.ITouristActivityController;
+import turismouyapp.core.dto.DtRanking;
+import turismouyapp.core.interfaces.ITouristActivityController;
 
 import java.awt.*;
 

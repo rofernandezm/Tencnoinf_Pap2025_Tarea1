@@ -29,11 +29,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import dto.DtSupplier;
-import dto.DtTourist;
-import dto.DtUser;
-import dto.UserType;
-import interfaces.IUserController;
+import turismouyapp.core.dto.DtSupplier;
+import turismouyapp.core.dto.DtTourist;
+import turismouyapp.core.dto.DtUser;
+import turismouyapp.core.dto.UserType;
+import turismouyapp.core.interfaces.IUserController;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;

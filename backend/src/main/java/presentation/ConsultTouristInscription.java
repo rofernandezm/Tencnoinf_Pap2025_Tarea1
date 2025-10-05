@@ -11,12 +11,12 @@ import javax.swing.JTable;
 import java.awt.BorderLayout;
 import javax.swing.table.DefaultTableModel;
 
-import dto.DtInscriptionTouristOuting;
-import dto.DtTouristOuting;
-import exceptions.ActivityDoesNotExistException;
-import exceptions.TouristOutingDoesNotExistException;
-import interfaces.ITouristActivityController;
-import interfaces.ITouristOutingAndInscriptionController;
+import turismouyapp.core.dto.DtInscriptionTouristOuting;
+import turismouyapp.core.dto.DtTouristOuting;
+import turismouyapp.core.exceptions.ActivityDoesNotExistException;
+import turismouyapp.core.exceptions.TouristOutingDoesNotExistException;
+import turismouyapp.core.interfaces.ITouristActivityController;
+import turismouyapp.core.interfaces.ITouristOutingAndInscriptionController;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
