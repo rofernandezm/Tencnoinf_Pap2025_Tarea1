@@ -18,10 +18,7 @@ Sistema de gestión turística desarrollado en Java con arquitectura en capas, u
   - [2. Instalación de Maven](#2-instalación-de-maven)
   - [3. Clonación del Repositorio](#3-clonación-del-repositorio)
   - [4. Compilación del Proyecto](#4-compilación-del-proyecto)
-<<<<<<< Updated upstream
-=======
 - [Generación de Documentación Javadoc](#-generación-de-documentación-javadoc)
->>>>>>> Stashed changes
 - [Configuración del Servidor](#-configuración-del-servidor)
 - [Configuración en Eclipse IDE](#-configuración-en-eclipse-ide)
 - [Ejecución del Proyecto](#-ejecución-del-proyecto)
@@ -437,7 +434,6 @@ O simplemente abrir `index.html` directamente en un navegador.
 
 ---
 
->>>>>>> Stashed changes
 ## 🖥️ Configuración del Servidor
 
 ### Estructura del Servidor Tomcat
