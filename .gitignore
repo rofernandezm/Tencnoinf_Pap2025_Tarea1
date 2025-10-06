@@ -1,16 +1,6 @@
-# Compiled class file
+# === Java / Maven ===
 *.class
-
-# Log file
 *.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
 *.jar
 *.war
 *.nar
@@ -18,14 +8,31 @@
 *.zip
 *.tar.gz
 *.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
-/bin/
 
-!/backend/lib/*jar
-!/backend/data/db/
-!/server/apache-tomcat-11.0.11/*
-!/server/apache-tomcat-11.0.11/lib/*.jar
-!/server/apache-tomcat-11.0.11/bin/*.jar
+# Maven output
+/target/
+/*/target/
+
+# === IDE ===
+.idea/
+*.iml
+out/
+
+# === Tomcat portable config ===
+!/server/apache-tomcat-11.0.11/bin/
+!/server/apache-tomcat-11.0.11/lib/
+!/server/apache-tomcat-11.0.11/conf/
+!/server/apache-tomcat-11.0.11/data/
+
+# Exclude generated runtime content
+/server/apache-tomcat-11.0.11/logs/
+/server/apache-tomcat-11.0.11/temp/
+/server/apache-tomcat-11.0.11/work/
+/server/apache-tomcat-11.0.11/webapps/
+/server/apache-tomcat-11.0.11/wtpwebapps/
+/server/apache-tomcat-11.0.11/backup/
+
+# === Other ===
+/bin/
