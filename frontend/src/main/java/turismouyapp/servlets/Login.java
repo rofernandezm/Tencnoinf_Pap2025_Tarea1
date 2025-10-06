@@ -1,4 +1,4 @@
-package turismouy.servlet;
+package turismouyapp.servlets;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
