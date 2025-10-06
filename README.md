@@ -18,6 +18,10 @@ Sistema de gestión turística desarrollado en Java con arquitectura en capas, u
   - [2. Instalación de Maven](#2-instalación-de-maven)
   - [3. Clonación del Repositorio](#3-clonación-del-repositorio)
   - [4. Compilación del Proyecto](#4-compilación-del-proyecto)
+<<<<<<< Updated upstream
+=======
+- [Generación de Documentación Javadoc](#-generación-de-documentación-javadoc)
+>>>>>>> Stashed changes
 - [Configuración del Servidor](#-configuración-del-servidor)
 - [Configuración en Eclipse IDE](#-configuración-en-eclipse-ide)
 - [Ejecución del Proyecto](#-ejecución-del-proyecto)
@@ -245,6 +249,195 @@ frontend/target/turismouy-ui.war            ← WAR del frontend
 
 ---
 
+<<<<<<< Updated upstream
+=======
+## 📚 Generación de Documentación Javadoc
+
+### Generar Javadoc del Backend
+
+La documentación Javadoc del backend incluye todas las clases, interfaces, DTOs, entidades JPA y controladores.
+
+#### Desde Terminal/Línea de Comandos
+
+**Linux/macOS:**
+```bash
+cd backend
+mvn javadoc:javadoc
+
+# Ver documentación generada
+xdg-open target/site/apidocs/index.html  # Linux
+open target/site/apidocs/index.html      # macOS
+```
+
+**Windows:**
+```cmd
+cd backend
+mvn javadoc:javadoc
+
+REM Ver documentación generada
+start target\site\apidocs\index.html
+```
+
+#### Desde Eclipse
+
+1. Click derecho en proyecto `backend`
+2. **Run As → Maven build...**
+3. En **Goals**, escribir: `javadoc:javadoc`
+4. Click **Run**
+5. Refrescar proyecto (F5)
+6. Navegar a `backend/target/site/apidocs/index.html`
+7. Click derecho → **Open With → Web Browser**
+
+#### Ubicación de la Documentación
+
+```
+backend/target/site/apidocs/
+├── index.html                          # Página principal
+├── overview-tree.html                  # Árbol de jerarquía
+├── allclasses-index.html              # Índice de todas las clases
+├── deprecated-list.html               # Elementos deprecados
+├── presentation/                       # Paquete GUI Swing
+│   ├── Main.html
+│   └── ...
+└── turismouyapp/core/
+    ├── controller/                    # Controladores de negocio
+    │   ├── UserController.html
+    │   ├── TouristActivityController.html
+    │   └── TouristOutingAndInscriptionController.html
+    ├── entity/                        # Entidades JPA
+    │   ├── User.html
+    │   ├── Tourist.html
+    │   ├── Supplier.html
+    │   ├── TouristActivity.html
+    │   ├── TouristOuting.html
+    │   └── Inscription.html
+    ├── dto/                           # Data Transfer Objects
+    │   ├── DtUser.html
+    │   ├── DtTourist.html
+    │   ├── DtSupplier.html
+    │   └── ...
+    ├── interfaces/                    # Interfaces de controladores
+    │   ├── IUserController.html
+    │   ├── ITouristActivityController.html
+    │   └── ITouristOutingAndInscriptionController.html
+    ├── exceptions/                    # Excepciones personalizadas
+    ├── factory/                       # Factory pattern
+    ├── handler/                       # Handlers de persistencia
+    └── db/                           # Gestión base de datos
+```
+
+#### Configuración Avanzada de Javadoc
+
+Para personalizar la generación, editar `backend/pom.xml`:
+
+```xml
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-javadoc-plugin</artifactId>
+      <version>3.6.3</version>
+      <configuration>
+        <show>private</show>                    <!-- Mostrar métodos privados -->
+        <source>17</source>                     <!-- Java version -->
+        <windowtitle>TurismoUY API Documentation</windowtitle>
+        <doctitle>TurismoUY - Backend API</doctitle>
+        <bottom>Copyright © 2025 TurismoUY Team. All Rights Reserved.</bottom>
+        <additionalOptions>
+          <additionalOption>-html5</additionalOption>
+        </additionalOptions>
+      </configuration>
+    </plugin>
+  </plugins>
+</build>
+```
+
+#### Generar Javadoc JAR (para distribución)
+
+```bash
+cd backend
+mvn javadoc:jar
+
+# Genera: backend/target/turismouy.Backend-1.0.0-javadoc.jar
+```
+
+### Estructura de la Documentación Generada
+
+La documentación Javadoc incluye:
+
+#### **Página de Overview** (`overview.html`)
+- Descripción general del sistema
+- Arquitectura en capas
+- Patrones de diseño utilizados
+- Modelo de dominio con relaciones
+- Flujos de trabajo típicos
+- Ejemplos de código
+
+#### **Documentación de Paquetes**
+
+Cada paquete tiene su archivo `package-info.java` con documentación detallada:
+
+| Paquete | Descripción | Componentes Clave |
+|---------|-------------|-------------------|
+| `presentation` | Interfaz Swing (GUI escritorio) | Main, CreateUser, CreateActivity |
+| `turismouyapp.core` | Core del sistema | Raíz de todos los componentes backend |
+| `core.controller` | Lógica de negocio | UserController, TouristActivityController |
+| `core.entity` | Entidades JPA | User, Tourist, Supplier, TouristActivity |
+| `core.dto` | Data Transfer Objects | DtUser, DtTourist, DtActivity |
+| `core.interfaces` | Contratos de controladores | IUserController, ITouristActivityController |
+| `core.handler` | Persistencia y DAO | UserHandler, TouristActivityHandler |
+| `core.factory` | Factory pattern | FactoryUyTourism |
+| `core.exceptions` | Excepciones de negocio | RepeatedUserNicknameException, etc. |
+| `core.db` | Gestión de base de datos | HsqldbServerListener |
+
+#### **Documentación de Clases**
+
+Cada clase incluye:
+- ✅ Descripción de propósito y responsabilidades
+- ✅ Documentación de métodos públicos y protegidos
+- ✅ Parámetros con tipos y descripciones
+- ✅ Valores de retorno documentados
+- ✅ Excepciones que pueden lanzarse
+- ✅ Ejemplos de uso (cuando aplica)
+- ✅ Referencias cruzadas (@see, @link)
+
+#### **Índices y Referencias**
+
+- **All Classes**: Índice alfabético de todas las clases
+- **Class Hierarchy**: Árbol de herencia de clases
+- **Deprecated List**: Elementos deprecados (si los hay)
+- **Index**: Índice de todos los elementos
+
+### Visualizar Javadoc Localmente
+
+Después de generar la documentación:
+
+**Linux:**
+```bash
+cd backend/target/site/apidocs
+python3 -m http.server 8000
+# Abrir: http://localhost:8000
+```
+
+**Windows:**
+```cmd
+cd backend\target\site\apidocs
+python -m http.server 8000
+REM Abrir: http://localhost:8000
+```
+
+**macOS:**
+```bash
+cd backend/target/site/apidocs
+python3 -m http.server 8000
+# Abrir: http://localhost:8000
+```
+
+O simplemente abrir `index.html` directamente en un navegador.
+
+---
+
+>>>>>>> Stashed changes
 ## 🖥️ Configuración del Servidor
 
 ### Estructura del Servidor Tomcat
