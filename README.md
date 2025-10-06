@@ -14,11 +14,11 @@ Sistema de gestión turística desarrollado en Java con arquitectura en capas, u
 - [Arquitectura del Proyecto](#-arquitectura-del-proyecto)
 - [Requisitos del Sistema](#-requisitos-del-sistema)
 - [Instalación y Configuración](#-instalación-y-configuración)
-  - [1. Instalación de Java](#1-instalación-de-java)
-  - [2. Instalación de Maven](#2-instalación-de-maven)
-  - [3. Clonación del Repositorio](#3-clonación-del-repositorio)
-  - [4. Compilación del Proyecto](#4-compilación-del-proyecto)
-- [Generación de Documentación Javadoc](#-generación-de-documentación-javadoc)
+  - [1. Instalación de Maven](#1-instalación-de-maven)
+  - [2. Compilación del Proyecto](#2-compilación-del-proyecto)
+- [Documentación Javadoc](#-documentación-javadoc)
+  - [Backend](#documentación-del-backend)
+  - [Frontend](#documentación-del-frontend)
 - [Configuración del Servidor](#-configuración-del-servidor)
 - [Configuración en Eclipse IDE](#-configuración-en-eclipse-ide)
 - [Ejecución del Proyecto](#-ejecución-del-proyecto)
@@ -74,83 +74,11 @@ El proyecto TurismoUY está organizado en tres módulos principales:
 | **Eclipse IDE** | 2023-06 | 2024-03+ | (Opcional) IDE con soporte Jakarta EE |
 | **Git** | 2.x | Última | Control de versiones |
 
-### Sistemas Operativos Soportados
-- ✅ **Windows** 10/11 (64-bit)
-- ✅ **Linux** (Ubuntu 20.04+, Fedora, Debian, etc.)
-- ✅ **macOS** 11+ (Big Sur o superior)
-
-### Recursos de Hardware
-- **RAM**: Mínimo 4GB (recomendado 8GB)
-- **Disco**: 2GB libres
-- **Procesador**: Dual-core 2.0 GHz o superior
-
 ---
 
 ## 🚀 Instalación y Configuración
 
-### 1. Instalación de Java
-
-#### Windows
-1. Descargar JDK 17 desde [Oracle](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) o [Adoptium](https://adoptium.net/)
-2. Ejecutar el instalador y seguir las instrucciones
-3. Configurar variables de entorno:
-   ```cmd
-   setx JAVA_HOME "C:\Program Files\Java\jdk-17"
-   setx PATH "%JAVA_HOME%\bin;%PATH%"
-   ```
-4. Verificar instalación:
-   ```cmd
-   java -version
-   javac -version
-   ```
-
-#### Linux (Ubuntu/Debian)
-```bash
-# Instalar OpenJDK 17
-sudo apt update
-sudo apt install openjdk-17-jdk openjdk-17-jre -y
-
-# Configurar JAVA_HOME
-echo 'export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64' >> ~/.bashrc
-echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
-source ~/.bashrc
-
-# Verificar instalación
-java -version
-javac -version
-```
-
-#### Linux (Fedora/RHEL)
-```bash
-# Instalar OpenJDK 17
-sudo dnf install java-17-openjdk java-17-openjdk-devel -y
-
-# Configurar JAVA_HOME
-echo 'export JAVA_HOME=/usr/lib/jvm/java-17-openjdk' >> ~/.bashrc
-echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
-source ~/.bashrc
-
-# Verificar
-java -version
-```
-
-#### macOS
-```bash
-# Con Homebrew
-brew install openjdk@17
-
-# Configurar JAVA_HOME
-echo 'export JAVA_HOME=$(/usr/libexec/java_home -v 17)' >> ~/.zshrc
-echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.zshrc
-source ~/.zshrc
-
-# Verificar
-java -version
-```
-
----
-
-### 2. Instalación de Maven
+### 1. Instalación de Maven
 
 #### Windows
 1. Descargar Maven desde [maven.apache.org](https://maven.apache.org/download.cgi)
@@ -189,20 +117,7 @@ mvn -version
 
 ---
 
-### 3. Clonación del Repositorio
-
-```bash
-# Clonar el repositorio
-git clone https://github.com/rofernandezm/Tencnoinf_Pap2025_Tarea1.git
-
-# Cambiar a la rama develop/maven-migration
-cd Tencnoinf_Pap2025_Tarea1
-git checkout develop/maven-migration
-```
-
----
-
-### 4. Compilación del Proyecto
+### 2. Compilación del Proyecto
 
 #### Compilación Completa (Recomendado)
 
@@ -246,42 +161,11 @@ frontend/target/turismouy-ui.war            ← WAR del frontend
 
 ---
 
-## 📚 Generación de Documentación Javadoc
+## 📚 Documentación Javadoc
 
-### Generar Javadoc del Backend
+### Documentación del Backend
 
 La documentación Javadoc del backend incluye todas las clases, interfaces, DTOs, entidades JPA y controladores.
-
-#### Desde Terminal/Línea de Comandos
-
-**Linux/macOS:**
-```bash
-cd backend
-mvn javadoc:javadoc
-
-# Ver documentación generada
-xdg-open target/site/apidocs/index.html  # Linux
-open target/site/apidocs/index.html      # macOS
-```
-
-**Windows:**
-```cmd
-cd backend
-mvn javadoc:javadoc
-
-REM Ver documentación generada
-start target\site\apidocs\index.html
-```
-
-#### Desde Eclipse
-
-1. Click derecho en proyecto `backend`
-2. **Run As → Maven build...**
-3. En **Goals**, escribir: `javadoc:javadoc`
-4. Click **Run**
-5. Refrescar proyecto (F5)
-6. Navegar a `backend/target/site/apidocs/index.html`
-7. Click derecho → **Open With → Web Browser**
 
 #### Ubicación de la Documentación
 
@@ -321,42 +205,11 @@ backend/target/site/apidocs/
     └── db/                           # Gestión base de datos
 ```
 
-#### Configuración Avanzada de Javadoc
+#### Visualizar la Documentación
 
-Para personalizar la generación, editar `backend/pom.xml`:
+Abrir el archivo `backend/target/site/apidocs/index.html` en un navegador web.
 
-```xml
-<build>
-  <plugins>
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-javadoc-plugin</artifactId>
-      <version>3.6.3</version>
-      <configuration>
-        <show>private</show>                    <!-- Mostrar métodos privados -->
-        <source>17</source>                     <!-- Java version -->
-        <windowtitle>TurismoUY API Documentation</windowtitle>
-        <doctitle>TurismoUY - Backend API</doctitle>
-        <bottom>Copyright © 2025 TurismoUY Team. All Rights Reserved.</bottom>
-        <additionalOptions>
-          <additionalOption>-html5</additionalOption>
-        </additionalOptions>
-      </configuration>
-    </plugin>
-  </plugins>
-</build>
-```
-
-#### Generar Javadoc JAR (para distribución)
-
-```bash
-cd backend
-mvn javadoc:jar
-
-# Genera: backend/target/turismouy.Backend-1.0.0-javadoc.jar
-```
-
-### Estructura de la Documentación Generada
+### Contenido de la Documentación del Backend
 
 La documentación Javadoc incluye:
 
@@ -403,32 +256,38 @@ Cada clase incluye:
 - **Deprecated List**: Elementos deprecados (si los hay)
 - **Index**: Índice de todos los elementos
 
-### Visualizar Javadoc Localmente
+---
 
-Después de generar la documentación:
+### Documentación del Frontend
 
-**Linux:**
-```bash
-cd backend/target/site/apidocs
-python3 -m http.server 8000
-# Abrir: http://localhost:8000
+La documentación Javadoc del frontend está disponible en el directorio `frontend/doc/`.
+
+#### Ubicación de la Documentación
+
+```
+frontend/doc/
+├── index.html                          # Página principal (redirige al paquete)
+├── allclasses-index.html              # Índice de todas las clases
+├── overview-tree.html                 # Árbol de jerarquía
+└── turismouyapp/servlets/
+    ├── package-summary.html           # Descripción completa del paquete servlets
+    ├── Login.html                     # Servlet principal (página de inicio)
+    └── DbServerPublish.html           # Listener de HSQLDB
 ```
 
-**Windows:**
-```cmd
-cd backend\target\site\apidocs
-python -m http.server 8000
-REM Abrir: http://localhost:8000
-```
+#### Documentación del Paquete `turismouyapp.servlets`
 
-**macOS:**
-```bash
-cd backend/target/site/apidocs
-python3 -m http.server 8000
-# Abrir: http://localhost:8000
-```
+El paquete contiene la capa de presentación web con arquitectura en tres capas:
 
-O simplemente abrir `index.html` directamente en un navegador.
+| Componente | Tipo | Descripción |
+|------------|------|-------------|
+| **Login** | Servlet | Servlet principal mapeado a "/" que muestra listado de turistas y proveedores |
+| **DbServerPublish** | Listener | ServletContextListener que gestiona el ciclo de vida de HSQLDB embebido |
+| **package-info** | Documentación | Descripción completa del paquete, arquitectura, patrones y dependencias |
+
+#### Visualizar la Documentación
+
+Abrir el archivo `frontend/doc/index.html` en un navegador web.
 
 ---
 
@@ -471,21 +330,6 @@ Los scripts `setenv.sh` y `setenv.bat` definen variables personalizables:
 | `DB_NAME` | `turismoUyDB` | Nombre de la base de datos |
 | `DB_PATH` | `<CATALINA_BASE>/data/turismoUyDB` | Ruta donde se almacenan los archivos de BD |
 
-**Personalización (Opcional):**
-
-**Linux/macOS:**
-```bash
-export DB_PORT=9002
-export DB_NAME=miBaseDatos
-export DB_PATH=/ruta/personalizada/db
-```
-
-**Windows:**
-```cmd
-set DB_PORT=9002
-set DB_NAME=miBaseDatos
-set DB_PATH=C:\ruta\personalizada\db
-```
 
 ### Listener HSQLDB en Tomcat
 
@@ -753,19 +597,27 @@ backend/
 
 ```
 frontend/
-├── pom.xml                          # Maven: dependencias backend, Jakarta Servlet
+├── pom.xml                          # Maven: dependencias backend, Jakarta Servlet, maven-javadoc-plugin
 ├── src/main/java/
 │   └── turismouyapp/servlets/
 │       ├── Login.java              # Servlet principal (mapeo "/")
-│       └── DbServerPublish.java    # Listener alternativo para iniciar HSQLDB
+│       ├── DbServerPublish.java    # Listener alternativo para iniciar HSQLDB
+│       └── package-info.java       # Documentación del paquete servlets
 ├── src/main/webapp/
 │   ├── META-INF/
 │   │   └── MANIFEST.MF
 │   └── WEB-INF/
 │       ├── web.xml                 # Descriptor Jakarta EE 5.0
 │       └── lib/                    # Librerías empaquetadas en WAR
+├── doc/                             # Documentación Javadoc (versionada)
+│   ├── index.html                  # Página principal de Javadoc
+│   └── turismouyapp/servlets/      # Documentación del paquete servlets
+│       ├── package-summary.html   # Descripción completa del paquete
+│       ├── Login.html             # Documentación del servlet Login
+│       └── DbServerPublish.html   # Documentación del listener
 └── target/
-    └── turismouy-ui.war            # WAR desplegable
+    ├── turismouy-ui.war            # WAR desplegable
+    └── site/apidocs/               # Javadoc recién generada (gitignored)
 ```
 
 ### Server (`/server`)
@@ -894,31 +746,7 @@ del data\turismoUyDB.*    # Windows
 
 ## 🔧 Solución de Problemas
 
-### Problema 1: Error "JAVA_HOME not defined"
-
-**Síntomas:**
-```
-Neither the JAVA_HOME nor the JRE_HOME environment variable is defined
-```
-
-**Solución:**
-
-**Windows:**
-```cmd
-setx JAVA_HOME "C:\Program Files\Java\jdk-17"
-setx PATH "%JAVA_HOME%\bin;%PATH%"
-```
-
-**Linux/macOS:**
-```bash
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64  # Ajustar ruta
-export PATH=$JAVA_HOME/bin:$PATH
-source ~/.bashrc  # o ~/.zshrc en Mac
-```
-
----
-
-### Problema 2: Puerto 8080 o 9001 Ya en Uso
+### Problema 1: Puerto 8080 o 9001 Ya en Uso
 
 **Síntomas:**
 ```
@@ -951,12 +779,9 @@ REM Matar proceso
 taskkill /PID <PID> /F
 ```
 
-**Solución Alternativa:**
-Cambiar puerto en `server.xml` (HTTP) o `setenv.sh/bat` (HSQLDB)
-
 ---
 
-### Problema 3: "ClassNotFoundException: HsqldbServerListener"
+### Problema 2: "ClassNotFoundException: HsqldbServerListener"
 
 **Síntomas:**
 ```
@@ -981,7 +806,7 @@ java.lang.ClassNotFoundException: turismouyapp.core.db.HsqldbServerListener
 
 ---
 
-### Problema 4: Frontend No Encuentra Clases del Backend
+### Problema 3: Frontend No Encuentra Clases del Backend
 
 **Síntomas:**
 ```
@@ -1006,7 +831,7 @@ java.lang.NoClassDefFoundError: turismouyapp/core/factory/FactoryUyTourism
 
 ---
 
-### Problema 5: Error de Persistencia JPA
+### Problema 4: Error de Persistencia JPA
 
 **Síntomas:**
 ```
@@ -1031,7 +856,7 @@ Exception [EclipseLink-4002]: No Persistence provider for EntityManager
 
 ---
 
-### Problema 6: Permisos en Linux/macOS
+### Problema 5: Permisos en Linux/macOS
 
 **Síntomas:**
 ```
@@ -1046,7 +871,7 @@ chmod +x bin/*.sh
 
 ---
 
-### Problema 7: Eclipse No Reconoce Tomcat 11
+### Problema 6: Eclipse No Reconoce Tomcat 11
 
 **Síntomas:**
 No aparece "Apache Tomcat v11.0" en lista de servidores
@@ -1060,7 +885,7 @@ No aparece "Apache Tomcat v11.0" en lista de servidores
 
 ---
 
-### Problema 8: Hot Reload No Funciona en Eclipse
+### Problema 7: Hot Reload No Funciona en Eclipse
 
 **Solución:**
 
@@ -1071,7 +896,7 @@ No aparece "Apache Tomcat v11.0" en lista de servidores
 
 ---
 
-### Problema 9: HSQLDB No Inicia en Eclipse - VM Arguments Faltantes
+### Problema 8: HSQLDB No Inicia en Eclipse - VM Arguments Faltantes
 
 **Síntomas:**
 ```
@@ -1152,15 +977,6 @@ Base de datos no se crea en la ruta esperada
 - ✅ Scripts `setenv` detectan automáticamente `CATALINA_BASE`
 - ✅ Compatible con sistemas de archivos Windows y Unix
 
-### Despliegue en Producción
-
-Para entornos productivos, considerar:
-
-1. **Base de Datos Externa**: Migrar a PostgreSQL/MySQL
-2. **Variables de Entorno**: Externalizar configuración sensible
-3. **HTTPS**: Configurar SSL en Tomcat
-4. **Connection Pool**: Usar Tomcat JDBC Pool o HikariCP
-
 ### Contribuciones
 
 Este proyecto es parte de la Tarea 1 - 2025 del curso Taller de Tecnologías de Información.
@@ -1172,21 +988,6 @@ Para contribuir:
 4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
 5. Crear Pull Request
 
----
-
-## 📄 Licencia
-
-Este proyecto es de uso académico para el curso Taller de Tecnologías de Información 2025.
-
----
-
-## 👥 Autores
-
-- **Equipo Tencnoinf_Pap2025_Tarea1**
-- Repositorio: [github.com/rofernandezm/Tencnoinf_Pap2025_Tarea1](https://github.com/rofernandezm/Tencnoinf_Pap2025_Tarea1)
-- Branch: `develop/maven-migration`
-
----
 
 ## 🆘 Soporte
 
