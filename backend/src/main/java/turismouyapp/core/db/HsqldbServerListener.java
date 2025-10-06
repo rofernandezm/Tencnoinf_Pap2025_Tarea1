@@ -3,9 +3,9 @@ package turismouyapp.core.db;
 import org.apache.catalina.Lifecycle;
 import org.apache.catalina.LifecycleEvent;
 import org.apache.catalina.LifecycleListener;
-import org.hsqldb.Server;
+import org.hsqldb.server.Server;
 
-import  java.util.logging.Logger;
+import java.util.logging.Logger;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -34,7 +34,8 @@ public class HsqldbServerListener implements LifecycleListener {
     server.setDatabaseName(0, name);
     server.setDatabasePath(0, "file:" + path);
     server.setPort(port);
-    server.setSilent(true);
+    server.setSilent(false);
+    server.setTrace(false);
     server.start();
     Logger.getLogger(HsqldbServerListener.class.getName()).info("[DB] HSQLDB iniciado por Tomcat en puerto " + port);
   }

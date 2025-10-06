@@ -6,7 +6,7 @@ import jakarta.persistence.Persistence;
 
 public class PersistenceHandler {
 
-	private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("turismoUyDB");
+	private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("turismoUyDB-Server");
 
 	public static EntityManager getEntityManager() {
 		return emf.createEntityManager();

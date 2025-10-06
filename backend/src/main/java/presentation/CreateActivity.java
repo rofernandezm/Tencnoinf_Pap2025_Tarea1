@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import turismouyapp.core.dto.DtTouristActivity;
+import turismouyapp.core.dto.TouristActivityStatus;
 import turismouyapp.core.exceptions.RepeatedActivityNameException;
 import turismouyapp.core.interfaces.ITouristActivityController;
 import turismouyapp.core.interfaces.IUserController;
@@ -287,12 +288,13 @@ public class CreateActivity extends JInternalFrame {
 		String feeText = txtTouristFee.getText().trim();
 		String city = txtCity.getText().trim();
 		String supplier = (String) cmbSupplier.getSelectedItem();
+		
 
 		Duration duration = Duration.ofHours(Integer.parseInt(durationText));
 		float fee = Float.parseFloat(feeText);
 		LocalDate dischargeDate = LocalDate.now();
 
-		return new DtTouristActivity(name, description, duration, fee, city, dischargeDate, supplier);
+		return new DtTouristActivity(name, description, duration, fee, city, dischargeDate, supplier, TouristActivityStatus.ADDED);
 	}
 
 	private void clearForm() {

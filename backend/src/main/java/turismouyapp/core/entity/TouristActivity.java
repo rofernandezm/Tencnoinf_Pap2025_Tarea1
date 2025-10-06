@@ -124,7 +124,7 @@ public class TouristActivity {
 
 	public DtTouristActivity getDtTouristActivity() {
 		return new DtTouristActivity(this.activityName, this.description, this.duration, this.touristFee, this.city,
-				this.dischargeDate, this.supplier.getNickname());
+				this.dischargeDate, this.supplier.getNickname(), this.getStatus());
 	}
 
 	public TouristActivityStatus getStatus() {

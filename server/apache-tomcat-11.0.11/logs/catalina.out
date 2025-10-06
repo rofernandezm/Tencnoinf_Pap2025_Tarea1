@@ -1,0 +1,1031 @@
+05-Oct-2025 22:37:19.686 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.11
+05-Oct-2025 22:37:19.694 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Sep 1 2025 10:24:44 UTC
+05-Oct-2025 22:37:19.694 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.11.0
+05-Oct-2025 22:37:19.695 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+05-Oct-2025 22:37:19.695 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            6.8.0-85-generic
+05-Oct-2025 22:37:19.695 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+05-Oct-2025 22:37:19.695 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /usr/lib/jvm/java-17-openjdk-amd64
+05-Oct-2025 22:37:19.695 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           17.0.16+8-Ubuntu-0ubuntu122.04.1
+05-Oct-2025 22:37:19.696 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Ubuntu
+05-Oct-2025 22:37:19.696 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+05-Oct-2025 22:37:19.696 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+05-Oct-2025 22:37:19.713 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/conf/logging.properties
+05-Oct-2025 22:37:19.713 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+05-Oct-2025 22:37:19.713 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+05-Oct-2025 22:37:19.714 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+05-Oct-2025 22:37:19.714 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+05-Oct-2025 22:37:19.714 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+05-Oct-2025 22:37:19.714 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+05-Oct-2025 22:37:19.714 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+05-Oct-2025 22:37:19.714 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+05-Oct-2025 22:37:19.714 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+05-Oct-2025 22:37:19.715 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+05-Oct-2025 22:37:19.715 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.port=9001
+05-Oct-2025 22:37:19.715 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.name=turismoUyDB
+05-Oct-2025 22:37:19.715 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.path=//data/turismoUyDB
+05-Oct-2025 22:37:19.715 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+05-Oct-2025 22:37:19.716 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+05-Oct-2025 22:37:19.716 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/temp
+05-Oct-2025 22:37:19.718 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib]
+05-Oct-2025 22:37:20.157 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+05-Oct-2025 22:37:20.199 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [817] milliseconds
+05-Oct-2025 22:37:20.258 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+05-Oct-2025 22:37:20.258 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.11]
+05-Oct-2025 22:37:20.272 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager]
+05-Oct-2025 22:37:22.015 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 22:37:22.076 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager] has finished in [1,804] ms
+05-Oct-2025 22:37:22.077 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs]
+05-Oct-2025 22:37:23.247 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 22:37:23.250 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs] has finished in [1,174] ms
+05-Oct-2025 22:37:23.250 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager]
+05-Oct-2025 22:37:24.257 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 22:37:24.262 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager] has finished in [1,011] ms
+05-Oct-2025 22:37:24.262 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples]
+05-Oct-2025 22:37:25.532 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 22:37:25.556 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples] has finished in [1,293] ms
+05-Oct-2025 22:37:25.556 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/ROOT]
+05-Oct-2025 22:37:26.661 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 22:37:26.669 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/ROOT] has finished in [1,113] ms
+05-Oct-2025 22:37:26.674 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+05-Oct-2025 22:37:26.696 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [6497] milliseconds
+05-Oct-2025 22:37:38.943 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.11
+05-Oct-2025 22:37:38.958 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Sep 1 2025 10:24:44 UTC
+05-Oct-2025 22:37:38.958 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.11.0
+05-Oct-2025 22:37:38.959 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+05-Oct-2025 22:37:38.959 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            6.8.0-85-generic
+05-Oct-2025 22:37:38.959 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+05-Oct-2025 22:37:38.960 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /usr/lib/jvm/java-17-openjdk-amd64
+05-Oct-2025 22:37:38.960 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           17.0.16+8-Ubuntu-0ubuntu122.04.1
+05-Oct-2025 22:37:38.960 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Ubuntu
+05-Oct-2025 22:37:38.961 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+05-Oct-2025 22:37:38.961 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+05-Oct-2025 22:37:38.981 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/conf/logging.properties
+05-Oct-2025 22:37:38.982 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+05-Oct-2025 22:37:38.982 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+05-Oct-2025 22:37:38.982 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+05-Oct-2025 22:37:38.983 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+05-Oct-2025 22:37:38.983 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+05-Oct-2025 22:37:38.983 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+05-Oct-2025 22:37:38.983 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+05-Oct-2025 22:37:38.983 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+05-Oct-2025 22:37:38.983 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+05-Oct-2025 22:37:38.984 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+05-Oct-2025 22:37:38.984 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.port=9001
+05-Oct-2025 22:37:38.984 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.name=turismoUyDB
+05-Oct-2025 22:37:38.984 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.path=//data/turismoUyDB
+05-Oct-2025 22:37:38.985 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+05-Oct-2025 22:37:38.986 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+05-Oct-2025 22:37:38.986 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/temp
+05-Oct-2025 22:37:38.989 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib]
+05-Oct-2025 22:37:39.675 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+05-Oct-2025 22:37:39.717 SEVERE [main] org.apache.catalina.util.LifecycleBase.handleSubClassException Failed to initialize component [Connector["http-nio-8080"]]
+	org.apache.catalina.LifecycleException: Protocol handler initialization failed
+		at org.apache.catalina.connector.Connector.initInternal(Connector.java:1078)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.core.StandardService.initInternal(StandardService.java:522)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.core.StandardServer.initInternal(StandardServer.java:953)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.startup.Catalina.load(Catalina.java:710)
+		at org.apache.catalina.startup.Catalina.load(Catalina.java:733)
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+		at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+		at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+		at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:299)
+		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:472)
+	Caused by: java.net.BindException: Address already in use
+		at java.base/sun.nio.ch.Net.bind0(Native Method)
+		at java.base/sun.nio.ch.Net.bind(Net.java:555)
+		at java.base/sun.nio.ch.ServerSocketChannelImpl.netBind(ServerSocketChannelImpl.java:337)
+		at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:294)
+		at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:267)
+		at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:222)
+		at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1560)
+		at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:1573)
+		at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:633)
+		at org.apache.coyote.http11.AbstractHttp11Protocol.init(AbstractHttp11Protocol.java:83)
+		at org.apache.catalina.connector.Connector.initInternal(Connector.java:1076)
+		... 13 more
+05-Oct-2025 22:37:39.720 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [1300] milliseconds
+05-Oct-2025 22:37:39.819 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+05-Oct-2025 22:37:39.819 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.11]
+05-Oct-2025 22:37:39.835 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager]
+05-Oct-2025 22:37:41.817 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 22:37:41.877 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager] has finished in [2,042] ms
+05-Oct-2025 22:37:41.878 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs]
+05-Oct-2025 22:37:43.138 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 22:37:43.141 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs] has finished in [1,263] ms
+05-Oct-2025 22:37:43.142 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager]
+05-Oct-2025 22:37:44.173 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 22:37:44.176 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager] has finished in [1,035] ms
+05-Oct-2025 22:37:44.177 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples]
+05-Oct-2025 22:37:45.527 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 22:37:45.552 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples] has finished in [1,375] ms
+05-Oct-2025 22:37:45.552 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/ROOT]
+05-Oct-2025 22:37:46.700 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 22:37:46.709 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/ROOT] has finished in [1,156] ms
+05-Oct-2025 22:37:46.718 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [6997] milliseconds
+05-Oct-2025 22:37:46.723 SEVERE [main] org.apache.catalina.core.StandardServer.await Failed to create server shutdown socket on address [localhost] and port [8005] (base port [8005] and offset [0])
+	java.net.BindException: Address already in use
+		at java.base/sun.nio.ch.Net.bind0(Native Method)
+		at java.base/sun.nio.ch.Net.bind(Net.java:555)
+		at java.base/sun.nio.ch.Net.bind(Net.java:544)
+		at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:648)
+		at java.base/java.net.ServerSocket.bind(ServerSocket.java:388)
+		at java.base/java.net.ServerSocket.<init>(ServerSocket.java:274)
+		at org.apache.catalina.core.StandardServer.await(StandardServer.java:532)
+		at org.apache.catalina.startup.Catalina.await(Catalina.java:849)
+		at org.apache.catalina.startup.Catalina.start(Catalina.java:797)
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+		at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+		at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+		at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:342)
+		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:473)
+05-Oct-2025 22:37:46.724 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+05-Oct-2025 22:37:46.724 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+05-Oct-2025 22:37:46.757 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+05-Oct-2025 22:37:46.761 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+05-Oct-2025 22:41:10.190 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.11
+05-Oct-2025 22:41:10.197 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Sep 1 2025 10:24:44 UTC
+05-Oct-2025 22:41:10.198 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.11.0
+05-Oct-2025 22:41:10.198 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+05-Oct-2025 22:41:10.198 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            6.8.0-85-generic
+05-Oct-2025 22:41:10.198 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+05-Oct-2025 22:41:10.199 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /usr/lib/jvm/java-17-openjdk-amd64
+05-Oct-2025 22:41:10.199 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           17.0.16+8-Ubuntu-0ubuntu122.04.1
+05-Oct-2025 22:41:10.199 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Ubuntu
+05-Oct-2025 22:41:10.199 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+05-Oct-2025 22:41:10.199 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+05-Oct-2025 22:41:10.214 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/conf/logging.properties
+05-Oct-2025 22:41:10.214 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+05-Oct-2025 22:41:10.214 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+05-Oct-2025 22:41:10.215 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+05-Oct-2025 22:41:10.215 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+05-Oct-2025 22:41:10.215 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+05-Oct-2025 22:41:10.215 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+05-Oct-2025 22:41:10.215 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+05-Oct-2025 22:41:10.216 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+05-Oct-2025 22:41:10.216 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+05-Oct-2025 22:41:10.216 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+05-Oct-2025 22:41:10.216 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.port=9001
+05-Oct-2025 22:41:10.216 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.name=turismoUyDB
+05-Oct-2025 22:41:10.216 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.path=//data/turismoUyDB
+05-Oct-2025 22:41:10.216 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+05-Oct-2025 22:41:10.217 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+05-Oct-2025 22:41:10.217 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/temp
+05-Oct-2025 22:41:10.219 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib]
+05-Oct-2025 22:41:10.818 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+05-Oct-2025 22:41:10.870 SEVERE [main] org.apache.catalina.util.LifecycleBase.handleSubClassException Failed to initialize component [Connector["http-nio-8080"]]
+	org.apache.catalina.LifecycleException: Protocol handler initialization failed
+		at org.apache.catalina.connector.Connector.initInternal(Connector.java:1078)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.core.StandardService.initInternal(StandardService.java:522)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.core.StandardServer.initInternal(StandardServer.java:953)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.startup.Catalina.load(Catalina.java:710)
+		at org.apache.catalina.startup.Catalina.load(Catalina.java:733)
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+		at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+		at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+		at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:299)
+		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:472)
+	Caused by: java.net.BindException: Address already in use
+		at java.base/sun.nio.ch.Net.bind0(Native Method)
+		at java.base/sun.nio.ch.Net.bind(Net.java:555)
+		at java.base/sun.nio.ch.ServerSocketChannelImpl.netBind(ServerSocketChannelImpl.java:337)
+		at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:294)
+		at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:267)
+		at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:222)
+		at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1560)
+		at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:1573)
+		at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:633)
+		at org.apache.coyote.http11.AbstractHttp11Protocol.init(AbstractHttp11Protocol.java:83)
+		at org.apache.catalina.connector.Connector.initInternal(Connector.java:1076)
+		... 13 more
+05-Oct-2025 22:41:10.873 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [1011] milliseconds
+05-Oct-2025 22:41:10.947 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+05-Oct-2025 22:41:10.948 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.11]
+05-Oct-2025 22:41:10.963 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager]
+05-Oct-2025 22:41:13.139 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 22:41:13.207 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager] has finished in [2,243] ms
+05-Oct-2025 22:41:13.208 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs]
+05-Oct-2025 22:41:14.632 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 22:41:14.643 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs] has finished in [1,435] ms
+05-Oct-2025 22:41:14.644 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager]
+05-Oct-2025 22:41:15.870 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 22:41:15.874 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager] has finished in [1,230] ms
+05-Oct-2025 22:41:15.875 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples]
+05-Oct-2025 22:41:17.228 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 22:41:17.275 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples] has finished in [1,400] ms
+05-Oct-2025 22:41:17.276 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/ROOT]
+05-Oct-2025 22:41:18.557 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 22:41:18.565 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/ROOT] has finished in [1,288] ms
+05-Oct-2025 22:41:18.571 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [7697] milliseconds
+05-Oct-2025 22:41:18.577 SEVERE [main] org.apache.catalina.core.StandardServer.await Failed to create server shutdown socket on address [localhost] and port [8005] (base port [8005] and offset [0])
+	java.net.BindException: Address already in use
+		at java.base/sun.nio.ch.Net.bind0(Native Method)
+		at java.base/sun.nio.ch.Net.bind(Net.java:555)
+		at java.base/sun.nio.ch.Net.bind(Net.java:544)
+		at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:648)
+		at java.base/java.net.ServerSocket.bind(ServerSocket.java:388)
+		at java.base/java.net.ServerSocket.<init>(ServerSocket.java:274)
+		at org.apache.catalina.core.StandardServer.await(StandardServer.java:532)
+		at org.apache.catalina.startup.Catalina.await(Catalina.java:849)
+		at org.apache.catalina.startup.Catalina.start(Catalina.java:797)
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+		at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+		at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+		at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:342)
+		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:473)
+05-Oct-2025 22:41:18.578 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+05-Oct-2025 22:41:18.579 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+05-Oct-2025 22:41:18.611 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+05-Oct-2025 22:41:18.615 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+05-Oct-2025 22:48:03.421 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.11
+05-Oct-2025 22:48:03.430 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Sep 1 2025 10:24:44 UTC
+05-Oct-2025 22:48:03.430 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.11.0
+05-Oct-2025 22:48:03.430 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+05-Oct-2025 22:48:03.431 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            6.8.0-85-generic
+05-Oct-2025 22:48:03.431 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+05-Oct-2025 22:48:03.431 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /usr/lib/jvm/java-17-openjdk-amd64
+05-Oct-2025 22:48:03.431 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           17.0.16+8-Ubuntu-0ubuntu122.04.1
+05-Oct-2025 22:48:03.431 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Ubuntu
+05-Oct-2025 22:48:03.432 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+05-Oct-2025 22:48:03.432 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+05-Oct-2025 22:48:03.456 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/conf/logging.properties
+05-Oct-2025 22:48:03.457 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+05-Oct-2025 22:48:03.457 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+05-Oct-2025 22:48:03.457 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+05-Oct-2025 22:48:03.458 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+05-Oct-2025 22:48:03.458 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+05-Oct-2025 22:48:03.458 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+05-Oct-2025 22:48:03.458 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+05-Oct-2025 22:48:03.459 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+05-Oct-2025 22:48:03.459 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+05-Oct-2025 22:48:03.459 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+05-Oct-2025 22:48:03.459 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.port=9001
+05-Oct-2025 22:48:03.459 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.name=turismoUyDB
+05-Oct-2025 22:48:03.459 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.path=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB
+05-Oct-2025 22:48:03.460 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+05-Oct-2025 22:48:03.460 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+05-Oct-2025 22:48:03.460 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/temp
+05-Oct-2025 22:48:03.463 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib]
+05-Oct-2025 22:48:03.877 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+05-Oct-2025 22:48:03.906 SEVERE [main] org.apache.catalina.util.LifecycleBase.handleSubClassException Failed to initialize component [Connector["http-nio-8080"]]
+	org.apache.catalina.LifecycleException: Protocol handler initialization failed
+		at org.apache.catalina.connector.Connector.initInternal(Connector.java:1078)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.core.StandardService.initInternal(StandardService.java:522)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.core.StandardServer.initInternal(StandardServer.java:953)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.startup.Catalina.load(Catalina.java:710)
+		at org.apache.catalina.startup.Catalina.load(Catalina.java:733)
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+		at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+		at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+		at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:299)
+		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:472)
+	Caused by: java.net.BindException: Address already in use
+		at java.base/sun.nio.ch.Net.bind0(Native Method)
+		at java.base/sun.nio.ch.Net.bind(Net.java:555)
+		at java.base/sun.nio.ch.ServerSocketChannelImpl.netBind(ServerSocketChannelImpl.java:337)
+		at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:294)
+		at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:267)
+		at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:222)
+		at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1560)
+		at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:1573)
+		at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:633)
+		at org.apache.coyote.http11.AbstractHttp11Protocol.init(AbstractHttp11Protocol.java:83)
+		at org.apache.catalina.connector.Connector.initInternal(Connector.java:1076)
+		... 13 more
+05-Oct-2025 22:48:03.909 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [823] milliseconds
+05-Oct-2025 22:48:03.967 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+05-Oct-2025 22:48:03.968 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.11]
+05-Oct-2025 22:48:03.983 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager]
+05-Oct-2025 22:48:05.820 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 22:48:05.883 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager] has finished in [1,900] ms
+05-Oct-2025 22:48:05.883 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs]
+05-Oct-2025 22:48:07.238 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 22:48:07.242 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs] has finished in [1,359] ms
+05-Oct-2025 22:48:07.243 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager]
+05-Oct-2025 22:48:08.283 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 22:48:08.287 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager] has finished in [1,044] ms
+05-Oct-2025 22:48:08.288 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples]
+05-Oct-2025 22:48:09.555 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 22:48:09.598 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples] has finished in [1,310] ms
+05-Oct-2025 22:48:09.598 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/ROOT]
+05-Oct-2025 22:48:10.631 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 22:48:10.639 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/ROOT] has finished in [1,040] ms
+05-Oct-2025 22:48:10.645 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [6736] milliseconds
+05-Oct-2025 22:48:10.650 SEVERE [main] org.apache.catalina.core.StandardServer.await Failed to create server shutdown socket on address [localhost] and port [8005] (base port [8005] and offset [0])
+	java.net.BindException: Address already in use
+		at java.base/sun.nio.ch.Net.bind0(Native Method)
+		at java.base/sun.nio.ch.Net.bind(Net.java:555)
+		at java.base/sun.nio.ch.Net.bind(Net.java:544)
+		at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:648)
+		at java.base/java.net.ServerSocket.bind(ServerSocket.java:388)
+		at java.base/java.net.ServerSocket.<init>(ServerSocket.java:274)
+		at org.apache.catalina.core.StandardServer.await(StandardServer.java:532)
+		at org.apache.catalina.startup.Catalina.await(Catalina.java:849)
+		at org.apache.catalina.startup.Catalina.start(Catalina.java:797)
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+		at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+		at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+		at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:342)
+		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:473)
+05-Oct-2025 22:48:10.651 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+05-Oct-2025 22:48:10.651 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+05-Oct-2025 22:48:10.681 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+05-Oct-2025 22:48:10.683 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+05-Oct-2025 22:50:33.223 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+05-Oct-2025 22:50:33.224 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+05-Oct-2025 22:50:33.229 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+05-Oct-2025 22:50:33.290 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+05-Oct-2025 22:50:33.305 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+05-Oct-2025 23:35:56.728 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.11
+05-Oct-2025 23:35:56.736 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Sep 1 2025 10:24:44 UTC
+05-Oct-2025 23:35:56.736 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.11.0
+05-Oct-2025 23:35:56.737 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+05-Oct-2025 23:35:56.737 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            6.8.0-85-generic
+05-Oct-2025 23:35:56.737 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+05-Oct-2025 23:35:56.737 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /usr/lib/jvm/java-17-openjdk-amd64
+05-Oct-2025 23:35:56.737 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           17.0.16+8-Ubuntu-0ubuntu122.04.1
+05-Oct-2025 23:35:56.738 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Ubuntu
+05-Oct-2025 23:35:56.738 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+05-Oct-2025 23:35:56.738 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+05-Oct-2025 23:35:56.756 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/conf/logging.properties
+05-Oct-2025 23:35:56.756 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+05-Oct-2025 23:35:56.757 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+05-Oct-2025 23:35:56.757 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+05-Oct-2025 23:35:56.757 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+05-Oct-2025 23:35:56.757 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+05-Oct-2025 23:35:56.757 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+05-Oct-2025 23:35:56.758 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+05-Oct-2025 23:35:56.761 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+05-Oct-2025 23:35:56.761 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+05-Oct-2025 23:35:56.761 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+05-Oct-2025 23:35:56.762 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.port=9001
+05-Oct-2025 23:35:56.762 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.name=turismoUyDB
+05-Oct-2025 23:35:56.762 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.path=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB
+05-Oct-2025 23:35:56.763 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+05-Oct-2025 23:35:56.763 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+05-Oct-2025 23:35:56.765 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/temp
+05-Oct-2025 23:35:56.767 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib]
+05-Oct-2025 23:35:57.189 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+05-Oct-2025 23:35:57.221 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [810] milliseconds
+[Server@3738449f]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@3738449f]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@3738449f]: [Thread[main,5,main]]: setDatabaseName(0,turismoUyDB)
+[Server@3738449f]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@3738449f]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@3738449f]: [Thread[main,5,main]]: setDatabasePath(0,file:/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB)
+[Server@3738449f]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@3738449f]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@3738449f]: [Thread[main,5,main]]: setPort(9001)
+[Server@3738449f]: Initiating startup sequence...
+[Server@3738449f]: Server socket opened successfully in 4 ms.
+[Server@3738449f]: Database [index=0, id=0, db=file:/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB, alias=turismouydb] opened successfully in 465 ms.
+[Server@3738449f]: Startup sequence completed in 493 ms.
+[Server@3738449f]: 2025-10-06 02:35:57.775 HSQLDB server 2.7.2 is online on port 9001
+[Server@3738449f]: To close normally, connect and execute SHUTDOWN SQL
+[Server@3738449f]: From command line, use [Ctrl]+[C] to abort abruptly
+05-Oct-2025 23:35:57.776 INFO [main] turismouyapp.core.db.HsqldbServerListener.startIfNeeded [DB] HSQLDB iniciado por Tomcat en puerto 9001
+05-Oct-2025 23:35:57.837 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+05-Oct-2025 23:35:57.838 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.11]
+05-Oct-2025 23:35:57.853 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager]
+05-Oct-2025 23:35:59.703 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 23:35:59.807 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager] has finished in [1,954] ms
+05-Oct-2025 23:35:59.809 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs]
+05-Oct-2025 23:36:01.201 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 23:36:01.204 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs] has finished in [1,395] ms
+05-Oct-2025 23:36:01.205 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager]
+05-Oct-2025 23:36:02.369 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 23:36:02.373 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager] has finished in [1,168] ms
+05-Oct-2025 23:36:02.374 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples]
+05-Oct-2025 23:36:03.642 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 23:36:03.664 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples] has finished in [1,291] ms
+05-Oct-2025 23:36:03.665 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/ROOT]
+05-Oct-2025 23:36:04.771 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+05-Oct-2025 23:36:04.787 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/ROOT] has finished in [1,121] ms
+05-Oct-2025 23:36:04.795 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+05-Oct-2025 23:36:04.817 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [7596] milliseconds
+org.hsqldb.HsqlException: HSQLDB server version is '2.7.2'  client version '-1195.-72.-58.-56' is not compatible.
+	at org.hsqldb.error.Error.error(Unknown Source)
+	at org.hsqldb.server.ServerConnection.handshake(Unknown Source)
+	at org.hsqldb.server.ServerConnection.init(Unknown Source)
+	at org.hsqldb.server.ServerConnection.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+org.hsqldb.HsqlException: HSQLDB server version is '2.7.2'  client version '-1195.-72.-58.-56' is not compatible.
+	at org.hsqldb.error.Error.error(Unknown Source)
+	at org.hsqldb.server.ServerConnection.handshake(Unknown Source)
+	at org.hsqldb.server.ServerConnection.init(Unknown Source)
+	at org.hsqldb.server.ServerConnection.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+org.hsqldb.HsqlException: HSQLDB server version is '2.7.2'  client version '-1195.-72.-58.-56' is not compatible.
+	at org.hsqldb.error.Error.error(Unknown Source)
+	at org.hsqldb.server.ServerConnection.handshake(Unknown Source)
+	at org.hsqldb.server.ServerConnection.init(Unknown Source)
+	at org.hsqldb.server.ServerConnection.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+org.hsqldb.HsqlException: HSQLDB server version is '2.7.2'  client version '-1195.-72.-58.-56' is not compatible.
+	at org.hsqldb.error.Error.error(Unknown Source)
+	at org.hsqldb.server.ServerConnection.handshake(Unknown Source)
+	at org.hsqldb.server.ServerConnection.init(Unknown Source)
+	at org.hsqldb.server.ServerConnection.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+org.hsqldb.HsqlException: HSQLDB server version is '2.7.2'  client version '-1195.-72.-58.-56' is not compatible.
+	at org.hsqldb.error.Error.error(Unknown Source)
+	at org.hsqldb.server.ServerConnection.handshake(Unknown Source)
+	at org.hsqldb.server.ServerConnection.init(Unknown Source)
+	at org.hsqldb.server.ServerConnection.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+org.hsqldb.HsqlException: HSQLDB server version is '2.7.2'  client version '-1195.-72.-58.-56' is not compatible.
+	at org.hsqldb.error.Error.error(Unknown Source)
+	at org.hsqldb.server.ServerConnection.handshake(Unknown Source)
+	at org.hsqldb.server.ServerConnection.init(Unknown Source)
+	at org.hsqldb.server.ServerConnection.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+05-Oct-2025 23:38:12.791 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+05-Oct-2025 23:38:12.792 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+05-Oct-2025 23:38:12.797 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+05-Oct-2025 23:38:12.835 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+[Server@3738449f]: Initiating shutdown sequence...
+[Server@3738449f]: Shutdown sequence completed in 0 ms.
+[Server@3738449f]: 2025-10-06 02:38:12.847 SHUTDOWN : System.exit() was not called
+05-Oct-2025 23:38:12.848 INFO [main] turismouyapp.core.db.HsqldbServerListener.stopIfStarted [DB] HSQLDB detenido por Tomcat.
+05-Oct-2025 23:38:12.851 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 00:13:10.955 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.11
+06-Oct-2025 00:13:10.967 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Sep 1 2025 10:24:44 UTC
+06-Oct-2025 00:13:10.967 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.11.0
+06-Oct-2025 00:13:10.967 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+06-Oct-2025 00:13:10.967 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            6.8.0-85-generic
+06-Oct-2025 00:13:10.968 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+06-Oct-2025 00:13:10.968 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /usr/lib/jvm/java-17-openjdk-amd64
+06-Oct-2025 00:13:10.968 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           17.0.16+8-Ubuntu-0ubuntu122.04.1
+06-Oct-2025 00:13:10.968 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Ubuntu
+06-Oct-2025 00:13:10.968 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 00:13:10.968 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 00:13:10.980 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/conf/logging.properties
+06-Oct-2025 00:13:10.980 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+06-Oct-2025 00:13:10.980 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+06-Oct-2025 00:13:10.981 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+06-Oct-2025 00:13:10.981 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+06-Oct-2025 00:13:10.981 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+06-Oct-2025 00:13:10.981 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+06-Oct-2025 00:13:10.981 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+06-Oct-2025 00:13:10.982 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+06-Oct-2025 00:13:10.982 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+06-Oct-2025 00:13:10.982 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+06-Oct-2025 00:13:10.982 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.port=9001
+06-Oct-2025 00:13:10.982 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.name=turismoUyDB
+06-Oct-2025 00:13:10.982 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.path=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB
+06-Oct-2025 00:13:10.983 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 00:13:10.983 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 00:13:10.983 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/temp
+06-Oct-2025 00:13:10.985 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib]
+06-Oct-2025 00:13:11.443 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 00:13:11.463 SEVERE [main] org.apache.catalina.util.LifecycleBase.handleSubClassException Failed to initialize component [Connector["http-nio-8080"]]
+	org.apache.catalina.LifecycleException: Protocol handler initialization failed
+		at org.apache.catalina.connector.Connector.initInternal(Connector.java:1078)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.core.StandardService.initInternal(StandardService.java:522)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.core.StandardServer.initInternal(StandardServer.java:953)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.startup.Catalina.load(Catalina.java:710)
+		at org.apache.catalina.startup.Catalina.load(Catalina.java:733)
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+		at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+		at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+		at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:299)
+		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:472)
+	Caused by: java.net.BindException: Address already in use
+		at java.base/sun.nio.ch.Net.bind0(Native Method)
+		at java.base/sun.nio.ch.Net.bind(Net.java:555)
+		at java.base/sun.nio.ch.ServerSocketChannelImpl.netBind(ServerSocketChannelImpl.java:337)
+		at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:294)
+		at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:267)
+		at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:222)
+		at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1560)
+		at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:1573)
+		at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:633)
+		at org.apache.coyote.http11.AbstractHttp11Protocol.init(AbstractHttp11Protocol.java:83)
+		at org.apache.catalina.connector.Connector.initInternal(Connector.java:1076)
+		... 13 more
+06-Oct-2025 00:13:11.465 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [933] milliseconds
+[Server@d6e7bab]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@d6e7bab]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@d6e7bab]: [Thread[main,5,main]]: setDatabaseName(0,turismoUyDB)
+[Server@d6e7bab]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@d6e7bab]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@d6e7bab]: [Thread[main,5,main]]: setDatabasePath(0,file:/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB)
+[Server@d6e7bab]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@d6e7bab]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@d6e7bab]: [Thread[main,5,main]]: setPort(9001)
+[Server@d6e7bab]: Initiating startup sequence...
+[Server@d6e7bab]: Server socket opened successfully in 2 ms.
+[Server@d6e7bab]: Database [index=0, id=0, db=file:/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB, alias=turismouydb] opened successfully in 435 ms.
+[Server@d6e7bab]: Startup sequence completed in 477 ms.
+[Server@d6e7bab]: 2025-10-06 03:13:12.004 HSQLDB server 2.7.2 is online on port 9001
+[Server@d6e7bab]: To close normally, connect and execute SHUTDOWN SQL
+[Server@d6e7bab]: From command line, use [Ctrl]+[C] to abort abruptly
+06-Oct-2025 00:13:12.016 INFO [main] turismouyapp.core.db.HsqldbServerListener.startIfNeeded [DB] HSQLDB iniciado por Tomcat en puerto 9001
+06-Oct-2025 00:13:12.104 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+06-Oct-2025 00:13:12.104 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.11]
+06-Oct-2025 00:13:12.116 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager]
+06-Oct-2025 00:13:13.926 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:13:13.974 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager] has finished in [1,858] ms
+06-Oct-2025 00:13:13.975 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs]
+06-Oct-2025 00:13:15.319 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:13:15.321 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs] has finished in [1,346] ms
+06-Oct-2025 00:13:15.321 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager]
+06-Oct-2025 00:13:16.171 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:13:16.174 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager] has finished in [853] ms
+06-Oct-2025 00:13:16.174 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples]
+06-Oct-2025 00:13:17.573 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:13:17.614 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples] has finished in [1,440] ms
+06-Oct-2025 00:13:17.615 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/ROOT]
+06-Oct-2025 00:13:18.525 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:13:18.532 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/ROOT] has finished in [916] ms
+06-Oct-2025 00:13:18.536 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [7070] milliseconds
+06-Oct-2025 00:13:18.539 SEVERE [main] org.apache.catalina.core.StandardServer.await Failed to create server shutdown socket on address [localhost] and port [8005] (base port [8005] and offset [0])
+	java.net.BindException: Address already in use
+		at java.base/sun.nio.ch.Net.bind0(Native Method)
+		at java.base/sun.nio.ch.Net.bind(Net.java:555)
+		at java.base/sun.nio.ch.Net.bind(Net.java:544)
+		at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:648)
+		at java.base/java.net.ServerSocket.bind(ServerSocket.java:388)
+		at java.base/java.net.ServerSocket.<init>(ServerSocket.java:274)
+		at org.apache.catalina.core.StandardServer.await(StandardServer.java:532)
+		at org.apache.catalina.startup.Catalina.await(Catalina.java:849)
+		at org.apache.catalina.startup.Catalina.start(Catalina.java:797)
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+		at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+		at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+		at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:342)
+		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:473)
+06-Oct-2025 00:13:18.540 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 00:13:18.540 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+[Server@d6e7bab]: Initiating shutdown sequence...
+06-Oct-2025 00:13:18.568 INFO [main] turismouyapp.core.db.HsqldbServerListener.stopIfStarted [DB] HSQLDB detenido por Tomcat.
+06-Oct-2025 00:13:18.569 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 00:13:18.570 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+[Server@d6e7bab]: Shutdown sequence completed in 3 ms.
+[Server@d6e7bab]: 2025-10-06 03:13:18.572 SHUTDOWN : System.exit() was not called
+06-Oct-2025 00:30:32.353 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.11
+06-Oct-2025 00:30:32.363 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Sep 1 2025 10:24:44 UTC
+06-Oct-2025 00:30:32.363 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.11.0
+06-Oct-2025 00:30:32.364 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+06-Oct-2025 00:30:32.364 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            6.8.0-85-generic
+06-Oct-2025 00:30:32.364 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+06-Oct-2025 00:30:32.364 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /usr/lib/jvm/java-17-openjdk-amd64
+06-Oct-2025 00:30:32.366 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           17.0.16+8-Ubuntu-0ubuntu122.04.1
+06-Oct-2025 00:30:32.366 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Ubuntu
+06-Oct-2025 00:30:32.366 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 00:30:32.366 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 00:30:32.385 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/conf/logging.properties
+06-Oct-2025 00:30:32.385 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+06-Oct-2025 00:30:32.386 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+06-Oct-2025 00:30:32.386 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+06-Oct-2025 00:30:32.386 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+06-Oct-2025 00:30:32.386 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+06-Oct-2025 00:30:32.386 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+06-Oct-2025 00:30:32.387 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+06-Oct-2025 00:30:32.387 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+06-Oct-2025 00:30:32.387 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+06-Oct-2025 00:30:32.387 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+06-Oct-2025 00:30:32.387 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.port=9001
+06-Oct-2025 00:30:32.388 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.name=turismoUyDB
+06-Oct-2025 00:30:32.388 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.path=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB
+06-Oct-2025 00:30:32.388 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 00:30:32.389 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 00:30:32.389 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/temp
+06-Oct-2025 00:30:32.392 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib]
+06-Oct-2025 00:30:32.834 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 00:30:32.866 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [843] milliseconds
+[Server@5fd4f8f5]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@5fd4f8f5]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@5fd4f8f5]: [Thread[main,5,main]]: setDatabaseName(0,turismoUyDB)
+[Server@5fd4f8f5]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@5fd4f8f5]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@5fd4f8f5]: [Thread[main,5,main]]: setDatabasePath(0,file:/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB)
+[Server@5fd4f8f5]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@5fd4f8f5]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@5fd4f8f5]: [Thread[main,5,main]]: setPort(9001)
+[Server@5fd4f8f5]: Initiating startup sequence...
+[Server@5fd4f8f5]: Server socket opened successfully in 2 ms.
+[Server@5fd4f8f5]: Database [index=0, id=0, db=file:/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB, alias=turismouydb] opened successfully in 385 ms.
+[Server@5fd4f8f5]: Startup sequence completed in 412 ms.
+[Server@5fd4f8f5]: 2025-10-06 03:30:33.341 HSQLDB server 2.7.2 is online on port 9001
+[Server@5fd4f8f5]: To close normally, connect and execute SHUTDOWN SQL
+[Server@5fd4f8f5]: From command line, use [Ctrl]+[C] to abort abruptly
+06-Oct-2025 00:30:33.426 INFO [main] turismouyapp.core.db.HsqldbServerListener.startIfNeeded [DB] HSQLDB iniciado por Tomcat en puerto 9001
+06-Oct-2025 00:30:33.508 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+06-Oct-2025 00:30:33.508 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.11]
+06-Oct-2025 00:30:33.522 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager]
+06-Oct-2025 00:30:35.628 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:30:35.705 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager] has finished in [2,182] ms
+06-Oct-2025 00:30:35.706 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs]
+06-Oct-2025 00:30:36.939 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:30:36.943 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs] has finished in [1,237] ms
+06-Oct-2025 00:30:36.944 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager]
+06-Oct-2025 00:30:37.976 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:30:37.980 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager] has finished in [1,035] ms
+06-Oct-2025 00:30:37.983 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples]
+06-Oct-2025 00:30:39.282 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:30:39.318 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples] has finished in [1,335] ms
+06-Oct-2025 00:30:39.319 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/ROOT]
+06-Oct-2025 00:30:40.409 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:30:40.418 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/ROOT] has finished in [1,099] ms
+06-Oct-2025 00:30:40.424 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 00:30:40.455 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [7588] milliseconds
+org.hsqldb.HsqlException: HSQLDB server version is '2.7.2'  client version '-1195.-72.-58.-56' is not compatible.
+	at org.hsqldb.error.Error.error(Unknown Source)
+	at org.hsqldb.server.ServerConnection.handshake(Unknown Source)
+	at org.hsqldb.server.ServerConnection.init(Unknown Source)
+	at org.hsqldb.server.ServerConnection.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+org.hsqldb.HsqlException: HSQLDB server version is '2.7.2'  client version '-1195.-72.-58.-56' is not compatible.
+	at org.hsqldb.error.Error.error(Unknown Source)
+	at org.hsqldb.server.ServerConnection.handshake(Unknown Source)
+	at org.hsqldb.server.ServerConnection.init(Unknown Source)
+	at org.hsqldb.server.ServerConnection.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+org.hsqldb.HsqlException: HSQLDB server version is '2.7.2'  client version '-1195.-72.-58.-56' is not compatible.
+	at org.hsqldb.error.Error.error(Unknown Source)
+	at org.hsqldb.server.ServerConnection.handshake(Unknown Source)
+	at org.hsqldb.server.ServerConnection.init(Unknown Source)
+	at org.hsqldb.server.ServerConnection.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+org.hsqldb.HsqlException: HSQLDB server version is '2.7.2'  client version '-1195.-72.-58.-56' is not compatible.
+	at org.hsqldb.error.Error.error(Unknown Source)
+	at org.hsqldb.server.ServerConnection.handshake(Unknown Source)
+	at org.hsqldb.server.ServerConnection.init(Unknown Source)
+	at org.hsqldb.server.ServerConnection.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+06-Oct-2025 00:32:27.716 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+06-Oct-2025 00:32:27.718 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 00:32:27.723 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+06-Oct-2025 00:32:27.759 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+[Server@5fd4f8f5]: Initiating shutdown sequence...
+06-Oct-2025 00:32:27.770 INFO [main] turismouyapp.core.db.HsqldbServerListener.stopIfStarted [DB] HSQLDB detenido por Tomcat.
+[Server@5fd4f8f5]: Shutdown sequence completed in 0 ms.
+[Server@5fd4f8f5]: 2025-10-06 03:32:27.771 SHUTDOWN : System.exit() was not called
+06-Oct-2025 00:32:27.773 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 00:45:13.075 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.11
+06-Oct-2025 00:45:13.086 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Sep 1 2025 10:24:44 UTC
+06-Oct-2025 00:45:13.087 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.11.0
+06-Oct-2025 00:45:13.087 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+06-Oct-2025 00:45:13.088 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            6.8.0-85-generic
+06-Oct-2025 00:45:13.088 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+06-Oct-2025 00:45:13.088 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /usr/lib/jvm/java-17-openjdk-amd64
+06-Oct-2025 00:45:13.088 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           17.0.16+8-Ubuntu-0ubuntu122.04.1
+06-Oct-2025 00:45:13.089 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Ubuntu
+06-Oct-2025 00:45:13.089 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 00:45:13.089 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 00:45:13.101 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/conf/logging.properties
+06-Oct-2025 00:45:13.101 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+06-Oct-2025 00:45:13.102 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+06-Oct-2025 00:45:13.102 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+06-Oct-2025 00:45:13.102 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+06-Oct-2025 00:45:13.102 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+06-Oct-2025 00:45:13.102 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+06-Oct-2025 00:45:13.103 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+06-Oct-2025 00:45:13.104 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+06-Oct-2025 00:45:13.104 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+06-Oct-2025 00:45:13.104 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+06-Oct-2025 00:45:13.104 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.port=9001
+06-Oct-2025 00:45:13.104 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.name=turismoUyDB
+06-Oct-2025 00:45:13.104 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.path=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB
+06-Oct-2025 00:45:13.105 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 00:45:13.105 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 00:45:13.105 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/temp
+06-Oct-2025 00:45:13.109 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib]
+06-Oct-2025 00:45:13.556 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 00:45:13.591 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [1022] milliseconds
+[Server@27406a17]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@27406a17]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@27406a17]: [Thread[main,5,main]]: setDatabaseName(0,turismoUyDB)
+[Server@27406a17]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@27406a17]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@27406a17]: [Thread[main,5,main]]: setDatabasePath(0,file:/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB)
+[Server@27406a17]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@27406a17]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@27406a17]: [Thread[main,5,main]]: setPort(9001)
+[Server@27406a17]: Initiating startup sequence...
+[Server@27406a17]: Server socket opened successfully in 1 ms.
+[Server@27406a17]: Database [index=0, id=0, db=file:/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB, alias=turismouydb] opened successfully in 425 ms.
+[Server@27406a17]: Startup sequence completed in 451 ms.
+[Server@27406a17]: 2025-10-06 03:45:14.113 HSQLDB server 2.7.2 is online on port 9001
+[Server@27406a17]: To close normally, connect and execute SHUTDOWN SQL
+[Server@27406a17]: From command line, use [Ctrl]+[C] to abort abruptly
+06-Oct-2025 00:45:14.159 INFO [main] turismouyapp.core.db.HsqldbServerListener.startIfNeeded [DB] HSQLDB iniciado por Tomcat en puerto 9001
+06-Oct-2025 00:45:14.261 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+06-Oct-2025 00:45:14.262 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.11]
+06-Oct-2025 00:45:17.180 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:45:17.284 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager]
+org.hsqldb.HsqlException: Network client is not a HSQLDB JDBC driver
+	at org.hsqldb.error.Error.error(Unknown Source)
+	at org.hsqldb.error.Error.error(Unknown Source)
+	at org.hsqldb.server.ServerConnection.handshake(Unknown Source)
+	at org.hsqldb.server.ServerConnection.init(Unknown Source)
+	at org.hsqldb.server.ServerConnection.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+06-Oct-2025 00:45:18.785 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:45:18.804 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager] has finished in [1,519] ms
+06-Oct-2025 00:45:18.805 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs]
+06-Oct-2025 00:45:19.697 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:45:19.699 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs] has finished in [894] ms
+06-Oct-2025 00:45:19.699 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager]
+06-Oct-2025 00:45:20.979 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:45:20.984 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager] has finished in [1,285] ms
+06-Oct-2025 00:45:20.985 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples]
+06-Oct-2025 00:45:22.238 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:45:22.279 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples] has finished in [1,293] ms
+06-Oct-2025 00:45:22.289 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 00:45:22.347 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [8755] milliseconds
+[EL Info]: 2025-10-06 00:45:32.034--ServerSession(239872747)--EclipseLink, version: Eclipse Persistence Services - 4.0.4.v202407190748-059428cdd2583c46f1f3e50d235854840a6fa9a7
+[EL Warning]: metamodel: 2025-10-06 00:45:32.371--The collection of metamodel types is empty. Model classes may not have been found during entity search for Java SE and some Java EE container managed persistence units.  Please verify that your entity classes are referenced in persistence.xml using either <class> elements or a global <exclude-unlisted-classes>false</exclude-unlisted-classes> element
+06-Oct-2025 00:45:44.735 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+06-Oct-2025 00:45:44.736 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 00:45:44.739 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+06-Oct-2025 00:45:44.797 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+[Server@27406a17]: Initiating shutdown sequence...
+06-Oct-2025 00:45:44.825 INFO [main] turismouyapp.core.db.HsqldbServerListener.stopIfStarted [DB] HSQLDB detenido por Tomcat.
+06-Oct-2025 00:45:44.830 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+[Server@27406a17]: Shutdown sequence completed in 106 ms.
+[Server@27406a17]: 2025-10-06 03:45:44.932 SHUTDOWN : System.exit() was not called
+06-Oct-2025 00:46:09.279 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.11
+06-Oct-2025 00:46:09.287 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Sep 1 2025 10:24:44 UTC
+06-Oct-2025 00:46:09.287 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.11.0
+06-Oct-2025 00:46:09.287 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+06-Oct-2025 00:46:09.288 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            6.8.0-85-generic
+06-Oct-2025 00:46:09.289 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+06-Oct-2025 00:46:09.290 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /usr/lib/jvm/java-17-openjdk-amd64
+06-Oct-2025 00:46:09.290 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           17.0.16+8-Ubuntu-0ubuntu122.04.1
+06-Oct-2025 00:46:09.290 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Ubuntu
+06-Oct-2025 00:46:09.290 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 00:46:09.290 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 00:46:09.309 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/conf/logging.properties
+06-Oct-2025 00:46:09.310 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+06-Oct-2025 00:46:09.310 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+06-Oct-2025 00:46:09.310 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+06-Oct-2025 00:46:09.311 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+06-Oct-2025 00:46:09.314 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+06-Oct-2025 00:46:09.314 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+06-Oct-2025 00:46:09.315 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+06-Oct-2025 00:46:09.315 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+06-Oct-2025 00:46:09.315 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+06-Oct-2025 00:46:09.315 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+06-Oct-2025 00:46:09.315 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.port=9001
+06-Oct-2025 00:46:09.316 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.name=turismoUyDB
+06-Oct-2025 00:46:09.316 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.path=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB
+06-Oct-2025 00:46:09.316 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 00:46:09.316 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 00:46:09.317 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/temp
+06-Oct-2025 00:46:09.320 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib]
+06-Oct-2025 00:46:09.767 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 00:46:09.805 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [923] milliseconds
+[Server@17f62e33]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@17f62e33]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@17f62e33]: [Thread[main,5,main]]: setDatabaseName(0,turismoUyDB)
+[Server@17f62e33]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@17f62e33]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@17f62e33]: [Thread[main,5,main]]: setDatabasePath(0,file:/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB)
+[Server@17f62e33]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@17f62e33]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@17f62e33]: [Thread[main,5,main]]: setPort(9001)
+[Server@17f62e33]: Initiating startup sequence...
+[Server@17f62e33]: Server socket opened successfully in 1 ms.
+[Server@17f62e33]: Database [index=0, id=0, db=file:/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB, alias=turismouydb] opened successfully in 410 ms.
+[Server@17f62e33]: Startup sequence completed in 438 ms.
+[Server@17f62e33]: 2025-10-06 03:46:10.302 HSQLDB server 2.7.2 is online on port 9001
+[Server@17f62e33]: To close normally, connect and execute SHUTDOWN SQL
+[Server@17f62e33]: From command line, use [Ctrl]+[C] to abort abruptly
+06-Oct-2025 00:46:10.361 INFO [main] turismouyapp.core.db.HsqldbServerListener.startIfNeeded [DB] HSQLDB iniciado por Tomcat en puerto 9001
+06-Oct-2025 00:46:10.455 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+06-Oct-2025 00:46:10.456 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.11]
+06-Oct-2025 00:46:13.630 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:46:13.714 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager]
+org.hsqldb.HsqlException: Network client is not a HSQLDB JDBC driver
+	at org.hsqldb.error.Error.error(Unknown Source)
+	at org.hsqldb.error.Error.error(Unknown Source)
+	at org.hsqldb.server.ServerConnection.handshake(Unknown Source)
+	at org.hsqldb.server.ServerConnection.init(Unknown Source)
+	at org.hsqldb.server.ServerConnection.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+06-Oct-2025 00:46:14.892 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:46:14.909 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager] has finished in [1,194] ms
+06-Oct-2025 00:46:14.910 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs]
+06-Oct-2025 00:46:16.054 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:46:16.057 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs] has finished in [1,147] ms
+06-Oct-2025 00:46:16.059 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager]
+06-Oct-2025 00:46:17.075 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:46:17.079 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager] has finished in [1,019] ms
+06-Oct-2025 00:46:17.079 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples]
+06-Oct-2025 00:46:18.255 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:46:18.276 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples] has finished in [1,197] ms
+06-Oct-2025 00:46:18.283 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 00:46:18.304 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [8497] milliseconds
+[EL Info]: 2025-10-06 00:46:18.865--ServerSession(1480614373)--EclipseLink, version: Eclipse Persistence Services - 4.0.4.v202407190748-059428cdd2583c46f1f3e50d235854840a6fa9a7
+[EL Warning]: metamodel: 2025-10-06 00:46:19.152--The collection of metamodel types is empty. Model classes may not have been found during entity search for Java SE and some Java EE container managed persistence units.  Please verify that your entity classes are referenced in persistence.xml using either <class> elements or a global <exclude-unlisted-classes>false</exclude-unlisted-classes> element
+06-Oct-2025 00:46:34.092 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+06-Oct-2025 00:46:34.094 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 00:46:34.101 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+06-Oct-2025 00:46:34.147 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+[Server@17f62e33]: Initiating shutdown sequence...
+06-Oct-2025 00:46:34.160 INFO [main] turismouyapp.core.db.HsqldbServerListener.stopIfStarted [DB] HSQLDB detenido por Tomcat.
+06-Oct-2025 00:46:34.163 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+[Server@17f62e33]: Shutdown sequence completed in 104 ms.
+[Server@17f62e33]: 2025-10-06 03:46:34.266 SHUTDOWN : System.exit() was not called
+06-Oct-2025 00:46:45.236 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.11
+06-Oct-2025 00:46:45.245 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Sep 1 2025 10:24:44 UTC
+06-Oct-2025 00:46:45.247 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.11.0
+06-Oct-2025 00:46:45.248 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+06-Oct-2025 00:46:45.248 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            6.8.0-85-generic
+06-Oct-2025 00:46:45.248 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+06-Oct-2025 00:46:45.248 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /usr/lib/jvm/java-17-openjdk-amd64
+06-Oct-2025 00:46:45.249 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           17.0.16+8-Ubuntu-0ubuntu122.04.1
+06-Oct-2025 00:46:45.249 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Ubuntu
+06-Oct-2025 00:46:45.249 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 00:46:45.249 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 00:46:45.267 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/conf/logging.properties
+06-Oct-2025 00:46:45.268 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+06-Oct-2025 00:46:45.268 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+06-Oct-2025 00:46:45.268 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+06-Oct-2025 00:46:45.268 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+06-Oct-2025 00:46:45.268 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+06-Oct-2025 00:46:45.269 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+06-Oct-2025 00:46:45.269 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+06-Oct-2025 00:46:45.269 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+06-Oct-2025 00:46:45.269 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+06-Oct-2025 00:46:45.271 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+06-Oct-2025 00:46:45.272 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.port=9001
+06-Oct-2025 00:46:45.272 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.name=turismoUyDB
+06-Oct-2025 00:46:45.273 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.path=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB
+06-Oct-2025 00:46:45.273 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 00:46:45.273 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 00:46:45.274 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/temp
+06-Oct-2025 00:46:45.276 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib]
+06-Oct-2025 00:46:45.703 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 00:46:45.747 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [914] milliseconds
+[Server@17f62e33]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@17f62e33]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@17f62e33]: [Thread[main,5,main]]: setDatabaseName(0,turismoUyDB)
+[Server@17f62e33]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@17f62e33]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@17f62e33]: [Thread[main,5,main]]: setDatabasePath(0,file:/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB)
+[Server@17f62e33]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@17f62e33]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@17f62e33]: [Thread[main,5,main]]: setPort(9001)
+[Server@17f62e33]: Initiating startup sequence...
+[Server@17f62e33]: Server socket opened successfully in 1 ms.
+[Server@17f62e33]: Database [index=0, id=0, db=file:/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB, alias=turismouydb] opened successfully in 531 ms.
+[Server@17f62e33]: Startup sequence completed in 581 ms.
+[Server@17f62e33]: 2025-10-06 03:46:46.397 HSQLDB server 2.7.2 is online on port 9001
+[Server@17f62e33]: To close normally, connect and execute SHUTDOWN SQL
+[Server@17f62e33]: From command line, use [Ctrl]+[C] to abort abruptly
+06-Oct-2025 00:46:46.403 INFO [main] turismouyapp.core.db.HsqldbServerListener.startIfNeeded [DB] HSQLDB iniciado por Tomcat en puerto 9001
+06-Oct-2025 00:46:46.506 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+06-Oct-2025 00:46:46.507 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.11]
+06-Oct-2025 00:46:50.598 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:46:50.734 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager]
+org.hsqldb.HsqlException: Network client is not a HSQLDB JDBC driver
+	at org.hsqldb.error.Error.error(Unknown Source)
+	at org.hsqldb.error.Error.error(Unknown Source)
+	at org.hsqldb.server.ServerConnection.handshake(Unknown Source)
+	at org.hsqldb.server.ServerConnection.init(Unknown Source)
+	at org.hsqldb.server.ServerConnection.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+06-Oct-2025 00:46:52.134 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:46:52.147 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager] has finished in [1,413] ms
+06-Oct-2025 00:46:52.148 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs]
+06-Oct-2025 00:46:53.375 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:46:53.380 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs] has finished in [1,231] ms
+06-Oct-2025 00:46:53.381 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager]
+06-Oct-2025 00:46:54.558 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:46:54.562 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager] has finished in [1,182] ms
+06-Oct-2025 00:46:54.563 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples]
+06-Oct-2025 00:46:55.929 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:46:55.949 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples] has finished in [1,385] ms
+06-Oct-2025 00:46:55.956 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 00:46:55.977 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [10229] milliseconds
+[EL Info]: 2025-10-06 00:47:37.059--ServerSession(1760035056)--EclipseLink, version: Eclipse Persistence Services - 4.0.4.v202407190748-059428cdd2583c46f1f3e50d235854840a6fa9a7
+[EL Warning]: metamodel: 2025-10-06 00:47:37.343--The collection of metamodel types is empty. Model classes may not have been found during entity search for Java SE and some Java EE container managed persistence units.  Please verify that your entity classes are referenced in persistence.xml using either <class> elements or a global <exclude-unlisted-classes>false</exclude-unlisted-classes> element
+06-Oct-2025 00:57:18.120 INFO [Catalina-utility-2] org.apache.catalina.core.StandardContext.reload Reloading Context with name [] has started
+06-Oct-2025 00:57:20.224 INFO [Catalina-utility-2] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 00:57:20.236 INFO [Catalina-utility-2] org.apache.catalina.core.StandardContext.reload Reloading Context with name [] is completed
+06-Oct-2025 00:57:21.048 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+06-Oct-2025 00:57:21.050 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 00:57:21.052 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+06-Oct-2025 00:57:21.082 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+[Server@17f62e33]: Initiating shutdown sequence...
+06-Oct-2025 00:57:21.088 INFO [main] turismouyapp.core.db.HsqldbServerListener.stopIfStarted [DB] HSQLDB detenido por Tomcat.
+06-Oct-2025 00:57:21.090 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.ensureOpenAndConnected(NioSocketImpl.java:165)
+	at java.base/sun.nio.ch.NioSocketImpl.available(NioSocketImpl.java:843)
+	at java.base/sun.nio.ch.NioSocketImpl$1.available(NioSocketImpl.java:812)
+	at java.base/java.net.Socket$SocketInputStream.available(Socket.java:970)
+	at java.base/java.io.BufferedInputStream.available(BufferedInputStream.java:408)
+	at java.base/java.io.FilterInputStream.available(FilterInputStream.java:166)
+	at org.hsqldb.server.ServerConnection.handshake(Unknown Source)
+	at org.hsqldb.server.ServerConnection.init(Unknown Source)
+	at org.hsqldb.server.ServerConnection.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+[Server@17f62e33]: Shutdown sequence completed in 105 ms.
+[Server@17f62e33]: 2025-10-06 03:57:21.195 SHUTDOWN : System.exit() was not called
+06-Oct-2025 01:00:10.146 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.11
+06-Oct-2025 01:00:10.150 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Sep 1 2025 10:24:44 UTC
+06-Oct-2025 01:00:10.151 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.11.0
+06-Oct-2025 01:00:10.151 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+06-Oct-2025 01:00:10.151 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            6.8.0-85-generic
+06-Oct-2025 01:00:10.151 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+06-Oct-2025 01:00:10.151 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /usr/lib/jvm/java-17-openjdk-amd64
+06-Oct-2025 01:00:10.151 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           17.0.16+8-Ubuntu-0ubuntu122.04.1
+06-Oct-2025 01:00:10.152 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Ubuntu
+06-Oct-2025 01:00:10.152 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 01:00:10.152 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 01:00:10.163 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/conf/logging.properties
+06-Oct-2025 01:00:10.164 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+06-Oct-2025 01:00:10.164 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+06-Oct-2025 01:00:10.164 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+06-Oct-2025 01:00:10.165 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+06-Oct-2025 01:00:10.165 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+06-Oct-2025 01:00:10.165 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+06-Oct-2025 01:00:10.165 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+06-Oct-2025 01:00:10.165 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+06-Oct-2025 01:00:10.165 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+06-Oct-2025 01:00:10.166 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+06-Oct-2025 01:00:10.166 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.port=9001
+06-Oct-2025 01:00:10.166 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.name=turismoUyDB
+06-Oct-2025 01:00:10.166 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Ddb.path=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB
+06-Oct-2025 01:00:10.166 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 01:00:10.166 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11
+06-Oct-2025 01:00:10.167 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/temp
+06-Oct-2025 01:00:10.168 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib]
+06-Oct-2025 01:00:10.508 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 01:00:10.529 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [729] milliseconds
+[Server@1c5920df]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@1c5920df]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@1c5920df]: [Thread[main,5,main]]: setDatabaseName(0,turismoUyDB)
+[Server@1c5920df]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@1c5920df]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@1c5920df]: [Thread[main,5,main]]: setDatabasePath(0,file:/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB)
+[Server@1c5920df]: [Thread[main,5,main]]: checkRunning(false) entered
+[Server@1c5920df]: [Thread[main,5,main]]: checkRunning(false) exited
+[Server@1c5920df]: [Thread[main,5,main]]: setPort(9001)
+[Server@1c5920df]: Initiating startup sequence...
+[Server@1c5920df]: Server socket opened successfully in 1 ms.
+[Server@1c5920df]: Database [index=0, id=0, db=file:/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB, alias=turismouydb] opened successfully in 507 ms.
+[Server@1c5920df]: Startup sequence completed in 543 ms.
+[Server@1c5920df]: 2025-10-06 04:00:11.122 HSQLDB server 2.7.2 is online on port 9001
+[Server@1c5920df]: To close normally, connect and execute SHUTDOWN SQL
+[Server@1c5920df]: From command line, use [Ctrl]+[C] to abort abruptly
+06-Oct-2025 01:00:11.169 INFO [main] turismouyapp.core.db.HsqldbServerListener.startIfNeeded [DB] HSQLDB iniciado por Tomcat en puerto 9001
+06-Oct-2025 01:00:11.252 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+06-Oct-2025 01:00:11.253 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.11]
+06-Oct-2025 01:00:13.880 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 01:00:13.972 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager]
+06-Oct-2025 01:00:14.898 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 01:00:14.915 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/manager] has finished in [942] ms
+06-Oct-2025 01:00:14.915 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs]
+org.hsqldb.HsqlException: Network client is not a HSQLDB JDBC driver
+	at org.hsqldb.error.Error.error(Unknown Source)
+	at org.hsqldb.error.Error.error(Unknown Source)
+	at org.hsqldb.server.ServerConnection.handshake(Unknown Source)
+	at org.hsqldb.server.ServerConnection.init(Unknown Source)
+	at org.hsqldb.server.ServerConnection.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+06-Oct-2025 01:00:15.840 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 01:00:15.843 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/docs] has finished in [928] ms
+06-Oct-2025 01:00:15.844 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager]
+06-Oct-2025 01:00:16.785 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 01:00:16.787 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/host-manager] has finished in [943] ms
+06-Oct-2025 01:00:16.788 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples]
+06-Oct-2025 01:00:17.724 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 01:00:17.744 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/examples] has finished in [956] ms
+06-Oct-2025 01:00:17.745 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/ROOT]
+06-Oct-2025 01:00:18.737 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+06-Oct-2025 01:00:18.743 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/webapps/ROOT] has finished in [997] ms
+06-Oct-2025 01:00:18.751 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 01:00:18.780 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [8249] milliseconds
+06-Oct-2025 01:05:30.119 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+06-Oct-2025 01:05:30.122 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 01:05:30.130 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
+06-Oct-2025 01:05:30.176 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+06-Oct-2025 01:05:30.185 INFO [main] turismouyapp.core.db.HsqldbServerListener.stopIfStarted [DB] HSQLDB detenido por Tomcat.
+[Server@1c5920df]: Initiating shutdown sequence...
+[Server@1c5920df]: Shutdown sequence completed in 0 ms.
+[Server@1c5920df]: 2025-10-06 04:05:30.187 SHUTDOWN : System.exit() was not called
+06-Oct-2025 01:05:30.190 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]

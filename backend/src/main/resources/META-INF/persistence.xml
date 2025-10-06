@@ -3,28 +3,42 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0"
 	xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
                                  https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
-	<persistence-unit name="turismoUyDB"
-		transaction-type="RESOURCE_LOCAL">
+  
+	<persistence-unit name="turismoUyDB-Server" transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 
 		<properties>
-			<!-- JDBC (modo file: solo una JVM a la vez) -->
+			<property name="jakarta.persistence.jdbc.driver"
+				value="org.hsqldb.jdbc.JDBCDriver" />
+			<property name="jakarta.persistence.jdbc.url" value="jdbc:hsqldb:hsql://localhost:9001/turismoUyDB"/>
+			<property name="jakarta.persistence.jdbc.user" value="SA" />
+			<property name="jakarta.persistence.jdbc.password" value="" />
+			<property name="eclipselink.target-server" value="None" />
+			<property name="eclipselink.logging.level" value="INFO" />
+			<property name="eclipselink.weaving" value="false" />
+			<property name="eclipselink.ddl-generation" value="create-or-extend-tables" />
+			<property name="eclipselink.ddl-generation.output-mode"
+				value="database" />
+		</properties>
+	</persistence-unit>
+<!--
+	<persistence-unit name="turismoUyDB-File" transaction-type="RESOURCE_LOCAL">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+
+		<properties>
 			<property name="jakarta.persistence.jdbc.driver"
 				value="org.hsqldb.jdbc.JDBCDriver" />
 			<property name="jakarta.persistence.jdbc.url"
-				value="jdbc:hsqldb:file:./data/db/turismouydb;shutdown=true" />
+				value="jdbc:hsqldb:file:./data/db/turismoUyDB;shutdown=true" />
 			<property name="jakarta.persistence.jdbc.user" value="sa" />
 			<property name="jakarta.persistence.jdbc.password" value="" />
-
-			<!-- EclipseLink -->
 			<property name="eclipselink.ddl-generation"
 				value="create-or-extend-tables" />
 			<property name="eclipselink.ddl-generation.output-mode"
 				value="database" />
-			<!-- Para evitar ver datos cacheados entre procesos -->
-			<property name="eclipselink.cache.shared.default"
-				value="false" />
 		</properties>
 	</persistence-unit>
+-->
 </persistence>

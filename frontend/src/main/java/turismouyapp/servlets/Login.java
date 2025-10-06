@@ -30,8 +30,25 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		FactoryUyTourism.getInstance().getIUserController().listTourists();
+		response.getWriter().append("<!DOCTYPE html><html><body><h1>Served at: "+request.getContextPath()+"</h1><main>");
+		String[] users = FactoryUyTourism.getInstance().getIUserController().listTourists();
+		String[] suppliers = FactoryUyTourism.getInstance().getIUserController().listSuppliers();
+		if(users!= null) {
+			response.getWriter().append("<h2>Users</h2><ul>");
+			for(String user : users) {
+				response.getWriter().append("<li><p>"+user+"</p></li>");
+			}
+			response.getWriter().append("</ul>");
+		}
+		if(suppliers!= null) {
+			response.getWriter().append("<h2>Suppliers</h2><ul>");
+			for(String supplier : suppliers) {
+				response.getWriter().append("<li><p>"+supplier+"</p></li>");
+			}
+			response.getWriter().append("</ul>");
+		}
+		response.getWriter().append("</main></body></html>");
+
 	}
 
 	/**

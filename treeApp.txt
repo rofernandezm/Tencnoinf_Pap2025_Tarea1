@@ -1,0 +1,1019 @@
+.
+├── backend
+│   ├── data
+│   │   └── db
+│   │       ├── turismouydb.log
+│   │       ├── turismouydb.properties
+│   │       ├── turismouydb.script
+│   │       └── turismouydb.tmp
+│   ├── lib
+│   ├── pom.xml
+│   ├── README.md
+│   ├── resources
+│   │   ├── Tarea1_2025.pdf
+│   │   └── Tarea1.drawio
+│   ├── src
+│   │   ├── main
+│   │   │   ├── java
+│   │   │   │   ├── presentation
+│   │   │   │   │   ├── ActivityRanking.java
+│   │   │   │   │   ├── ConsultActivity.java
+│   │   │   │   │   ├── ConsultTouristInscription.java
+│   │   │   │   │   ├── ConsultTouristOuting.java
+│   │   │   │   │   ├── ConsultUser.java
+│   │   │   │   │   ├── CreateActivity.java
+│   │   │   │   │   ├── CreateUser.java
+│   │   │   │   │   ├── InscriptionToTouristOuting.java
+│   │   │   │   │   ├── Main.java
+│   │   │   │   │   ├── ModifyActivity.java
+│   │   │   │   │   ├── ModifyUser.java
+│   │   │   │   │   └── TouristOutingRegistration.java
+│   │   │   │   └── turismouyapp
+│   │   │   │       └── core
+│   │   │   │           ├── controller
+│   │   │   │           │   ├── TouristActivityController.java
+│   │   │   │           │   ├── TouristOutingAndInscriptionController.java
+│   │   │   │           │   └── UserController.java
+│   │   │   │           ├── db
+│   │   │   │           │   └── HsqldbServerListener.java
+│   │   │   │           ├── dto
+│   │   │   │           │   ├── DtActivityWithOutings.java
+│   │   │   │           │   ├── DtInscriptionTouristOuting.java
+│   │   │   │           │   ├── DtRanking.java
+│   │   │   │           │   ├── DtSupplier.java
+│   │   │   │           │   ├── DtSupplierProfile.java
+│   │   │   │           │   ├── DtTouristActivity.java
+│   │   │   │           │   ├── DtTourist.java
+│   │   │   │           │   ├── DtTouristOuting.java
+│   │   │   │           │   ├── DtTouristProfile.java
+│   │   │   │           │   ├── DtUser.java
+│   │   │   │           │   ├── DtUserProfile.java
+│   │   │   │           │   ├── TouristActivityStatus.java
+│   │   │   │           │   └── UserType.java
+│   │   │   │           ├── entity
+│   │   │   │           │   ├── Inscription.java
+│   │   │   │           │   ├── Supplier.java
+│   │   │   │           │   ├── TouristActivity.java
+│   │   │   │           │   ├── Tourist.java
+│   │   │   │           │   ├── TouristOuting.java
+│   │   │   │           │   └── User.java
+│   │   │   │           ├── exceptions
+│   │   │   │           │   ├── ActivityDoesNotExistException.java
+│   │   │   │           │   ├── RepeatedActivityNameException.java
+│   │   │   │           │   ├── RepeatedInscriptionToTouristOutingException.java
+│   │   │   │           │   ├── RepeatedTouristOutingException.java
+│   │   │   │           │   ├── RepeatedUserEmailException.java
+│   │   │   │           │   ├── RepeatedUserNicknameException.java
+│   │   │   │           │   └── TouristOutingDoesNotExistException.java
+│   │   │   │           ├── factory
+│   │   │   │           │   └── FactoryUyTourism.java
+│   │   │   │           ├── handler
+│   │   │   │           │   ├── PersistenceHandler.java
+│   │   │   │           │   ├── TouristActivityHandler.java
+│   │   │   │           │   ├── TouristOutingAndInscrptionHandler.java
+│   │   │   │           │   └── UserHandler.java
+│   │   │   │           └── interfaces
+│   │   │   │               ├── ITouristActivityController.java
+│   │   │   │               ├── ITouristOutingAndInscriptionController.java
+│   │   │   │               └── IUserController.java
+│   │   │   └── resources
+│   │   │       ├── META-INF
+│   │   │       │   └── persistence.xml
+│   │   │       └── texts.properties
+│   │   └── test
+│   │       └── resources
+│   └── target
+│       ├── classes
+│       │   ├── META-INF
+│       │   │   ├── MANIFEST.MF
+│       │   │   ├── maven
+│       │   │   │   └── turismouy.Backend
+│       │   │   │       └── turismouy.Backend
+│       │   │   │           ├── pom.properties
+│       │   │   │           └── pom.xml
+│       │   │   └── persistence.xml
+│       │   ├── presentation
+│       │   │   ├── ActivityRanking$1.class
+│       │   │   ├── ActivityRanking.class
+│       │   │   ├── ConsultActivity$1.class
+│       │   │   ├── ConsultActivity$2.class
+│       │   │   ├── ConsultActivity.class
+│       │   │   ├── ConsultTouristInscription.class
+│       │   │   ├── ConsultTouristOuting$1.class
+│       │   │   ├── ConsultTouristOuting$2.class
+│       │   │   ├── ConsultTouristOuting$3.class
+│       │   │   ├── ConsultTouristOuting.class
+│       │   │   ├── ConsultUser$1.class
+│       │   │   ├── ConsultUser$2.class
+│       │   │   ├── ConsultUser$3.class
+│       │   │   ├── ConsultUser$4.class
+│       │   │   ├── ConsultUser$5.class
+│       │   │   ├── ConsultUser$6.class
+│       │   │   ├── ConsultUser$7.class
+│       │   │   ├── ConsultUser$8.class
+│       │   │   ├── ConsultUser.class
+│       │   │   ├── CreateActivity$1.class
+│       │   │   ├── CreateActivity$2.class
+│       │   │   ├── CreateActivity.class
+│       │   │   ├── CreateUser$1.class
+│       │   │   ├── CreateUser.class
+│       │   │   ├── InscriptionToTouristOuting$1.class
+│       │   │   ├── InscriptionToTouristOuting$2.class
+│       │   │   ├── InscriptionToTouristOuting$3.class
+│       │   │   ├── InscriptionToTouristOuting.class
+│       │   │   ├── Main$10.class
+│       │   │   ├── Main$11.class
+│       │   │   ├── Main$12.class
+│       │   │   ├── Main$13.class
+│       │   │   ├── Main$14.class
+│       │   │   ├── Main$15.class
+│       │   │   ├── Main$1.class
+│       │   │   ├── Main$2.class
+│       │   │   ├── Main$3.class
+│       │   │   ├── Main$4.class
+│       │   │   ├── Main$5.class
+│       │   │   ├── Main$6.class
+│       │   │   ├── Main$7.class
+│       │   │   ├── Main$8.class
+│       │   │   ├── Main$9.class
+│       │   │   ├── Main.class
+│       │   │   ├── ModifyActivity.class
+│       │   │   ├── ModifyUser$1.class
+│       │   │   ├── ModifyUser.class
+│       │   │   ├── TouristOutingRegistration$1.class
+│       │   │   ├── TouristOutingRegistration$2.class
+│       │   │   └── TouristOutingRegistration.class
+│       │   ├── texts.properties
+│       │   └── turismouyapp
+│       │       └── core
+│       │           ├── controller
+│       │           │   ├── TouristActivityController.class
+│       │           │   ├── TouristOutingAndInscriptionController.class
+│       │           │   └── UserController.class
+│       │           ├── db
+│       │           │   └── HsqldbServerListener.class
+│       │           ├── dto
+│       │           │   ├── DtActivityWithOutings.class
+│       │           │   ├── DtInscriptionTouristOuting.class
+│       │           │   ├── DtRanking.class
+│       │           │   ├── DtSupplier.class
+│       │           │   ├── DtSupplierProfile.class
+│       │           │   ├── DtTouristActivity.class
+│       │           │   ├── DtTourist.class
+│       │           │   ├── DtTouristOuting.class
+│       │           │   ├── DtTouristProfile.class
+│       │           │   ├── DtUser.class
+│       │           │   ├── DtUserProfile.class
+│       │           │   ├── TouristActivityStatus.class
+│       │           │   └── UserType.class
+│       │           ├── entity
+│       │           │   ├── Inscription.class
+│       │           │   ├── Supplier.class
+│       │           │   ├── TouristActivity.class
+│       │           │   ├── Tourist.class
+│       │           │   ├── TouristOuting.class
+│       │           │   └── User.class
+│       │           ├── exceptions
+│       │           │   ├── ActivityDoesNotExistException.class
+│       │           │   ├── RepeatedActivityNameException.class
+│       │           │   ├── RepeatedInscriptionToTouristOutingException.class
+│       │           │   ├── RepeatedTouristOutingException.class
+│       │           │   ├── RepeatedUserEmailException.class
+│       │           │   ├── RepeatedUserNicknameException.class
+│       │           │   └── TouristOutingDoesNotExistException.class
+│       │           ├── factory
+│       │           │   └── FactoryUyTourism.class
+│       │           ├── handler
+│       │           │   ├── PersistenceHandler.class
+│       │           │   ├── TouristActivityHandler.class
+│       │           │   ├── TouristOutingAndInscrptionHandler.class
+│       │           │   └── UserHandler.class
+│       │           └── interfaces
+│       │               ├── ITouristActivityController.class
+│       │               ├── ITouristOutingAndInscriptionController.class
+│       │               └── IUserController.class
+│       └── test-classes
+├── frontend
+│   ├── build
+│   │   └── classes
+│   │       ├── db
+│   │       │   └── HsqldbServerListener.class
+│   │       └── turismouy
+│   │           └── servlet
+│   │               └── Login.class
+│   ├── pom.xml
+│   ├── src
+│   │   ├── main
+│   │   │   ├── java
+│   │   │   │   └── turismouyapp
+│   │   │   │       └── servlets
+│   │   │   │           ├── DbServerPublish.java
+│   │   │   │           └── Login.java
+│   │   │   ├── resources
+│   │   │   └── webapp
+│   │   │       ├── META-INF
+│   │   │       │   └── MANIFEST.MF
+│   │   │       └── WEB-INF
+│   │   │           ├── lib
+│   │   │           │   ├── jakarta.servlet-api-5.0.0.jar
+│   │   │           │   ├── jakarta.servlet.jsp.jstl-2.0.0.jar
+│   │   │           │   └── jakarta.servlet.jsp.jstl-api-2.0.0.jar
+│   │   │           └── web.xml
+│   │   └── test
+│   │       ├── java
+│   │       └── resources
+│   └── target
+│       ├── classes
+│       │   └── turismouyapp
+│       │       └── servlets
+│       │           ├── DbServerPublish.class
+│       │           └── Login.class
+│       ├── m2e-wtp
+│       │   └── web-resources
+│       │       └── META-INF
+│       │           ├── MANIFEST.MF
+│       │           └── maven
+│       │               └── turismouy.FrontEnd
+│       │                   └── turismouy.UI
+│       │                       ├── pom.properties
+│       │                       └── pom.xml
+│       └── test-classes
+├── server
+│   ├── apache-tomcat-11.0.11
+│   │   ├── bin
+│   │   │   ├── bootstrap.jar
+│   │   │   ├── catalina.bat
+│   │   │   ├── catalina.sh
+│   │   │   ├── catalina-tasks.xml
+│   │   │   ├── ciphers.bat
+│   │   │   ├── ciphers.sh
+│   │   │   ├── commons-daemon.jar
+│   │   │   ├── commons-daemon-native.tar.gz
+│   │   │   ├── configtest.bat
+│   │   │   ├── configtest.sh
+│   │   │   ├── daemon.sh
+│   │   │   ├── digest.bat
+│   │   │   ├── digest.sh
+│   │   │   ├── makebase.bat
+│   │   │   ├── makebase.sh
+│   │   │   ├── migrate.bat
+│   │   │   ├── migrate.sh
+│   │   │   ├── setclasspath.bat
+│   │   │   ├── setclasspath.sh
+│   │   │   ├── shutdown.bat
+│   │   │   ├── shutdown.sh
+│   │   │   ├── startup.bat
+│   │   │   ├── startup.sh
+│   │   │   ├── tomcat-juli.jar
+│   │   │   ├── tomcat-native.tar.gz
+│   │   │   ├── tool-wrapper.bat
+│   │   │   ├── tool-wrapper.sh
+│   │   │   ├── version.bat
+│   │   │   └── version.sh
+│   │   ├── BUILDING.txt
+│   │   ├── conf
+│   │   │   ├── Catalina
+│   │   │   │   └── localhost
+│   │   │   ├── catalina.properties
+│   │   │   ├── context.xml
+│   │   │   ├── jaspic-providers.xml
+│   │   │   ├── jaspic-providers.xsd
+│   │   │   ├── logging.properties
+│   │   │   ├── server.xml
+│   │   │   ├── tomcat-users.xml
+│   │   │   ├── tomcat-users.xsd
+│   │   │   └── web.xml
+│   │   ├── CONTRIBUTING.md
+│   │   ├── lib
+│   │   │   ├── annotations-api.jar
+│   │   │   ├── catalina-ant.jar
+│   │   │   ├── catalina-ha.jar
+│   │   │   ├── catalina.jar
+│   │   │   ├── catalina-ssi.jar
+│   │   │   ├── catalina-storeconfig.jar
+│   │   │   ├── catalina-tribes.jar
+│   │   │   ├── ecj-4.36.jar
+│   │   │   ├── eclipselink-4.0.2.jar
+│   │   │   ├── el-api.jar
+│   │   │   ├── hsqldb.jar
+│   │   │   ├── HsqldbServerListener.jar
+│   │   │   ├── jakartaee-migration-1.0.9-shaded.jar
+│   │   │   ├── jakarta.persistence-api-3.1.0.jar
+│   │   │   ├── jasper-el.jar
+│   │   │   ├── jasper.jar
+│   │   │   ├── jaspic-api.jar
+│   │   │   ├── jsp-api.jar
+│   │   │   ├── servlet-api.jar
+│   │   │   ├── tomcat-api.jar
+│   │   │   ├── tomcat-coyote-ffm.jar
+│   │   │   ├── tomcat-coyote.jar
+│   │   │   ├── tomcat-dbcp.jar
+│   │   │   ├── tomcat-i18n-cs.jar
+│   │   │   ├── tomcat-i18n-de.jar
+│   │   │   ├── tomcat-i18n-es.jar
+│   │   │   ├── tomcat-i18n-fr.jar
+│   │   │   ├── tomcat-i18n-ja.jar
+│   │   │   ├── tomcat-i18n-ko.jar
+│   │   │   ├── tomcat-i18n-pt-BR.jar
+│   │   │   ├── tomcat-i18n-ru.jar
+│   │   │   ├── tomcat-i18n-zh-CN.jar
+│   │   │   ├── tomcat-jdbc.jar
+│   │   │   ├── tomcat-jni.jar
+│   │   │   ├── tomcat-util.jar
+│   │   │   ├── tomcat-util-scan.jar
+│   │   │   ├── tomcat-websocket.jar
+│   │   │   ├── websocket-api.jar
+│   │   │   └── websocket-client-api.jar
+│   │   ├── LICENSE
+│   │   ├── logs
+│   │   │   └── localhost_access_log.2025-10-05.txt
+│   │   ├── NOTICE
+│   │   ├── README.md
+│   │   ├── RELEASE-NOTES
+│   │   ├── RUNNING.txt
+│   │   ├── temp
+│   │   │   └── safeToDelete.tmp
+│   │   ├── webapps
+│   │   │   ├── docs
+│   │   │   │   ├── aio.html
+│   │   │   │   ├── annotationapi
+│   │   │   │   │   └── index.html
+│   │   │   │   ├── api
+│   │   │   │   │   └── index.html
+│   │   │   │   ├── appdev
+│   │   │   │   │   ├── build.xml.txt
+│   │   │   │   │   ├── deployment.html
+│   │   │   │   │   ├── index.html
+│   │   │   │   │   ├── installation.html
+│   │   │   │   │   ├── introduction.html
+│   │   │   │   │   ├── processes.html
+│   │   │   │   │   ├── sample
+│   │   │   │   │   │   ├── build.xml
+│   │   │   │   │   │   ├── docs
+│   │   │   │   │   │   │   └── README.txt
+│   │   │   │   │   │   ├── index.html
+│   │   │   │   │   │   ├── sample.war
+│   │   │   │   │   │   ├── src
+│   │   │   │   │   │   │   └── mypackage
+│   │   │   │   │   │   │       └── Hello.java
+│   │   │   │   │   │   └── web
+│   │   │   │   │   │       ├── hello.jsp
+│   │   │   │   │   │       ├── images
+│   │   │   │   │   │       │   └── tomcat.gif
+│   │   │   │   │   │       ├── index.html
+│   │   │   │   │   │       └── WEB-INF
+│   │   │   │   │   │           └── web.xml
+│   │   │   │   │   ├── source.html
+│   │   │   │   │   └── web.xml.txt
+│   │   │   │   ├── apr.html
+│   │   │   │   ├── architecture
+│   │   │   │   │   ├── index.html
+│   │   │   │   │   ├── overview.html
+│   │   │   │   │   ├── requestProcess
+│   │   │   │   │   │   ├── 11_nio.plantuml
+│   │   │   │   │   │   ├── 11_nio.png
+│   │   │   │   │   │   ├── 21_http11.plantuml
+│   │   │   │   │   │   ├── 21_http11.png
+│   │   │   │   │   │   ├── 31_synchronous.plantuml
+│   │   │   │   │   │   ├── 31_synchronous.png
+│   │   │   │   │   │   ├── 41_basic.plantuml
+│   │   │   │   │   │   └── 41_basic.png
+│   │   │   │   │   ├── requestProcess.html
+│   │   │   │   │   ├── startup
+│   │   │   │   │   │   ├── 1_overview.plantuml
+│   │   │   │   │   │   ├── 1_overview.png
+│   │   │   │   │   │   ├── 2_catalina_init.plantuml
+│   │   │   │   │   │   ├── 2_catalina_init.png
+│   │   │   │   │   │   ├── 3_catalina_start_1.plantuml
+│   │   │   │   │   │   ├── 3_catalina_start_1.png
+│   │   │   │   │   │   ├── 4_catalina_start_2.plantuml
+│   │   │   │   │   │   ├── 4_catalina_start_2.png
+│   │   │   │   │   │   ├── 5_catalina_start_3.plantuml
+│   │   │   │   │   │   ├── 5_catalina_start_3.png
+│   │   │   │   │   │   ├── 6_catalina_host_config.plantuml
+│   │   │   │   │   │   ├── 6_catalina_host_config.png
+│   │   │   │   │   │   ├── 7_catalina_context_config.plantuml
+│   │   │   │   │   │   └── 7_catalina_context_config.png
+│   │   │   │   │   └── startup.html
+│   │   │   │   ├── balancer-howto.html
+│   │   │   │   ├── building.html
+│   │   │   │   ├── BUILDING.txt
+│   │   │   │   ├── cdi.html
+│   │   │   │   ├── cgi-howto.html
+│   │   │   │   ├── changelog.html
+│   │   │   │   ├── class-loader-howto.html
+│   │   │   │   ├── cluster-howto.html
+│   │   │   │   ├── comments.html
+│   │   │   │   ├── config
+│   │   │   │   │   ├── ajp.html
+│   │   │   │   │   ├── automatic-deployment.html
+│   │   │   │   │   ├── cluster-channel.html
+│   │   │   │   │   ├── cluster-deployer.html
+│   │   │   │   │   ├── cluster.html
+│   │   │   │   │   ├── cluster-interceptor.html
+│   │   │   │   │   ├── cluster-listener.html
+│   │   │   │   │   ├── cluster-manager.html
+│   │   │   │   │   ├── cluster-membership.html
+│   │   │   │   │   ├── cluster-receiver.html
+│   │   │   │   │   ├── cluster-sender.html
+│   │   │   │   │   ├── cluster-valve.html
+│   │   │   │   │   ├── context.html
+│   │   │   │   │   ├── cookie-processor.html
+│   │   │   │   │   ├── credentialhandler.html
+│   │   │   │   │   ├── engine.html
+│   │   │   │   │   ├── executor.html
+│   │   │   │   │   ├── filter.html
+│   │   │   │   │   ├── globalresources.html
+│   │   │   │   │   ├── host.html
+│   │   │   │   │   ├── http2.html
+│   │   │   │   │   ├── http.html
+│   │   │   │   │   ├── index.html
+│   │   │   │   │   ├── jar-scan-filter.html
+│   │   │   │   │   ├── jar-scanner.html
+│   │   │   │   │   ├── jaspic.html
+│   │   │   │   │   ├── listeners.html
+│   │   │   │   │   ├── loader.html
+│   │   │   │   │   ├── manager.html
+│   │   │   │   │   ├── realm.html
+│   │   │   │   │   ├── resources.html
+│   │   │   │   │   ├── runtime-attributes.html
+│   │   │   │   │   ├── server.html
+│   │   │   │   │   ├── service.html
+│   │   │   │   │   ├── sessionidgenerator.html
+│   │   │   │   │   ├── systemprops.html
+│   │   │   │   │   └── valve.html
+│   │   │   │   ├── connectors.html
+│   │   │   │   ├── default-servlet.html
+│   │   │   │   ├── deployer-howto.html
+│   │   │   │   ├── developers.html
+│   │   │   │   ├── elapi
+│   │   │   │   │   └── index.html
+│   │   │   │   ├── graal.html
+│   │   │   │   ├── host-manager-howto.html
+│   │   │   │   ├── html-host-manager-howto.html
+│   │   │   │   ├── html-manager-howto.html
+│   │   │   │   ├── images
+│   │   │   │   │   ├── add.gif
+│   │   │   │   │   ├── asf-logo.svg
+│   │   │   │   │   ├── code.gif
+│   │   │   │   │   ├── cors-flowchart.png
+│   │   │   │   │   ├── design.gif
+│   │   │   │   │   ├── docs.gif
+│   │   │   │   │   ├── docs-stylesheet.css
+│   │   │   │   │   ├── fix.gif
+│   │   │   │   │   ├── fonts
+│   │   │   │   │   │   ├── fonts.css
+│   │   │   │   │   │   ├── OpenSans400italic.woff
+│   │   │   │   │   │   ├── OpenSans400.woff
+│   │   │   │   │   │   ├── OpenSans600italic.woff
+│   │   │   │   │   │   ├── OpenSans600.woff
+│   │   │   │   │   │   ├── OpenSans700italic.woff
+│   │   │   │   │   │   └── OpenSans700.woff
+│   │   │   │   │   ├── tomcat.gif
+│   │   │   │   │   ├── tomcat.png
+│   │   │   │   │   ├── update.gif
+│   │   │   │   │   └── void.gif
+│   │   │   │   ├── index.html
+│   │   │   │   ├── introduction.html
+│   │   │   │   ├── jasper-howto.html
+│   │   │   │   ├── jaspicapi
+│   │   │   │   │   └── index.html
+│   │   │   │   ├── jdbc-pool.html
+│   │   │   │   ├── jndi-datasource-examples-howto.html
+│   │   │   │   ├── jndi-resources-howto.html
+│   │   │   │   ├── jspapi
+│   │   │   │   │   └── index.html
+│   │   │   │   ├── logging.html
+│   │   │   │   ├── manager-howto.html
+│   │   │   │   ├── maven-jars.html
+│   │   │   │   ├── mbeans-descriptors.dtd
+│   │   │   │   ├── mbeans-descriptors-howto.html
+│   │   │   │   ├── META-INF
+│   │   │   │   │   └── context.xml
+│   │   │   │   ├── monitoring.html
+│   │   │   │   ├── proxy-howto.html
+│   │   │   │   ├── realm-howto.html
+│   │   │   │   ├── RELEASE-NOTES.txt
+│   │   │   │   ├── rewrite.html
+│   │   │   │   ├── RUNNING.txt
+│   │   │   │   ├── security-howto.html
+│   │   │   │   ├── servletapi
+│   │   │   │   │   └── index.html
+│   │   │   │   ├── setup.html
+│   │   │   │   ├── ssi-howto.html
+│   │   │   │   ├── ssl-howto.html
+│   │   │   │   ├── tribes
+│   │   │   │   │   ├── developers.html
+│   │   │   │   │   ├── faq.html
+│   │   │   │   │   ├── interceptors.html
+│   │   │   │   │   ├── introduction.html
+│   │   │   │   │   ├── membership.html
+│   │   │   │   │   ├── setup.html
+│   │   │   │   │   ├── status.html
+│   │   │   │   │   └── transport.html
+│   │   │   │   ├── virtual-hosting-howto.html
+│   │   │   │   ├── WEB-INF
+│   │   │   │   │   ├── jsp
+│   │   │   │   │   │   └── 403.jsp
+│   │   │   │   │   └── web.xml
+│   │   │   │   ├── websocketapi
+│   │   │   │   │   └── index.html
+│   │   │   │   ├── web-socket-howto.html
+│   │   │   │   ├── windows-auth-howto.html
+│   │   │   │   └── windows-service-howto.html
+│   │   │   ├── examples
+│   │   │   │   ├── index.html
+│   │   │   │   ├── jsp
+│   │   │   │   │   ├── async
+│   │   │   │   │   │   ├── async1.jsp
+│   │   │   │   │   │   ├── async1.jsp.html
+│   │   │   │   │   │   ├── async3.jsp
+│   │   │   │   │   │   ├── async3.jsp.html
+│   │   │   │   │   │   ├── index.jsp
+│   │   │   │   │   │   └── index.jsp.html
+│   │   │   │   │   ├── checkbox
+│   │   │   │   │   │   ├── check.html
+│   │   │   │   │   │   ├── checkresult.jsp
+│   │   │   │   │   │   ├── checkresult.jsp.html
+│   │   │   │   │   │   ├── CheckTest.html
+│   │   │   │   │   │   └── cresult.html
+│   │   │   │   │   ├── colors
+│   │   │   │   │   │   ├── clr.html
+│   │   │   │   │   │   ├── ColorGameBean.html
+│   │   │   │   │   │   ├── colors.html
+│   │   │   │   │   │   ├── colrs.jsp
+│   │   │   │   │   │   └── colrs.jsp.html
+│   │   │   │   │   ├── dates
+│   │   │   │   │   │   ├── date.html
+│   │   │   │   │   │   ├── date.jsp
+│   │   │   │   │   │   └── date.jsp.html
+│   │   │   │   │   ├── error
+│   │   │   │   │   │   ├── er.html
+│   │   │   │   │   │   ├── err.jsp
+│   │   │   │   │   │   ├── err.jsp.html
+│   │   │   │   │   │   ├── error.html
+│   │   │   │   │   │   ├── errorpge.jsp
+│   │   │   │   │   │   └── errorpge.jsp.html
+│   │   │   │   │   ├── forward
+│   │   │   │   │   │   ├── forward.jsp
+│   │   │   │   │   │   ├── forward.jsp.html
+│   │   │   │   │   │   ├── fwd.html
+│   │   │   │   │   │   ├── one.jsp
+│   │   │   │   │   │   ├── one.jsp.html
+│   │   │   │   │   │   └── two.html
+│   │   │   │   │   ├── images
+│   │   │   │   │   │   ├── code.gif
+│   │   │   │   │   │   ├── execute.gif
+│   │   │   │   │   │   └── return.gif
+│   │   │   │   │   ├── include
+│   │   │   │   │   │   ├── foo.html
+│   │   │   │   │   │   ├── foo.jsp
+│   │   │   │   │   │   ├── foo.jsp.html
+│   │   │   │   │   │   ├── inc.html
+│   │   │   │   │   │   ├── include.jsp
+│   │   │   │   │   │   └── include.jsp.html
+│   │   │   │   │   ├── index.html
+│   │   │   │   │   ├── jsp2
+│   │   │   │   │   │   ├── el
+│   │   │   │   │   │   │   ├── basic-arithmetic.html
+│   │   │   │   │   │   │   ├── basic-arithmetic.jsp
+│   │   │   │   │   │   │   ├── basic-arithmetic.jsp.html
+│   │   │   │   │   │   │   ├── basic-comparisons.html
+│   │   │   │   │   │   │   ├── basic-comparisons.jsp
+│   │   │   │   │   │   │   ├── basic-comparisons.jsp.html
+│   │   │   │   │   │   │   ├── composite.html
+│   │   │   │   │   │   │   ├── composite.jsp
+│   │   │   │   │   │   │   ├── composite.jsp.html
+│   │   │   │   │   │   │   ├── functions.html
+│   │   │   │   │   │   │   ├── Functions.java.html
+│   │   │   │   │   │   │   ├── functions.jsp
+│   │   │   │   │   │   │   ├── functions.jsp.html
+│   │   │   │   │   │   │   ├── implicit-objects.html
+│   │   │   │   │   │   │   ├── implicit-objects.jsp
+│   │   │   │   │   │   │   ├── implicit-objects.jsp.html
+│   │   │   │   │   │   │   ├── ValuesBean.java.html
+│   │   │   │   │   │   │   └── ValuesTag.java.html
+│   │   │   │   │   │   ├── jspattribute
+│   │   │   │   │   │   │   ├── FooBean.java.html
+│   │   │   │   │   │   │   ├── HelloWorldSimpleTag.java.html
+│   │   │   │   │   │   │   ├── jspattribute.html
+│   │   │   │   │   │   │   ├── jspattribute.jsp
+│   │   │   │   │   │   │   ├── jspattribute.jsp.html
+│   │   │   │   │   │   │   ├── shuffle.html
+│   │   │   │   │   │   │   ├── shuffle.jsp
+│   │   │   │   │   │   │   ├── shuffle.jsp.html
+│   │   │   │   │   │   │   ├── ShuffleSimpleTag.java.html
+│   │   │   │   │   │   │   └── TileSimpleTag.java.html
+│   │   │   │   │   │   ├── jspx
+│   │   │   │   │   │   │   ├── basic.html
+│   │   │   │   │   │   │   ├── basic.jspx
+│   │   │   │   │   │   │   ├── basic.jspx.html
+│   │   │   │   │   │   │   ├── svgexample.html
+│   │   │   │   │   │   │   ├── textRotate.html
+│   │   │   │   │   │   │   ├── textRotate.jpg
+│   │   │   │   │   │   │   ├── textRotate.jspx
+│   │   │   │   │   │   │   └── textRotate.jspx.html
+│   │   │   │   │   │   ├── misc
+│   │   │   │   │   │   │   ├── coda.jspf
+│   │   │   │   │   │   │   ├── coda.jspf.html
+│   │   │   │   │   │   │   ├── config.html
+│   │   │   │   │   │   │   ├── config.jsp
+│   │   │   │   │   │   │   ├── config.jsp.html
+│   │   │   │   │   │   │   ├── dynamicattrs.html
+│   │   │   │   │   │   │   ├── dynamicattrs.jsp
+│   │   │   │   │   │   │   ├── dynamicattrs.jsp.html
+│   │   │   │   │   │   │   ├── EchoAttributesTag.java.html
+│   │   │   │   │   │   │   ├── prelude.jspf
+│   │   │   │   │   │   │   └── prelude.jspf.html
+│   │   │   │   │   │   ├── simpletag
+│   │   │   │   │   │   │   ├── BookBean.java.html
+│   │   │   │   │   │   │   ├── book.html
+│   │   │   │   │   │   │   ├── book.jsp
+│   │   │   │   │   │   │   ├── book.jsp.html
+│   │   │   │   │   │   │   ├── FindBookSimpleTag.java.html
+│   │   │   │   │   │   │   ├── Functions.java.html
+│   │   │   │   │   │   │   ├── hello.html
+│   │   │   │   │   │   │   ├── hello.jsp
+│   │   │   │   │   │   │   ├── hello.jsp.html
+│   │   │   │   │   │   │   ├── HelloWorldSimpleTag.java.html
+│   │   │   │   │   │   │   ├── repeat.html
+│   │   │   │   │   │   │   ├── repeat.jsp
+│   │   │   │   │   │   │   ├── repeat.jsp.html
+│   │   │   │   │   │   │   └── RepeatSimpleTag.java.html
+│   │   │   │   │   │   └── tagfiles
+│   │   │   │   │   │       ├── displayProducts.tag.html
+│   │   │   │   │   │       ├── hello.html
+│   │   │   │   │   │       ├── hello.jsp
+│   │   │   │   │   │       ├── hello.jsp.html
+│   │   │   │   │   │       ├── helloWorld.tag.html
+│   │   │   │   │   │       ├── panel.html
+│   │   │   │   │   │       ├── panel.jsp
+│   │   │   │   │   │       ├── panel.jsp.html
+│   │   │   │   │   │       ├── panel.tag.html
+│   │   │   │   │   │       ├── products.html
+│   │   │   │   │   │       ├── products.jsp
+│   │   │   │   │   │       └── products.jsp.html
+│   │   │   │   │   ├── jsptoserv
+│   │   │   │   │   │   ├── hello.jsp
+│   │   │   │   │   │   ├── hello.jsp.html
+│   │   │   │   │   │   ├── jsptoservlet.jsp
+│   │   │   │   │   │   ├── jsptoservlet.jsp.html
+│   │   │   │   │   │   ├── jts.html
+│   │   │   │   │   │   └── ServletToJsp.java.html
+│   │   │   │   │   ├── num
+│   │   │   │   │   │   ├── numguess.html
+│   │   │   │   │   │   ├── numguess.jsp
+│   │   │   │   │   │   └── numguess.jsp.html
+│   │   │   │   │   ├── security
+│   │   │   │   │   │   └── protected
+│   │   │   │   │   │       ├── error.jsp
+│   │   │   │   │   │       ├── error.jsp.html
+│   │   │   │   │   │       ├── index.jsp
+│   │   │   │   │   │       ├── index.jsp.html
+│   │   │   │   │   │       ├── login.jsp
+│   │   │   │   │   │       └── login.jsp.html
+│   │   │   │   │   ├── sessions
+│   │   │   │   │   │   ├── carts.jsp
+│   │   │   │   │   │   ├── carts.jsp.html
+│   │   │   │   │   │   ├── crt.html
+│   │   │   │   │   │   ├── DummyCart.html
+│   │   │   │   │   │   ├── shopping.jsp
+│   │   │   │   │   │   └── shopping.jsp.html
+│   │   │   │   │   ├── simpletag
+│   │   │   │   │   │   ├── foo.html
+│   │   │   │   │   │   ├── foo.jsp
+│   │   │   │   │   │   └── foo.jsp.html
+│   │   │   │   │   ├── snp
+│   │   │   │   │   │   ├── snoop.html
+│   │   │   │   │   │   ├── snoop.jsp
+│   │   │   │   │   │   └── snoop.jsp.html
+│   │   │   │   │   ├── tagplugin
+│   │   │   │   │   │   ├── choose.html
+│   │   │   │   │   │   ├── choose.jsp
+│   │   │   │   │   │   ├── choose.jsp.html
+│   │   │   │   │   │   ├── foreach.html
+│   │   │   │   │   │   ├── foreach.jsp
+│   │   │   │   │   │   ├── foreach.jsp.html
+│   │   │   │   │   │   ├── howto.html
+│   │   │   │   │   │   ├── if.html
+│   │   │   │   │   │   ├── if.jsp
+│   │   │   │   │   │   ├── if.jsp.html
+│   │   │   │   │   │   └── notes.html
+│   │   │   │   │   └── xml
+│   │   │   │   │       ├── xml.html
+│   │   │   │   │       ├── xml.jsp
+│   │   │   │   │       └── xml.jsp.html
+│   │   │   │   ├── META-INF
+│   │   │   │   │   └── context.xml
+│   │   │   │   ├── servlets
+│   │   │   │   │   ├── cookies.html
+│   │   │   │   │   ├── helloworld.html
+│   │   │   │   │   ├── images
+│   │   │   │   │   │   ├── code.gif
+│   │   │   │   │   │   ├── execute.gif
+│   │   │   │   │   │   └── return.gif
+│   │   │   │   │   ├── index.html
+│   │   │   │   │   ├── nonblocking
+│   │   │   │   │   │   └── bytecounter.html
+│   │   │   │   │   ├── reqheaders.html
+│   │   │   │   │   ├── reqinfo.html
+│   │   │   │   │   ├── reqparams.html
+│   │   │   │   │   └── sessions.html
+│   │   │   │   ├── WEB-INF
+│   │   │   │   │   ├── classes
+│   │   │   │   │   │   ├── async
+│   │   │   │   │   │   │   ├── Async0$1.class
+│   │   │   │   │   │   │   ├── Async0.class
+│   │   │   │   │   │   │   ├── Async0.java
+│   │   │   │   │   │   │   ├── Async1$1.class
+│   │   │   │   │   │   │   ├── Async1.class
+│   │   │   │   │   │   │   ├── Async1.java
+│   │   │   │   │   │   │   ├── Async2$1.class
+│   │   │   │   │   │   │   ├── Async2.class
+│   │   │   │   │   │   │   ├── Async2.java
+│   │   │   │   │   │   │   ├── Async3.class
+│   │   │   │   │   │   │   ├── Async3.java
+│   │   │   │   │   │   │   ├── AsyncStockContextListener.class
+│   │   │   │   │   │   │   ├── AsyncStockContextListener.java
+│   │   │   │   │   │   │   ├── AsyncStockServlet.class
+│   │   │   │   │   │   │   ├── AsyncStockServlet.java
+│   │   │   │   │   │   │   ├── Stockticker$Stock.class
+│   │   │   │   │   │   │   ├── Stockticker$TickListener.class
+│   │   │   │   │   │   │   ├── Stockticker.class
+│   │   │   │   │   │   │   └── Stockticker.java
+│   │   │   │   │   │   ├── checkbox
+│   │   │   │   │   │   │   ├── CheckTest.class
+│   │   │   │   │   │   │   └── CheckTest.java
+│   │   │   │   │   │   ├── colors
+│   │   │   │   │   │   │   ├── ColorGameBean.class
+│   │   │   │   │   │   │   └── ColorGameBean.java
+│   │   │   │   │   │   ├── compressionFilters
+│   │   │   │   │   │   │   ├── CompressionFilter.class
+│   │   │   │   │   │   │   ├── CompressionFilter.java
+│   │   │   │   │   │   │   ├── CompressionFilterTestServlet.class
+│   │   │   │   │   │   │   ├── CompressionFilterTestServlet.java
+│   │   │   │   │   │   │   ├── CompressionResponseStream.class
+│   │   │   │   │   │   │   ├── CompressionResponseStream.java
+│   │   │   │   │   │   │   ├── CompressionServletResponseWrapper.class
+│   │   │   │   │   │   │   └── CompressionServletResponseWrapper.java
+│   │   │   │   │   │   ├── CookieExample.class
+│   │   │   │   │   │   ├── CookieExample.java
+│   │   │   │   │   │   ├── dates
+│   │   │   │   │   │   │   ├── JspCalendar.class
+│   │   │   │   │   │   │   └── JspCalendar.java
+│   │   │   │   │   │   ├── error
+│   │   │   │   │   │   │   ├── Smart.class
+│   │   │   │   │   │   │   └── Smart.java
+│   │   │   │   │   │   ├── examples
+│   │   │   │   │   │   │   ├── ExampleTagBase.class
+│   │   │   │   │   │   │   ├── ExampleTagBase.java
+│   │   │   │   │   │   │   ├── FooTag.class
+│   │   │   │   │   │   │   ├── FooTagExtraInfo.class
+│   │   │   │   │   │   │   ├── FooTagExtraInfo.java
+│   │   │   │   │   │   │   ├── FooTag.java
+│   │   │   │   │   │   │   ├── LogTag.class
+│   │   │   │   │   │   │   ├── LogTag.java
+│   │   │   │   │   │   │   ├── ValuesTag.class
+│   │   │   │   │   │   │   └── ValuesTag.java
+│   │   │   │   │   │   ├── filters
+│   │   │   │   │   │   │   ├── ExampleFilter.class
+│   │   │   │   │   │   │   └── ExampleFilter.java
+│   │   │   │   │   │   ├── HelloWorldExample.class
+│   │   │   │   │   │   ├── HelloWorldExample.java
+│   │   │   │   │   │   ├── jsp2
+│   │   │   │   │   │   │   └── examples
+│   │   │   │   │   │   │       ├── BookBean.class
+│   │   │   │   │   │   │       ├── BookBean.java
+│   │   │   │   │   │   │       ├── el
+│   │   │   │   │   │   │       │   ├── Functions.class
+│   │   │   │   │   │   │       │   └── Functions.java
+│   │   │   │   │   │   │       ├── FooBean.class
+│   │   │   │   │   │   │       ├── FooBean.java
+│   │   │   │   │   │   │       ├── simpletag
+│   │   │   │   │   │   │       │   ├── EchoAttributesTag.class
+│   │   │   │   │   │   │       │   ├── EchoAttributesTag.java
+│   │   │   │   │   │   │       │   ├── FindBookSimpleTag.class
+│   │   │   │   │   │   │       │   ├── FindBookSimpleTag.java
+│   │   │   │   │   │   │       │   ├── HelloWorldSimpleTag.class
+│   │   │   │   │   │   │       │   ├── HelloWorldSimpleTag.java
+│   │   │   │   │   │   │       │   ├── RepeatSimpleTag.class
+│   │   │   │   │   │   │       │   ├── RepeatSimpleTag.java
+│   │   │   │   │   │   │       │   ├── ShuffleSimpleTag.class
+│   │   │   │   │   │   │       │   ├── ShuffleSimpleTag.java
+│   │   │   │   │   │   │       │   ├── TileSimpleTag.class
+│   │   │   │   │   │   │       │   └── TileSimpleTag.java
+│   │   │   │   │   │   │       ├── ValuesBean.class
+│   │   │   │   │   │   │       └── ValuesBean.java
+│   │   │   │   │   │   ├── listeners
+│   │   │   │   │   │   │   ├── ContextListener.class
+│   │   │   │   │   │   │   ├── ContextListener.java
+│   │   │   │   │   │   │   ├── SessionListener.class
+│   │   │   │   │   │   │   └── SessionListener.java
+│   │   │   │   │   │   ├── LocalStrings_cs.properties
+│   │   │   │   │   │   ├── LocalStrings_de.properties
+│   │   │   │   │   │   ├── LocalStrings_es.properties
+│   │   │   │   │   │   ├── LocalStrings_fr.properties
+│   │   │   │   │   │   ├── LocalStrings_ja.properties
+│   │   │   │   │   │   ├── LocalStrings_ko.properties
+│   │   │   │   │   │   ├── LocalStrings.properties
+│   │   │   │   │   │   ├── LocalStrings_pt_BR.properties
+│   │   │   │   │   │   ├── LocalStrings_pt.properties
+│   │   │   │   │   │   ├── LocalStrings_ru.properties
+│   │   │   │   │   │   ├── LocalStrings_zh_CN.properties
+│   │   │   │   │   │   ├── nonblocking
+│   │   │   │   │   │   │   ├── ByteCounter$CounterListener.class
+│   │   │   │   │   │   │   ├── ByteCounter.class
+│   │   │   │   │   │   │   ├── ByteCounter.java
+│   │   │   │   │   │   │   ├── NumberWriter$NumberWriterListener.class
+│   │   │   │   │   │   │   ├── NumberWriter.class
+│   │   │   │   │   │   │   └── NumberWriter.java
+│   │   │   │   │   │   ├── num
+│   │   │   │   │   │   │   ├── NumberGuessBean.class
+│   │   │   │   │   │   │   └── NumberGuessBean.java
+│   │   │   │   │   │   ├── RequestHeaderExample.class
+│   │   │   │   │   │   ├── RequestHeaderExample.java
+│   │   │   │   │   │   ├── RequestInfoExample.class
+│   │   │   │   │   │   ├── RequestInfoExample.java
+│   │   │   │   │   │   ├── RequestParamExample.class
+│   │   │   │   │   │   ├── RequestParamExample.java
+│   │   │   │   │   │   ├── ServletToJsp.class
+│   │   │   │   │   │   ├── ServletToJsp.java
+│   │   │   │   │   │   ├── SessionExample.class
+│   │   │   │   │   │   ├── SessionExample.java
+│   │   │   │   │   │   ├── sessions
+│   │   │   │   │   │   │   ├── DummyCart.class
+│   │   │   │   │   │   │   ├── DummyCart.java
+│   │   │   │   │   │   │   ├── Item.class
+│   │   │   │   │   │   │   └── Item.java
+│   │   │   │   │   │   ├── trailers
+│   │   │   │   │   │   │   ├── ResponseTrailers$TrailerFieldSupplier.class
+│   │   │   │   │   │   │   ├── ResponseTrailers.class
+│   │   │   │   │   │   │   └── ResponseTrailers.java
+│   │   │   │   │   │   ├── util
+│   │   │   │   │   │   │   ├── CookieFilter.class
+│   │   │   │   │   │   │   ├── CookieFilter.java
+│   │   │   │   │   │   │   ├── HTMLFilter.class
+│   │   │   │   │   │   │   └── HTMLFilter.java
+│   │   │   │   │   │   ├── validators
+│   │   │   │   │   │   │   ├── DebugValidator.class
+│   │   │   │   │   │   │   └── DebugValidator.java
+│   │   │   │   │   │   └── websocket
+│   │   │   │   │   │       ├── chat
+│   │   │   │   │   │       │   ├── ChatAnnotation.class
+│   │   │   │   │   │       │   └── ChatAnnotation.java
+│   │   │   │   │   │       ├── drawboard
+│   │   │   │   │   │       │   ├── Client$1.class
+│   │   │   │   │   │       │   ├── Client.class
+│   │   │   │   │   │       │   ├── Client.java
+│   │   │   │   │   │       │   ├── DrawboardContextListener.class
+│   │   │   │   │   │       │   ├── DrawboardContextListener.java
+│   │   │   │   │   │       │   ├── DrawboardEndpoint$1.class
+│   │   │   │   │   │       │   ├── DrawboardEndpoint$2.class
+│   │   │   │   │   │       │   ├── DrawboardEndpoint$3$1.class
+│   │   │   │   │   │       │   ├── DrawboardEndpoint$3.class
+│   │   │   │   │   │       │   ├── DrawboardEndpoint.class
+│   │   │   │   │   │       │   ├── DrawboardEndpoint.java
+│   │   │   │   │   │       │   ├── DrawMessage$ParseException.class
+│   │   │   │   │   │       │   ├── DrawMessage.class
+│   │   │   │   │   │       │   ├── DrawMessage.java
+│   │   │   │   │   │       │   ├── Room$1$1.class
+│   │   │   │   │   │       │   ├── Room$1.class
+│   │   │   │   │   │       │   ├── Room$2.class
+│   │   │   │   │   │       │   ├── Room$MessageType.class
+│   │   │   │   │   │       │   ├── Room$Player.class
+│   │   │   │   │   │       │   ├── Room.class
+│   │   │   │   │   │       │   ├── Room.java
+│   │   │   │   │   │       │   └── wsmessages
+│   │   │   │   │   │       │       ├── AbstractWebsocketMessage.class
+│   │   │   │   │   │       │       ├── AbstractWebsocketMessage.java
+│   │   │   │   │   │       │       ├── BinaryWebsocketMessage.class
+│   │   │   │   │   │       │       ├── BinaryWebsocketMessage.java
+│   │   │   │   │   │       │       ├── CloseWebsocketMessage.class
+│   │   │   │   │   │       │       ├── CloseWebsocketMessage.java
+│   │   │   │   │   │       │       ├── StringWebsocketMessage.class
+│   │   │   │   │   │       │       └── StringWebsocketMessage.java
+│   │   │   │   │   │       ├── echo
+│   │   │   │   │   │       │   ├── EchoAnnotation.class
+│   │   │   │   │   │       │   ├── EchoAnnotation.java
+│   │   │   │   │   │       │   ├── EchoAsyncAnnotation$CompletedFuture.class
+│   │   │   │   │   │       │   ├── EchoAsyncAnnotation.class
+│   │   │   │   │   │       │   ├── EchoAsyncAnnotation.java
+│   │   │   │   │   │       │   ├── EchoEndpoint$EchoMessageHandlerBinary.class
+│   │   │   │   │   │       │   ├── EchoEndpoint$EchoMessageHandlerText.class
+│   │   │   │   │   │       │   ├── EchoEndpoint.class
+│   │   │   │   │   │       │   ├── EchoEndpoint.java
+│   │   │   │   │   │       │   ├── EchoStreamAnnotation.class
+│   │   │   │   │   │       │   ├── EchoStreamAnnotation.java
+│   │   │   │   │   │       │   └── servers.json
+│   │   │   │   │   │       ├── ExamplesConfig.class
+│   │   │   │   │   │       ├── ExamplesConfig.java
+│   │   │   │   │   │       └── snake
+│   │   │   │   │   │           ├── Direction.class
+│   │   │   │   │   │           ├── Direction.java
+│   │   │   │   │   │           ├── Location$1.class
+│   │   │   │   │   │           ├── Location.class
+│   │   │   │   │   │           ├── Location.java
+│   │   │   │   │   │           ├── SnakeAnnotation.class
+│   │   │   │   │   │           ├── SnakeAnnotation.java
+│   │   │   │   │   │           ├── Snake.class
+│   │   │   │   │   │           ├── Snake.java
+│   │   │   │   │   │           ├── SnakeTimer$1.class
+│   │   │   │   │   │           ├── SnakeTimer.class
+│   │   │   │   │   │           └── SnakeTimer.java
+│   │   │   │   │   ├── jsp
+│   │   │   │   │   │   ├── 403.jsp
+│   │   │   │   │   │   ├── 403.jsp.html
+│   │   │   │   │   │   ├── debug-taglib.tld
+│   │   │   │   │   │   ├── example-taglib.tld
+│   │   │   │   │   │   └── jsp2-example-taglib.tld
+│   │   │   │   │   ├── lib
+│   │   │   │   │   │   ├── taglibs-standard-impl-1.2.5-migrated-0.0.1.jar
+│   │   │   │   │   │   └── taglibs-standard-spec-1.2.5-migrated-0.0.1.jar
+│   │   │   │   │   ├── tags
+│   │   │   │   │   │   ├── displayProducts.tag
+│   │   │   │   │   │   ├── helloWorld.tag
+│   │   │   │   │   │   └── panel.tag
+│   │   │   │   │   └── web.xml
+│   │   │   │   └── websocket
+│   │   │   │       ├── chat.xhtml
+│   │   │   │       ├── drawboard.xhtml
+│   │   │   │       ├── echo.xhtml
+│   │   │   │       ├── index.xhtml
+│   │   │   │       └── snake.xhtml
+│   │   │   ├── host-manager
+│   │   │   │   ├── css
+│   │   │   │   │   └── manager.css
+│   │   │   │   ├── images
+│   │   │   │   │   ├── asf-logo.svg
+│   │   │   │   │   ├── favicon.ico
+│   │   │   │   │   └── tomcat.svg
+│   │   │   │   ├── index.jsp
+│   │   │   │   ├── META-INF
+│   │   │   │   │   └── context.xml
+│   │   │   │   └── WEB-INF
+│   │   │   │       ├── jsp
+│   │   │   │       │   ├── 401.jsp
+│   │   │   │       │   ├── 403.jsp
+│   │   │   │       │   └── 404.jsp
+│   │   │   │       ├── manager.xml
+│   │   │   │       └── web.xml
+│   │   │   ├── manager
+│   │   │   │   ├── css
+│   │   │   │   │   └── manager.css
+│   │   │   │   ├── images
+│   │   │   │   │   ├── asf-logo.svg
+│   │   │   │   │   ├── favicon.ico
+│   │   │   │   │   └── tomcat.svg
+│   │   │   │   ├── index.jsp
+│   │   │   │   ├── META-INF
+│   │   │   │   │   └── context.xml
+│   │   │   │   ├── status.xsd
+│   │   │   │   ├── WEB-INF
+│   │   │   │   │   ├── jsp
+│   │   │   │   │   │   ├── 401.jsp
+│   │   │   │   │   │   ├── 403.jsp
+│   │   │   │   │   │   ├── 404.jsp
+│   │   │   │   │   │   ├── connectorCerts.jsp
+│   │   │   │   │   │   ├── connectorCiphers.jsp
+│   │   │   │   │   │   ├── connectorTrustedCerts.jsp
+│   │   │   │   │   │   ├── sessionDetail.jsp
+│   │   │   │   │   │   └── sessionsList.jsp
+│   │   │   │   │   └── web.xml
+│   │   │   │   └── xform.xsl
+│   │   │   └── ROOT
+│   │   │       ├── asf-logo-wide.svg
+│   │   │       ├── bg-button.png
+│   │   │       ├── bg-middle.png
+│   │   │       ├── bg-nav.png
+│   │   │       ├── bg-upper.png
+│   │   │       ├── favicon.ico
+│   │   │       ├── index.jsp
+│   │   │       ├── RELEASE-NOTES.txt
+│   │   │       ├── tomcat.css
+│   │   │       ├── tomcat.svg
+│   │   │       └── WEB-INF
+│   │   │           └── web.xml
+│   │   └── work
+│   │       └── Catalina
+│   │           └── localhost
+│   │               ├── docs
+│   │               ├── examples
+│   │               ├── host-manager
+│   │               ├── manager
+│   │               └── ROOT
+│   └── apache-tomcat-11.0.11.tar.gz
+├── treeApp.txt
+└── webDesign
+    └── rodri
+        ├── assets
+        │   ├── bootstrap
+        │   │   ├── css
+        │   │   │   └── bootstrap.min.css
+        │   │   └── js
+        │   │       └── bootstrap.min.js
+        │   └── css
+        │       ├── Footer-Dark-icons.css
+        │       └── styles.css
+        └── index.html
+
+198 directories, 818 files

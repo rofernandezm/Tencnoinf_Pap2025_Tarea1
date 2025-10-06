@@ -18,7 +18,7 @@ public class DtTouristActivity {
 	};
 
 	public DtTouristActivity(String activityName, String description, Duration duration, float costTurist, String city,
-			LocalDate registratioDate, String supplierNickname) {
+			LocalDate registratioDate, String supplierNickname, TouristActivityStatus status) {
 		this.activityName = activityName;
 		this.description = description;
 		this.duration = duration;
@@ -26,6 +26,7 @@ public class DtTouristActivity {
 		this.city = city;
 		this.registratioDate = registratioDate;
 		this.supplierNickname = supplierNickname;
+		this.status = status;
 	}
 
 	public String getActivityName() {
