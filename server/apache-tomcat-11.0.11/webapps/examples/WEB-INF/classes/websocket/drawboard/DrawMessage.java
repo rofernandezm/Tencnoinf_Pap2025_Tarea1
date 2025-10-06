@@ -179,7 +179,7 @@ public final class DrawMessage {
     }
 
     /**
-     * Converts this message into a String representation that
+     * Converts this message into a String redesktop that
      * can be sent over WebSocket.<br>
      * Since a DrawMessage consists only of numbers,
      * we concatenate those numbers with a ",".

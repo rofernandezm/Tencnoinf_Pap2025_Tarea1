@@ -76,7 +76,7 @@
         <artifactId>maven-war-plugin</artifactId>
         <version>3.4.0</version>
         <configuration>
-          <warName>turismouy-ui</warName>
+          <warName>turismouy.UI</warName>
           <!-- Si no tenés web.xml clásico, evita warnings -->
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>

@@ -2856,9 +2856,9 @@
         <mime-type>application/vnd.oasis.opendocument.text-master</mime-type>
     </mime-mapping>
     <mime-mapping>
-        <!-- OpenDocument Presentation -->
+        <!-- OpenDocument desktop -->
         <extension>odp</extension>
-        <mime-type>application/vnd.oasis.opendocument.presentation</mime-type>
+        <mime-type>application/vnd.oasis.opendocument.desktop</mime-type>
     </mime-mapping>
     <mime-mapping>
         <!-- OpenDocument Spreadsheet -->
@@ -2958,9 +2958,9 @@
         <mime-type>application/vnd.oasis.opendocument.image-template</mime-type>
     </mime-mapping>
     <mime-mapping>
-        <!-- OpenDocument Presentation Template -->
+        <!-- OpenDocument desktop Template -->
         <extension>otp</extension>
-        <mime-type>application/vnd.oasis.opendocument.presentation-template</mime-type>
+        <mime-type>application/vnd.oasis.opendocument.desktop-template</mime-type>
     </mime-mapping>
     <mime-mapping>
         <!-- OpenDocument Spreadsheet Template -->
@@ -3166,7 +3166,7 @@
     </mime-mapping>
     <mime-mapping>
         <extension>potx</extension>
-        <mime-type>application/vnd.openxmlformats-officedocument.presentationml.template</mime-type>
+        <mime-type>application/vnd.openxmlformats-officedocument.desktopml.template</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>ppam</extension>
@@ -3190,7 +3190,7 @@
     </mime-mapping>
     <mime-mapping>
         <extension>ppsx</extension>
-        <mime-type>application/vnd.openxmlformats-officedocument.presentationml.slideshow</mime-type>
+        <mime-type>application/vnd.openxmlformats-officedocument.desktopml.slideshow</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>ppt</extension>
@@ -3198,11 +3198,11 @@
     </mime-mapping>
     <mime-mapping>
         <extension>pptm</extension>
-        <mime-type>application/vnd.ms-powerpoint.presentation.macroenabled.12</mime-type>
+        <mime-type>application/vnd.ms-powerpoint.desktop.macroenabled.12</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>pptx</extension>
-        <mime-type>application/vnd.openxmlformats-officedocument.presentationml.presentation</mime-type>
+        <mime-type>application/vnd.openxmlformats-officedocument.desktopml.desktop</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>pqa</extension>
@@ -3648,7 +3648,7 @@
     </mime-mapping>
     <mime-mapping>
         <extension>sldx</extension>
-        <mime-type>application/vnd.openxmlformats-officedocument.presentationml.slide</mime-type>
+        <mime-type>application/vnd.openxmlformats-officedocument.desktopml.slide</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>slt</extension>

@@ -24,7 +24,7 @@ import turismouyapp.core.exceptions.RepeatedUserNicknameException;
  * 
  * <p><strong>Patrón de diseño implementado:</strong></p>
  * <pre>
- * Presentation Layer    →    IUserController    →    UserHandler    →    JPA/Entity
+ * desktop Layer    →    IUserController    →    UserHandler    →    JPA/Entity
  *    (Swing/Servlets)           (Interface)        (Business Logic)    (Persistence)
  * </pre>
  * 

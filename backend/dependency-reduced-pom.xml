@@ -18,7 +18,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>src.main.java.presentation.Main</mainClass>
+                  <mainClass>src.main.java.desktop.Main</mainClass>
                 </transformer>
               </transformers>
             </configuration>

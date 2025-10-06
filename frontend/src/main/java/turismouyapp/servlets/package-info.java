@@ -69,7 +69,7 @@
  * 
  * <h3>Empaquetado</h3>
  * <p>
- * Este paquete se compila dentro del archivo WAR {@code turismouy-ui.war} que
+ * Este paquete se compila dentro del archivo WAR {@code turismouy.UI.war} que
  * incluye todas las dependencias necesarias del backend.
  * </p>
  * 

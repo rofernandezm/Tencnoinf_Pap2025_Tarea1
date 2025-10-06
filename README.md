@@ -46,7 +46,7 @@ El proyecto TurismoUY está organizado en tres módulos principales:
 
 ### **Frontend** (`/frontend`)
 - **Propósito**: Interfaz web con servlets Jakarta
-- **Empaquetado**: WAR (`turismouy-ui.war`)
+- **Empaquetado**: WAR (`turismouy.UI.war`)
 - **Características**:
   - Servlets para manejo de peticiones HTTP
   - Dependencia del módulo backend
@@ -156,7 +156,7 @@ Después de compilar exitosamente, deberías ver:
 
 ```
 backend/target/turismouy.Backend-1.0.0.jar  ← JAR del backend
-frontend/target/turismouy-ui.war            ← WAR del frontend
+frontend/target/turismouy.UI.war            ← WAR del frontend
 ```
 
 ---
@@ -175,7 +175,7 @@ backend/target/site/apidocs/
 ├── overview-tree.html                  # Árbol de jerarquía
 ├── allclasses-index.html              # Índice de todas las clases
 ├── deprecated-list.html               # Elementos deprecados
-├── presentation/                       # Paquete GUI Swing
+├── desktop/                       # Paquete GUI Swing
 │   ├── Main.html
 │   └── ...
 └── turismouyapp/core/
@@ -227,7 +227,7 @@ Cada paquete tiene su archivo `package-info.java` con documentación detallada:
 
 | Paquete | Descripción | Componentes Clave |
 |---------|-------------|-------------------|
-| `presentation` | Interfaz Swing (GUI escritorio) | Main, CreateUser, CreateActivity |
+| `desktop` | Interfaz Swing (GUI escritorio) | Main, CreateUser, CreateActivity |
 | `turismouyapp.core` | Core del sistema | Raíz de todos los componentes backend |
 | `core.controller` | Lógica de negocio | UserController, TouristActivityController |
 | `core.entity` | Entidades JPA | User, Tourist, Supplier, TouristActivity |
@@ -533,14 +533,14 @@ Si prefieres NO usar Eclipse:
 
 1. Copiar el WAR generado:
    ```bash
-   cp frontend/target/turismouy-ui.war server/apache-tomcat-11.0.11/webapps/
+   cp frontend/target/turismouy.UI.war server/apache-tomcat-11.0.11/webapps/
    ```
 
 2. Iniciar Tomcat (método anterior)
 
-3. Tomcat desplegará automáticamente el WAR en `webapps/turismouy-ui/`
+3. Tomcat desplegará automáticamente el WAR en `webapps/turismouy.UI/`
 
-4. Acceder a: `http://localhost:8080/turismouy-ui/`
+4. Acceder a: `http://localhost:8080/turismouy.UI/`
 
 ### Aplicación de Escritorio (Swing)
 
@@ -552,7 +552,7 @@ java -jar target/turismouy.Backend-1.0.0.jar
 ```
 
 O desde Eclipse:
-1. Navegar a `backend/src/main/java/presentation/Main.java`
+1. Navegar a `backend/src/main/java/desktop/Main.java`
 2. Click derecho → **Run As → Java Application**
 
 ---
@@ -565,7 +565,7 @@ O desde Eclipse:
 backend/
 ├── pom.xml                          # Maven: dependencias EclipseLink, HSQLDB, Jakarta
 ├── src/main/java/
-│   ├── presentation/                # Interfaz Swing (aplicación escritorio)
+│   ├── desktop/                # Interfaz Swing (aplicación escritorio)
 │   │   ├── Main.java               # Punto de entrada GUI
 │   │   ├── CreateUser.java
 │   │   ├── CreateActivity.java
@@ -616,7 +616,7 @@ frontend/
 │       ├── Login.html             # Documentación del servlet Login
 │       └── DbServerPublish.html   # Documentación del listener
 └── target/
-    ├── turismouy-ui.war            # WAR desplegable
+    ├── turismouy.UI.war            # WAR desplegable
     └── site/apidocs/               # Javadoc recién generada (gitignored)
 ```
 

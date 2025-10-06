@@ -99,7 +99,7 @@ public class Login extends HttpServlet {
 			throws ServletException, IOException {
 		
 		// Iniciar respuesta HTML
-		response.getWriter().append("<!DOCTYPE html><html><body><h1>Served at: "
+		response.getWriter().append("<!DOCTYPE html><html><head><title>turismouy.UI</title></head><body><h1>Served at: "
 				+ request.getContextPath() + "</h1><main>");
 		
 		// Obtener datos desde el backend a través de la factory

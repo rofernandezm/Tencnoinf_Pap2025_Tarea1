@@ -33,7 +33,7 @@
 <!-- trigger errors when entity expansion is limited or disabled.           -->
 <!-- See https://bz.apache.org/bugzilla/show_bug.cgi?id=64541               -->
 
-<!-- A "Boolean" is the string representation of a boolean (true or false)
+<!-- A "Boolean" is the string redesktop of a boolean (true or false)
      variable.
 -->
 <!ENTITY % Boolean "(true|false|yes|no)">

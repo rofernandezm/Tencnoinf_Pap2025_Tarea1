@@ -104,7 +104,7 @@
 				<Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
 				
-			<Context docBase="/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/wtpwebapps/turismouy.UI" path="/turismouy.UI" reloadable="true" source="org.eclipse.jst.jee.server:turismouy.UI"/></Host>
+			</Host>
 		</Engine>
 	</Service>
 </Server>

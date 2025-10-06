@@ -89,7 +89,7 @@ public final class ExampleFilter extends GenericFilter {
 
 
     /**
-     * Return a String representation of this object.
+     * Return a String redesktop of this object.
      */
     @Override
     public String toString() {

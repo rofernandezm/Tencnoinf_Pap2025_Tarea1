@@ -15,7 +15,7 @@
 │   ├── src
 │   │   ├── main
 │   │   │   ├── java
-│   │   │   │   ├── presentation
+│   │   │   │   ├── desktop
 │   │   │   │   │   ├── ActivityRanking.java
 │   │   │   │   │   ├── ConsultActivity.java
 │   │   │   │   │   ├── ConsultTouristInscription.java
@@ -92,7 +92,7 @@
 │       │   │   │           ├── pom.properties
 │       │   │   │           └── pom.xml
 │       │   │   └── persistence.xml
-│       │   ├── presentation
+│       │   ├── desktop
 │       │   │   ├── ActivityRanking$1.class
 │       │   │   ├── ActivityRanking.class
 │       │   │   ├── ConsultActivity$1.class
