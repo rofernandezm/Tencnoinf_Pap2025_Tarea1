@@ -8,10 +8,7 @@
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
-<<<<<<< Updated upstream
-=======
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
->>>>>>> Stashed changes
     <eclipselink.version>4.0.4</eclipselink.version>
     <jakarta.persistence.version>3.1.0</jakarta.persistence.version>
     <hsqldb.version>2.7.2</hsqldb.version>
@@ -36,20 +33,11 @@
       <version>${hsqldb.version}</version>
     </dependency>
     <dependency>
-<<<<<<< Updated upstream
-  <groupId>org.apache.tomcat</groupId>
-  <artifactId>tomcat-catalina</artifactId>
-  <version>${tomcat-catalina.version}</version>
-  <scope>provided</scope>
-</dependency>
-
-=======
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-catalina</artifactId>
       <version>${tomcat-catalina.version}</version>
       <scope>provided</scope>
     </dependency>
->>>>>>> Stashed changes
   </dependencies>
 
   <!-- Opcional: si querés un JAR ejecutable para el desktop -->
@@ -67,23 +55,13 @@
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   <!-- Cambiá por tu clase con el método main -->
-<<<<<<< Updated upstream
                   <mainClass>src.main.java.presentation.Main</mainClass>
-=======
-                  <mainClass>presentation.Main</mainClass>
->>>>>>> Stashed changes
                 </transformer>
               </transformers>
             </configuration>
           </execution>
         </executions>
       </plugin>
-<<<<<<< Updated upstream
-    </plugins>
-  </build>
-</project>
-=======
-      
       <!-- Plugin de Javadoc para generación de documentación -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -128,4 +106,3 @@
     </plugins>
   </build>
 </project>
->>>>>>> Stashed changes

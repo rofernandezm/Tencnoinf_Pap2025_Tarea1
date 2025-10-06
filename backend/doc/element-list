@@ -1,0 +1,10 @@
+presentation
+turismouyapp.core
+turismouyapp.core.controller
+turismouyapp.core.db
+turismouyapp.core.dto
+turismouyapp.core.entity
+turismouyapp.core.exceptions
+turismouyapp.core.factory
+turismouyapp.core.handler
+turismouyapp.core.interfaces
