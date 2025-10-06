@@ -29,7 +29,7 @@ SET FILES NIO TRUE
 SET FILES NIO SIZE 256
 SET FILES LOG TRUE
 SET FILES LOG SIZE 50
-SET FILES CHECK 485
+SET FILES CHECK 638
 SET DATABASE COLLATION "SQL_TEXT" PAD SPACE
 CREATE USER SA PASSWORD DIGEST 'd41d8cd98f00b204e9800998ecf8427e'
 ALTER USER SA SET LOCAL TRUE
@@ -57,6 +57,7 @@ INSERT INTO BLOCKS VALUES(0,2147483647,0)
 SET SCHEMA PUBLIC
 INSERT INTO USERS VALUES('prov1','Supplier','2000-09-06','uno@prov.com','uno','proveedor')
 INSERT INTO USERS VALUES('prov2','Supplier','2000-10-06','dos@prov.com','dos','prov')
+INSERT INTO USERS VALUES('prov3','Supplier','2000-10-06','tres@prov.com','tres','prov')
 INSERT INTO USERS VALUES('user1','Tourist','2000-10-06','uno@user.com','uno','user')
 INSERT INTO USERS VALUES('user2','Tourist','1999-10-06','dos@user.com','dos','user')
 INSERT INTO USERS VALUES('user3','Tourist','2000-10-06','tres@user.com','tres','user')
@@ -65,3 +66,4 @@ INSERT INTO TOURIST VALUES('user2','nac_dos')
 INSERT INTO TOURIST VALUES('user3','tres')
 INSERT INTO SUPPLIER VALUES('prov1','proveedor uno','www,prov1.com')
 INSERT INTO SUPPLIER VALUES('prov2','proveedor dos','www.prov2.com')
+INSERT INTO SUPPLIER VALUES('prov3','proveedor tres','www.prov3.com')

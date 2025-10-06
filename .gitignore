@@ -12,8 +12,10 @@ hs_err_pid*
 replay_pid*
 
 # Maven output
-/target/
-/*/target/
+target/*
+/target/*
+frontend/target/*
+backend/target/*
 
 # === IDE ===
 .idea/
