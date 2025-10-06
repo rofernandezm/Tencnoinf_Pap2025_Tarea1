@@ -22,9 +22,11 @@ out/
 
 # === Tomcat portable config ===
 !/server/apache-tomcat-11.0.11/bin/
+!/server/apache-tomcat-11.0.11/bin/*.*
+!/server/apache-tomcat-11.0.11/lib/*.*
 !/server/apache-tomcat-11.0.11/lib/
 !/server/apache-tomcat-11.0.11/conf/
-!/server/apache-tomcat-11.0.11/data/
+!/server/apache-tomcat-11.0.11/data/*
 
 # Exclude generated runtime content
 /server/apache-tomcat-11.0.11/logs/
