@@ -246,8 +246,6 @@ frontend/target/turismouy-ui.war            ← WAR del frontend
 
 ---
 
-<<<<<<< Updated upstream
-=======
 ## 📚 Generación de Documentación Javadoc
 
 ### Generar Javadoc del Backend
