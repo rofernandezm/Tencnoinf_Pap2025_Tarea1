@@ -42,4 +42,4 @@ out/
 
 # === Other ===
 /bin/
-/resources/*
+!/resources/*
