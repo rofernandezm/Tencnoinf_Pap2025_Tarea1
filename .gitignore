@@ -29,6 +29,7 @@ out/
 !/server/apache-tomcat-11.0.11/lib/
 !/server/apache-tomcat-11.0.11/conf/
 !/server/apache-tomcat-11.0.11/data/*
+!/server/apache-tomcat-11.0.11/data/*.log
 
 # Exclude generated runtime content
 /server/apache-tomcat-11.0.11/logs/

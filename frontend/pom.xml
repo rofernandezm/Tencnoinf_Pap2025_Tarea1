@@ -9,23 +9,26 @@
   <packaging>war</packaging>
 
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <jakarta.servlet.version>6.0.0</jakarta.servlet.version>
     <eclipselink.version>4.0.4</eclipselink.version>
     <jakarta.persistence.version>3.1.0</jakarta.persistence.version>
     <hsqldb.version>2.7.2</hsqldb.version>
+    <jakarta.servlet.jstl.api.version>3.0.0</jakarta.servlet.jstl.api.version>
+    <jakarta.servlet.jstl.version>3.0.1</jakarta.servlet.jstl.version>
+    <maven.javadoc.version>3.6.3</maven.javadoc.version>
+    <maven.war.version>3.4.0</maven.war.version>
   </properties>
 
   <dependencies>
-    <!-- Backend como librería (asegurate de correr 'mvn install' en Backend primero) -->
+    <!-- Backend: 'mvn install' en Backend -->
     <dependency>
       <groupId>turismouy.Backend</groupId>
       <artifactId>turismouy.Backend</artifactId>
       <version>1.0.0</version>
     </dependency>
-
-    <!-- API Servlet (Tomcat 11 la provee) -->
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
@@ -38,43 +41,42 @@
       <groupId>jakarta.persistence</groupId>
       <artifactId>jakarta.persistence-api</artifactId>
       <version>${jakarta.persistence.version}</version>
-      <scope>compile</scope>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse.persistence</groupId>
       <artifactId>eclipselink</artifactId>
       <version>${eclipselink.version}</version>
-      <scope>compile</scope>
+      <scope>provided</scope>
     </dependency>
 
-    <!-- Driver HSQLDB: en la UI va como provided (lo pones en server/lib) -->
+    <!-- Driver HSQLDB: server/lib -->
     <dependency>
       <groupId>org.hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
       <version>${hsqldb.version}</version>
       <scope>provided</scope>
     </dependency>
-
-    <!-- (Opcional) JSTL si usás tags en JSP; Tomcat no lo trae por defecto -->
-    <!--
+    
     <dependency>
       <groupId>jakarta.servlet.jsp.jstl</groupId>
       <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-      <version>3.0.0</version>
+      <version>${jakarta.servlet.jstl.api.version}</version>
     </dependency>
+    
     <dependency>
       <groupId>org.glassfish.web</groupId>
       <artifactId>jakarta.servlet.jsp.jstl</artifactId>
-      <version>3.0.1</version>
+      <version>${jakarta.servlet.jstl.version}</version>
     </dependency>
-    -->
+    
   </dependencies>
 
   <build>
     <plugins>
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.4.0</version>
+        <version>${maven.war.version}</version>
         <configuration>
           <warName>turismouy.UI</warName>
           <!-- Si no tenés web.xml clásico, evita warnings -->
@@ -86,8 +88,9 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.6.3</version>
+        <version>${maven.javadoc.version}</version>
         <configuration>
+        <skip>true</skip>
           <source>17</source>
           <show>private</show>
           <encoding>UTF-8</encoding>
@@ -106,7 +109,6 @@
           <author>true</author>
           <version>true</version>
           <use>true</use>
-          <additionalparam>-Xdoclint:none</additionalparam>
           <additionalOptions>-Xdoclint:none</additionalOptions>
           <additionalJOptions>
             <additionalJOption>-J-Duser.language=es</additionalJOption>
