@@ -11,21 +11,287 @@ Sistema de gestión turística desarrollado en Java con arquitectura en capas, u
 
 ## 📋 Tabla de Contenidos
 
-- [Arquitectura del Proyecto](#-arquitectura-del-proyecto)
+- [🚀 Quick Start](#-quick-start)
 - [Requisitos del Sistema](#-requisitos-del-sistema)
-- [Instalación y Configuración](#-instalación-y-configuración)
-  - [1. Instalación de Maven](#1-instalación-de-maven)
-  - [2. Compilación del Proyecto](#2-compilación-del-proyecto)
-- [Documentación Javadoc](#-documentación-javadoc)
-  - [Backend](#documentación-del-backend)
-  - [Frontend](#documentación-del-frontend)
-- [Configuración del Servidor](#-configuración-del-servidor)
+- [Instalación Paso a Paso](#-instalación-paso-a-paso)
+  - [1. Java JDK 17](#1-java-jdk-17)
+  - [2. Maven](#2-maven)
+  - [3. Eclipse IDE](#3-eclipse-ide)
+- [Compilación del Proyecto](#-compilación-del-proyecto)
+  - [Orden de Compilación](#orden-de-compilación)
+  - [Verificación](#verificación)
 - [Configuración en Eclipse IDE](#-configuración-en-eclipse-ide)
 - [Ejecución del Proyecto](#-ejecución-del-proyecto)
+- [✅ Checklist de Configuración](#-checklist-de-configuración)
+- [Arquitectura del Proyecto](#-arquitectura-del-proyecto)
+- [Documentación Javadoc](#-documentación-javadoc)
 - [Estructura de Directorios](#-estructura-de-directorios)
 - [Base de Datos](#-base-de-datos)
 - [Solución de Problemas](#-solución-de-problemas)
 - [Tecnologías Utilizadas](#-tecnologías-utilizadas)
+- [Comandos Maven Útiles](#-comandos-maven-útiles)
+
+---
+
+## 🚀 Quick Start
+
+Para desarrolladores experimentados que quieren ejecutar el proyecto rápidamente:
+
+```bash
+# 1. Verificar Java 17
+java -version
+
+# 2. Compilar Backend y Frontend (orden importante)
+mvn clean install
+
+# 3. Iniciar Tomcat
+cd server/apache-tomcat-11.0.11/bin
+./startup.sh        # Linux/macOS
+startup.bat         # Windows
+
+# 4. Acceder a la aplicación
+# http://localhost:8080/turismouy.UI/
+```
+
+⚠️ **¿Problemas?** Consultar la [Guía Completa de Instalación](#-instalación-paso-a-paso) y [Solución de Problemas](#-solución-de-problemas).
+
+---
+
+## 💻 Requisitos del Sistema
+
+### Software Necesario
+
+| Componente | Versión Mínima | Recomendada | Descripción |
+|------------|----------------|-------------|-------------|
+| **Java JDK** | 17 | 17 o 21 | OpenJDK o Oracle JDK |
+| **Apache Maven** | 3.8.0 | 3.9.11 | Gestor de dependencias (incluido en `/resources`) |
+| **Eclipse IDE** | 2023-06 | 2024-03+ | IDE con soporte Jakarta EE |
+
+### Puertos Necesarios
+
+| Puerto | Servicio | Configurable |
+|--------|----------|--------------|
+| **8080** | Apache Tomcat (HTTP) | Sí (server.xml) |
+| **8005** | Tomcat Shutdown | Sí (server.xml) |
+| **9001** | HSQLDB Server | Sí (setenv.sh/bat) |
+
+---
+
+## 📦 Instalación Paso a Paso
+
+### 1. Java JDK 17
+
+#### Verificar Instalación Existente
+
+```bash
+java -version
+```
+
+Debe mostrar: `openjdk version "17.x.x"` o `java version "17.x.x"`
+
+#### Instalar Java 17
+
+**Windows:**
+1. Descargar desde [Adoptium](https://adoptium.net/) o [Oracle](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+2. Ejecutar instalador
+3. Verificar que `JAVA_HOME` esté configurado:
+   ```cmd
+   echo %JAVA_HOME%
+   ```
+
+**Linux (Ubuntu/Debian):**
+```bash
+sudo apt update
+sudo apt install openjdk-17-jdk -y
+java -version
+```
+
+**Linux (Fedora/RHEL):**
+```bash
+sudo dnf install java-17-openjdk-devel -y
+java -version
+```
+
+**macOS:**
+```bash
+brew install openjdk@17
+# Agregar al PATH si es necesario
+echo 'export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+java -version
+```
+
+---
+
+### 2. Maven
+
+#### Opción 1: Usar Maven Incluido (RECOMENDADO)
+
+Este proyecto incluye Apache Maven 3.9.11 en `/resources/apache-maven-3.9.11-bin.zip`.
+
+**Extraer e Instalar:**
+
+**Windows:**
+```cmd
+cd resources
+tar -xf apache-maven-3.9.11-bin.zip
+cd apache-maven-3.9.11
+cd bin
+set PATH=%CD%;%PATH%
+mvn -version
+```
+
+Para hacerlo permanente:
+```cmd
+setx MAVEN_HOME "C:\ruta\completa\resources\apache-maven-3.9.11"
+setx PATH "%MAVEN_HOME%\bin;%PATH%"
+```
+
+**Linux/macOS:**
+```bash
+cd resources
+unzip apache-maven-3.9.11-bin.zip
+export PATH=$PWD/apache-maven-3.9.11/bin:$PATH
+mvn -version
+```
+
+Para hacerlo permanente (agregar a `~/.bashrc` o `~/.zshrc`):
+```bash
+export MAVEN_HOME="/ruta/completa/resources/apache-maven-3.9.11"
+export PATH="$MAVEN_HOME/bin:$PATH"
+```
+
+#### Opción 2: Instalar Maven del Sistema
+
+**Windows:**
+1. Descargar desde [maven.apache.org](https://maven.apache.org/download.cgi)
+2. Extraer en `C:\Program Files\Apache\maven`
+3. Configurar variables de entorno (igual que Opción 1)
+
+**Linux:**
+```bash
+# Ubuntu/Debian
+sudo apt update
+sudo apt install maven -y
+
+# Fedora/RHEL
+sudo dnf install maven -y
+
+# Verificar
+mvn -version
+```
+
+**macOS:**
+```bash
+brew install maven
+mvn -version
+```
+
+---
+
+### 3. Eclipse IDE
+
+Descargar e instalar [Eclipse IDE for Enterprise Java and Web Developers](https://www.eclipse.org/downloads/packages/).
+
+Esta versión incluye todo lo necesario para el proyecto.
+
+---
+
+## 🔨 Compilación del Proyecto
+
+### Orden de Compilación
+
+⚠️ **IMPORTANTE**: El Frontend depende del Backend. Debes compilar en este orden:
+
+#### 1️⃣ Compilar Backend
+
+```bash
+cd backend
+mvn clean install
+```
+
+**¿Qué hace esto?**
+- ✅ Compila el código fuente
+- ✅ Ejecuta tests unitarios
+- ✅ Genera `turismouy.Backend-1.0.0.jar`
+- ✅ **Instala el JAR en repositorio Maven local** (`~/.m2/repository/`)
+- ✅ Este JAR será usado por el Frontend
+
+**Salida esperada:**
+```
+[INFO] Installing .../backend/target/turismouy.Backend-1.0.0.jar to ~/.m2/repository/...
+[INFO] BUILD SUCCESS
+```
+
+#### 2️⃣ Compilar Frontend
+
+```bash
+cd ../frontend
+mvn clean package
+```
+
+**¿Qué hace esto?**
+- ✅ Descarga el Backend desde repositorio Maven local
+- ✅ Compila servlets
+- ✅ Empaqueta todo en `turismouy.UI.war`
+- ✅ Incluye el JAR del Backend dentro del WAR
+
+**Salida esperada:**
+```
+[INFO] Building war: .../frontend/target/turismouy.UI.war
+[INFO] BUILD SUCCESS
+```
+
+#### Compilación desde la Raíz (Automática)
+
+Si prefieres compilar ambos módulos de una vez:
+
+```bash
+cd /ruta/al/proyecto
+mvn clean install
+```
+
+Este comando usa el POM padre y compila Backend → Frontend automáticamente.
+
+### Verificación
+
+Después de compilar, verifica que estos archivos existan:
+
+```bash
+ls backend/target/turismouy.Backend-1.0.0.jar
+ls frontend/target/turismouy.UI.war
+```
+
+Ambos archivos deben estar presentes.
+
+### Troubleshooting de Compilación
+
+**Problema**: Frontend no encuentra Backend
+```
+[ERROR] Could not resolve dependencies for turismouy.Backend:turismouy.Backend:jar:1.0.0
+```
+
+**Solución**:
+```bash
+# 1. Limpiar repositorio Maven local
+rm -rf ~/.m2/repository/turismouy/Backend/turismouy.Backend
+
+# 2. Recompilar Backend
+cd backend
+mvn clean install
+
+# 3. Recompilar Frontend
+cd ../frontend
+mvn clean package
+```
+
+**Problema**: Fallo en tests del Backend
+
+**Solución temporal** (saltar tests):
+```bash
+cd backend
+mvn clean install -DskipTests
+```
 
 ---
 
@@ -36,6 +302,7 @@ El proyecto TurismoUY está organizado en tres módulos principales:
 ### **Backend** (`/backend`)
 - **Propósito**: Contiene toda la lógica de negocio, controladores, entidades JPA y acceso a datos
 - **Empaquetado**: JAR (`turismouy.Backend-1.0.0.jar`)
+- **Artefacto**: `backend/target/turismouy.Backend-1.0.0.jar`
 - **Características**:
   - Controladores de dominio (usuarios, actividades, salidas, inscripciones)
   - Entidades JPA con EclipseLink
@@ -47,6 +314,7 @@ El proyecto TurismoUY está organizado en tres módulos principales:
 ### **Frontend** (`/frontend`)
 - **Propósito**: Interfaz web con servlets Jakarta
 - **Empaquetado**: WAR (`turismouy.UI.war`)
+- **Artefacto**: `frontend/target/turismouy.UI.war`
 - **Características**:
   - Servlets para manejo de peticiones HTTP
   - Dependencia del módulo backend
@@ -61,105 +329,7 @@ El proyecto TurismoUY está organizado en tres módulos principales:
   - Librerías compartidas en `/lib`: HSQLDB, EclipseLink, Jakarta Persistence API
   - Base de datos HSQLDB almacenada en `/data`
 
----
 
-## 💻 Requisitos del Sistema
-
-### Software Necesario
-
-| Componente | Versión Mínima | Recomendada | Descripción |
-|------------|----------------|-------------|-------------|
-| **Java JDK** | 17 | 17 o 21 | OpenJDK o Oracle JDK |
-| **Apache Maven** | 3.8.0 | 3.9.x | Gestor de dependencias |
-| **Eclipse IDE** | 2023-06 | 2024-03+ | (Opcional) IDE con soporte Jakarta EE |
-| **Git** | 2.x | Última | Control de versiones |
-
----
-
-## 🚀 Instalación y Configuración
-
-### 1. Instalación de Maven
-
-#### Windows
-1. Descargar Maven desde [maven.apache.org](https://maven.apache.org/download.cgi)
-2. Extraer en `C:\Program Files\Apache\maven`
-3. Configurar variables de entorno:
-   ```cmd
-   setx M2_HOME "C:\Program Files\Apache\maven"
-   setx PATH "%M2_HOME%\bin;%PATH%"
-   ```
-4. Verificar:
-   ```cmd
-   mvn -version
-   ```
-
-#### Linux
-```bash
-# Ubuntu/Debian
-sudo apt update
-sudo apt install maven -y
-
-# Fedora
-sudo dnf install maven -y
-
-# Verificar
-mvn -version
-```
-
-#### macOS
-```bash
-# Con Homebrew
-brew install maven
-
-# Verificar
-mvn -version
-```
-
----
-
-### 2. Compilación del Proyecto
-
-#### Compilación Completa (Recomendado)
-
-**Linux/macOS:**
-```bash
-cd backend
-mvn clean install
-
-cd ../frontend
-mvn clean package
-
-cd ..
-```
-
-**Windows:**
-```cmd
-cd backend
-mvn clean install
-
-cd ..\frontend
-mvn clean package
-
-cd ..
-```
-
-#### ¿Qué hace cada comando?
-
-| Comando | Módulo | Descripción |
-|---------|--------|-------------|
-| `mvn clean install` | Backend | Compila, ejecuta tests e instala el JAR en repositorio local Maven (~/.m2) |
-| `mvn clean package` | Frontend | Compila y genera el WAR incluyendo dependencias del backend |
-
-#### Verificación de Compilación
-
-Después de compilar exitosamente, deberías ver:
-
-```
-backend/target/turismouy.Backend-1.0.0.jar  ← JAR del backend
-frontend/target/turismouy.UI.war            ← WAR del frontend
-```
-
----
 
 ## 📚 Documentación Javadoc
 
@@ -349,14 +519,6 @@ Este listener:
 
 ## 🌐 Configuración en Eclipse IDE
 
-### Requisitos Previos
-
-- Eclipse IDE for Enterprise Java and Web Developers (2023-06 o superior)
-- Plugins instalados:
-  - Eclipse Web Tools Platform (WTP)
-  - Maven Integration (m2e)
-  - Server Adapters
-
 ### Paso 1: Importar Proyectos Maven
 
 1. Abrir Eclipse
@@ -405,42 +567,86 @@ Este listener:
 3. Click **Add >**
 4. Click **Finish**
 
-### Paso 4: Configurar VM Arguments para Tomcat
+### Paso 4: Configurar VM Arguments (CRÍTICO)
 
-**Esta configuración es CRÍTICA para que HSQLDB funcione correctamente.**
+Los VM Arguments son necesarios para que el servidor HSQLDB encuentre la base de datos.
 
-1. En la vista **Servers**, doble click en el servidor Tomcat
-2. Click en **Open launch configuration**
-3. Ir a la pestaña **Arguments**
-4. En **VM arguments**, agregar las siguientes líneas:
+#### ¿Por Qué Son Necesarios?
 
+Eclipse ejecuta Tomcat en un entorno aislado. Sin estas variables:
+- ❌ HSQLDB no sabrá dónde guardar los datos
+- ❌ La BD se creará en ubicación temporal
+- ❌ Los datos se perderán al reiniciar
+
+#### Configuración Paso a Paso
+
+1. **Vista Servers** → Doble click en "Tomcat v11.0 Server"
+2. Click en **"Open launch configuration"**
+3. Pestaña **"Arguments"**
+4. En el campo **"VM arguments"**, PEGAR lo siguiente:
+
+**Template (COPIAR Y MODIFICAR):**
 ```
 -Ddb.port=9001
 -Ddb.name=turismoUyDB
--Ddb.path=/ruta/completa/al/proyecto/server/apache-tomcat-11.0.11/data/turismoUyDB
+-Ddb.path=RUTA_COMPLETA_AL_PROYECTO/server/apache-tomcat-11.0.11/data/turismoUyDB
 ```
 
-**Ejemplo completo Windows:**
+#### ¿Cómo Obtener la Ruta Completa?
+
+**Windows (PowerShell/CMD):**
+```cmd
+cd server\apache-tomcat-11.0.11
+cd
+REM Copiar la ruta mostrada y agregar \data\turismoUyDB
+```
+
+**Linux/macOS:**
+```bash
+cd server/apache-tomcat-11.0.11
+pwd
+# Copiar la ruta mostrada y agregar /data/turismoUyDB
+```
+
+#### Ejemplos Completos
+
+**Windows:**
 ```
 -Ddb.port=9001
 -Ddb.name=turismoUyDB
--Ddb.path=C:\Users\usuario\workspace\turismouyApp\server\apache-tomcat-11.0.11\data\turismoUyDB
+-Ddb.path=C:/Users/juan/eclipse-workspace/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB
 ```
 
-**Ejemplo completo Linux/macOS:**
+⚠️ **Nota**: Usar `/` (slash) en lugar de `\` (backslash) incluso en Windows.
+
+**Linux:**
 ```
 -Ddb.port=9001
 -Ddb.name=turismoUyDB
--Ddb.path=/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB
+-Ddb.path=/home/maria/workspace/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB
 ```
 
-5. Click **OK** para guardar
-6. Click **File → Save** o `Ctrl+S` en la configuración del servidor
+**macOS:**
+```
+-Ddb.port=9001
+-Ddb.name=turismoUyDB
+-Ddb.path=/Users/carlos/Documents/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB
+```
 
-⚠️ **Importante**: 
-- Reemplazar `/ruta/completa/al/proyecto` con la ruta absoluta real de tu workspace
-- Estas variables son leídas por `setenv.sh/bat` y el `HsqldbServerListener`
-- Sin estas variables, HSQLDB usará valores por defecto que pueden no coincidir
+5. Click **OK**
+6. **Guardar** la configuración del servidor (File → Save o Ctrl+S)
+
+#### Verificación
+
+Al iniciar el servidor, deberías ver en la consola de Eclipse:
+```
+[setenv.sh] db.port=9001
+[setenv.sh] db.name=turismoUyDB
+[setenv.sh] db.path=/ruta/completa/...
+[DB] HSQLDB iniciado por Tomcat en puerto 9001
+```
+
+Si NO ves estos mensajes, los VM Arguments no están configurados correctamente.
 
 ### Paso 5: Verificar Context Path
 
@@ -477,6 +683,41 @@ Asegurarse que ambos proyectos usen Java 17:
 - ✅ Proyecto `turismouy.UI` desplegado en el servidor
 - ✅ Puerto 8080 y 9001 disponibles
 - ✅ JRE Java 17 configurado en ambos proyectos
+
+---
+
+## ✅ Checklist de Configuración
+
+Antes de ejecutar por primera vez, verifica:
+
+### Requisitos Previos
+- [ ] Java 17 instalado (`java -version`)
+- [ ] Maven instalado (`mvn -version`)
+- [ ] Eclipse IDE instalado
+- [ ] Puerto 8080 libre
+- [ ] Puerto 9001 libre
+
+### Compilación
+- [ ] Backend compilado exitosamente (`mvn clean install`)
+- [ ] Archivo `backend/target/turismouy.Backend-1.0.0.jar` existe
+- [ ] Frontend compilado exitosamente (`mvn clean package`)
+- [ ] Archivo `frontend/target/turismouy.UI.war` existe
+
+### Configuración Eclipse
+- [ ] Proyectos importados como Maven projects
+- [ ] Servidor Tomcat 11 agregado
+- [ ] Tomcat apunta a `server/apache-tomcat-11.0.11`
+- [ ] **VM Arguments configurados** (`-Ddb.port`, `-Ddb.name`, `-Ddb.path`)
+- [ ] Proyecto `turismouy.UI` desplegado en el servidor
+- [ ] Java 17 configurado en ambos proyectos
+
+### Primera Ejecución
+- [ ] Servidor inicia sin errores
+- [ ] Logs muestran `[DB] HSQLDB iniciado por Tomcat`
+- [ ] Aplicación accesible en http://localhost:8080/turismouy.UI/
+- [ ] Se crean archivos en `server/apache-tomcat-11.0.11/data/`
+
+**Si todos los checkboxes están marcados, ¡estás listo!** 🎉
 
 ---
 
@@ -960,7 +1201,7 @@ Base de datos no se crea en la ruta esperada
 
 - **Maven** 3.8+ - Gestión de dependencias y build
 - **Git** - Control de versiones
-- **Eclipse IDE** - IDE para Jakarta EE (opcional)
+- **Eclipse IDE** - IDE para Jakarta EE
 
 ---
 
@@ -999,6 +1240,78 @@ Si encuentras problemas no cubiertos en esta documentación:
    - [Apache Tomcat 11](https://tomcat.apache.org/tomcat-11.0-doc/)
    - [HSQLDB](http://hsqldb.org/doc/2.0/guide/)
    - [EclipseLink](https://eclipse.dev/eclipselink/)
+
+---
+
+## 🎯 Comandos Maven Útiles
+
+### Compilación y Empaquetado
+
+```bash
+# Compilar todo desde la raíz (recomendado)
+mvn clean install
+
+# Solo compilar Backend
+cd backend && mvn clean install
+
+# Solo compilar Frontend
+cd frontend && mvn clean package
+
+# Compilar sin ejecutar tests
+mvn clean install -DskipTests
+
+# Limpiar archivos generados
+mvn clean
+```
+
+### Servidor (desde raíz del proyecto)
+
+```bash
+# Iniciar Tomcat (Linux/macOS)
+mvn validate -Pstart-server
+
+# Detener Tomcat (Linux/macOS)
+mvn validate -Pstop-server
+```
+
+### Documentación
+
+```bash
+# Generar Javadoc del Backend
+cd backend && mvn javadoc:javadoc
+
+# Generar Javadoc del Frontend
+cd frontend && mvn javadoc:javadoc
+```
+
+### Información y Debugging
+
+```bash
+# Ver árbol de dependencias
+mvn dependency:tree
+
+# Verificar estructura del proyecto
+mvn validate
+
+# Ejecutar con debug verbose
+mvn clean install -X
+
+# Ver propiedades del proyecto
+mvn help:effective-pom
+```
+
+### Equivalencias con npm (para desarrolladores Node.js)
+
+| npm | Maven | Descripción |
+|-----|-------|-------------|
+| `npm install` | `mvn install` | Instala dependencias y compila |
+| `npm run build` | `mvn clean package` | Compila el proyecto |
+| `npm run clean` | `mvn clean` | Limpia archivos generados |
+| `npm start` | `mvn validate -Pstart-server` | Inicia el servidor |
+| `npm test` | `mvn test` | Ejecuta tests |
+| `npm run docs` | `mvn javadoc:javadoc` | Genera documentación |
+
+Para más detalles, consultar [COMANDOS.md](COMANDOS.md).
 
 ---
 
