@@ -42,5 +42,4 @@ out/
 
 # === Other ===
 /bin/
-
-!/frontend/src/main/webapp/WEB-INF/lib/*.jar
+/resources/*
