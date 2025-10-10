@@ -249,4 +249,6 @@ public interface IUserController {
 	 * @see #consultUserData(String)
 	 */
 	public void modifyUserDate(DtUser dtUser);
+	
+	public DtUser consultUserDataByEmail(String email);
 }

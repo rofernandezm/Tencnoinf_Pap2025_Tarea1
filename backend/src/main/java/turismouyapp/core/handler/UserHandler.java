@@ -117,5 +117,21 @@ public class UserHandler {
 		tx.commit();
 		em.close();
 	}
+	
+	public User getUserByEmail(String email) {
+	    EntityManager em = PersistenceHandler.getEntityManager();
+	    try {
+	        TypedQuery<User> userByEmail = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
+	        userByEmail.setParameter("email", email);
+	        List<User> users = userByEmail.getResultList();
+	        if (users.isEmpty()) {
+	            return null;
+	        } else {
+	            return users.get(0);
+	        }
+	    } finally {
+	        em.close();
+	    }
+	}
 
 }

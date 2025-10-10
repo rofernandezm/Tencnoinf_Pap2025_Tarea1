@@ -107,4 +107,10 @@ public class UserController implements IUserController {
 	public void modifyUserDate(DtUser dtUser) {
 		UserHandler.getIntance().updateUser(dtUser);
 	}
+	
+	public DtUser consultUserDataByEmail(String email){
+		User selected = UserHandler.getIntance().getUserByEmail(email);
+		return selected.createDtUser();
+	}
+	
 }

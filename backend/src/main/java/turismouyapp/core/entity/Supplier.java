@@ -24,15 +24,15 @@ public class Supplier extends User {
 	}
 
 	public Supplier(String nickname, String name, String lastName, String email, LocalDate birthDate,
-			String description, String webSite) {
-		super(nickname, name, lastName, email, birthDate);
+			String password, String description, String webSite) {
+		super(nickname, name, lastName, email, birthDate, password);
 		this.description = description;
 		this.webSite = webSite;
 	}
 
 	public Supplier(DtSupplier dtSupplier) {
 		super(dtSupplier.getNickname(), dtSupplier.getName(), dtSupplier.getLastName(), dtSupplier.getEmail(),
-				dtSupplier.getBirthDate());
+				dtSupplier.getBirthDate(), dtSupplier.getPassword());
 		this.description = dtSupplier.getDescription();
 		this.webSite = dtSupplier.getWebSite();
 	}
@@ -64,7 +64,7 @@ public class Supplier extends User {
 	public DtUser createDtUser() {
 
 		DtUser dt = new DtSupplier(this.getNickname(), this.getName(), this.getLastName(), this.getEmail(),
-				this.getBirthDate(), this.getDescription(), this.getWebSite());
+				this.getBirthDate(),this.getPassword(), this.getDescription(), this.getWebSite());
 
 		return dt;
 	}

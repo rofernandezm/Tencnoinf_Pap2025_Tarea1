@@ -10,8 +10,8 @@ public class DtTourist extends DtUser {
 	}
 
 	public DtTourist(String nickname, String name, String lastName, String email, LocalDate birthDate,
-			String nationality) {
-		super(nickname, name, lastName, email, birthDate, UserType.TOURIST);
+			String password, String nationality) {
+		super(nickname, name, lastName, email, birthDate, UserType.TOURIST, password);
 		this.nationality = nationality;
 	}
 
