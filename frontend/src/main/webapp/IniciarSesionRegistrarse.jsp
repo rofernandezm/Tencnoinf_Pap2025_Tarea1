@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%
+    // Pestaña activa por defecto
+    String activeTab = "login"; 
+
+    // Si desde el servlet te mandan un atributo "activeTab", lo usás
+    if (request.getAttribute("activeTab") != null) {
+        activeTab = (String) request.getAttribute("activeTab");
+    } 
+    else if (request.getAttribute("registerError") != null) {
+        activeTab = "register";
+    }
+%>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -40,41 +53,56 @@
         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
           <div class="card shadow rounded-3">
             <div class="card-body p-4">
+            
+	            <%-- Mostrar mensaje de registro --%>
+				<% if (request.getAttribute("mensaje") != null) { %>
+				    <div class="alert alert-info"><%= request.getAttribute("mensaje") %></div>
+				<% } %>
+				
+				<%-- Mostrar error de login --%>
+				<% if (request.getAttribute("loginError") != null) { %>
+				    <div class="alert alert-danger"><%= request.getAttribute("loginError") %></div>
+				<% } %>
+				
+				<%-- Mostrar error de registro --%>
+				<% if (request.getAttribute("registerError") != null) { %>
+				    <div class="alert alert-danger"><%= request.getAttribute("registerError") %></div>
+				<% } %>
 
               <h3 class="text-center mb-4">Bienvenido a tu próxima experiencia</h3>
 
               <!-- Pestañas ingresar/registrarse -->
             <ul class="nav nav-tabs mb-4" role="tablist">
               <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab">Ingresar</button>
+                <button class="nav-link <%= "login".equals(activeTab) ? "active" : "" %>" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab">Ingresar</button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab">Registrarse</button>
+                <button class="nav-link <%= "register".equals(activeTab) ? "active" : "" %>" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab">Registrarse</button>
               </li>
             </ul>
 
             <!-- Contenido de las pestañas -->
             <div class="tab-content">
               <!-- Pestaña Ingresar -->
-              <div class="tab-pane fade show active" id="login" role="tabpanel">
+              <div class="tab-pane fade <%= "login".equals(activeTab) ? "show active" : "" %>" id="login" role="tabpanel">
                 <form action="login" method="POST">
-                  <input type="hidden" name="action" value="login">
+                 <!-- <input type="hidden" name="action" value="login">-->
                   
                   <!--Nickname -->
                   <div class="mb-3">
                     <label for="nickname-or-email" class="form-label">Nickname o correo electrónico</label>
-                    <input type="text" class="form-control" id="nickname-or-email" placeholder="Ingrese su nickname o correo electrónico">
+                    <input type="text" class="form-control" id="nickname-or-email" name="nickname-or-email" placeholder="Ingrese su nickname o correo electrónico">
                   </div>
 
                   <!--Contraseña -->
                   <div class="mb-3">
-                    <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña">
+                    <label for="password-login" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password-login" name="password" placeholder="Ingrese su contraseña">
                   </div>
 
                   <!-- Botones -->
                   <div class="d-flex justify-content-center gap-3">
-                    <button type="submit" class="btn btn-custom">Ingresar</button>
+                    <button type="submit" name="action" value="login" class="btn btn-custom">Ingresar</button>
                     <button type="reset" class="btn btn-custom">Cancelar</button>
                   </div>
 
@@ -86,44 +114,44 @@
               </div>
 
               <!-- Pestaña Registrarse -->
-              <div class="tab-pane fade" id="register" role="tabpanel">
+              <div class="tab-pane fade <%= "register".equals(activeTab) ? "show active" : "" %>" id="register" role="tabpanel">
                 <form action="login" method="POST" enctype="multipart/form-data">
-                  <input type="hidden" name="action" value="register">
+                  <!-- <input type="hidden" name="action" value="register">-->
                   
                   <!--Nickname -->
                   <div class="mb-3">
                     <label for="new-nickname" class="form-label">Nickname</label>
-                    <input type="text" class="form-control" id="new-nickname" placeholder="Elija un nickname">
+                    <input type="text" class="form-control" id="new-nickname" name="new-nickname" placeholder="Elija un nickname">
                   </div>
                   <!--Nombre -->
                   <div class="mb-3">
                     <label for="new-name" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="new-name" placeholder="Ingrese su nombre">
+                    <input type="text" class="form-control" id="new-name" name="new-name" placeholder="Ingrese su nombre">
                   </div>
                   <!--Apellido -->
                   <div class="mb-3">
                     <label for="new-lastname" class="form-label">Apellido</label>
-                    <input type="text" class="form-control" id="new-lastname" placeholder="Ingrese su apellido">
+                    <input type="text" class="form-control" id="new-lastname" name="new-lastname" placeholder="Ingrese su apellido">
                   </div>
                   <!--Contraseña -->
                   <div class="mb-3">
-                    <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password" placeholder="Ingrese una nueva contraseña">
+                    <label for="password-register" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password-register" name="password" placeholder="Ingrese una nueva contraseña">
                   </div>
                   <!--Confirmación de contraseña -->
                   <div class="mb-3">
                     <label for="passwordconf" class="form-label">Confirmación de contraseña</label>
-                    <input type="password" class="form-control" id="passwordconf" placeholder="Ingrese nuevamente la contraseña">
+                    <input type="password" class="form-control" id="passwordconf" name="passwordconf" placeholder="Ingrese nuevamente la contraseña">
                   </div>
                   <!--Correo electrónico -->
                   <div class="mb-3">
                     <label for="new-email" class="form-label">Correo electrónico</label>
-                    <input type="email" class="form-control" id="new-email" placeholder="Ingrese su correo electrónico">
+                    <input type="email" class="form-control" id="new-email" name="new-email" placeholder="Ingrese su correo electrónico">
                   </div>
                   <!--Fecha de nacimiento -->
                   <div class="mb-3">
                     <label for="new-birthdate" class="form-label">Fecha de nacimiento</label>
-                    <input type="date" class="form-control" id="new-birthdate" placeholder="Ingrese su fecha de nacimiento">
+                    <input type="date" class="form-control" id="new-birthdate" name="new-birthdate" placeholder="Ingrese su fecha de nacimiento">
                   </div>
                   <!--Tipo de usuario -->
                   <div class="mb-3">
@@ -143,7 +171,7 @@
                   <div id="tourist-fields">
                     <div class="mb-3">
                       <label for="new-nationality" class="form-label">Nacionalidad</label>
-                      <input type="text" class="form-control" id="nationality" placeholder="Ingrese su nacionalidad">
+                      <input type="text" class="form-control" id="nationality" name="nationality" placeholder="Ingrese su nacionalidad">
                     </div>
                   </div>
                   
@@ -164,12 +192,12 @@
                   <!--Foto de perfil -->
                   <div class="mb-3">
                     <label for="new-profilephoto" class="form-label">Foto de perfil</label>
-                    <input class="form-control" type="file" id="new-profilephoto" accept="image/*">
+                    <input class="form-control" type="file" id="new-profilephoto" name="new-profilephoto" accept="image/*">
                   </div>
 
                   <!-- Botones -->
                   <div class="d-flex justify-content-center gap-3">
-                    <button type="submit" class="btn btn-custom">Registrarse</button>
+                    <button type="submit" name="action" value="register" class="btn btn-custom">Registrarse</button>
                     <button type="reset" class="btn btn-custom">Cancelar</button>
                   </div>
                 </form>

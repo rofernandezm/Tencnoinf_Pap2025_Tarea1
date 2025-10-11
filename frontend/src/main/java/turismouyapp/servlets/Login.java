@@ -1,6 +1,7 @@
 package turismouyapp.servlets;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,6 +38,7 @@ import java.time.LocalDate;
  */
 
 @WebServlet("/login")
+@MultipartConfig
 public class Login extends HttpServlet {
 	
 	/**
@@ -66,8 +68,9 @@ public class Login extends HttpServlet {
 		IUserController icon = factory.getIUserController();
 	 	  	    
 	    DtUser result=null;
-		
-			result = icon.consultUserData(nicknameOrEmail);
+	    if(nicknameOrEmail != null && !nicknameOrEmail.isBlank() && password != null && !password.isBlank()) {
+			
+	    	result = icon.consultUserData(nicknameOrEmail);
 			  
 			if (result == null) {
 				result = icon.consultUserDataByEmail(nicknameOrEmail);
@@ -76,18 +79,29 @@ public class Login extends HttpServlet {
 	  		if (result != null && password.equals(result.getPassword()))   {
 	  			newSessionState = SessionState.LOGIN_SUCCESS;
 	  			request.getSession().setAttribute("logged_user", result);
+	  			RequestDispatcher dispatcher = request.getRequestDispatcher("/AccedeAlHome.jsp"); //a chequear
+	  			dispatcher.forward(request, response);
 	  		} else {
 	  			newSessionState = SessionState.LOGIN_UNSUCCESSFUL; 
 	            request.setAttribute("loginError", "Usuario o contraseña incorrectos");
+	            request.setAttribute("activeTab", "login");
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp");
+	            dispatcher.forward(request, response);
+	            
 	  			// setea el usuario logueado
 			}
-		
+	    }else {
+	    	request.setAttribute("mensaje", "Por favor, llene todos los campos.");
+	    	request.setAttribute("activeTab", "login");
+			RequestDispatcher rd = request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp");
+			rd.forward(request, response);
+	    }
 		objSesion.setAttribute("estado_sesion",newSessionState);
 
 		// redirige a la página principal para que luego rediriga a la página que corresponde
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/home");
-		dispatcher.forward(request, response);
+//		RequestDispatcher dispatcher = request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp");
+//		dispatcher.forward(request, response);
 	}
 	
 	private void handleRegister(HttpServletRequest request, HttpServletResponse response)
@@ -119,7 +133,8 @@ public class Login extends HttpServlet {
         // Validar contraseñas
         if (!password.equals(passwordConf)) {
             request.setAttribute("registerError", "Las contraseñas no coinciden");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.setAttribute("activeTab", "register");
+            request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp").forward(request, response);
             return;
         }
 
@@ -132,36 +147,40 @@ public class Login extends HttpServlet {
 		
 		        if ("Turista".equals(userType)) {
 		        	newUser = new DtTourist(nickname, name, lastName, email, birthDate, password, nationality);
-		            icon.dataEntry(newUser);
 		            
 		        } else if ("Proveedor".equals(userType)) {
 		        	newUser = new DtSupplier(nickname, name, lastName, email, birthDate, password, supplierDesc, webSite);
-		        	icon.dataEntry(newUser);
 		        }
 		
+		        icon.dataEntry(newUser);
 		        icon.confirmRegistration();
-	            RequestDispatcher rd = null;
+		        
 				request.setAttribute("mensaje", "Se ha ingresado correctamente el usuario " + nickname + " en el sistema.");
+				RequestDispatcher rd = request.getRequestDispatcher("/AccedeAlHome.jsp"); //poner el home que corresponda luego de que el ususario ingreso
 				rd.forward(request, response);
 				
 //		        newUser.setProfilePhoto(profilePhoto);
 		
 		        // / redirige a la página principal para que luego rediriga a la página que corresponde
-		        response.sendRedirect("/home");
+		        //response.sendRedirect("/home");
+		        
 			} catch (RepeatedUserNicknameException e) {
 				// Muestro error de registro
-				RequestDispatcher rd = null;
 				request.setAttribute("mensaje", "El usuario " + nickname + " ya existe.");
+				request.setAttribute("activeTab", "register");
+				RequestDispatcher rd = request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp");
 				rd.forward(request, response);
 			} catch (RepeatedUserEmailException e) {
 				// Muestro error de registro
-				RequestDispatcher rd = null;
 				request.setAttribute("mensaje", "El usuario con email: " + email + " ya existe.");
+				request.setAttribute("activeTab", "register");
+				RequestDispatcher rd = request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp");
 				rd.forward(request, response);
 			}   
 		}else {
-			RequestDispatcher rd = null;
 			request.setAttribute("mensaje", "Por favor, llene todos los campos.");
+			request.setAttribute("activeTab", "register");
+			RequestDispatcher rd = request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp");
 			rd.forward(request, response);
 		}
     }
@@ -205,7 +224,17 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 		throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		
+		String action = request.getParameter("action");
+
+        if ("login".equals(action)) {
+            handleLogin(request, response);
+        } else if ("register".equals(action)) {
+            handleRegister(request, response);
+        } else {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Acción desconocida");
+        }
 		
 //		// Iniciar respuesta HTML
 //		response.getWriter().append("<!DOCTYPE html><html><head><title>turismouy.UI</title></head><body><h1>Served at: "
@@ -265,13 +294,18 @@ public class Login extends HttpServlet {
 			throws ServletException, IOException {
 		
 		String action = request.getParameter("action");
+		System.out.println(">>> Acción recibida: " + action);
 
         if ("login".equals(action)) {
             handleLogin(request, response);
         } else if ("register".equals(action)) {
             handleRegister(request, response);
         } else {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Acción desconocida");
+        	response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Acción desconocida");
+//        	request.setAttribute("mensaje", "Acción desconocida");
+//            RequestDispatcher rd = request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp");
+//            rd.forward(request, response);
+            return;
         }
 	}
 	
