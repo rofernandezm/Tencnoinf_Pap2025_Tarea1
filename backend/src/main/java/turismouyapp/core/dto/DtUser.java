@@ -11,11 +11,12 @@ public abstract class DtUser {
 	private LocalDate birthDate;
 	private UserType userType;
 	private String password;
+	private String imagePath;
 
 	public DtUser() {
 	};
 
-	public DtUser(String nickname, String name, String lastName, String email, LocalDate birthDate, UserType userType, String password) {
+	public DtUser(String nickname, String name, String lastName, String email, LocalDate birthDate, UserType userType, String password, String image) {
 		this.nickname = nickname;
 		this.name = name;
 		this.lastName = lastName;
@@ -23,6 +24,7 @@ public abstract class DtUser {
 		this.birthDate = birthDate;
 		this.userType = userType;
 		this.password = password;
+		this.imagePath = image;
 	}
 
 	public String getNickname() {
@@ -51,5 +53,9 @@ public abstract class DtUser {
 	
 	public String getPassword() {
 		return password;
+	}
+	
+	public String getImagePath() {
+		return imagePath;
 	}
 }

@@ -101,6 +101,9 @@ public class UserController implements IUserController {
 
 	public DtUser consultUserData(String nickname) {
 		User selected = UserHandler.getIntance().getUserByNickname(nickname);
+		if (selected == null) {
+	        return null;
+	    }
 		return selected.createDtUser();
 	}
 	
@@ -110,6 +113,9 @@ public class UserController implements IUserController {
 	
 	public DtUser consultUserDataByEmail(String email){
 		User selected = UserHandler.getIntance().getUserByEmail(email);
+		if (selected == null) {
+	        return null;
+	    }
 		return selected.createDtUser();
 	}
 	
