@@ -2,15 +2,22 @@ package desktop;
 
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
+import java.time.Duration;
 import java.time.format.DateTimeFormatter;
+import java.util.ResourceBundle;
 
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
-import turismouyapp.core.dto.DtActivityWithOutings;
+import turismouyapp.core.dto.DtTouristActivity;
+import turismouyapp.core.dto.TouristActivityStatus;
+import turismouyapp.core.exceptions.ActivityDoesNotExistException;
 import turismouyapp.core.interfaces.ITouristActivityController;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -18,11 +25,17 @@ import java.awt.Insets;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.Component;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.text.MessageFormat;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -40,19 +53,108 @@ public class ApprovalActivity extends JInternalFrame {
 	private JButton approveButton;
 	private JComboBox<String> cmbSelActivity;
 	private DateTimeFormatter formatter_YYYYMMDD;
-	private DateTimeFormatter formatter_YYYYMMDD_HHMM;
-	private DtActivityWithOutings activityWithOutingsData;
 	ITouristActivityController itac;
+	private static ResourceBundle TEXTS = ResourceBundle.getBundle("texts");
+	// Size
+	private final int frameWidth = 720;
+	private final int frameHeight = 550;
 
 	public ApprovalActivity(ITouristActivityController itac) {
-		super("Aprobar actividad", true, true, true, true);
+		super(TEXTS.getString("approvalAct.title"), true, true, true, true);
 		this.itac = itac;
-		formatter_YYYYMMDD = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		formatter_YYYYMMDD_HHMM = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		formatter_YYYYMMDD = DateTimeFormatter.ofPattern(TEXTS.getString("approvalAct.dateFormat"));
 		setBounds(new Rectangle(35, 35, 400, 420));
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		getContentPane().add(getFormContentJPanel(), BorderLayout.CENTER);
+
+		// Cuando se oculta por codigo setVisible(false)
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				cleanAll();
+				setParentFrameSize(true); // DEFAULT SIZE
+			}
+
+			@Override
+			public void componentShown(ComponentEvent e) {
+				setParentFrameSize(false); // CUSTOM SIZE FOR CURRENT FRAME
+				loadComboSelectActivity();
+			}
+		});
 	}
+
+	private void setParentFrameSize(boolean defaultSize) {
+
+		JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
+		int width = defaultSize ? 800 : frameWidth;
+		int height = defaultSize ? 600 : frameHeight;
+
+		if (parent != null) {
+			parent.setSize(width, height); // cambiar tamaño del padre
+		}
+	}
+
+	private void loadComboSelectActivity() {
+		String[] activities;
+		DefaultComboBoxModel<String> model;
+
+		try {
+			activities = itac.listTouristActivitiesByStatus(TouristActivityStatus.ADDED);
+			if (activities == null || activities.length == 0) {
+				activities = new String[] { TEXTS.getString("approvalAct.select.withoutPendingAct") };
+			}
+			model = new DefaultComboBoxModel<>(activities);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			activities = new String[] { TEXTS.getString("approvalAct.select.withoutPendingAct") };
+			model = new DefaultComboBoxModel<>(activities);
+		}
+
+		cmbSelActivity.setModel(model);
+		cmbSelActivity.setSelectedIndex(-1);
+	}
+
+	protected void cmdSelectActivityActionPerformed(ActionEvent e) {
+		String selectedActivity = (String) cmbSelActivity.getSelectedItem();
+		clearActivityData();
+		if (selectedActivity != null
+				&& !selectedActivity.equals(TEXTS.getString("approvalAct.select.withoutPendingAct"))) {
+			try {
+				DtTouristActivity activityData = itac.consultTouristActivityBasicData(selectedActivity);
+				txtActName.setText(activityData.getActivityName());
+				txtActDescription.setText(activityData.getDescription());
+				txtActDuration.setText(getFormatedStringByDuration(activityData.getDuration()));
+				txtActCost.setText(String.valueOf(activityData.getCostTurist()));
+				txtActCity.setText(activityData.getCity());
+				txtActRegDate.setText(activityData.getRegistrationDate().format(formatter_YYYYMMDD));
+				approveButton.setEnabled(true);
+				rejectButton.setEnabled(true);
+
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+
+	private void cleanAll() {
+		cmbSelActivity.removeAllItems();
+		cmbSelActivity.setSelectedIndex(-1);
+		clearActivityData();
+		approveButton.setEnabled(false);
+		rejectButton.setEnabled(false);
+	}
+
+	private void clearActivityData() {
+		txtActName.setText("");
+		txtActDescription.setText("");
+		txtActDuration.setText("");
+		txtActCost.setText("");
+		txtActCity.setText("");
+		txtActRegDate.setText("");
+	}
+
+	// Swing building
 
 	private JPanel getFormContentJPanel() {
 		JPanel formContent = new JPanel();
@@ -82,22 +184,50 @@ public class ApprovalActivity extends JInternalFrame {
 		FlowLayout flowLayout = (FlowLayout) footer.getLayout();
 		flowLayout.setHgap(50);
 
-		rejectButton = new JButton("Rechazar");
+		rejectButton = new JButton(TEXTS.getString("approvalAct.button.reject"));
 		rejectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				try {
+					itac.updateTouristActivityStatus(txtActName.getText().trim(), TouristActivityStatus.REJECTED);
+					JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(footer);
+					JOptionPane.showMessageDialog(parent, TEXTS.getString("approvalAct.modal.rejectedAct"),
+							TEXTS.getString("approvalAct.modal.type.success"), JOptionPane.INFORMATION_MESSAGE);
+
+				} catch (ActivityDoesNotExistException ex) {
+					ex.printStackTrace();
+				}
+				cleanAll();
+				loadComboSelectActivity();
 			}
 		});
 		rejectButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		rejectButton.setEnabled(false);
 		GridBagConstraints gbc_rejectButton = new GridBagConstraints();
 		gbc_rejectButton.insets = new Insets(0, 0, 0, 5);
 		gbc_rejectButton.gridx = 1;
 		gbc_rejectButton.gridy = 0;
 		footer.add(rejectButton, gbc_rejectButton);
 
-		approveButton = new JButton("Aprobar");
+		approveButton = new JButton(TEXTS.getString("approvalAct.button.approve"));
 		approveButton.setPreferredSize(new Dimension(100, 25));
 		approveButton.setMinimumSize(new Dimension(100, 25));
 		approveButton.setMaximumSize(new Dimension(100, 25));
+		approveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					itac.updateTouristActivityStatus(txtActName.getText().trim(), TouristActivityStatus.CONFIRMED);
+					JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(footer);
+					JOptionPane.showMessageDialog(parent, TEXTS.getString("approvalAct.modal.confirmedAct"),
+							TEXTS.getString("approvalAct.modal.type.success"), JOptionPane.INFORMATION_MESSAGE);
+
+				} catch (ActivityDoesNotExistException ex) {
+					ex.printStackTrace();
+				}
+				cleanAll();
+				loadComboSelectActivity();
+			}
+		});
+		approveButton.setEnabled(false);
 		GridBagConstraints gbc_approveButton = new GridBagConstraints();
 		gbc_approveButton.insets = new Insets(0, 0, 0, 5);
 		gbc_approveButton.gridx = 3;
@@ -128,7 +258,7 @@ public class ApprovalActivity extends JInternalFrame {
 
 		cmbSelActivity = new JComboBox<String>();
 		cmbSelActivity.setBorder(new CompoundBorder(
-				new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Seleccione actividad:",
+				new TitledBorder(new LineBorder(new Color(184, 207, 229)), TEXTS.getString("approvalAct.select"),
 						TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)),
 				new EmptyBorder(10, 10, 10, 10)));
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
@@ -138,7 +268,20 @@ public class ApprovalActivity extends JInternalFrame {
 		gbc_comboBox.gridy = 1;
 		activitySelector.add(cmbSelActivity, gbc_comboBox);
 
+		cmbSelActivity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cmdSelectActivityActionPerformed(arg0);
+			}
+		});
+
 		return activitySelector;
+	}
+
+	private String getFormatedStringByDuration(Duration duration) {
+		long horas = duration.toHours();
+		long minutos = duration.toMinutesPart();
+		String texto = MessageFormat.format(TEXTS.getString("approvalAct.durationFormat"), horas, minutos);
+		return texto;
 	}
 
 	private GridBagConstraints getActivitySelectorGbc() {
@@ -170,7 +313,7 @@ public class ApprovalActivity extends JInternalFrame {
 		gbc_basicDataActivity.gridy = 0;
 		activityForm.add(basicDataActivity, gbc_basicDataActivity);
 		basicDataActivity.setBorder(new CompoundBorder(
-				new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Informacion de la actividad",
+				new TitledBorder(new LineBorder(new Color(184, 207, 229)), TEXTS.getString("approvalAct.form.title"),
 						TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)),
 				new EmptyBorder(10, 10, 10, 10)));
 		GridBagLayout gbl_basicDataActivity = new GridBagLayout();
@@ -180,7 +323,7 @@ public class ApprovalActivity extends JInternalFrame {
 		gbl_basicDataActivity.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		basicDataActivity.setLayout(gbl_basicDataActivity);
 
-		JLabel lblActName = new JLabel("Nombre");
+		JLabel lblActName = new JLabel(TEXTS.getString("approvalAct.form.name"));
 		GridBagConstraints gbc_lblActName = new GridBagConstraints();
 		gbc_lblActName.insets = new Insets(0, 0, 5, 5);
 		gbc_lblActName.anchor = GridBagConstraints.NORTHWEST;
@@ -198,7 +341,7 @@ public class ApprovalActivity extends JInternalFrame {
 		basicDataActivity.add(txtActName, gbc_txtActName);
 		txtActName.setColumns(10);
 
-		JLabel lblActDescription = new JLabel("Descripcion");
+		JLabel lblActDescription = new JLabel(TEXTS.getString("approvalAct.form.description"));
 		GridBagConstraints gbc_lblActDescription = new GridBagConstraints();
 		gbc_lblActDescription.anchor = GridBagConstraints.WEST;
 		gbc_lblActDescription.insets = new Insets(0, 0, 5, 5);
@@ -216,7 +359,7 @@ public class ApprovalActivity extends JInternalFrame {
 		basicDataActivity.add(txtActDescription, gbc_txtActDescription);
 		txtActDescription.setColumns(10);
 
-		JLabel lblActDuration = new JLabel("Duración (horas):");
+		JLabel lblActDuration = new JLabel(TEXTS.getString("approvalAct.form.duration"));
 		GridBagConstraints gbc_lblActDuration = new GridBagConstraints();
 		gbc_lblActDuration.anchor = GridBagConstraints.WEST;
 		gbc_lblActDuration.insets = new Insets(0, 0, 5, 5);
@@ -234,7 +377,7 @@ public class ApprovalActivity extends JInternalFrame {
 		basicDataActivity.add(txtActDuration, gbc_txtActDuration);
 		txtActDuration.setColumns(10);
 
-		JLabel lblActCost = new JLabel("Costo por turista");
+		JLabel lblActCost = new JLabel(TEXTS.getString("approvalAct.form.fee"));
 		GridBagConstraints gbc_lblActCost = new GridBagConstraints();
 		gbc_lblActCost.anchor = GridBagConstraints.WEST;
 		gbc_lblActCost.insets = new Insets(0, 0, 5, 5);
@@ -252,7 +395,7 @@ public class ApprovalActivity extends JInternalFrame {
 		basicDataActivity.add(txtActCost, gbc_txtActCost);
 		txtActCost.setColumns(10);
 
-		JLabel lblActCity = new JLabel("Ciudad");
+		JLabel lblActCity = new JLabel(TEXTS.getString("approvalAct.form.city"));
 		GridBagConstraints gbc_lblActCity = new GridBagConstraints();
 		gbc_lblActCity.anchor = GridBagConstraints.WEST;
 		gbc_lblActCity.insets = new Insets(0, 0, 5, 5);
@@ -270,7 +413,7 @@ public class ApprovalActivity extends JInternalFrame {
 		basicDataActivity.add(txtActCity, gbc_txtActCity);
 		txtActCity.setColumns(10);
 
-		JLabel lblActRegDate = new JLabel("Fecha de registro");
+		JLabel lblActRegDate = new JLabel(TEXTS.getString("approvalAct.form.date"));
 		GridBagConstraints gbc_lblActRegDate = new GridBagConstraints();
 		gbc_lblActRegDate.anchor = GridBagConstraints.WEST;
 		gbc_lblActRegDate.insets = new Insets(0, 0, 0, 5);

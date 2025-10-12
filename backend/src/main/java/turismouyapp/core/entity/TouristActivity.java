@@ -19,6 +19,7 @@ public class TouristActivity {
 	private float touristFee;
 	private String city;
 	private LocalDate dischargeDate;
+	@Enumerated(EnumType.STRING)
 	private TouristActivityStatus status;
 
 	// Relation with one Supplier
@@ -56,6 +57,7 @@ public class TouristActivity {
 		this.touristFee = dtTouristActivity.getCostTurist();
 		this.city = dtTouristActivity.getCity();
 		this.dischargeDate = dtTouristActivity.getRegistrationDate();
+		this.status = dtTouristActivity.getStatus();
 	}
 
 	public String getActivityName() {
