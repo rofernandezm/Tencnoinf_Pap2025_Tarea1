@@ -1,5 +1,7 @@
 package turismouyapp.core.interfaces;
 
+import java.util.List;
+
 import turismouyapp.core.dto.DtActivityWithOutings;
 import turismouyapp.core.dto.DtRanking;
 import turismouyapp.core.dto.DtTouristActivity;
@@ -159,6 +161,9 @@ public interface ITouristActivityController {
 	 * @see DtActivityWithOutings
 	 */
 	public DtActivityWithOutings consultTouristActivityData(String activityName) throws ActivityDoesNotExistException;
+	
+	public List<DtActivityWithOutings> listTouristActivityData() throws ActivityDoesNotExistException;
+	
 	
 	/**
 	 * Obtiene el ranking de actividades turísticas ordenadas por algún criterio.
