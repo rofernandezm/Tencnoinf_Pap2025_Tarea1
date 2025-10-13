@@ -23,6 +23,7 @@ import turismouyapp.core.dto.DtSupplier;
 import turismouyapp.core.dto.DtTourist;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 
 /**
@@ -138,20 +139,39 @@ public class Login extends HttpServlet {
         String imagePath = null;
         
         if (profilePhotoPart != null && profilePhotoPart.getSize() > 0) {
-            // Obtiene el nombre del archivo
-            String fileName = Path.of(profilePhotoPart.getSubmittedFileName()).getFileName().toString();
+            
+        	String rawPath = getServletContext().getInitParameter("uploadFolder");
 
-            // Carpeta donde se guardarán las imágenes
-            String uploadPath = getServletContext().getRealPath("") + File.separator + "uploads";
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) uploadDir.mkdir();
+        	// Reemplaza la variable ${catalina.base} por su valor real
+        	String catalinaBase = System.getProperty("catalina.base");
+        	String uploadPath = rawPath.replace("${catalina.base}", catalinaBase);
+
+        	File uploadDir = new File(uploadPath);
+        	if (!uploadDir.exists()) uploadDir.mkdirs();
+        	
+        	// Obtiene el nombre original (ej: "foto.png")
+        	String originalName = Path.of(profilePhotoPart.getSubmittedFileName()).getFileName().toString();
+
+        	// Extrae la extensión (todo después del último '.')
+        	String extension = "";
+        	int i = originalName.lastIndexOf('.');
+        	if (i > 0) {
+        	    extension = originalName.substring(i); // incluye el punto, ej: ".png"
+        	}
+
+        	// Genera nombre único + extensión
+        	String fileName = UUID.randomUUID().toString() + extension;
 
             // Guardar el archivo en el servidor
             profilePhotoPart.write(uploadPath + File.separator + fileName);
 
             // Guardar la ruta relativa
-            imagePath = "uploads/" + fileName;
+            imagePath = fileName;
         }
+        
+        System.out.println(System.getProperty("catalina.base"));
+        System.out.println("getServletContext:" + getServletContext().getRealPath("") + File.separator + "uploads");
+        System.out.println("Ruta de imagen generada: " + imagePath);
 
         // Validar contraseñas
         if (!password.equals(passwordConf)) {
