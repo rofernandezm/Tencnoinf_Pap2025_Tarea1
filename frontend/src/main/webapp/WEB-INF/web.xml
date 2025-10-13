@@ -5,4 +5,8 @@
   <welcome-file>IniciarSesionRegistrarse.jsp</welcome-file>
   </welcome-file-list>
 
+<context-param>
+    <param-name>uploadFolder</param-name>
+    <param-value>${catalina.base}/data/turismouy.UI/uploads</param-value>
+</context-param>
 </web-app>
