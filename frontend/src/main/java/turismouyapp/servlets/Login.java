@@ -59,11 +59,13 @@ public class Login extends HttpServlet {
     
     protected void handleGuestLogin(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
     	
-    	HttpSession objSesion = request.getSession();        // Obtengo la sesion en objSesion
-    	SessionState newSessionState = SessionState.NO_LOGIN;  
+    	HttpSession session = request.getSession(true);
     	
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/AccedeAlHome.jsp"); 
-		dispatcher.forward(request, response);
+    	session.setAttribute("guest_mode", true);
+    	session.setAttribute("user_role", "GUEST");
+    	
+    	// Al ser invitado, no hay usuario logueado
+		response.sendRedirect(request.getContextPath() + "/home");
 
     }
 
