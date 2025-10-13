@@ -24,14 +24,14 @@ public class Tourist extends User {
 	}
 
 	public Tourist(String nickname, String name, String lastName, String email, LocalDate birthDate,
-			String nationality) {
-		super(nickname, name, lastName, email, birthDate);
+			String password, String nationality) {
+		super(nickname, name, lastName, email, birthDate, password);
 		this.nationality = nationality;
 	}
 
 	public Tourist(DtTourist dtTourist) {
 		super(dtTourist.getNickname(), dtTourist.getName(), dtTourist.getLastName(), dtTourist.getEmail(),
-				dtTourist.getBirthDate());
+				dtTourist.getBirthDate(), dtTourist.getPassword());
 		this.nationality = dtTourist.getNationality();
 	}
 
@@ -46,7 +46,7 @@ public class Tourist extends User {
 	public DtUser createDtUser() {
 
 		DtUser dt = new DtTourist(this.getNickname(), this.getName(), this.getLastName(), this.getEmail(),
-				this.getBirthDate(), this.getNationality());
+				this.getBirthDate(),this.getPassword(), this.getNationality(), this.getImagePath());
 
 		return dt;
 	}

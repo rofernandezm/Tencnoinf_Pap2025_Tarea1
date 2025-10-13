@@ -6,7 +6,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 import turismouyapp.core.dto.DtTouristActivity;
+import turismouyapp.core.dto.TouristActivityStatus;
 import turismouyapp.core.entity.TouristActivity;
+import turismouyapp.core.exceptions.ActivityDoesNotExistException;
 
 public class TouristActivityHandler {
 
@@ -77,20 +79,82 @@ public class TouristActivityHandler {
 		}
 	}
 
-	public void updateActivity(DtTouristActivity dto) {
+	public String[] listTouristActivitiesPendingApproval() {
+		return listTouristActivitiesByStatus(TouristActivityStatus.ADDED);
+	}
+
+	public String[] listTouristActivitiesConfirmed() {
+		return listTouristActivitiesByStatus(TouristActivityStatus.CONFIRMED);
+	}
+
+	public String[] listTouristActivitiesRejected() {
+		return listTouristActivitiesByStatus(TouristActivityStatus.REJECTED);
+	}
+
+	private String[] listTouristActivitiesByStatus(TouristActivityStatus status) {
+		EntityManager em = PersistenceHandler.getEntityManager();
+		String[] activities = null;
+		try {
+			TypedQuery<TouristActivity> query = em
+					.createQuery("SELECT t FROM TouristActivity t WHERE t.status = :status", TouristActivity.class);
+			query.setParameter("status", status);
+			List<TouristActivity> result = query.getResultList();
+
+			activities = result.size() > 0 ? new String[result.size()] : null;
+			for (int i = 0; i < result.size(); i++) {
+				activities[i] = result.get(i).getActivityName();
+			}
+		} finally {
+			em.close();
+		}
+		return activities;
+	}
+
+	public void updateActivityStatus(String activityName, TouristActivityStatus status) throws ActivityDoesNotExistException{
+
 		EntityManager em = PersistenceHandler.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
-		tx.begin();
-		TouristActivity ta = em.find(TouristActivity.class, dto.getActivityName());
-		if (ta != null) {
-			ta.setDescription(dto.getDescription());
-			ta.setDuration(dto.getDuration());
-			ta.setTouristFee(dto.getCostTurist());
-			ta.setCity(dto.getCity());
-
+		try {
+			tx.begin();
+			TouristActivity ta = em.find(TouristActivity.class, activityName);
+			if (ta == null)
+				throw new ActivityDoesNotExistException("No existe actividad para el nombre indicado. Por favor reintente");
+			
+			ta.setStatus(status);
+			tx.commit();
+		} catch (Exception e) {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			throw e;
+		} finally {
+			em.close();
 		}
-		tx.commit();
-		em.close();
+	}
+
+	public void updateActivity(DtTouristActivity dto) {
+
+		EntityManager em = PersistenceHandler.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		try {
+			tx.begin();
+			TouristActivity ta = em.find(TouristActivity.class, dto.getActivityName());
+			if (ta != null) {
+				ta.setDescription(dto.getDescription());
+				ta.setDuration(dto.getDuration());
+				ta.setTouristFee(dto.getCostTurist());
+				ta.setCity(dto.getCity());
+
+			}
+			tx.commit();
+		} catch (Exception e) {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			throw e;
+		} finally {
+			em.close();
+		}
 	}
 
 	public List<String> listTouristActivitiesBySupplierNickname(String nickname) {

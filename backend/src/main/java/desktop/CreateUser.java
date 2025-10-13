@@ -407,7 +407,7 @@ public class CreateUser extends JInternalFrame {
 			setVisible(false);
 		};
 		ActionListener confirmAction = e -> {
-			cmdUserRegisterActionPerformed(e);
+//			cmdUserRegisterActionPerformed(e);
 		};
 
 		btnCancel = new JButton(BUTTON_CANCEL);
@@ -421,60 +421,60 @@ public class CreateUser extends JInternalFrame {
 		return fl_Buttons;
 	}
 
-	protected void cmdUserRegisterActionPerformed(ActionEvent arg0) {
+//	protected void cmdUserRegisterActionPerformed(ActionEvent arg0) {
+//
+//		if (checkForm()) {
+//
+//			try {
+//				DtUser dtUser = rdbtnTourist.isSelected() ? getDtTouristByForm() : getDtSupplierByForm();
+//
+//				iUserController.dataEntry(dtUser);
+//				iUserController.confirmRegistration();
+//				// Muestro éxito de la operación
+//				JOptionPane.showMessageDialog(this, "El usuario ha sido registrado con éxito.", TITLE,
+//						JOptionPane.INFORMATION_MESSAGE);
+//
+//				// Limpio el internal frame antes de cerrar la ventana
+//				clearForm();
+//				setVisible(false);
+//
+//			} catch (RepeatedUserNicknameException e) {
+//				// Muestro error de registro
+//				JOptionPane.showMessageDialog(this, e.getMessage(), TITLE, JOptionPane.ERROR_MESSAGE);
+//
+//			} catch (RepeatedUserEmailException e) {
+//				// Muestro error de registro
+//				JOptionPane.showMessageDialog(this, e.getMessage(), TITLE, JOptionPane.ERROR_MESSAGE);
+//			}
+//		}
+//	}
 
-		if (checkForm()) {
+//	private DtUser getDtTouristByForm() {
+//
+//		String nickname = this.fieldNickname.getText();
+//		String name = this.fieldName.getText();
+//		String lastName = this.fieldLastname.getText();
+//		String email = this.fieldEmail.getText();
+//		LocalDate birthDate = jSpinnerValueToLocalDate(this.field_birthDate);
+//		String nationality = this.fieldNationality.getText();
+//
+//		return new DtTourist(nickname, name, lastName, email, birthDate, nationality);
+//
+//	}
 
-			try {
-				DtUser dtUser = rdbtnTourist.isSelected() ? getDtTouristByForm() : getDtSupplierByForm();
-
-				iUserController.dataEntry(dtUser);
-				iUserController.confirmRegistration();
-				// Muestro éxito de la operación
-				JOptionPane.showMessageDialog(this, "El usuario ha sido registrado con éxito.", TITLE,
-						JOptionPane.INFORMATION_MESSAGE);
-
-				// Limpio el internal frame antes de cerrar la ventana
-				clearForm();
-				setVisible(false);
-
-			} catch (RepeatedUserNicknameException e) {
-				// Muestro error de registro
-				JOptionPane.showMessageDialog(this, e.getMessage(), TITLE, JOptionPane.ERROR_MESSAGE);
-
-			} catch (RepeatedUserEmailException e) {
-				// Muestro error de registro
-				JOptionPane.showMessageDialog(this, e.getMessage(), TITLE, JOptionPane.ERROR_MESSAGE);
-			}
-		}
-	}
-
-	private DtUser getDtTouristByForm() {
-
-		String nickname = this.fieldNickname.getText();
-		String name = this.fieldName.getText();
-		String lastName = this.fieldLastname.getText();
-		String email = this.fieldEmail.getText();
-		LocalDate birthDate = jSpinnerValueToLocalDate(this.field_birthDate);
-		String nationality = this.fieldNationality.getText();
-
-		return new DtTourist(nickname, name, lastName, email, birthDate, nationality);
-
-	}
-
-	private DtUser getDtSupplierByForm() {
-
-		String nickname = this.fieldNickname.getText();
-		String name = this.fieldName.getText();
-		String lastName = this.fieldLastname.getText();
-		String email = this.fieldEmail.getText();
-		LocalDate birthDate = jSpinnerValueToLocalDate(this.field_birthDate);
-		String supplierDesc = this.textAreaDescription.getText();
-		String webSite = this.fieldSitioweb.getText();
-
-		return new DtSupplier(nickname, name, lastName, email, birthDate, supplierDesc, webSite);
-
-	}
+//	private DtUser getDtSupplierByForm() {
+//
+//		String nickname = this.fieldNickname.getText();
+//		String name = this.fieldName.getText();
+//		String lastName = this.fieldLastname.getText();
+//		String email = this.fieldEmail.getText();
+//		LocalDate birthDate = jSpinnerValueToLocalDate(this.field_birthDate);
+//		String supplierDesc = this.textAreaDescription.getText();
+//		String webSite = this.fieldSitioweb.getText();
+//
+//		return new DtSupplier(nickname, name, lastName, email, birthDate, supplierDesc, webSite);
+//
+//	}
 
 	private void clearForm() {
 		this.fieldNickname.setText("");

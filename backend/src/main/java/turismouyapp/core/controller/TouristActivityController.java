@@ -7,6 +7,7 @@ import turismouyapp.core.dto.DtActivityWithOutings;
 import turismouyapp.core.dto.DtRanking;
 import turismouyapp.core.dto.DtTouristActivity;
 import turismouyapp.core.dto.DtTouristOuting;
+import turismouyapp.core.dto.TouristActivityStatus;
 import turismouyapp.core.entity.Supplier;
 import turismouyapp.core.entity.TouristActivity;
 import turismouyapp.core.entity.TouristOuting;
@@ -44,6 +45,29 @@ public class TouristActivityController implements ITouristActivityController {
 		return rtn;
 	}
 
+	public String[] listTouristActivitiesByStatus(TouristActivityStatus status) throws IllegalArgumentException {
+		switch (status) {
+		case ADDED:
+			return TouristActivityHandler.getIntance().listTouristActivitiesPendingApproval();
+		case CONFIRMED:
+			return TouristActivityHandler.getIntance().listTouristActivitiesConfirmed();
+		case REJECTED:
+			return TouristActivityHandler.getIntance().listTouristActivitiesRejected();
+		default:
+			throw new IllegalArgumentException(
+					"No existen actividades turisticas registradas para el parámetro indicado '" + status + "'");
+		}
+	}
+
+	public void updateTouristActivityStatus(String activityName, TouristActivityStatus status) throws ActivityDoesNotExistException{
+		try {
+			TouristActivityHandler.getIntance().updateActivityStatus(activityName, status);
+		}
+		catch(ActivityDoesNotExistException ex) {
+			throw ex;
+		}
+	}
+	
 	public DtActivityWithOutings consultTouristActivityData(String activityName) throws ActivityDoesNotExistException {
 
 		TouristActivity ta = TouristActivityHandler.getIntance().getTouristActivityByName(activityName);
@@ -54,7 +78,7 @@ public class TouristActivityController implements ITouristActivityController {
 
 		List<String> actOutingNames = TouristOutingAndInscrptionHandler.getIntance()
 				.getTouristOutingByActivityName(activityName);
-		
+
 		List<DtTouristOuting> dtTouristOuting = new ArrayList<>();
 
 		for (String outing : actOutingNames) {

@@ -5,6 +5,7 @@ import java.util.List;
 import turismouyapp.core.dto.DtActivityWithOutings;
 import turismouyapp.core.dto.DtRanking;
 import turismouyapp.core.dto.DtTouristActivity;
+import turismouyapp.core.dto.TouristActivityStatus;
 import turismouyapp.core.exceptions.ActivityDoesNotExistException;
 import turismouyapp.core.exceptions.RepeatedActivityNameException;
 
@@ -309,5 +310,9 @@ public interface ITouristActivityController {
 	 * @see turismouyapp.core.entity.Supplier
 	 */
 	public String[] listTouristActivitiesBySupplierNickname(String nickname);
+	
+	public String[] listTouristActivitiesByStatus(TouristActivityStatus status) throws IllegalArgumentException;
+	
+	public void updateTouristActivityStatus(String activityName, TouristActivityStatus status) throws ActivityDoesNotExistException;
 }
 
