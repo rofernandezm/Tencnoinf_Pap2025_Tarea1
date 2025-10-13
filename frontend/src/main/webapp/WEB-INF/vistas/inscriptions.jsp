@@ -39,7 +39,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 <body class="d-flex flex-column min-vh-100">
 	<!-- Navbar -->
 	<%
- 	request.setAttribute("navActive", "inscriptions"); // activities | outings | inscriptions
+	request.setAttribute("navActive", "inscriptions"); // activities | outings | inscriptions
 	%>
 	<jsp:include page="/WEB-INF/partials/header.jsp" />
 	<!-- End Navbar-->
@@ -50,23 +50,40 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 			<!-- End Searchbar -->
 
 			<!-- Start Cards -->
+			<%
+			if (actWtOuts.size()>1) {
+			%>
+			<div class="alert alert-info">Por favor, ingrese el nombre de la actividad a la que desea inscribirse en la barra de búsqueda.</div>
+			<%
+			} else if (actWtOuts.isEmpty()) {
+			%>
+			<div class="alert alert-info">No hay coincidencias.</div>
+			<%
+			} else {
+				
+				int aIdx = 0;
+				DtActivityWithOutings act = actWtOuts.get(aIdx);
+				DtTouristActivity a = act.getActivity();
+				String accId = "acc_" + aIdx;
+			%>
 			<section class="card mb-3">
 				<div class="row g-0">
 					<div class="col-md-4">
-						<img src="<%=request.getContextPath()%>/assets/img/actividad_img.jpg" class="img-fluid rounded-start"
-							alt="Imagen de la actividad">
+						<img
+							src="<%=request.getContextPath()%>/assets/img/actividad_img.jpg"
+							class="img-fluid rounded-start" alt="Imagen de la actividad">
 					</div>
 
 					<div class="card-body p-0 col-md-8">
 						<div class="row h-100 g-0">
 							<div class="container p-3 col-md-4">
-								<h5 class="card-title">Actividad</h5>
+								<h5 class="card-title"><%=a.getActivityName()%></h5>
 								<ul class="list-unstyled mb-0 small">
-									<li><strong>Descripción:</strong> Descripción de la
-										actividad referenciada en este card</li>
-									<li><strong>Duración:</strong> 2 horas</li>
-									<li><strong>Costo por turista:</strong> $1200</li>
-									<li><strong>Ciudad:</strong> Montevideo</li>
+									<li><strong>Descripción:</strong> <%=a.getDescription()%></li>
+									<li><strong>Duración:</strong> <%=a.getDuration()%></li>
+									<li><strong>Costo por turista:</strong> $<%=a.getCostTurist()%></li>
+									<li><strong>Ciudad:</strong> <%=a.getCity()%></li>
+									<li><strong>Proveedor:</strong> <%=a.getSupplierNickname()%></li>
 								</ul>
 							</div>
 
@@ -138,6 +155,9 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 					</div>
 				</div>
 			</section>
+			<%
+			} 
+			%>
 			<!-- End Cards -->
 		</div>
 	</main>

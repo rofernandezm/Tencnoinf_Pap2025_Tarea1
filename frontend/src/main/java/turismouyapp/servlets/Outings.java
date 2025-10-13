@@ -30,6 +30,16 @@ public class Outings extends HttpServlet {
 			throws ServletException, IOException {
 		FactoryUyTourism fabrica = FactoryUyTourism.getInstance();
 		ITouristActivityController itac = fabrica.getITouristActivityController();
+		
+		// cargo una lista con los nombres de las actividades para sugirir en la busqueda
+		String[] activities = null;
+		try {
+			activities = itac.listTouristActivities();
+		} catch (ActivityDoesNotExistException e) {
+			activities = new String[0];
+		}
+		request.setAttribute("activities", activities);
+		
 		// obtengo la busqueda
 		String q = request.getParameter("q");
 		String needle = (q == null) ? "" : q.trim().toLowerCase();

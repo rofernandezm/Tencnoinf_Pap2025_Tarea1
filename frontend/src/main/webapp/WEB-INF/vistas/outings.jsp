@@ -53,11 +53,10 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 			<%
 			if (actWtOuts.isEmpty()) {
 			%>
-			<div class="alert alert-info">No hay actividades con salidas.</div>
+			<div class="alert alert-info">No hay coincidencias.</div>
 			<%
 			} else {
-			%>
-			<%
+			
 			int aIdx = 0;
 			for (DtActivityWithOutings act : actWtOuts) {
 				DtTouristActivity a = act.getActivity();
