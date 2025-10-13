@@ -30,7 +30,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-	<link rel="stylesheet"
+<link rel="stylesheet"
 	href="<%=request.getContextPath()%>/assets/css/app.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/assets/css/outingsStyles.css">
@@ -56,7 +56,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 			<div class="alert alert-info">No hay coincidencias.</div>
 			<%
 			} else {
-			
+
 			int aIdx = 0;
 			for (DtActivityWithOutings act : actWtOuts) {
 				DtTouristActivity a = act.getActivity();
@@ -186,8 +186,18 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 												<div class="modal-footer">
 													<button type="button" class="btn btn-outline-secondary"
 														data-bs-dismiss="modal">Cerrar</button>
-													<button type="button" class="btn btn-primary">Inscribirme</button>
+
+													<form method="get"
+														action="<%=request.getContextPath()%>/inscriptions"
+														class="d-inline">
+														<input type="hidden" name="q"
+															value="<%=a.getActivityName()%>"> <input
+															type="hidden" name="outing"
+															value="<%=t.getOutingName()%>">
+														<button type="submit" class="btn btn-primary">Inscribirme</button>
+													</form>
 												</div>
+
 											</div>
 										</div>
 									</div>

@@ -11,16 +11,21 @@
 	border-radius: 15px;
 }
 
+.btn-secondary {
+	border: none;
+	border-radius: 15px;
+}
+
 .btn-primary:hover {
 	background-color: var(--secondary-color);
 	transition: 0.3s ease-in-out;
 }
 
-.btn-primary:active {
+.btn-primary:active, .btn-secondary:active {
 	transition: none;
 }
 
-.btn-primary:focus {
+.btn-primary:focus, .btn-secondary:focus {
 	box-shadow: none;
 	outline: none;
 }

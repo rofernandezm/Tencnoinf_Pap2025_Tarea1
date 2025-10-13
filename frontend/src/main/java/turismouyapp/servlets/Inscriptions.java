@@ -1,39 +1,40 @@
 package turismouyapp.servlets;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import turismouyapp.core.dto.DtActivityWithOutings;
+import turismouyapp.core.dto.DtInscriptionTouristOuting;
+import turismouyapp.core.dto.DtTouristActivity;
 import turismouyapp.core.dto.DtTouristOuting;
-import turismouyapp.core.entity.TouristOuting;
 import turismouyapp.core.exceptions.ActivityDoesNotExistException;
-import turismouyapp.core.exceptions.TouristOutingDoesNotExistException;
 import turismouyapp.core.factory.FactoryUyTourism;
 import turismouyapp.core.interfaces.ITouristActivityController;
 import turismouyapp.core.interfaces.ITouristOutingAndInscriptionController;
 
-
 @WebServlet("/inscriptions")
 public class Inscriptions extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	
+
 	public Inscriptions() {
-        super();
-    }
+		super();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		FactoryUyTourism fabrica = FactoryUyTourism.getInstance();
 		ITouristActivityController itac = fabrica.getITouristActivityController();
-		
-		// cargo una lista con los nombres de las actividades para sugirir en la busqueda
+
+		// cargo una lista con los nombres de las actividades para sugirir en la
+		// busqueda
 		String[] activities = null;
 		try {
 			activities = itac.listTouristActivities();
@@ -41,7 +42,7 @@ public class Inscriptions extends HttpServlet {
 			activities = new String[0];
 		}
 		request.setAttribute("activities", activities);
-		
+
 		// obtengo la busqueda
 		String q = request.getParameter("q");
 		String needle = (q == null) ? "" : q.trim().toLowerCase();
@@ -84,17 +85,69 @@ public class Inscriptions extends HttpServlet {
 		System.out.println(".");
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		 //String opcionSeleccionada = request.getParameter("opcionSeleccionada");
-		 //System.out.println(opcionSeleccionada); // Aca se recibe la seleccion del como por su parametros y se carga en seleccion 
-		 // para pasar al servlets de Consulta Salida 
-//		 HttpSession session = request.getSession();
-//		 session.setAttribute("Salidas", result);
-		
-		 // Ahora con la opcion seleccionada trago el Datatype para cargar una tabla con ese caso
-		 
-		
-	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+		    throws ServletException, IOException {
+
+		    request.setCharacterEncoding("UTF-8");
+
+		    String activity = request.getParameter("activity");
+		    String outing   = request.getParameter("outing");
+		    String seatsStr = request.getParameter("seats");
+		    String tourist  = request.getParameter("tourist");
+
+		    List<String> errors = new ArrayList<>();
+		    if (activity == null || activity.isBlank()) errors.add("Actividad requerida.");
+		    if (outing == null || outing.isBlank())     errors.add("Salida requerida.");
+		    if (tourist == null || tourist.isBlank())   tourist = "turista";//errors.add("Usuario no autenticado.");
+
+		    int seats = 0;
+		    try {
+		        seats = Integer.parseInt(seatsStr);
+		        if (seats <= 0) errors.add("Cupos debe ser mayor a 0.");
+		    } catch (Exception e) {
+		        errors.add("Cupos inválidos.");
+		    }
+
+		    if (!errors.isEmpty()) {
+		        request.setAttribute("errors", errors);
+		        doGet(request, response);
+		        return;
+		    }
+
+		    try {
+		        FactoryUyTourism f = FactoryUyTourism.getInstance();
+		        ITouristOutingAndInscriptionController itoaic = f.getITouristOutingAndInscriptionController();
+		        ITouristActivityController itac = f.getITouristActivityController();
+
+		        // Traigo datos para validar/calcular
+		        DtActivityWithOutings activWithOut = itac.consultTouristActivityData(activity);
+		        DtTouristActivity dtactiv = activWithOut.getActivity();
+		        DtTouristOuting dtouting  = itoaic.consultTouristOutingData(outing);
+
+		        // Fecha actual del servidor (Montevideo)
+		        LocalDate inscriptionDate = LocalDate.now(ZoneId.of("America/Montevideo"));
+
+		        // Costo total (unitario x cupos)
+		        float cost = dtactiv.getCostTurist() * seats;
+
+		        // Armo el DTO e (idealmente) persisto
+		        DtInscriptionTouristOuting dtinscription =
+		            new DtInscriptionTouristOuting(seats, cost, inscriptionDate, dtouting);
+
+		        // TODO: Llamá al método real que guarda la inscripción en tu capa core
+		        itoaic.inscriptionDataEntry(dtinscription, "turista", outing);
+
+		        // PRG
+		        response.sendRedirect(
+		            request.getContextPath() + "/inscriptions?status=ok&q=" +
+		            java.net.URLEncoder.encode(activity, java.nio.charset.StandardCharsets.UTF_8)
+		        );
+
+		    } catch (Exception ex) {
+		        errors.add(ex.getMessage() != null ? ex.getMessage() : "No se pudo registrar la inscripción.");
+		        request.setAttribute("errors", errors);
+		        doGet(request, response);
+		    }
+		}
+
 }

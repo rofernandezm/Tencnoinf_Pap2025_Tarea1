@@ -27,13 +27,25 @@
 /*END CARDS*/
 
 /*START INSCRIPTIONS BUTTON*/
-form .form-control {
+.form-control {
 	border-radius: 10px;
 	border: 1px solid #ccc;
 	transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-form .form-control:focus {
+.form-control:focus {
+	border-color: var(--primary-color);
+	box-shadow: 0 0 4px rgba(30, 55, 90, 0.3);
+	outline: none;
+}
+
+.form-select {
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-select:focus {
 	border-color: var(--primary-color);
 	box-shadow: 0 0 4px rgba(30, 55, 90, 0.3);
 	outline: none;
