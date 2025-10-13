@@ -1,42 +1,48 @@
 package turismouyapp.servlets;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import jakarta.servlet.http.Part;
+import java.nio.file.Path;
+import java.io.File;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.http.HttpSession;
+import turismouyapp.core.interfaces.IUserController;
 import turismouyapp.core.factory.FactoryUyTourism;
+import turismouyapp.core.dto.DtUser;
+import turismouyapp.core.dto.SessionState;
+import turismouyapp.core.exceptions.RepeatedUserEmailException;
+import turismouyapp.core.exceptions.RepeatedUserNicknameException;
+import turismouyapp.core.dto.DtSupplier;
+import turismouyapp.core.dto.DtTourist;
+
+import java.time.LocalDate;
+import java.util.UUID;
+
 
 /**
- * Servlet principal de la aplicación TurismoUY.
- * <p>
- * Este servlet maneja la página de inicio y proporciona una vista de prueba
- * que muestra todos los usuarios turistas y proveedores registrados en el sistema.
- * Está mapeado a la raíz de la aplicación ("/") y genera una página HTML simple
- * con listados de usuarios obtenidos desde la capa de lógica de negocio.
- * </p>
- * 
- * <p><strong>Ejemplo de uso:</strong></p>
- * <pre>
- * GET http://localhost:8080/turismouy.UI/
- * </pre>
- * 
- * <p>La respuesta incluirá:</p>
- * <ul>
- *   <li>Lista de usuarios turistas registrados</li>
- *   <li>Lista de proveedores de servicios turísticos</li>
- * </ul>
+ * Servlet implementation class Login
  * 
  * @author Equipo TurismoUY
  * @version 1.0.0
  * @since 2025
  * 
+ * <pre>
+ * GET http://localhost:8080/turismouy.UI/
+ * </pre>
+ * 
  * @see turismouyapp.core.factory.FactoryUyTourism
  * @see turismouyapp.core.interfaces.IUserController
  */
-@WebServlet("/")
+
+@WebServlet("/login")
+@MultipartConfig
 public class Login extends HttpServlet {
 	
 	/**
@@ -45,116 +51,252 @@ public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
-     * Constructor por defecto del servlet.
-     * <p>
-     * Invoca al constructor de la superclase {@link HttpServlet}.
-     * La inicialización de componentes se realiza de forma lazy
-     * a través de la factory cuando se procesa la primera petición.
-     * </p>
-     * 
      * @see HttpServlet#HttpServlet()
      */
     public Login() {
         super();
     }
+    
+    protected void handleGuestLogin(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
+    	
+    	HttpSession objSesion = request.getSession();        // Obtengo la sesion en objSesion
+    	SessionState newSessionState = SessionState.NO_LOGIN;  
+    	
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/AccedeAlHome.jsp"); 
+		dispatcher.forward(request, response);
 
-	/**
-	 * Procesa peticiones HTTP GET para mostrar la página principal.
-	 * <p>
-	 * Este método genera una respuesta HTML que incluye:
-	 * </p>
-	 * <ol>
-	 *   <li>Un encabezado mostrando el context path de la aplicación</li>
-	 *   <li>Una lista de todos los usuarios turistas del sistema</li>
-	 *   <li>Una lista de todos los proveedores de servicios</li>
-	 * </ol>
-	 * 
-	 * <p>Los datos se obtienen mediante el patrón Factory para acceder
-	 * al controlador de usuarios, asegurando la separación de capas
-	 * entre la presentación y la lógica de negocio.</p>
-	 * 
-	 * <p><strong>Flujo de ejecución:</strong></p>
-	 * <pre>
-	 * 1. Obtener instancia del UserController vía Factory
-	 * 2. Recuperar listas de turistas y proveedores
-	 * 3. Generar HTML con los datos obtenidos
-	 * 4. Enviar respuesta al cliente
-	 * </pre>
-	 * 
-	 * @param request El objeto {@link HttpServletRequest} que contiene 
-	 *                la petición del cliente
-	 * @param response El objeto {@link HttpServletResponse} donde se 
-	 *                 escribe la respuesta HTML
-	 * 
-	 * @throws ServletException Si ocurre un error específico del servlet
-	 *                          durante el procesamiento de la petición
-	 * @throws IOException Si ocurre un error de entrada/salida al 
-	 *                     escribir la respuesta
-	 * 
-	 * @see HttpServlet#doGet(HttpServletRequest, HttpServletResponse)
-	 * @see turismouyapp.core.interfaces.IUserController#listTourists()
-	 * @see turismouyapp.core.interfaces.IUserController#listSuppliers()
-	 */
+    }
+
+	protected void handleLogin(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
+		
+		HttpSession objSesion = request.getSession();        // Obtengo la sesion en objSesion
+		
+		String nicknameOrEmail = request.getParameter("nickname-or-email");
+		String password = request.getParameter("password");  
+		SessionState newSessionState=null;                   
+
+		// buscar usuario
+		FactoryUyTourism factory = FactoryUyTourism.getInstance();
+		IUserController icon = factory.getIUserController();
+	 	  	    
+	    DtUser result=null;
+	    if(nicknameOrEmail != null && !nicknameOrEmail.isBlank() && password != null && !password.isBlank()) {
+			
+	    	result = icon.consultUserData(nicknameOrEmail);
+			  
+			if (result == null) {
+				result = icon.consultUserDataByEmail(nicknameOrEmail);
+			}
+			  
+	  		if (result != null && password.equals(result.getPassword()))   {
+	  			newSessionState = SessionState.LOGIN_SUCCESS;
+	  			request.getSession().setAttribute("logged_user", result);
+	  			RequestDispatcher dispatcher = request.getRequestDispatcher("/AccedeAlHome.jsp"); 
+	  			dispatcher.forward(request, response);
+	  		} else {
+	  			newSessionState = SessionState.LOGIN_UNSUCCESSFUL; 
+	            request.setAttribute("loginError", "Usuario o contraseña incorrectos");
+	            request.setAttribute("activeTab", "login");
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp");
+	            dispatcher.forward(request, response);
+	            
+	  			// setea el usuario logueado
+			}
+	    }else {
+	    	request.setAttribute("mensaje", "Por favor, llene todos los campos.");
+	    	request.setAttribute("activeTab", "login");
+			RequestDispatcher rd = request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp");
+			rd.forward(request, response);
+	    }
+		objSesion.setAttribute("estado_sesion",newSessionState);
+
+	}
+	
+	private void handleRegister(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+
+        // Obtener datos del registro
+        String nickname = request.getParameter("new-nickname");
+        String name = request.getParameter("new-name");
+        String lastName = request.getParameter("new-lastname");
+        String password = request.getParameter("password");
+        String passwordConf = request.getParameter("passwordconf");
+        String email = request.getParameter("new-email");
+        String birthDateStr = request.getParameter("new-birthdate");
+        LocalDate birthDate = null;
+        if (birthDateStr != null && !birthDateStr.isEmpty()) {
+            birthDate = LocalDate.parse(birthDateStr);
+        }
+        String userType = request.getParameter("user-type");
+
+        // Campos opcionales según tipo de usuario
+        String nationality = request.getParameter("nationality");
+        String supplierDesc = request.getParameter("description");
+        String webSite = request.getParameter("website");
+
+        // Foto de perfil
+        Part profilePhotoPart = request.getPart("new-profilephoto");
+        String imagePath = null;
+        
+        if (profilePhotoPart != null && profilePhotoPart.getSize() > 0) {
+            
+        	String rawPath = getServletContext().getInitParameter("uploadFolder");
+
+        	// Reemplaza la variable ${catalina.base} por su valor real
+        	String catalinaBase = System.getProperty("catalina.base");
+        	String uploadPath = rawPath.replace("${catalina.base}", catalinaBase);
+
+        	File uploadDir = new File(uploadPath);
+        	if (!uploadDir.exists()) uploadDir.mkdirs();
+        	
+        	// Obtiene el nombre original (ej: "foto.png")
+        	String originalName = Path.of(profilePhotoPart.getSubmittedFileName()).getFileName().toString();
+
+        	// Extrae la extensión (todo después del último '.')
+        	String extension = "";
+        	int i = originalName.lastIndexOf('.');
+        	if (i > 0) {
+        	    extension = originalName.substring(i); // incluye el punto, ej: ".png"
+        	}
+
+        	// Genera nombre único + extensión
+        	String fileName = UUID.randomUUID().toString() + extension;
+
+            // Guardar el archivo en el servidor
+            profilePhotoPart.write(uploadPath + File.separator + fileName);
+
+            // Guardar la ruta relativa
+            imagePath = fileName;
+        }
+        
+        System.out.println(System.getProperty("catalina.base"));
+        System.out.println("getServletContext:" + getServletContext().getRealPath("") + File.separator + "uploads");
+        System.out.println("Ruta de imagen generada: " + imagePath);
+
+        // Validar contraseñas
+        if (!password.equals(passwordConf)) {
+            request.setAttribute("registerError", "Las contraseñas no coinciden");
+            request.setAttribute("activeTab", "register");
+            request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp").forward(request, response);
+            return;
+        }
+
+        FactoryUyTourism factory = FactoryUyTourism.getInstance();
+		IUserController icon = factory.getIUserController();
+		
+		if (checkForm(request, response)) {
+			try {
+		        DtUser newUser = null;
+		
+		        if ("Turista".equals(userType)) {
+		        	newUser = new DtTourist(nickname, name, lastName, email, birthDate, password, nationality,imagePath);
+		            
+		        } else if ("Proveedor".equals(userType)) {
+		        	newUser = new DtSupplier(nickname, name, lastName, email, birthDate, password, supplierDesc, webSite,imagePath);
+		        }
+		
+		        icon.dataEntry(newUser);
+		        icon.confirmRegistration();
+		        
+				request.setAttribute("mensaje", "Se ha ingresado correctamente el usuario " + nickname + " en el sistema.");
+				RequestDispatcher rd = request.getRequestDispatcher("/AccedeAlHome.jsp"); //poner el home que corresponda luego de que el ususario ingreso
+				rd.forward(request, response);
+		        
+			} catch (RepeatedUserNicknameException e) {
+				// Muestro error de registro
+				request.setAttribute("mensaje", "El usuario " + nickname + " ya existe.");
+				request.setAttribute("activeTab", "register");
+				RequestDispatcher rd = request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp");
+				rd.forward(request, response);
+			} catch (RepeatedUserEmailException e) {
+				// Muestro error de registro
+				request.setAttribute("mensaje", "El usuario con email: " + email + " ya existe.");
+				request.setAttribute("activeTab", "register");
+				RequestDispatcher rd = request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp");
+				rd.forward(request, response);
+			}   
+		}else {
+			request.setAttribute("mensaje", "Por favor, llene todos los campos.");
+			request.setAttribute("activeTab", "register");
+			RequestDispatcher rd = request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp");
+			rd.forward(request, response);
+		}
+    }
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		
-		// Iniciar respuesta HTML
-		response.getWriter().append("<!DOCTYPE html><html><head><title>turismouy.UI</title></head><body><h1>Served at: "
-				+ request.getContextPath() + "</h1><main>");
-		
-		// Obtener datos desde el backend a través de la factory
-		String[] users = FactoryUyTourism.getInstance().getIUserController().listTourists();
-		String[] suppliers = FactoryUyTourism.getInstance().getIUserController().listSuppliers();
-		
-		// Renderizar lista de usuarios turistas
-		if(users != null) {
-			response.getWriter().append("<h2>Users</h2><ul>");
-			for(String user : users) {
-				response.getWriter().append("<li><p>" + user + "</p></li>");
-			}
-			response.getWriter().append("</ul>");
-		}
-		
-		// Renderizar lista de proveedores
-		if(suppliers != null) {
-			response.getWriter().append("<h2>Suppliers</h2><ul>");
-			for(String supplier : suppliers) {
-				response.getWriter().append("<li><p>" + supplier + "</p></li>");
-			}
-			response.getWriter().append("</ul>");
-		}
-		
-		// Cerrar documento HTML
-		response.getWriter().append("</main></body></html>");
+		throws ServletException, IOException {
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		
+		String action = request.getParameter("action");
+
+		if ("login".equals(action)) {
+            handleLogin(request, response);
+        } else if ("register".equals(action)) {
+            handleRegister(request, response);
+        } else if ("guest".equals(action)) {
+        	handleGuestLogin(request, response);
+        } else {
+        	response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Acción desconocida");
+            return;
+        }
 	}
 
-	/**
-	 * Procesa peticiones HTTP POST delegando al método {@link #doGet}.
-	 * <p>
-	 * Por defecto, este servlet trata las peticiones POST de la misma forma
-	 * que las peticiones GET. Esta implementación es típica para servlets
-	 * de solo lectura o para casos donde no se requiere distinción entre
-	 * métodos HTTP.
-	 * </p>
-	 * 
-	 * <p><strong>Nota:</strong> En una implementación futura orientada a
-	 * producción, este método podría manejar formularios de login o
-	 * autenticación de usuarios de forma específica.</p>
-	 * 
-	 * @param request El objeto {@link HttpServletRequest} que contiene 
-	 *                la petición del cliente
-	 * @param response El objeto {@link HttpServletResponse} donde se 
-	 *                 escribe la respuesta
-	 * 
-	 * @throws ServletException Si ocurre un error específico del servlet
-	 * @throws IOException Si ocurre un error de entrada/salida
-	 * 
-	 * @see HttpServlet#doPost(HttpServletRequest, HttpServletResponse)
-	 * @see #doGet(HttpServletRequest, HttpServletResponse)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-		doGet(request, response);
+		
+		String action = request.getParameter("action");
+		System.out.println(">>> Acción recibida: " + action);
+
+        if ("login".equals(action)) {
+            handleLogin(request, response);
+        } else if ("register".equals(action)) {
+            handleRegister(request, response);
+        } else if ("guest".equals(action)) {
+        	handleGuestLogin(request, response);
+        } else {
+        	response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Acción desconocida");
+            return;
+        }
+	}
+	
+	private boolean checkForm (HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+		
+		String nickname = request.getParameter("new-nickname");
+        String name = request.getParameter("new-name");
+        String lastName = request.getParameter("new-lastname");
+        String password = request.getParameter("password");
+        String passwordConf = request.getParameter("passwordconf");
+        String email = request.getParameter("new-email");
+        String birthDateStr = request.getParameter("new-birthdate");
+        LocalDate birthDate = null;
+        if (birthDateStr != null && !birthDateStr.isEmpty()) {
+            birthDate = LocalDate.parse(birthDateStr);
+        }
+        String userType = request.getParameter("user-type");
+
+        // Campos opcionales según tipo de usuario
+        String nationality = request.getParameter("nationality");
+        String supplierDesc = request.getParameter("description");
+        String webSite = request.getParameter("website");
+        
+		if(nickname == null || nickname.isBlank() || name == null || name.isBlank() || lastName == null || lastName.isBlank() ||
+			password == null || password.isBlank() || passwordConf == null || passwordConf.isBlank() ||  email == null || email.isBlank() ||
+			birthDateStr == null || birthDateStr.isBlank() || userType == null || userType.isBlank()) {
+			return false;
+		} else if ("Turista".equals(userType)) {
+			if (nationality == null || nationality.isBlank()) {
+				return false;
+			}	
+			return true;
+		}else if ("Proveedor".equals(userType)){
+			if (supplierDesc == null || supplierDesc.isBlank()) {
+				return false;
+			}	
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 }

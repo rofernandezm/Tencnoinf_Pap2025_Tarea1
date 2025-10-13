@@ -256,7 +256,7 @@ public class ModifyUser extends JInternalFrame {
 		};
 		ActionListener confirmAction = e -> {
 			if (checkForm()) {
-				cmdModifyUserActionPerformed(e);
+//				cmdModifyUserActionPerformed(e);
 				cleanForm();
 				setVisible(false);
 			}
@@ -277,23 +277,23 @@ public class ModifyUser extends JInternalFrame {
 		return actionButtonsPanel;
 	}
 
-	private void cmdModifyUserActionPerformed(ActionEvent arg0) {
-
-		String selectedName = (String) nicknameComboBox.getSelectedItem();
-		DtUser dt = iUserController.consultUserData(selectedName);
-		String newName = fieldName.getText();
-		String newLastName = fieldLastname.getText();
-		LocalDate newBirthDate = jSpinnerValueToLocalDate(field_birthDate);
-
-		DtUser modified = dt.getUserType() == UserType.SUPPLIER
-				? new DtSupplier(selectedName, newName, newLastName, null, newBirthDate, null, null)
-				: new DtTourist(selectedName, newName, newLastName, null, newBirthDate, null);
-
-		iUserController.modifyUserDate(modified);
-
-		JOptionPane.showMessageDialog(this, "Usuario modificado correctamente.", "Éxito",
-				JOptionPane.INFORMATION_MESSAGE);
-	}
+//	private void cmdModifyUserActionPerformed(ActionEvent arg0) {
+//
+//		String selectedName = (String) nicknameComboBox.getSelectedItem();
+//		DtUser dt = iUserController.consultUserData(selectedName);
+//		String newName = fieldName.getText();
+//		String newLastName = fieldLastname.getText();
+//		LocalDate newBirthDate = jSpinnerValueToLocalDate(field_birthDate);
+//
+//		DtUser modified = dt.getUserType() == UserType.SUPPLIER
+//				? new DtSupplier(selectedName, newName, newLastName, null, newBirthDate, null, null)
+//				: new DtTourist(selectedName, newName, newLastName, null, newBirthDate, null);
+//
+//		iUserController.modifyUserDate(modified);
+//
+//		JOptionPane.showMessageDialog(this, "Usuario modificado correctamente.", "Éxito",
+//				JOptionPane.INFORMATION_MESSAGE);
+//	}
 
 	private LocalDate jSpinnerValueToLocalDate(JSpinner jspinner) {
 		LocalDate date = ((Date) this.field_birthDate.getValue()).toInstant().atZone(ZoneId.systemDefault())

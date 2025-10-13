@@ -23,16 +23,31 @@ public abstract class User {
 	private String email;
 	@Column(name = "birth_date", nullable = false)
 	private LocalDate birthDate;
+	@Column(name = "password", nullable = false)
+	private String password;
+	@Column(name = "image")
+	private String imagePath;
 
 	public User() {
 	};
 
-	public User(String nickname, String name, String lastName, String email, LocalDate birthDate) {
+	public User(String nickname, String name, String lastName, String email, LocalDate birthDate, String password) {
 		this.nickname = nickname;
 		this.name = name;
 		this.lastName = lastName;
 		this.email = email;
 		this.birthDate = birthDate;
+		this.password = password;
+	}
+	
+	public User(String nickname, String name, String lastName, String email, LocalDate birthDate, String password, String image) {
+		this.nickname = nickname;
+		this.name = name;
+		this.lastName = lastName;
+		this.email = email;
+		this.birthDate = birthDate;
+		this.password = password;
+		this.imagePath = image;
 	}
 
 	public String getNickname() {
@@ -76,4 +91,20 @@ public abstract class User {
 	};
 
 	public abstract DtUser createDtUser();
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String image) {
+		this.imagePath = image;
+	}
 }
