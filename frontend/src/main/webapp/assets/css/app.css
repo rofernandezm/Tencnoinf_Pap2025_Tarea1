@@ -1,0 +1,163 @@
+:root {
+	--primary-color: #1E375A;
+	--secondary-color: #122949;
+	--background-primary-color: #F4F4F4;
+	--background-secondary-color: #FFFFFF;
+}
+
+.btn-primary {
+	background-color: var(--primary-color);
+	border: none;
+	border-radius: 15px;
+}
+
+.btn-secondary {
+	border: none;
+	border-radius: 15px;
+}
+
+.btn-primary:hover {
+	background-color: var(--secondary-color);
+	transition: 0.3s ease-in-out;
+}
+
+.btn-primary:active, .btn-secondary:active {
+	transition: none;
+}
+
+.btn-primary:focus, .btn-secondary:focus {
+	box-shadow: none;
+	outline: none;
+}
+
+/*START NAVBAR*/
+.login-button i {
+	font-size: 2.5rem;
+	color: var(--primary-color);
+}
+
+.navbar {
+	background: var(--background-primary-color);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	transition: top 0.3s;
+}
+
+.hide {
+	top: -80px;
+}
+
+.navbar-brand {
+	font-weight: 500;
+	font-size: 24px;
+	color: var(--primary-color);
+	transition: 0.25s ease-in-out;
+	background: var(--background-primary-color);
+}
+
+.offcanvas-header, .offcanvas-body, .navbar-nav {
+	background: var(--background-primary-color);
+}
+
+.navbar-toggler {
+	border: none;
+	font-size: 1.25rem;
+}
+
+.navbar-toggler:focus, .btn-close:focus {
+	box-shadow: none;
+	outline: none;
+}
+
+.nav-link {
+	font-weight: 500;
+	position: relative;
+}
+
+.nav-link:hover, .nav-link.active {
+	color: var(--secondary-color) !important;
+}
+
+.nav-link:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+@media ( min-width : 992px) {
+	.nav-link {
+		padding-top: 30px;
+		height: auto;
+		padding-bottom: 30px;
+	}
+	.nav-link::before {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 0;
+		height: 2px;
+		background-color: var(--secondary-color);
+		visibility: hidden;
+		transition: 0.1s ease-in-out;
+	}
+	.nav-link:hover::before, .nav-link.active::before {
+		visibility: visible;
+		width: 100%;
+	}
+}
+/*END NAVBAR*/
+
+/*START SEARCHBAR*/
+.searchbar .form-control {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+/* hace que el botón mida igual que la form-control */
+.searchbar .search-btn {
+	--bs-btn-padding-y: .375rem; /* igual a input */
+	--bs-btn-padding-x: .75rem;
+	--bs-btn-border-radius: .75rem; /* mismo radio */
+	border-top-left-radius: 0; /* para unirse al input */
+	border-bottom-left-radius: 0;
+	display: inline-flex;
+	align-items: center; /* centra el ícono verticalmente */
+	justify-content: center;
+}
+
+.searchbar form {
+	max-width: 500px;
+}
+
+.searchbar .input-group .form-control {
+	border-radius: 50px 0 0 50px;
+	transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.searchbar .input-group .btn {
+	border-radius: 0 50px 50px 0;
+}
+
+.searchbar .input-group .form-control:focus {
+	border-color: var(--primary-color);
+	box-shadow: 0 0 4px rgba(30, 55, 90, 0.3);
+	box-shadow: none;
+	outline: none;
+}
+
+/*END SEARCHBAR*/
+
+/*START FOOTER*/
+footer {
+	background-color: var(--background-primary-color);
+	color: var(--primary-color);
+	border-top: 2px solid #1E375A1A;
+}
+
+.footer a {
+	color: var(--primary-color) !important;
+	text-decoration: none !important;
+	transition: color 0.3s ease;
+}
+
+/*END FOOTER*/
