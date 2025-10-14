@@ -59,11 +59,13 @@ public class Login extends HttpServlet {
     
     protected void handleGuestLogin(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
     	
-    	HttpSession objSesion = request.getSession();        // Obtengo la sesion en objSesion
-    	SessionState newSessionState = SessionState.NO_LOGIN;  
+    	HttpSession session = request.getSession(true);
     	
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/AccedeAlHome.jsp"); 
-		dispatcher.forward(request, response);
+    	session.setAttribute("guest_mode", true);
+    	session.setAttribute("user_role", "GUEST");
+    	
+    	// Al ser invitado, no hay usuario logueado
+		response.sendRedirect(request.getContextPath() + "/home");
 
     }
 
@@ -89,12 +91,33 @@ public class Login extends HttpServlet {
 			}
 			  
 	  		if (result != null && password.equals(result.getPassword()))   {
-	  			newSessionState = SessionState.LOGIN_SUCCESS;
-	  			request.getSession().setAttribute("logged_user", result);
-	  			RequestDispatcher dispatcher = request.getRequestDispatcher("/AccedeAlHome.jsp"); 
-	  			dispatcher.forward(request, response);
+	  			
+	  	       // Invalidar sesión anterior si existe (seguridad)
+	  			objSesion = request.getSession(false);
+	  	        if (objSesion != null) {
+	  	        	objSesion.invalidate();
+	  	        }
+	  	        
+	  	        // Crear NUEVA sesión → genera nuevo JSESSIONID
+	  	        objSesion = request.getSession(true);
+	  	        objSesion.setAttribute("logged_user", result);
+	  			
+	  	        response.sendRedirect(request.getContextPath() + "/home");
+	  			
+//	  			newSessionState = SessionState.LOGIN_SUCCESS;
+//	  			objSesion.invalidate();
+//	  			objSesion.getSession(true);
+//	  			request.getSession().setAttribute("logged_user", result);
+//	  			
+//	  	    	session.setAttribute("guest_mode", true);
+//	  	    	session.setAttribute("user_role", "GUEST");
+//	  	    	
+//	  	    	// Al ser invitado, no hay usuario logueado
+//	  			response.sendRedirect(request.getContextPath() + "/home");
+//	  			RequestDispatcher dispatcher = request.getRequestDispatcher("/home"); 
+//	  			dispatcher.forward(request, response);
 	  		} else {
-	  			newSessionState = SessionState.LOGIN_UNSUCCESSFUL; 
+//	  			newSessionState = SessionState.LOGIN_UNSUCCESSFUL; 
 	            request.setAttribute("loginError", "Usuario o contraseña incorrectos");
 	            request.setAttribute("activeTab", "login");
 	            RequestDispatcher dispatcher = request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp");
@@ -108,7 +131,7 @@ public class Login extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp");
 			rd.forward(request, response);
 	    }
-		objSesion.setAttribute("estado_sesion",newSessionState);
+//		objSesion.setAttribute("estado_sesion",newSessionState);
 
 	}
 	
@@ -136,18 +159,19 @@ public class Login extends HttpServlet {
 
         // Foto de perfil
         Part profilePhotoPart = request.getPart("new-profilephoto");
-        String imagePath = null;
+    	String rawPath = getServletContext().getInitParameter("uploadFolder");
+
+    	// Reemplaza la variable ${catalina.base} por su valor real
+    	String catalinaBase = System.getProperty("catalina.base");
+    	String uploadPath = rawPath.replace("${catalina.base}", catalinaBase);
+
+    	File uploadDir = new File(uploadPath);
+    	if (!uploadDir.exists()) uploadDir.mkdirs();
+    	
+        String imagePath = "default_profile.jpg";
         
         if (profilePhotoPart != null && profilePhotoPart.getSize() > 0) {
             
-        	String rawPath = getServletContext().getInitParameter("uploadFolder");
-
-        	// Reemplaza la variable ${catalina.base} por su valor real
-        	String catalinaBase = System.getProperty("catalina.base");
-        	String uploadPath = rawPath.replace("${catalina.base}", catalinaBase);
-
-        	File uploadDir = new File(uploadPath);
-        	if (!uploadDir.exists()) uploadDir.mkdirs();
         	
         	// Obtiene el nombre original (ej: "foto.png")
         	String originalName = Path.of(profilePhotoPart.getSubmittedFileName()).getFileName().toString();
@@ -170,7 +194,7 @@ public class Login extends HttpServlet {
         }
         
         System.out.println(System.getProperty("catalina.base"));
-        System.out.println("getServletContext:" + getServletContext().getRealPath("") + File.separator + "uploads");
+        System.out.println("getServletContext:" + getServletContext().getRealPath("") + File.separator + "profile_img");
         System.out.println("Ruta de imagen generada: " + imagePath);
 
         // Validar contraseñas

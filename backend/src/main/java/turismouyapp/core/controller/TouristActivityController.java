@@ -88,6 +88,32 @@ public class TouristActivityController implements ITouristActivityController {
 
 		return new DtActivityWithOutings(ta.getDtTouristActivity(), dtTouristOuting);
 	}
+	
+	public List<DtActivityWithOutings> listTouristActivityData() throws ActivityDoesNotExistException {
+		
+		List<DtActivityWithOutings> actWtOuts = new ArrayList<DtActivityWithOutings>();
+		
+		String[] taNames = listTouristActivities();
+		
+		for (String activity : taNames) {
+			TouristActivity ta = TouristActivityHandler.getIntance().getTouristActivityByName(activity);
+			if (ta == null) 
+				throw new ActivityDoesNotExistException("No existe actividad para el nombre indicado. Por favor reintente");
+				
+			List<String> actOutingNames = TouristOutingAndInscrptionHandler.getIntance()
+					.getTouristOutingByActivityName(activity);
+			
+			List<DtTouristOuting> dtTouristOutings = new ArrayList<>();
+			
+			for (String outing : actOutingNames) {
+				TouristOuting to = TouristOutingAndInscrptionHandler.getIntance().getTouristOutingByName(outing);
+				dtTouristOutings.add(to.getDtTouristOuting());
+			}
+			actWtOuts.add(new DtActivityWithOutings(ta.getDtTouristActivity(), dtTouristOutings));
+		}
+			
+		return actWtOuts;
+	}
 
 	public DtRanking[] getActivityRanking() {
 		TouristOutingAndInscrptionHandler toaih = TouristOutingAndInscrptionHandler.getIntance();

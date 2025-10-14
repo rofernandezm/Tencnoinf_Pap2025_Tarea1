@@ -1,0 +1,45 @@
+/*START CARDS*/
+.container img {
+    height: 100%;
+    width: 100%;
+
+}
+
+.container .card {
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    max-width: 100%;
+}
+
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card .row {
+    border-radius: inherit;
+}
+
+.card .card-body .container {
+    background-color: var(--primary-color);
+    color: var(--background-secondary-color);
+}
+/*END CARDS*/
+
+/*START CARDS ACCORDION*/
+.accordion-button:focus,
+.accordion-button:not(.collapsed) {
+    box-shadow: none;
+    outline: none;
+    background-color: var(--background-secondary-color) !important;
+}
+/*END CARDS ACCORDION*/
+
+/*START ACCORDION POPUP*/
+.modal-header{
+	background-color: var(--primary-color);
+    color: var(--background-secondary-color);
+}
+
+/*END ACCORDION POPUP*/
