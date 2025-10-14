@@ -11,10 +11,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import turismouyapp.core.dto.DtActivityWithOutings;
 import turismouyapp.core.dto.DtInscriptionTouristOuting;
 import turismouyapp.core.dto.DtTouristActivity;
 import turismouyapp.core.dto.DtTouristOuting;
+import turismouyapp.core.dto.DtUser;
 import turismouyapp.core.exceptions.ActivityDoesNotExistException;
 import turismouyapp.core.factory.FactoryUyTourism;
 import turismouyapp.core.interfaces.ITouristActivityController;
@@ -88,17 +90,19 @@ public class Inscriptions extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		    throws ServletException, IOException {
 
+			HttpSession session = request.getSession(false);
+			
 		    request.setCharacterEncoding("UTF-8");
 
 		    String activity = request.getParameter("activity");
 		    String outing   = request.getParameter("outing");
 		    String seatsStr = request.getParameter("seats");
-		    String tourist  = request.getParameter("tourist");
+		    DtUser loggedUser = (DtUser) session.getAttribute("logged_user");
 
 		    List<String> errors = new ArrayList<>();
 		    if (activity == null || activity.isBlank()) errors.add("Actividad requerida.");
 		    if (outing == null || outing.isBlank())     errors.add("Salida requerida.");
-		    if (tourist == null || tourist.isBlank())   tourist = "turista";//errors.add("Usuario no autenticado.");
+		    if (loggedUser == null) 					errors.add("Usuario no autenticado.");
 
 		    int seats = 0;
 		    try {
@@ -110,7 +114,11 @@ public class Inscriptions extends HttpServlet {
 
 		    if (!errors.isEmpty()) {
 		        request.setAttribute("errors", errors);
-		        doGet(request, response);
+//		        doGet(request, response);
+		        response.sendRedirect(
+			            request.getContextPath() + "/inscriptions?q=" +
+			            java.net.URLEncoder.encode(activity, java.nio.charset.StandardCharsets.UTF_8)
+			        );
 		        return;
 		    }
 
@@ -135,7 +143,7 @@ public class Inscriptions extends HttpServlet {
 		            new DtInscriptionTouristOuting(seats, cost, inscriptionDate, dtouting);
 
 		        // TODO: Llamá al método real que guarda la inscripción en tu capa core
-		        itoaic.inscriptionDataEntry(dtinscription, "turista", outing);
+		        itoaic.inscriptionDataEntry(dtinscription, loggedUser.getNickname(), outing);
 
 		        // PRG
 		        response.sendRedirect(
@@ -146,7 +154,10 @@ public class Inscriptions extends HttpServlet {
 		    } catch (Exception ex) {
 		        errors.add(ex.getMessage() != null ? ex.getMessage() : "No se pudo registrar la inscripción.");
 		        request.setAttribute("errors", errors);
-		        doGet(request, response);
+		        response.sendRedirect(
+			            request.getContextPath() + "/inscriptions?q=" +
+			            java.net.URLEncoder.encode(activity, java.nio.charset.StandardCharsets.UTF_8)
+			        );
 		    }
 		}
 

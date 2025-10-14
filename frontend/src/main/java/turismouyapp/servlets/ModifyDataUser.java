@@ -82,7 +82,7 @@ public class ModifyDataUser extends HttpServlet {
             String fileName = Path.of(profilePhotoPart.getSubmittedFileName()).getFileName().toString();
 
             // Carpeta donde se guardarán las imágenes
-            String uploadPath = getServletContext().getRealPath("") + File.separator + "uploads";
+            String uploadPath = getServletContext().getRealPath("") + File.separator + "profile_img";
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) uploadDir.mkdir();
 
