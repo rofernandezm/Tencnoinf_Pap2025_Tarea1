@@ -3,7 +3,6 @@ package turismouyapp.servlets;
 import java.io.IOException;
 import java.util.List;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,35 +10,36 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import turismouyapp.core.dto.DtActivityWithOutings;
 import turismouyapp.core.dto.DtTouristOuting;
-import turismouyapp.core.entity.TouristOuting;
+import turismouyapp.core.dto.TouristActivityStatus;
 import turismouyapp.core.exceptions.ActivityDoesNotExistException;
-import turismouyapp.core.exceptions.TouristOutingDoesNotExistException;
 import turismouyapp.core.factory.FactoryUyTourism;
 import turismouyapp.core.interfaces.ITouristActivityController;
-import turismouyapp.core.interfaces.ITouristOutingAndInscriptionController;
 
 @WebServlet("/outings")
 public class Outings extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
+	private final ITouristActivityController itac;
 
 	public Outings() {
 		super();
+		FactoryUyTourism factory = FactoryUyTourism.getInstance();
+		this.itac = factory.getITouristActivityController();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		FactoryUyTourism fabrica = FactoryUyTourism.getInstance();
-		ITouristActivityController itac = fabrica.getITouristActivityController();
-		
-		// cargo una lista con los nombres de las actividades para sugirir en la busqueda
+
+		// cargo una lista con los nombres de las actividades para sugirir en la
+		// busqueda
 		String[] activities = null;
 		try {
-			activities = itac.listTouristActivities();
-		} catch (ActivityDoesNotExistException e) {
+			activities = itac.listTouristActivitiesByStatus(TouristActivityStatus.CONFIRMED);
+		} catch (IllegalArgumentException e) {
 			activities = new String[0];
 		}
 		request.setAttribute("activities", activities);
-		
+
 		// obtengo la busqueda
 		String q = request.getParameter("q");
 		String needle = (q == null) ? "" : q.trim().toLowerCase();

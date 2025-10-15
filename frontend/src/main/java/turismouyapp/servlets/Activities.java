@@ -36,25 +36,27 @@ import turismouyapp.core.interfaces.IUserController;
 @WebServlet("/activities")
 public class Activities extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private final ITouristActivityController itac;
 
 	public Activities() {
 		super();
+		FactoryUyTourism factory = FactoryUyTourism.getInstance();
+		this.itac = factory.getITouristActivityController();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		FactoryUyTourism fabrica = FactoryUyTourism.getInstance();
-		ITouristActivityController itac = fabrica.getITouristActivityController();
-		
-		// cargo una lista con los nombres de las actividades para sugirir en la busqueda
+
+		// cargo una lista con los nombres de las actividades para sugirir en la
+		// busqueda
 		String[] activities = null;
 		try {
-			activities = itac.listTouristActivities();
-		} catch (ActivityDoesNotExistException e) {
+			activities = itac.listTouristActivitiesByStatus(TouristActivityStatus.CONFIRMED);
+		} catch (IllegalArgumentException e) {
 			activities = new String[0];
 		}
 		request.setAttribute("activities", activities);
-		
+
 		// obtengo la busqueda
 		String q = request.getParameter("q");
 		String needle = (q == null) ? "" : q.trim().toLowerCase();
@@ -96,79 +98,76 @@ public class Activities extends HttpServlet {
 		}
 		System.out.println(".");
 	}
-	
+
 	private void handleRegister(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
+			throws IOException, ServletException {
 
-        // Obtener datos del registro
-        String name = request.getParameter("actName");
-        String provider = request.getParameter("actProvider");
-        String city = request.getParameter("actCity");
-        Duration duration = Duration.ofHours(Integer.parseInt(request.getParameter("actDurationHours")));
-        float cost = Float.parseFloat(request.getParameter("actCost"));
-        String description = request.getParameter("actDescription");
-        LocalDate hora= LocalDate.now();
-        
-         
-		
-        Part imagen = request.getPart("actImage");
-        String imagePath = null;
-        
-        if (imagen != null && imagen.getSize() > 0) {
-            
-        	String rawPath = getServletContext().getInitParameter("uploadFolder");
+		// Obtener datos del registro
+		String name = request.getParameter("actName");
+		String provider = request.getParameter("actProvider");
+		String city = request.getParameter("actCity");
+		Duration duration = Duration.ofHours(Integer.parseInt(request.getParameter("actDurationHours")));
+		float cost = Float.parseFloat(request.getParameter("actCost"));
+		String description = request.getParameter("actDescription");
+		LocalDate hora = LocalDate.now();
 
-        	// Reemplaza la variable ${catalina.base} por su valor real
-        	String catalinaBase = System.getProperty("catalina.base");
-        	String uploadPath = rawPath.replace("${catalina.base}", catalinaBase);
+		Part imagen = request.getPart("actImage");
+		String imagePath = null;
 
-        	File uploadDir = new File(uploadPath);
-        	if (!uploadDir.exists()) uploadDir.mkdirs();
-        	
-        	// Obtiene el nombre original (ej: "foto.png")
-        	String originalName = Path.of(imagen.getSubmittedFileName()).getFileName().toString();
+		if (imagen != null && imagen.getSize() > 0) {
 
-        	// Extrae la extensión (todo después del último '.')
-        	String extension = "";
-        	int i = originalName.lastIndexOf('.');
-        	if (i > 0) {
-        	    extension = originalName.substring(i); // incluye el punto, ej: ".png"
-        	}
+			String rawPath = getServletContext().getInitParameter("uploadFolder");
 
-        	// Genera nombre único + extensión
-        	String fileName = UUID.randomUUID().toString() + extension;
+			// Reemplaza la variable ${catalina.base} por su valor real
+			String catalinaBase = System.getProperty("catalina.base");
+			String uploadPath = rawPath.replace("${catalina.base}", catalinaBase);
 
-            // Guardar el archivo en el servidor
-            imagen.write(uploadPath + File.separator + fileName);
+			File uploadDir = new File(uploadPath);
+			if (!uploadDir.exists())
+				uploadDir.mkdirs();
 
-            // Guardar la ruta relativa
-            imagePath = fileName;
-        }
-        
-        FactoryUyTourism factory = FactoryUyTourism.getInstance();
-		ITouristActivityController itac = factory.getITouristActivityController();
-		
+			// Obtiene el nombre original (ej: "foto.png")
+			String originalName = Path.of(imagen.getSubmittedFileName()).getFileName().toString();
+
+			// Extrae la extensión (todo después del último '.')
+			String extension = "";
+			int i = originalName.lastIndexOf('.');
+			if (i > 0) {
+				extension = originalName.substring(i); // incluye el punto, ej: ".png"
+			}
+
+			// Genera nombre único + extensión
+			String fileName = UUID.randomUUID().toString() + extension;
+
+			// Guardar el archivo en el servidor
+			imagen.write(uploadPath + File.separator + fileName);
+
+			// Guardar la ruta relativa
+			imagePath = fileName;
+		}
+
 		if (checkForm(request, response)) {
 			try {
-		        DtTouristActivity newActivity = new DtTouristActivity(name, description, duration, cost, imagePath, hora ,provider,TouristActivityStatus.ADDED );
-		        
-		        itac.activityDataEntry(newActivity);
-		      		        
+				DtTouristActivity newActivity = new DtTouristActivity(name, description, duration, cost, imagePath,
+						hora, provider, TouristActivityStatus.ADDED);
+
+				itac.activityDataEntry(newActivity);
+
 			} catch (RepeatedActivityNameException e) {
 				// Muestro error de registro
 				request.setAttribute("mensaje", "La actividad " + name + " ya existe.");
 				request.setAttribute("activeTab", "register");
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/iniciarSesionRegistrarse.jsp");
 				rd.forward(request, response);
-			
-			}   
-		}else {
+
+			}
+		} else {
 			request.setAttribute("mensaje", "Por favor, llene todos los campos.");
 			request.setAttribute("activeTab", "register");
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/iniciarSesionRegistrarse.jsp");
 			rd.forward(request, response);
 		}
-    }
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -185,23 +184,22 @@ public class Activities extends HttpServlet {
 
 	}
 
+	private boolean checkForm(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 
-private boolean checkForm (HttpServletRequest request, HttpServletResponse response)
-        throws IOException, ServletException {
-	
-	 String name = request.getParameter("actName");
-     String provider = request.getParameter("actProvider");
-     String city = request.getParameter("actCity");
-     String duration = request.getParameter("actDurationHours");
-     String cost = request.getParameter("actCost");
-     String description = request.getParameter("actDescription");
-  
-    
-	if(name == null || name.isBlank() || provider == null || provider.isBlank() || city == null || city.isBlank() ||
-		duration == null || duration.isBlank() || cost == null || cost.isBlank() ||  description == null || description.isBlank() ) {
-		return false;
-		}	
-	return true;	
-}
+		String name = request.getParameter("actName");
+		String provider = request.getParameter("actProvider");
+		String city = request.getParameter("actCity");
+		String duration = request.getParameter("actDurationHours");
+		String cost = request.getParameter("actCost");
+		String description = request.getParameter("actDescription");
+
+		if (name == null || name.isBlank() || provider == null || provider.isBlank() || city == null || city.isBlank()
+				|| duration == null || duration.isBlank() || cost == null || cost.isBlank() || description == null
+				|| description.isBlank()) {
+			return false;
+		}
+		return true;
+	}
 
 }

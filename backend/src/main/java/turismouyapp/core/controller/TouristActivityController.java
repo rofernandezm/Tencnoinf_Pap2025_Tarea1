@@ -93,7 +93,10 @@ public class TouristActivityController implements ITouristActivityController {
 		
 		List<DtActivityWithOutings> actWtOuts = new ArrayList<DtActivityWithOutings>();
 		
-		String[] taNames = listTouristActivities();
+		String[] taNames = listTouristActivitiesByStatus(TouristActivityStatus.CONFIRMED);
+		
+		if(taNames == null)
+			throw new ActivityDoesNotExistException("No existen actividades confirmadas");
 		
 		for (String activity : taNames) {
 			TouristActivity ta = TouristActivityHandler.getIntance().getTouristActivityByName(activity);
