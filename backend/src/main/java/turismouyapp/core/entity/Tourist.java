@@ -31,7 +31,7 @@ public class Tourist extends User {
 
 	public Tourist(DtTourist dtTourist) {
 		super(dtTourist.getNickname(), dtTourist.getName(), dtTourist.getLastName(), dtTourist.getEmail(),
-				dtTourist.getBirthDate(), dtTourist.getPassword());
+				dtTourist.getBirthDate(), dtTourist.getPassword(), dtTourist.getImagePath());
 		this.nationality = dtTourist.getNationality();
 	}
 
