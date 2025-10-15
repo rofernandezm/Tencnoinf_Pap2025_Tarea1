@@ -16,13 +16,11 @@ import jakarta.servlet.http.HttpSession;
 import turismouyapp.core.interfaces.IUserController;
 import turismouyapp.core.factory.FactoryUyTourism;
 import turismouyapp.core.dto.DtUser;
-import turismouyapp.core.dto.SessionState;
-import turismouyapp.core.exceptions.RepeatedUserEmailException;
-import turismouyapp.core.exceptions.RepeatedUserNicknameException;
 import turismouyapp.core.dto.DtSupplier;
 import turismouyapp.core.dto.DtTourist;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 /**
  * Servlet implementation class ModifyDataUser
@@ -58,12 +56,14 @@ public class ModifyDataUser extends HttpServlet {
     protected void handleModifyData(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
     
     	HttpSession objSesion = request.getSession();
-    	String userType = (String) objSesion.getAttribute("userType");
     	
-    	String nickname = (String) objSesion.getAttribute("nickname"); // normalmente no modificable
+    	DtUser loggedUser = (DtUser)objSesion.getAttribute("logged_user");
+    	
+    	String userType = (String) objSesion.getAttribute("userType");
+    	String nickname = loggedUser.getNickname(); //no modificable
         String name = request.getParameter("name-user");
         String lastname = request.getParameter("lastname-user");
-        String email = (String) objSesion.getAttribute("email"); // normalmente no modificable
+        String email = loggedUser.getEmail(); //no modificable
         String password = request.getParameter("password-user");
         String passwordConf = request.getParameter("passwordconf-user");
         String birthdateStr = request.getParameter("birthdate-user");
@@ -73,26 +73,41 @@ public class ModifyDataUser extends HttpServlet {
             birthdate = LocalDate.parse(birthdateStr);
         }
         
-     // Foto de perfil
-        Part profilePhotoPart = request.getPart("new-profilephoto");
-        String imagePath = null;
-        
-        if (profilePhotoPart != null && profilePhotoPart.getSize() > 0) {
-            // Obtiene el nombre del archivo
-            String fileName = Path.of(profilePhotoPart.getSubmittedFileName()).getFileName().toString();
+        // Foto de perfil
+     	Part profilePhotoPart = request.getPart("new-profilephoto");
+     	String rawPath = getServletContext().getInitParameter("uploadFolder");
 
-            // Carpeta donde se guardarán las imágenes
-            String uploadPath = getServletContext().getRealPath("") + File.separator + "profile_img";
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) uploadDir.mkdir();
+     	// Reemplaza la variable ${catalina.base} por su valor real
+     		String catalinaBase = System.getProperty("catalina.base");
+     		String uploadPath = rawPath.replace("${catalina.base}", catalinaBase);
 
-            // Guardar el archivo en el servidor
-            profilePhotoPart.write(uploadPath + File.separator + fileName);
+     		File uploadDir = new File(uploadPath);
+     		if (!uploadDir.exists())
+     			uploadDir.mkdirs();
 
-            // Guardar la ruta relativa
-            imagePath = "uploads/" + fileName;
-        }
-        
+     		String imagePath = "default_profile.jpg";
+
+     		if (profilePhotoPart != null && profilePhotoPart.getSize() > 0) {
+
+     			// Obtiene el nombre original (ej: "foto.png")
+     			String originalName = Path.of(profilePhotoPart.getSubmittedFileName()).getFileName().toString();
+
+     			// Extrae la extensión (todo después del último '.')
+     			String extension = "";
+     			int i = originalName.lastIndexOf('.');
+     			if (i > 0) {
+     				extension = originalName.substring(i); // incluye el punto, ej: ".png"
+     			}
+
+     			// Genera nombre único + extensión
+     			String fileName = UUID.randomUUID().toString() + extension;
+
+     			// Guardar el archivo en el servidor
+     			profilePhotoPart.write(uploadPath + File.separator + fileName);
+
+     			// Guardar la ruta relativa
+     			imagePath = fileName;
+     		}
         // Validar contraseñas
         if (!password.equals(passwordConf)) {
             request.setAttribute("registerError", "Las contraseñas no coinciden");
