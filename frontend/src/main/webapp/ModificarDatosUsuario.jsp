@@ -95,7 +95,17 @@ body {
 
 							<div class="col-md-6 data-section">
 								<!-- Datos a modificar  -->
-								<form action="change-data" method="POST">
+								<form action="change-data" method="POST" enctype="multipart/form-data">
+									<!--Foto de perfil -->
+									<div class="col-md-6 photo-section">
+										<img src="${sessionScope.logged_user.imagepath}" alt="Profile photo" class="profile-pic">
+											<div class="mb-3 w-100">
+												<label for="new-profilephoto" class="form-label">Cambiar foto</label> 
+												<input class="form-control" type="file"
+													id="new-profilephoto" name="new-profilephoto" accept="image/*">
+											</div>
+											<button type="submit" class="btn btn-custom btn-sm">Actualizar</button>
+									</div>
 									<!--Nickname, no modificable -->
 									<div class="mb-3">
 										<label for="nickname-user" class="form-label">Nickname</label>
@@ -106,25 +116,25 @@ body {
 									<div class="mb-3">
 										<label for="name-user" class="form-label">Nombre</label> 
 										<input type="text" class="form-control" id="name-user" name="name-user" 
-											value="${sessionScope.logged_user.name}">
+											value="${sessionScope.logged_user.name}" required>
 									</div>
 									<!--Apellido -->
 									<div class="mb-3">
 										<label for="lastname-user" class="form-label">Apellido</label>
 										<input type="text" class="form-control" id="lastname-user" name="lastname-user" 
-											value="${sessionScope.logged_user.lastname}">
+											value="${sessionScope.logged_user.lastname}" required>
 									</div>
 									<!--Contraseña -->
 									<div class="mb-3">
 										<label for="password-user" class="form-label">Contraseña</label>
 										<input type="password" class="form-control" id="password-user" name="password-user" 
-											placeholder="Ingrese una nueva contraseña">
+											placeholder="Ingrese una nueva contraseña" required>
 									</div>
 									<!--Confirmación de contraseña -->
 									<div class="mb-3">
 										<label for="passwordconf-user" class="form-label">Confirmación de contraseña</label> 
 										<input type="password" class="form-control" id="passwordconf-user" name="passwordconf-user" 
-											placeholder="Ingrese nuevamente la contraseña">
+											placeholder="Ingrese nuevamente la contraseña" required>
 									</div>
 									<!--Correo electrónico, no modificable-->
 									<div class="mb-3">
@@ -136,7 +146,7 @@ body {
 									<div class="mb-3">
 										<label for="birthdate-user" class="form-label">Fecha de nacimiento</label> 
 										<input type="date" class="form-control" id="birthdate-user" name="birthdate-user" 
-											value="${sessionScope.logged_user.birthday}">
+											value="${sessionScope.logged_user.birthday}" required>
 									</div>
 
 									<c:if test="${userType == 'tourist'}">
@@ -171,17 +181,7 @@ body {
 								</form>
 							</div>
 
-							<!--Foto de perfil -->
-							<div class="col-md-6 photo-section">
-								<img src="${sessionScope.logged_user.imagepath}" alt="Profile photo" class="profile-pic">
-								<form action="change-photo" method="POST" enctype="multipart/form-data">
-									<div class="mb-3 w-100">
-										<label for="new-profilephoto" class="form-label">Cambiar foto</label> <input class="form-control" type="file"
-											id="new-profilephoto" name="new-profilephoto" accept="image/*">
-									</div>
-									<button type="submit" class="btn btn-custom btn-sm">Actualizar</button>
-								</form>
-							</div>
+							
 
 						</div>
 					</div>
