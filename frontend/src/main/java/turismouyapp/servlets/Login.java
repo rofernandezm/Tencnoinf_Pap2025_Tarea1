@@ -87,7 +87,7 @@ public class Login extends HttpServlet {
 		} else {
 			request.setAttribute("loginError", "Usuario o contraseña incorrectos");
 			request.setAttribute("activeTab", "login");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/iniciarSesionRegistrarse.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vistas/iniciarSesionRegistrarse.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
@@ -130,7 +130,7 @@ public class Login extends HttpServlet {
 		} catch (DateTimeParseException ex) {
 			request.setAttribute("registerError", "Fecha de nacimiento inválida, reintente.");
 			request.setAttribute("activeTab", "register");
-			request.getRequestDispatcher("/iniciarSesionRegistrarse.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/vistas/iniciarSesionRegistrarse.jsp").forward(request, response);
 			return;
 		}
 
@@ -174,7 +174,7 @@ public class Login extends HttpServlet {
 		if (!password.equals(passwordConf)) {
 			request.setAttribute("registerError", "Las contraseñas no coinciden");
 			request.setAttribute("activeTab", "register");
-			request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/vistas/iniciarSesionRegistrarse.jsp").forward(request, response);
 			return;
 		}
 
@@ -205,13 +205,13 @@ public class Login extends HttpServlet {
 			// Muestro error de registro
 			request.setAttribute("registerError", "El usuario " + nickname + " ya existe.");
 			request.setAttribute("activeTab", "register");
-			RequestDispatcher rd = request.getRequestDispatcher("/iniciarSesionRegistrarse.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/iniciarSesionRegistrarse.jsp");
 			rd.forward(request, response);
 		} catch (RepeatedUserEmailException e) {
 			// Muestro error de registro
 			request.setAttribute("registerError", "El usuario con email: " + email + " ya existe.");
 			request.setAttribute("activeTab", "register");
-			RequestDispatcher rd = request.getRequestDispatcher("/iniciarSesionRegistrarse.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/iniciarSesionRegistrarse.jsp");
 			rd.forward(request, response);
 		}
 
@@ -222,11 +222,12 @@ public class Login extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
-//		
 		String action = request.getParameter("action");
 
-		if ("login".equals(action)) {
+		if (action == null || action.isEmpty()) {
+			// Mostrar formulario de login/registro
+			request.getRequestDispatcher("/WEB-INF/vistas/iniciarSesionRegistrarse.jsp").forward(request, response);
+		} else if ("login".equals(action)) {
 			handleLogin(request, response);
 		} else if ("register".equals(action)) {
 			handleRegister(request, response);
@@ -234,7 +235,6 @@ public class Login extends HttpServlet {
 			handleGuestLogin(request, response);
 		} else {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Acción desconocida");
-			return;
 		}
 	}
 

@@ -83,7 +83,7 @@ public class ModifyDataUser extends HttpServlet {
         if (password != null && !password.trim().isEmpty()) {
             if (!password.equals(passwordConf)) {
                 request.setAttribute("error", "Las contraseñas no coinciden");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/ModificarDatosUsuario.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vistas/modificarDatosUsuario.jsp");
                 dispatcher.forward(request, response);
                 return;
             }
@@ -184,7 +184,7 @@ public class ModifyDataUser extends HttpServlet {
             
         } catch (Exception e) {
             request.setAttribute("error", e.getMessage());
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/ModificarDatosUsuario.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vistas/modificarDatosUsuario.jsp");
             dispatcher.forward(request, response);
         }
         
@@ -193,7 +193,7 @@ public class ModifyDataUser extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
     		throws ServletException, IOException {
     	// Mostrar formulario de modificación
-    	RequestDispatcher dispatcher = request.getRequestDispatcher("/ModificarDatosUsuario.jsp");
+    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vistas/modificarDatosUsuario.jsp");
     	dispatcher.forward(request, response);
     }
     
