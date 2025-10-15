@@ -100,19 +100,19 @@ body {
 									<div class="mb-3">
 										<label for="nickname-user" class="form-label">Nickname</label>
 										<input type="text" class="form-control" id="nickname-user" name="nickname-user"
-											value="${sessionScope.nickname}" readonly>
+											value="${sessionScope.logged_user.nickname}" readonly>
 									</div>
 									<!--Nombre -->
 									<div class="mb-3">
 										<label for="name-user" class="form-label">Nombre</label> 
 										<input type="text" class="form-control" id="name-user" name="name-user" 
-											value="${sessionScope.name}">
+											value="${sessionScope.logged_user.name}">
 									</div>
 									<!--Apellido -->
 									<div class="mb-3">
 										<label for="lastname-user" class="form-label">Apellido</label>
 										<input type="text" class="form-control" id="lastname-user" name="lastname-user" 
-											value="${sessionScope.lastname}">
+											value="${sessionScope.logged_user.lastname}">
 									</div>
 									<!--Contraseña -->
 									<div class="mb-3">
@@ -130,13 +130,13 @@ body {
 									<div class="mb-3">
 										<label for="email-user" class="form-label">Correo electrónico</label> 
 										<input type="email" class="form-control" id="email-user" name="email-user" 
-											value="${sessionScope.email}" readonly>
+											value="${sessionScope.logged_user.email}" readonly>
 									</div>
 									<!--Fecha de nacimiento -->
 									<div class="mb-3">
 										<label for="birthdate-user" class="form-label">Fecha de nacimiento</label> 
 										<input type="date" class="form-control" id="birthdate-user" name="birthdate-user" 
-											value="${sessionScope.birthday}">
+											value="${sessionScope.logged_user.birthday}">
 									</div>
 
 									<c:if test="${userType == 'tourist'}">
@@ -145,7 +145,7 @@ body {
 											<div class="mb-3">
 												<label for="nationality-user" class="form-label">Nacionalidad</label>
 												<input type="text" class="form-control" id="nationality-user" name="nationality-user"
-												value="${sessionScope.nacionality}">
+												value="${sessionScope.logged_user.nacionality}">
 											</div>
 										</div>
 									</c:if>
@@ -154,12 +154,12 @@ body {
 										<!--Descripción -->
 										<div class="mb-3">
 											<label for="description-user" class="form-label">Descripción</label>
-											<textarea class="form-control" id="description-user" name="description-user">${sessionScope.description}</textarea>
+											<textarea class="form-control" id="description-user" name="description-user">${sessionScope.logged_user.description}</textarea>
 										</div>
 										<!--Sitio web -->
 										<div class="mb-3">
 											<label for="website-user" class="form-label">Sitio
-												web</label> <input type="url" class="form-control" id="website-user" name="website-user" value="${sessionScope.website}">
+												web</label> <input type="url" class="form-control" id="website-user" name="website-user" value="${sessionScope.logged_user.website}">
 										</div>
 									</c:if>
 
@@ -173,8 +173,7 @@ body {
 
 							<!--Foto de perfil -->
 							<div class="col-md-6 photo-section">
-								<img src="ruta/a/foto_perfil.jpg" alt="Profile photo" class="profile-pic">
-
+								<img src="${sessionScope.logged_user.imagepath}" alt="Profile photo" class="profile-pic">
 								<form action="change-photo" method="POST" enctype="multipart/form-data">
 									<div class="mb-3 w-100">
 										<label for="new-profilephoto" class="form-label">Cambiar foto</label> <input class="form-control" type="file"

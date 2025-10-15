@@ -223,7 +223,7 @@ public class Login extends HttpServlet {
 		        icon.confirmRegistration();
 		        
 				request.setAttribute("mensaje", "Se ha ingresado correctamente el usuario " + nickname + " en el sistema.");
-				RequestDispatcher rd = request.getRequestDispatcher("/AccedeAlHome.jsp"); //poner el home que corresponda luego de que el ususario ingreso
+				RequestDispatcher rd = request.getRequestDispatcher("/home"); //poner el home que corresponda luego de que el ususario ingreso
 				rd.forward(request, response);
 		        
 			} catch (RepeatedUserNicknameException e) {

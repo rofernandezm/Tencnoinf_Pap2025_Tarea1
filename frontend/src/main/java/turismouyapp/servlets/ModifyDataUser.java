@@ -58,12 +58,14 @@ public class ModifyDataUser extends HttpServlet {
     protected void handleModifyData(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
     
     	HttpSession objSesion = request.getSession();
-    	String userType = (String) objSesion.getAttribute("userType");
     	
-    	String nickname = (String) objSesion.getAttribute("nickname"); // normalmente no modificable
+    	DtUser loggedUser = (DtUser)objSesion.getAttribute("logged_user");
+    	
+    	String userType = (String) objSesion.getAttribute("userType");
+    	String nickname = loggedUser.getNickname(); //no modificable
         String name = request.getParameter("name-user");
         String lastname = request.getParameter("lastname-user");
-        String email = (String) objSesion.getAttribute("email"); // normalmente no modificable
+        String email = loggedUser.getEmail(); //no modificable
         String password = request.getParameter("password-user");
         String passwordConf = request.getParameter("passwordconf-user");
         String birthdateStr = request.getParameter("birthdate-user");
