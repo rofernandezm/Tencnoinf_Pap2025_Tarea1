@@ -26,4 +26,10 @@
     <!--
     <Manager pathname="SESSIONS.ser" />
     -->
+        <Resources>
+        <PreResources className="org.apache.catalina.webresources.DirResourceSet"
+                      base="${catalina.base}/data/turismouy.UI/profile_img"
+                      webAppMount="/profile_img"
+                      internalPath="/" />
+    </Resources>
 </Context>

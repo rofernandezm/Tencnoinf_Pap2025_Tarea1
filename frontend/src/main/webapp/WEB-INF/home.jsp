@@ -14,22 +14,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/app.css">
     <style>
-        :root {
-            --bs-primary: rgb(68, 111, 175);
-            --bs-primary-rgb: 68, 111, 175;
-            --bs-body-bg: #ffffff;
-        }
-/*
-        .dropdown-menu.bg-primary {
-            --bs-dropdown-bg: var(--bs-primary);
-            --bs-dropdown-link-color: #fff;
-            --bs-dropdown-link-hover-color: #fff;
-            --bs-dropdown-link-hover-bg: rgba(255, 255, 255, 0.2);
-            --bs-dropdown-link-active-color: #fff;
-            --bs-dropdown-link-active-bg: rgba(255, 255, 255, 0.3);
-            border: none;
-        }
-*/
         .carousel-item {
             height: 500px;
         }
@@ -48,7 +32,7 @@
 
 	<!-- Navbar -->
 	<%
-	request.setAttribute("navActive", "activities"); // activities | outings | inscriptions
+	request.setAttribute("navActive", "home"); // activities | outings | inscriptions | home
 	%>
 	<jsp:include page="/WEB-INF/partials/header.jsp" />
 	<!-- End Navbar-->

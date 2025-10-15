@@ -35,43 +35,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/assets/css/app.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/assets/css/outingsStyles.css">
-
-<style>
-:root {
-	--bs-primary: rgb(68, 111, 175);
-	--bs-primary-rgb: 68, 111, 175;
-	--bs-body-bg: #ffffff;
-}
-
-.dropdown-menu.bg-primary {
-	--bs-dropdown-bg: var(--bs-primary);
-	--bs-dropdown-link-color: #fff;
-	--bs-dropdown-link-hover-color: #fff;
-	--bs-dropdown-link-hover-bg: rgba(255, 255, 255, 0.2);
-	--bs-dropdown-link-active-color: #fff;
-	--bs-dropdown-link-active-bg: rgba(255, 255, 255, 0.3);
-	border: none;
-}
-
-.card-grid .card {
-	height: 100%;
-}
-
-.card-grid .card-img-top {
-	height: 150px;
-	object-fit: cover;
-}
-
-.card-grid .card-body {
-	display: flex;
-	flex-direction: column;
-}
-
-.card-grid .btn {
-	margin-top: auto;
-}
-</style>
+	href="<%=request.getContextPath()%>/assets/css/activitiesStyles.css">
 
 </head>
 
