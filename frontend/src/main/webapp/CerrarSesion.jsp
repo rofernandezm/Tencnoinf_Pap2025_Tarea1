@@ -1,13 +1,13 @@
 <%@ page session="false" %>
 <%
-    // Obtener la sesión, si existe
+    // Obtener la sesiÃ³n, si existe
     HttpSession session = request.getSession(false);
 
     if (session != null) {
-        // Invalida la sesión
+        // Invalida la sesiÃ³n
         session.invalidate();
     }
 
-    // Redirige al login o a la página principal
-    response.sendRedirect("/IniciarSesionRegistrarse.jsp");
+    // Redirige al login o a la pÃ¡gina principal
+    response.sendRedirect(request.getContextPath() + "/IniciarSesionRegistrarse.jsp");
 %>
