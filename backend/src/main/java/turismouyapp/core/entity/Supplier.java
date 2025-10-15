@@ -32,7 +32,7 @@ public class Supplier extends User {
 
 	public Supplier(DtSupplier dtSupplier) {
 		super(dtSupplier.getNickname(), dtSupplier.getName(), dtSupplier.getLastName(), dtSupplier.getEmail(),
-				dtSupplier.getBirthDate(), dtSupplier.getPassword());
+				dtSupplier.getBirthDate(), dtSupplier.getPassword(), dtSupplier.getImagePath());
 		this.description = dtSupplier.getDescription();
 		this.webSite = dtSupplier.getWebSite();
 	}
