@@ -202,7 +202,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 							<div class="col-md-6">
 								<label for="actProvider" class="form-label">Proveedor *</label>
 								<input type="text" class="form-control" id="actProvider"
-									name="supplier" required>
+									name="supplier" value="${sessionScope.logged_user.nickname}" readonly>
 								<div class="invalid-feedback">Ingresá el proveedor.</div>
 							</div>
 							<div class="col-md-6">

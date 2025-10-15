@@ -136,7 +136,7 @@ public class Login extends HttpServlet {
 
 		// Foto de perfil
 		Part profilePhotoPart = request.getPart("new-profilephoto");
-		String rawPath = getServletContext().getInitParameter("uploadFolder");
+		String rawPath = getServletContext().getInitParameter("uploadProfileFolder"); 
 
 		// Reemplaza la variable ${catalina.base} por su valor real
 		String catalinaBase = System.getProperty("catalina.base");

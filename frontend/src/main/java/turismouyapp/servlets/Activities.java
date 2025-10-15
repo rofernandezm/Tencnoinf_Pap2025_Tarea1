@@ -119,8 +119,6 @@ public class Activities extends HttpServlet {
         String activityName = request.getParameter("title");
         String supplier = request.getParameter("supplier"); //deberia ser el usuario loggeado?
         String city = request.getParameter("city");
-        System.out.println("Nombre de la actividad: " + activityName);
-        System.out.println("Duracion en horas " + request.getParameter("durationHours"));
         Duration duration = Duration.ofHours(Integer.parseInt(request.getParameter("durationHours")));
         float cost = Float.parseFloat(request.getParameter("cost"));
         String description = request.getParameter("description");
@@ -129,7 +127,7 @@ public class Activities extends HttpServlet {
         
      // Foto de perfil
         Part activityPhotoPart = request.getPart("image");
-        String rawPath = getServletContext().getInitParameter("uploadFolder");
+        String rawPath = getServletContext().getInitParameter("uploadActivityFolder");
 
         // Reemplaza la variable ${catalina.base} por su valor real
         String catalinaBase = System.getProperty("catalina.base");
@@ -168,12 +166,13 @@ public class Activities extends HttpServlet {
 		        DtTouristActivity newActivity = new DtTouristActivity(activityName, description, duration, cost, city, hora ,supplier,TouristActivityStatus.ADDED, imagePath);
 		        
 		        iTouristActivityController.activityDataEntry(newActivity);
+		        request.setAttribute("mensaje", "Se ha ingresado correctamente la actividad turística: " + activityName + " en el sistema.");
 		        request.getRequestDispatcher("/WEB-INF/vistas/activities.jsp").forward(request, response);
+		        
 		      		        
 			} catch (RepeatedActivityNameException e) {
 				// Muestro error de registro
-				request.setAttribute("mensaje", "La actividad " + activityName + " ya existe.");
-				request.setAttribute("activeTab", "register");
+				request.setAttribute("registerError", "La actividad " + activityName + " ya existe.");
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/activities.jsp");
 				rd.forward(request, response);
 			

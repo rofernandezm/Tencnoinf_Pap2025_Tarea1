@@ -6,7 +6,12 @@
   </welcome-file-list>
 
 <context-param>
-    <param-name>uploadFolder</param-name>
+    <param-name>uploadProfileFolder</param-name>
     <param-value>${catalina.base}/data/turismouy.UI/profile_img</param-value>
+</context-param>
+
+<context-param>
+    <param-name>uploadActivityFolder</param-name>
+    <param-value>${catalina.base}/data/turismouy.UI/activity_img</param-value>
 </context-param>
 </web-app>
