@@ -29,7 +29,7 @@ SET FILES NIO TRUE
 SET FILES NIO SIZE 256
 SET FILES LOG TRUE
 SET FILES LOG SIZE 50
-SET FILES CHECK 1376
+SET FILES CHECK 1566
 SET DATABASE COLLATION "SQL_TEXT" PAD SPACE
 CREATE USER SA PASSWORD DIGEST 'd41d8cd98f00b204e9800998ecf8427e'
 ALTER USER SA SET LOCAL TRUE
@@ -55,11 +55,16 @@ SET SCHEMA SYSTEM_LOBS
 INSERT INTO BLOCKS VALUES(0,2147483647,0)
 SET SCHEMA PUBLIC
 INSERT INTO USERS VALUES('p1','Supplier','2025-10-10','p1@web.com','default_profile.jpg','uno','p','123')
+INSERT INTO USERS VALUES('proveedor_A','Supplier','2025-10-12','roberto@proveedor1.com','default_profile.jpg','Hernandez','Roberto','1234')
+INSERT INTO USERS VALUES('proveedor_B','Supplier','2025-10-12','p2@p.com','default_profile.jpg','B','proveedor','1234')
 INSERT INTO USERS VALUES('toctoc','Supplier','2025-09-29','toctoc@toc.com','default_profile.jpg','toc','toc','123')
 INSERT INTO USERS VALUES('turistaA','Tourist','2025-10-01','ta@turista.com','f4da1032-8e44-45c8-929b-bd6fe5da80e8.png','Apellido','turista','123')
 INSERT INTO USERS VALUES('vs','Tourist','2025-10-04','vs@v.com','default_profile.jpg','s','v','123')
+INSERT INTO TOURISTACTIVITY VALUES('Act_test1','Montevideo','test1','2025-10-15','aced00057372000d6a6176612e74696d652e536572955d84ba1b2248b20c00007870770d010000000000001c200000000078','ADDED',150.0E0,'proveedor_A',NULL,'default_activity.jpg')
 INSERT INTO TOURISTACTIVITY VALUES('carrasco','mdeo','a','2025-10-15','aced00057372000d6a6176612e74696d652e536572955d84ba1b2248b20c00007870770d0100000000000038400000000078','ADDED',1500.0E0,'p1',NULL,NULL)
 INSERT INTO TOURIST VALUES('turistaA','Yoruga')
 INSERT INTO TOURIST VALUES('vs','uru')
 INSERT INTO SUPPLIER VALUES('p1','activivdades','https://p1.web.com')
+INSERT INTO SUPPLIER VALUES('proveedor_A','Proveedor de servicios uno','http://www.google.com')
+INSERT INTO SUPPLIER VALUES('proveedor_B','Proveedor de servicios 2','http://www.google.com')
 INSERT INTO SUPPLIER VALUES('toctoc','actividades en Montevideo.','http://toctoc.toc')
