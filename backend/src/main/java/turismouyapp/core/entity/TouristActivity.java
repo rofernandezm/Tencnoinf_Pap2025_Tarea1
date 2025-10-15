@@ -21,6 +21,7 @@ public class TouristActivity {
 	private LocalDate dischargeDate;
 	@Enumerated(EnumType.STRING)
 	private TouristActivityStatus status;
+	private String imageActPath;
 
 	// Relation with one Supplier
 	// We use an attribute with the name supplier as link with the parent
@@ -40,7 +41,7 @@ public class TouristActivity {
 	};
 
 	public TouristActivity(String activityName, String description, Duration duration, float touristFee, String city,
-			LocalDate dischargeDate) {
+			LocalDate dischargeDate, String imageActPath) {
 		this.activityName = activityName;
 		this.description = description;
 		this.duration = duration;
@@ -48,6 +49,7 @@ public class TouristActivity {
 		this.city = city;
 		this.dischargeDate = dischargeDate;
 		this.status = TouristActivityStatus.ADDED;
+		this.imageActPath = imageActPath;
 	};
 
 	public TouristActivity(DtTouristActivity dtTouristActivity) {
@@ -58,6 +60,7 @@ public class TouristActivity {
 		this.city = dtTouristActivity.getCity();
 		this.dischargeDate = dtTouristActivity.getRegistrationDate();
 		this.status = dtTouristActivity.getStatus();
+		this.imageActPath = dtTouristActivity.getimageActPath();
 	}
 
 	public String getActivityName() {
@@ -126,7 +129,7 @@ public class TouristActivity {
 
 	public DtTouristActivity getDtTouristActivity() {
 		return new DtTouristActivity(this.activityName, this.description, this.duration, this.touristFee, this.city,
-				this.dischargeDate, this.supplier.getNickname(), this.getStatus());
+				this.dischargeDate, this.supplier.getNickname(), this.getStatus(), this.getimageActPath());
 	}
 
 	public TouristActivityStatus getStatus() {
@@ -135,5 +138,13 @@ public class TouristActivity {
 
 	public void setStatus(TouristActivityStatus status) {
 		this.status = status;
+	}
+	
+	public String getimageActPath() {
+		return imageActPath;
+	}
+
+	public void setimageActPath(String image) {
+		this.imageActPath = image;
 	}
 }

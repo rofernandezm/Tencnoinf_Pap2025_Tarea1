@@ -294,7 +294,7 @@ public class CreateActivity extends JInternalFrame {
 		float fee = Float.parseFloat(feeText);
 		LocalDate dischargeDate = LocalDate.now();
 
-		return new DtTouristActivity(name, description, duration, fee, city, dischargeDate, supplier, TouristActivityStatus.ADDED);
+		return new DtTouristActivity(name, description, duration, fee, city, dischargeDate, supplier, TouristActivityStatus.ADDED, null);
 	}
 
 	private void clearForm() {

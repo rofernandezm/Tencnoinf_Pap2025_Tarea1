@@ -110,7 +110,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 					<section class="card mb-3">
 						<div class="col">
 							<div class="card h-100">
-								<img src="<%=request.getContextPath()%>/assets/img/actividad_img.jpg" class="card-img-top" alt="...">
+								<img src="<%=ctx%>/${a.getImageActPath()}" alt="Imagen de actividad" class="card-img-top">
 								<div class="card-body">
 									<h5 class="card-title"><%=a.getActivityName()%></h5>
 									<!-- BOTON DETALLES CARGANDO EL MODAL -->
@@ -134,8 +134,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 								data-bs-dismiss="modal" aria-label="Cerrar"></button>
 						</div>
 						<div class="modal-body">
-							<img id="actividadImg" src="Imagenes/turis.jpg"
-								alt="Imagen de la actividad" class="img-fluid rounded mb-3"
+							<img src="<%=ctx%>/${a.getImageActPath()}" id="actividadImg" alt="Imagen de la actividad" class="img-fluid rounded mb-3"
 								style="height: 300px; width: 100%; object-fit: cover;">
 							<!-- Detalles -->
 							<p class="mb-3">
@@ -190,7 +189,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 					<button type="button" class="btn-close btn-close-white"
 						data-bs-dismiss="modal" aria-label="Cerrar"></button>
 				</div>
-				<form id="formActividad" novalidate enctype="multipart/form-data">
+				<form action="<%=ctx%>/activities" method="post" id="formActividad" enctype="multipart/form-data">
 					<div class="modal-body">
 						<input type="hidden" id="actId" name="id">
 						<div class="row g-3">
@@ -203,7 +202,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 							<div class="col-md-6">
 								<label for="actProvider" class="form-label">Proveedor *</label>
 								<input type="text" class="form-control" id="actProvider"
-									name="provider" required>
+									name="supplier" required>
 								<div class="invalid-feedback">Ingresá el proveedor.</div>
 							</div>
 							<div class="col-md-6">
