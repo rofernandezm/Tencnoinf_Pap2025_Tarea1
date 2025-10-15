@@ -183,13 +183,13 @@ public class Activities extends HttpServlet {
 					"Se ha ingresado correctamente la actividad turística: " + activityName + " en el sistema.");
 			request.getRequestDispatcher("/WEB-INF/vistas/activities.jsp").forward(request, response);
 
-		} catch (RepeatedActivityNameException e) {
-			// Muestro error de registro
-			request.setAttribute("registerError", "La actividad " + activityName + " ya existe.");
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/activities.jsp");
-			rd.forward(request, response);
-
-		}
-	}
+		}catch (RepeatedActivityNameException e) {
+			    request.setAttribute("activityError", "La actividad \"" + activityName + "\" ya existe.");
+			    handleShowActivities(request, response); 
+			    return;
+			}   
+			
+			
+    }
 
 }

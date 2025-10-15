@@ -7,7 +7,13 @@
 <%@ page import="turismouyapp.core.dto.DtTouristOuting"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 
-
+<%! 
+private static String fmtDuration(java.time.Duration d) {
+    if (d == null) return "";
+    return d.toHours() + " h";
+}
+%>
+	
 <%
 String ctx = request.getContextPath();
 
@@ -107,10 +113,10 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 				String accId = "acc_" + aIdx;
 				String modalId = "modal_" + aIdx;
 			%>
-					<section class="card mb-3">
+					<section >
 						<div class="col">
 							<div class="card h-100">
-								<img src="<%=ctx%>/${a.getImageActPath()}" alt="Imagen de actividad" class="card-img-top">
+								<img src="<%=ctx%>/activity_img/${a.getImageActPath()}" alt="Imagen de actividad" class="card-img-top">
 								<div class="card-body">
 									<h5 class="card-title"><%=a.getActivityName()%></h5>
 									<!-- BOTON DETALLES CARGANDO EL MODAL -->
@@ -147,7 +153,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 								<dt class="col-sm-4">Ciudad</dt>
 								<dd class="col-sm-8"><%=a.getCity()%></dd>
 								<dt class="col-sm-4">Duración</dt>
-								<dd class="col-sm-8"><%=a.getDuration()%></dd>
+								<dd class="col-sm-8"><%= fmtDuration(a.getDuration()) %></dd>
 								<dt class="col-sm-4">Costo por turista</dt>
 								<dd class="col-sm-8">
 									$<%=a.getCostTurist()%></dd>
@@ -155,10 +161,17 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 						</div>
 
 						<!-- VER TEMA DE NAVEGACION -->
-
+						
 						<div class="modal-footer">
-							<a href="salidas.html" class="btn btn-primary">Ver salidas</a>
-						</div>
+										<form method="get"
+											action="<%=request.getContextPath()%>/outings"
+											class="d-inline">
+											<input type="hidden" name="q"
+												value="<%=a.getActivityName()%>">
+											<button type="submit" class="btn btn-primary">Ver
+												salidas</button>
+										</form>
+									</div>
 					</div>
 				</div>
 			</div>
@@ -181,7 +194,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 
 	<!-- MODAL PARA AGREGAR ACTIVIDAD-->
 	<div class="modal fade" id="modalActividadForm" tabindex="-1"
-		aria-hidden="true">
+		aria-hidden="${not empty requestScope.activityError}"> 
 		<div class="modal-dialog modal-lg modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header bg-primary text-white">
@@ -193,11 +206,16 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 					<div class="modal-body">
 						<input type="hidden" id="actId" name="id">
 						<div class="row g-3">
-							<div class="col-12">
-								<label for="actName" class="form-label">Nombre de la
-									actividad *</label> <input type="text" class="form-control"
-									id="actName" name="title" required>
-								<div class="invalid-feedback">Ingresá el nombre.</div>
+						<div class="col-12">
+							  <label for="actName" class="form-label">Nombre de la actividad *</label>
+							  <input type="text" 
+							         class="form-control <%= request.getAttribute("activityError") != null ? "is-invalid" : "" %>"
+							         id="actName" name="title"
+							         value="<%= request.getParameter("title") != null ? request.getParameter("title") : "" %>"
+							         required>
+							  <div class="invalid-feedback">
+							    <%= request.getAttribute("activityError") != null ? request.getAttribute("activityError") : "Ingrese el nombre." %>
+							  </div>
 							</div>
 							<div class="col-md-6">
 								<label for="actProvider" class="form-label">Proveedor *</label>
