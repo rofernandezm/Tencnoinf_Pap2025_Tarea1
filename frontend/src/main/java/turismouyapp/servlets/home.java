@@ -22,7 +22,7 @@ public class home extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
     	      throws ServletException, IOException {
  
-    	    req.getRequestDispatcher("/WEB-INF/home.jsp").forward(req, resp);
+    	    req.getRequestDispatcher("/WEB-INF/vistas/home.jsp").forward(req, resp);
     	  }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

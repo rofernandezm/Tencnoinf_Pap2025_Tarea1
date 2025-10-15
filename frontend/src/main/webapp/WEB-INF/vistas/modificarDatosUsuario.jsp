@@ -203,7 +203,7 @@ request.setAttribute("navActive", ""); // Sin menú activo
 	</main>
 	
 	<!-- Footer -->
-	<%@ include file="WEB-INF/partials/footer.jsp"%>
+	<jsp:include page="/WEB-INF/partials/footer.jsp"/>
 	
 	<!-- Bootstrap JS -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>

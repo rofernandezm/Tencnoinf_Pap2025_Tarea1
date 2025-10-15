@@ -67,7 +67,7 @@ public class ConsultUser extends HttpServlet {
 		}
 		
 		// Forward a la vista
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vistas/ConsultUser.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vistas/consultUser.jsp");
 		dispatcher.forward(request, response);
 	}
 

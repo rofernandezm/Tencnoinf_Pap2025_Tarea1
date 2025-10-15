@@ -45,7 +45,7 @@ String ctx = request.getContextPath();
 							<c:when test="${isGuest}">
 								<%-- Usuario invitado --%>
 								<li class="nav-item">
-									<a class="nav-link" href="<%=ctx%>/IniciarSesionRegistrarse.jsp">
+									<a class="nav-link" href="<%=ctx%>/login">
 										<i class="bi bi-box-arrow-in-right me-1"></i> Iniciar Sesión
 									</a>
 								</li>
@@ -79,7 +79,7 @@ String ctx = request.getContextPath();
 										<li><a class="dropdown-item" href="<%=ctx%>/modify-data-user">
 											<i class="bi bi-person-gear me-2"></i>Modificar Usuario
 										</a></li>
-										<li><a class="dropdown-item" href="<%=ctx%>/CerrarSesion.jsp">
+										<li><a class="dropdown-item" href="<%=ctx%>/logout">
 											<i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión
 										</a></li>
 									</ul>
@@ -88,7 +88,7 @@ String ctx = request.getContextPath();
 							<c:otherwise>
 								<%-- Sin sesión --%>
 								<li class="nav-item">
-									<a class="nav-link" href="<%=ctx%>/IniciarSesionRegistrarse.jsp">
+									<a class="nav-link" href="<%=ctx%>/login">
 										<i class="bi bi-box-arrow-in-right me-1"></i> Iniciar Sesión
 									</a>
 								</li>
