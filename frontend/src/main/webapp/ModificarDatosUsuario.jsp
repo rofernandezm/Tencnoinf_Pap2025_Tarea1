@@ -10,6 +10,7 @@ request.setAttribute("navActive", ""); // Sin menú activo
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Modificar datos de usuario - TurismoUy</title>
+	<link rel="icon" type="image/png" href="<%=ctx%>/res/turismouyAppIcon.png">
 	
 	<!-- Bootstrap CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -176,34 +177,11 @@ request.setAttribute("navActive", ""); // Sin menú activo
 											</div>
 										</div>
 										
-										<div class="mb-3">
+											<div class="mb-3">
 											<label for="birthdate-user" class="form-label">Fecha de nacimiento</label> 
 											<input type="date" class="form-control" id="birthdate-user" name="birthdate-user" 
 												   value="${sessionScope.logged_user.birthDate}">
 										</div>
-										
-										<c:if test="${sessionScope.user_role == 'TOURIST'}">
-											<div class="mb-3">
-												<label for="nationality-user" class="form-label">Nacionalidad</label>
-												<input type="text" class="form-control" id="nationality-user" name="nationality-user"
-													   value="${sessionScope.logged_user.nationality}">
-											</div>
-										</c:if>
-										
-										<c:if test="${sessionScope.user_role == 'SUPPLIER'}">
-											<div class="mb-3">
-												<label for="description-user" class="form-label">Descripción</label>
-												<textarea class="form-control" id="description-user" name="description-user" 
-														  rows="3">${sessionScope.logged_user.description}</textarea>
-											</div>
-											
-											<div class="mb-3">
-												<label for="website-user" class="form-label">Sitio web</label> 
-												<input type="url" class="form-control" id="website-user" name="website-user" 
-													   value="${sessionScope.logged_user.website}" 
-													   placeholder="https://ejemplo.com">
-											</div>
-										</c:if>
 										
 										<!-- Botones -->
 										<div class="d-grid gap-3 d-md-flex justify-content-md-center mt-4 mb-3">

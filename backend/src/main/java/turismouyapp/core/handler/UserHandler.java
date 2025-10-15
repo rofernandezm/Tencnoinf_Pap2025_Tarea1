@@ -113,6 +113,7 @@ public class UserHandler {
 			user.setName(dtUser.getName());
 			user.setLastName(dtUser.getLastName());
 			user.setBirthDate(dtUser.getBirthDate());
+			user.setImagePath(dtUser.getImagePath());
 		}
 		tx.commit();
 		em.close();

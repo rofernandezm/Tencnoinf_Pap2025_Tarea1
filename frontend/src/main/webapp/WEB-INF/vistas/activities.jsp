@@ -9,6 +9,8 @@
 
 
 <%
+String ctx = request.getContextPath();
+
 List<DtActivityWithOutings> actWtOuts = (List<DtActivityWithOutings>) request.getAttribute("activitiesWithOutings");
 if (actWtOuts == null) {
 	actWtOuts = Collections.emptyList();
@@ -25,6 +27,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TurismoUy</title>
+<link rel="icon" type="image/png" href="<%=ctx%>/res/turismouyAppIcon.png">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
 	rel="stylesheet"

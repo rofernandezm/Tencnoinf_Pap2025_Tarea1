@@ -36,6 +36,9 @@ String ctx = request.getContextPath();
 						<li class="nav-item"><a
 							class="nav-link px-lg-2 <%="inscriptions".equals(active) ? "active" : ""%>"
 							href="<%=ctx%>/inscriptions">Inscripción</a></li>
+						<li class="nav-item"><a
+							class="nav-link px-lg-2 <%="consult-user".equals(active) ? "active" : ""%>"
+							href="<%=ctx%>/consult-user">Usuarios</a></li>
 					</ul>
 					<ul class="navbar-nav">
 						<c:choose>
