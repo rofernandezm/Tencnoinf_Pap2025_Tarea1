@@ -105,6 +105,57 @@
 		width: 100%;
 	}
 }
+
+.dropdown-menu {
+	background-color: var(--primary-color);
+	border: none;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-menu .dropdown-header {
+	color: var(--background-secondary-color);
+	font-size: 0.875rem;
+	padding: 0.75rem 1rem;
+	white-space: normal;
+}
+
+.dropdown-menu .dropdown-item {
+	color: var(--background-secondary-color);
+	transition: background-color 0.2s ease;
+	padding: 0.5rem 1rem;
+}
+
+/* Estilos para foto de perfil en navbar */
+.navbar .nav-link img.rounded-circle {
+	border: 2px solid var(--primary-color);
+	transition: border-color 0.2s ease;
+}
+
+.navbar .nav-link:hover img.rounded-circle {
+	border-color: var(--secondary-color);
+}
+
+.dropdown-menu .dropdown-header img.rounded-circle {
+	border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive: mostrar nombre en dispositivos móviles dentro del offcanvas */
+@media (max-width: 991px) {
+	.offcanvas-body .nav-link span {
+		display: inline !important;
+	}
+}
+
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu .dropdown-item:focus {
+	background-color: var(--secondary-color);
+	color: var(--background-secondary-color);
+}
+
+.dropdown-menu .dropdown-divider {
+	border-top-color: rgba(255, 255, 255, 0.25);
+}
 /*END NAVBAR*/
 
 /*START SEARCHBAR*/

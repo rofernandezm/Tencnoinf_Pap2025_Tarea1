@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html;
- charset=UTF-8"
- pageEncoding="UTF-8"%> 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
+<%
+String ctx = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -9,27 +10,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="icon" type="image/png" href="<%=ctx%>/res/turismouyAppIcon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/app.css">
+    <link rel="stylesheet" href="<%=ctx%>/assets/css/app.css">
     <style>
-        :root {
-            --bs-primary: rgb(68, 111, 175);
-            --bs-primary-rgb: 68, 111, 175;
-            --bs-body-bg: #ffffff;
-        }
-/*
-        .dropdown-menu.bg-primary {
-            --bs-dropdown-bg: var(--bs-primary);
-            --bs-dropdown-link-color: #fff;
-            --bs-dropdown-link-hover-color: #fff;
-            --bs-dropdown-link-hover-bg: rgba(255, 255, 255, 0.2);
-            --bs-dropdown-link-active-color: #fff;
-            --bs-dropdown-link-active-bg: rgba(255, 255, 255, 0.3);
-            border: none;
-        }
-*/
         .carousel-item {
             height: 500px;
         }
@@ -48,7 +34,7 @@
 
 	<!-- Navbar -->
 	<%
-	request.setAttribute("navActive", "activities"); // activities | outings | inscriptions
+	request.setAttribute("navActive", "home"); // activities | outings | inscriptions | home
 	%>
 	<jsp:include page="/WEB-INF/partials/header.jsp" />
 	<!-- End Navbar-->

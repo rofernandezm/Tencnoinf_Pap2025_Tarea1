@@ -158,14 +158,14 @@ public class Activities extends HttpServlet {
 				// Muestro error de registro
 				request.setAttribute("mensaje", "La actividad " + name + " ya existe.");
 				request.setAttribute("activeTab", "register");
-				RequestDispatcher rd = request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/iniciarSesionRegistrarse.jsp");
 				rd.forward(request, response);
 			
 			}   
 		}else {
 			request.setAttribute("mensaje", "Por favor, llene todos los campos.");
 			request.setAttribute("activeTab", "register");
-			RequestDispatcher rd = request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/iniciarSesionRegistrarse.jsp");
 			rd.forward(request, response);
 		}
     }

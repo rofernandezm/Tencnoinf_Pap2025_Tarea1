@@ -87,7 +87,7 @@ public class Login extends HttpServlet {
 		} else {
 			request.setAttribute("loginError", "Usuario o contraseña incorrectos");
 			request.setAttribute("activeTab", "login");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/iniciarSesionRegistrarse.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
@@ -130,7 +130,7 @@ public class Login extends HttpServlet {
 		} catch (DateTimeParseException ex) {
 			request.setAttribute("registerError", "Fecha de nacimiento inválida, reintente.");
 			request.setAttribute("activeTab", "register");
-			request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp").forward(request, response);
+			request.getRequestDispatcher("/iniciarSesionRegistrarse.jsp").forward(request, response);
 			return;
 		}
 
@@ -170,6 +170,14 @@ public class Login extends HttpServlet {
 			imagePath = fileName;
 		}
 
+		// Validar contraseñas ANTES de procesar
+		if (!password.equals(passwordConf)) {
+			request.setAttribute("registerError", "Las contraseñas no coinciden");
+			request.setAttribute("activeTab", "register");
+			request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp").forward(request, response);
+			return;
+		}
+
 		UserType user = UserType.TOURIST.toString().equals(request.getParameter("user-type")) ? UserType.TOURIST
 				: UserType.SUPPLIER;
 
@@ -197,28 +205,19 @@ public class Login extends HttpServlet {
 			// Muestro error de registro
 			request.setAttribute("registerError", "El usuario " + nickname + " ya existe.");
 			request.setAttribute("activeTab", "register");
-			RequestDispatcher rd = request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/iniciarSesionRegistrarse.jsp");
 			rd.forward(request, response);
 		} catch (RepeatedUserEmailException e) {
 			// Muestro error de registro
-
 			request.setAttribute("registerError", "El usuario con email: " + email + " ya existe.");
 			request.setAttribute("activeTab", "register");
-			RequestDispatcher rd = request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/iniciarSesionRegistrarse.jsp");
 			rd.forward(request, response);
 		}
 
 		System.out.println(System.getProperty("catalina.base"));
 		System.out.println("getServletContext:" + getServletContext().getRealPath("") + File.separator + "profile_img");
 		System.out.println("Ruta de imagen generada: " + imagePath);
-
-		// Validar contraseñas
-		if (!password.equals(passwordConf)) {
-			request.setAttribute("registerError", "Las contraseñas no coinciden");
-			request.setAttribute("activeTab", "register");
-			request.getRequestDispatcher("/IniciarSesionRegistrarse.jsp").forward(request, response);
-			return;
-		}
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
