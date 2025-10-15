@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <%
 // Recibo qué item va activo (activities | outings | inscriptions)
 String active = (String) request.getAttribute("navActive");
@@ -25,7 +25,7 @@ String ctx = request.getContextPath();
 					<ul class="navbar-nav justify-content-center flex-grow-1 pe-3 fs-5">
 						<li class="nav-item"><a
 							class="nav-link px-lg-2 <%="activities".equals(active) ? "active" : ""%>"
-							href="<%=ctx%>/actividades">Actividades</a></li>
+							href="<%=ctx%>/activities">Actividades</a></li>
 						<li class="nav-item"><a
 							class="nav-link px-lg-2 <%="outings".equals(active) ? "active" : ""%>"
 							href="<%=ctx%>/outings">Salidas</a></li>
