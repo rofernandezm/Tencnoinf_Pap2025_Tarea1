@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
     // Pestaña activa por defecto
     String activeTab = "login"; 
@@ -91,13 +91,13 @@
                   <!--Nickname -->
                   <div class="mb-3">
                     <label for="nickname-or-email" class="form-label">Nickname o correo electrónico</label>
-                    <input type="text" class="form-control" id="nickname-or-email" name="nickname-or-email" placeholder="Ingrese su nickname o correo electrónico">
+                    <input type="text" class="form-control" id="nickname-or-email" name="nickname-or-email" placeholder="Ingrese su nickname o correo electrónico" required>
                   </div>
 
                   <!--Contraseña -->
                   <div class="mb-3">
                     <label for="password-login" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password-login" name="password" placeholder="Ingrese su contraseña">
+                    <input type="password" class="form-control" id="password-login" name="password" placeholder="Ingrese su contraseña" required>
                   </div>
 
                   <!-- Botones -->
@@ -121,56 +121,59 @@
                   <!--Nickname -->
                   <div class="mb-3">
                     <label for="new-nickname" class="form-label">Nickname</label>
-                    <input type="text" class="form-control" id="new-nickname" name="new-nickname" placeholder="Elija un nickname">
+                    <input type="text" class="form-control" id="new-nickname" name="new-nickname" placeholder="Elija un nickname" required>
                   </div>
                   <!--Nombre -->
                   <div class="mb-3">
                     <label for="new-name" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="new-name" name="new-name" placeholder="Ingrese su nombre">
+                    <input type="text" class="form-control" id="new-name" name="new-name" placeholder="Ingrese su nombre" required>
                   </div>
                   <!--Apellido -->
                   <div class="mb-3">
                     <label for="new-lastname" class="form-label">Apellido</label>
-                    <input type="text" class="form-control" id="new-lastname" name="new-lastname" placeholder="Ingrese su apellido">
+                    <input type="text" class="form-control" id="new-lastname" name="new-lastname" placeholder="Ingrese su apellido" required>
                   </div>
                   <!--Contraseña -->
                   <div class="mb-3">
                     <label for="password-register" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password-register" name="password" placeholder="Ingrese una nueva contraseña">
+                    <input type="password" class="form-control" id="password-register" name="password" placeholder="Ingrese una nueva contraseña" required>
                   </div>
                   <!--Confirmación de contraseña -->
                   <div class="mb-3">
                     <label for="passwordconf" class="form-label">Confirmación de contraseña</label>
-                    <input type="password" class="form-control" id="passwordconf" name="passwordconf" placeholder="Ingrese nuevamente la contraseña">
+                    <input type="password" class="form-control" id="passwordconf" name="passwordconf" placeholder="Ingrese nuevamente la contraseña" required>
                   </div>
                   <!--Correo electrónico -->
                   <div class="mb-3">
                     <label for="new-email" class="form-label">Correo electrónico</label>
-                    <input type="email" class="form-control" id="new-email" name="new-email" placeholder="Ingrese su correo electrónico">
+                    <input type="email" class="form-control" id="new-email" name="new-email" placeholder="Ingrese su correo electrónico" required>
                   </div>
                   <!--Fecha de nacimiento -->
                   <div class="mb-3">
                     <label for="new-birthdate" class="form-label">Fecha de nacimiento</label>
-                    <input type="date" class="form-control" id="new-birthdate" name="new-birthdate" placeholder="Ingrese su fecha de nacimiento">
+                    <input type="date" class="form-control" id="new-birthdate" name="new-birthdate" placeholder="Ingrese su fecha de nacimiento" required>
                   </div>
                   <!--Tipo de usuario -->
                   <div class="mb-3">
                     <label class="form-label">Tipo de usuario</label>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="user-type" id="tourist" value="Turista" checked>
+                      <input class="form-check-input" type="radio" name="user-type" id="tourist" value="TOURIST" checked>
                       <label class="form-check-label" for="tourist">Turista</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="user-type" id="supplier" value="Proveedor">
+                      <input class="form-check-input" type="radio" name="user-type" id="supplier" value="SUPPLIER">
                       <label class="form-check-label" for="supplier">Proveedor</label>
                     </div>
                   </div>
 
                   <!--Si es turista-->
                   <!--Nacionalidad -->
+                  <c:if test="${userType == 'supplier'}">
+                  </c:if>
+                  
                   <div id="tourist-fields">
                     <div class="mb-3">
-                      <label for="new-nationality" class="form-label">Nacionalidad</label>
+                      <label for="nationality" class="form-label">Nacionalidad</label>
                       <input type="text" class="form-control" id="nationality" name="nationality" placeholder="Ingrese su nacionalidad">
                     </div>
                   </div>
@@ -219,14 +222,22 @@
   const supplierRadio = document.getElementById('supplier');
   const touristFields = document.getElementById('tourist-fields');
   const supplierFields = document.getElementById('supplier-fields');
-
+  const nationalityInput = document.getElementById('nationality');
+  const descriptionInput = document.getElementById('new-description');
+  
   function displayUserFields() {
     if (touristRadio.checked) {
+    	
+      nationalityInput.setAttribute('required', '');
       touristFields.style.display = 'block';
+      touristFields.setAttribute('required', '')
       supplierFields.style.display = 'none';
+      descriptionInput.removeAttribute('required');
     } else if (supplierRadio.checked) {
+      descriptionInput.setAttribute('required', '');
       touristFields.style.display = 'none';
-      supplierFields.style.display = 'block';
+      nationalityInput.removeAttribute("required");
+      supplierFields.style.display = 'block';      
     }
   }
 
