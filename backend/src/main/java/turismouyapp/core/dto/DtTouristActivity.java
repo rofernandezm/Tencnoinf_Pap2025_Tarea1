@@ -13,12 +13,13 @@ public class DtTouristActivity {
 	private LocalDate registratioDate;
 	private String supplierNickname;
 	private TouristActivityStatus status;
-
+	private String imageActPath;
+	
 	public DtTouristActivity() {
 	};
 
 	public DtTouristActivity(String activityName, String description, Duration duration, float costTurist, String city,
-			LocalDate registratioDate, String supplierNickname, TouristActivityStatus status) {
+			LocalDate registratioDate, String supplierNickname, TouristActivityStatus status, String imageActPath) {
 		this.activityName = activityName;
 		this.description = description;
 		this.duration = duration;
@@ -27,6 +28,7 @@ public class DtTouristActivity {
 		this.registratioDate = registratioDate;
 		this.supplierNickname = supplierNickname;
 		this.status = status;
+		this.imageActPath = imageActPath;
 	}
 
 	public String getActivityName() {
@@ -60,8 +62,8 @@ public class DtTouristActivity {
 	public TouristActivityStatus getStatus() {
 		return status;
 	}
-
-	public void setStatus(TouristActivityStatus status) {
-		this.status = status;
+	
+	public String getimageActPath() {
+		return imageActPath;
 	}
 }

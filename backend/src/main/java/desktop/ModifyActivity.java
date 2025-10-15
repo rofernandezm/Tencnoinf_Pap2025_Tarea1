@@ -146,7 +146,7 @@ public class ModifyActivity extends JInternalFrame {
 				DtTouristActivity updated = new DtTouristActivity(currentActivity.getActivityName(),
 						txtDescription.getText(), duration, Float.parseFloat(txtTouristFee.getText()),
 						txtCity.getText(), currentActivity.getRegistrationDate(),
-						currentActivity.getSupplierNickname(), currentActivity.getStatus());
+						currentActivity.getSupplierNickname(), currentActivity.getStatus(), null);
 
 				iActivityController.modifyActivity(updated);
 

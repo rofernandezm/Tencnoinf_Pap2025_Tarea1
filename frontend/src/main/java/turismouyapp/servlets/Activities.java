@@ -7,6 +7,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import jakarta.servlet.annotation.MultipartConfig;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -16,47 +17,42 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import turismouyapp.core.dto.DtActivityWithOutings;
-import turismouyapp.core.dto.DtSupplier;
-import turismouyapp.core.dto.DtTourist;
 import turismouyapp.core.dto.DtTouristActivity;
 import turismouyapp.core.dto.DtTouristOuting;
-import turismouyapp.core.dto.DtUser;
 import turismouyapp.core.dto.TouristActivityStatus;
 import turismouyapp.core.entity.TouristOuting;
 import turismouyapp.core.exceptions.ActivityDoesNotExistException;
 import turismouyapp.core.exceptions.RepeatedActivityNameException;
-import turismouyapp.core.exceptions.RepeatedUserEmailException;
-import turismouyapp.core.exceptions.RepeatedUserNicknameException;
 import turismouyapp.core.exceptions.TouristOutingDoesNotExistException;
 import turismouyapp.core.factory.FactoryUyTourism;
 import turismouyapp.core.interfaces.ITouristActivityController;
-import turismouyapp.core.interfaces.ITouristOutingAndInscriptionController;
-import turismouyapp.core.interfaces.IUserController;
 
 @WebServlet("/activities")
+@MultipartConfig									
 public class Activities extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private final ITouristActivityController itac;
+	
+	private final ITouristActivityController iTouristActivityController;
 
 	public Activities() {
 		super();
 		FactoryUyTourism factory = FactoryUyTourism.getInstance();
-		this.itac = factory.getITouristActivityController();
+		this.iTouristActivityController = factory.getITouristActivityController();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		// cargo una lista con los nombres de las actividades para sugirir en la
-		// busqueda
+	
+	protected void handleShowActivities(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+		
+		// cargo una lista con los nombres de las actividades para sugirir en la busqueda
 		String[] activities = null;
 		try {
-			activities = itac.listTouristActivitiesByStatus(TouristActivityStatus.CONFIRMED);
-		} catch (IllegalArgumentException e) {
+			activities = iTouristActivityController.listTouristActivities();
+		} catch (ActivityDoesNotExistException e) {
 			activities = new String[0];
 		}
 		request.setAttribute("activities", activities);
-
+				
 		// obtengo la busqueda
 		String q = request.getParameter("q");
 		String needle = (q == null) ? "" : q.trim().toLowerCase();
@@ -64,7 +60,7 @@ public class Activities extends HttpServlet {
 		// traigo todas las actividades con sus salidas
 		List<DtActivityWithOutings> all;
 		try {
-			all = itac.listTouristActivityData();
+			all = iTouristActivityController.listTouristActivityData();
 		} catch (ActivityDoesNotExistException e) {
 			all = java.util.Collections.emptyList();
 		}
@@ -79,9 +75,9 @@ public class Activities extends HttpServlet {
 
 				if (matchActivity) {
 					filtered.add(awo);
+					}
 				}
 			}
-		}
 
 		// mando la lista filtrada y muestro pantalla
 		request.setAttribute("activitiesWithOutings", filtered);
@@ -99,107 +95,88 @@ public class Activities extends HttpServlet {
 		System.out.println(".");
 	}
 
-	private void handleRegister(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-
-		// Obtener datos del registro
-		String name = request.getParameter("actName");
-		String provider = request.getParameter("actProvider");
-		String city = request.getParameter("actCity");
-		Duration duration = Duration.ofHours(Integer.parseInt(request.getParameter("actDurationHours")));
-		float cost = Float.parseFloat(request.getParameter("actCost"));
-		String description = request.getParameter("actDescription");
-		LocalDate hora = LocalDate.now();
-
-		Part imagen = request.getPart("actImage");
-		String imagePath = null;
-
-		if (imagen != null && imagen.getSize() > 0) {
-
-			String rawPath = getServletContext().getInitParameter("uploadFolder");
-
-			// Reemplaza la variable ${catalina.base} por su valor real
-			String catalinaBase = System.getProperty("catalina.base");
-			String uploadPath = rawPath.replace("${catalina.base}", catalinaBase);
-
-			File uploadDir = new File(uploadPath);
-			if (!uploadDir.exists())
-				uploadDir.mkdirs();
-
-			// Obtiene el nombre original (ej: "foto.png")
-			String originalName = Path.of(imagen.getSubmittedFileName()).getFileName().toString();
-
-			// Extrae la extensión (todo después del último '.')
-			String extension = "";
-			int i = originalName.lastIndexOf('.');
-			if (i > 0) {
-				extension = originalName.substring(i); // incluye el punto, ej: ".png"
-			}
-
-			// Genera nombre único + extensión
-			String fileName = UUID.randomUUID().toString() + extension;
-
-			// Guardar el archivo en el servidor
-			imagen.write(uploadPath + File.separator + fileName);
-
-			// Guardar la ruta relativa
-			imagePath = fileName;
-		}
-
-		if (checkForm(request, response)) {
-			try {
-				DtTouristActivity newActivity = new DtTouristActivity(name, description, duration, cost, imagePath,
-						hora, provider, TouristActivityStatus.ADDED);
-
-				itac.activityDataEntry(newActivity);
-
-			} catch (RepeatedActivityNameException e) {
-				// Muestro error de registro
-				request.setAttribute("mensaje", "La actividad " + name + " ya existe.");
-				request.setAttribute("activeTab", "register");
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/iniciarSesionRegistrarse.jsp");
-				rd.forward(request, response);
-
-			}
-		} else {
-			request.setAttribute("mensaje", "Por favor, llene todos los campos.");
-			request.setAttribute("activeTab", "register");
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/iniciarSesionRegistrarse.jsp");
-			rd.forward(request, response);
-		}
-	}
-
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		// Mostrar formulario de modificación
+//    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vistas/activities.jsp");
+//    	dispatcher.forward(request, response);
+		handleShowActivities(request, response);
+	}	
+    	
+    	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		handleRegisterActivity(request, response);
+	}	
+	
+	
+	
+	private void handleRegisterActivity(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		// String opcionSeleccionada = request.getParameter("opcionSeleccionada");
-		// System.out.println(opcionSeleccionada); // Aca se recibe la seleccion del
-		// como por su parametros y se carga en seleccion
-		// para pasar al servlets de Consulta Salida
-//		 HttpSession session = request.getSession();
-//		 session.setAttribute("Salidas", result);
+        // Obtener datos del registro
+        String activityName = request.getParameter("title");
+        String supplier = request.getParameter("supplier"); //deberia ser el usuario loggeado?
+        String city = request.getParameter("city");
+        Duration duration = Duration.ofHours(Integer.parseInt(request.getParameter("durationHours")));
+        float cost = Float.parseFloat(request.getParameter("cost"));
+        String description = request.getParameter("description");
+        LocalDate hora= LocalDate.now();
+        
+        
+     // Foto de perfil
+        Part activityPhotoPart = request.getPart("image");
+        String rawPath = getServletContext().getInitParameter("uploadActivityFolder");
 
-		// Ahora con la opcion seleccionada trago el Datatype para cargar una tabla con
-		// ese caso
+        // Reemplaza la variable ${catalina.base} por su valor real
+        String catalinaBase = System.getProperty("catalina.base");
+        String uploadPath = rawPath.replace("${catalina.base}", catalinaBase);
 
-	}
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists())
+            uploadDir.mkdirs();
 
-	private boolean checkForm(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+        String imagePath = "default_activity.jpg";
 
-		String name = request.getParameter("actName");
-		String provider = request.getParameter("actProvider");
-		String city = request.getParameter("actCity");
-		String duration = request.getParameter("actDurationHours");
-		String cost = request.getParameter("actCost");
-		String description = request.getParameter("actDescription");
+        if (activityPhotoPart != null && activityPhotoPart.getSize() > 0) {
 
-		if (name == null || name.isBlank() || provider == null || provider.isBlank() || city == null || city.isBlank()
-				|| duration == null || duration.isBlank() || cost == null || cost.isBlank() || description == null
-				|| description.isBlank()) {
-			return false;
-		}
-		return true;
-	}
+            // Obtiene el nombre original (ej: "foto.png")
+            String originalName = Path.of(activityPhotoPart.getSubmittedFileName()).getFileName().toString();
+
+            // Extrae la extensión (todo después del último '.')
+            String extension = "";
+            int i = originalName.lastIndexOf('.');
+            if (i > 0) {
+                extension = originalName.substring(i); // incluye el punto, ej: ".png"
+            }
+
+            // Genera nombre único + extensión
+            String fileName = UUID.randomUUID().toString() + extension;
+
+            // Guardar el archivo en el servidor
+            activityPhotoPart.write(uploadPath + File.separator + fileName);
+
+            // Guardar la ruta relativa
+            imagePath = fileName;
+            
+        }
+		
+			try {
+		        DtTouristActivity newActivity = new DtTouristActivity(activityName, description, duration, cost, city, hora ,supplier,TouristActivityStatus.ADDED, imagePath);
+		        
+		        iTouristActivityController.activityDataEntry(newActivity);
+		        request.setAttribute("mensaje", "Se ha ingresado correctamente la actividad turística: " + activityName + " en el sistema.");
+		        request.getRequestDispatcher("/WEB-INF/vistas/activities.jsp").forward(request, response);
+		        
+		      		        
+			} catch (RepeatedActivityNameException e) {
+				// Muestro error de registro
+				request.setAttribute("registerError", "La actividad " + activityName + " ya existe.");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/activities.jsp");
+				rd.forward(request, response);
+			
+			}   
+    }
 
 }
