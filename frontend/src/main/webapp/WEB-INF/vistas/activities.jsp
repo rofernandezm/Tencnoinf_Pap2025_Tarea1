@@ -73,11 +73,15 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 						<h5 class="mb-1">Agregar actividad</h5>
 						<p class="text-body-secondary mb-0">Publicá una nueva
 							actividad para que aparezca en el listado.</p>
+					<div class="d-flex gap-2">
+						<button type="button" class="btn btn-outline-primary"
+							data-bs-toggle="modal" data-bs-target="#modalActividadForm">
+							<i class="bi bi-plus-circle me-2"></i> Agregar actividad
+						</button>
+						<a href="<%=ctx%>/activities" class="btn btn-outline-secondary" title="Actualizar actividades">
+							<img src="<%=ctx%>/res/refresh.png" alt="Refresh" style="width: 20px; height: 20px;">
+						</a>
 					</div>
-					<button type="button" class="btn btn-outline-primary"
-						data-bs-toggle="modal" data-bs-target="#modalActividadForm">
-						<i class="bi bi-plus-circle me-2"></i> Agregar actividad
-					</button>
 				</div>
 			</div>
 		</div>
