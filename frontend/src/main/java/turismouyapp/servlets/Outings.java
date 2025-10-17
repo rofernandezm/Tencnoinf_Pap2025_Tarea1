@@ -1,6 +1,12 @@
 package turismouyapp.servlets;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.servlet.ServletException;
@@ -8,23 +14,31 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import turismouyapp.core.dto.DtActivityWithOutings;
+import turismouyapp.core.dto.DtInscriptionTouristOuting;
+import turismouyapp.core.dto.DtTouristActivity;
 import turismouyapp.core.dto.DtTouristOuting;
+import turismouyapp.core.dto.DtUser;
 import turismouyapp.core.dto.TouristActivityStatus;
+import turismouyapp.core.dto.UserType;
 import turismouyapp.core.exceptions.ActivityDoesNotExistException;
 import turismouyapp.core.factory.FactoryUyTourism;
 import turismouyapp.core.interfaces.ITouristActivityController;
+import turismouyapp.core.interfaces.ITouristOutingAndInscriptionController;
 
 @WebServlet("/outings")
 public class Outings extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	private final ITouristActivityController itac;
+	private final ITouristOutingAndInscriptionController itoaic;
 
 	public Outings() {
 		super();
 		FactoryUyTourism factory = FactoryUyTourism.getInstance();
 		this.itac = factory.getITouristActivityController();
+		this.itoaic = factory.getITouristOutingAndInscriptionController();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,6 +53,20 @@ public class Outings extends HttpServlet {
 			activities = new String[0];
 		}
 		request.setAttribute("activities", activities);
+		HttpSession session = request.getSession(false);
+		// si es un supplier, cargo las actividades que le pertenecen
+		if (session.getAttribute("user_role") == UserType.SUPPLIER) {
+			DtUser user = (DtUser) session.getAttribute("logged_user");
+			String[] userActivities = null;
+			try {
+				userActivities = itac.listTouristActivitiesBySupplierNickname(user.getNickname());
+			} catch (IllegalArgumentException e) {
+				userActivities = new String[0];
+			}
+			request.setAttribute("userActivities", userActivities);
+		}else {
+			request.setAttribute("userActivities", new String[0]);
+		}
 
 		// obtengo la busqueda
 		String q = request.getParameter("q");
@@ -93,18 +121,11 @@ public class Outings extends HttpServlet {
 		System.out.println(".");
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	        throws ServletException, IOException {
 
-		// String opcionSeleccionada = request.getParameter("opcionSeleccionada");
-		// System.out.println(opcionSeleccionada); // Aca se recibe la seleccion del
-		// como por su parametros y se carga en seleccion
-		// para pasar al servlets de Consulta Salida
-//		 HttpSession session = request.getSession();
-//		 session.setAttribute("Salidas", result);
-
-		// Ahora con la opcion seleccionada trago el Datatype para cargar una tabla con
-		// ese caso
-
+	   doGet(request, response);
 	}
+
 }
