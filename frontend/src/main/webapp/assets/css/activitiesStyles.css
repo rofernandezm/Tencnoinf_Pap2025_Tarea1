@@ -13,7 +13,7 @@
 
 .card-grid .card-img-top {
 	height: 150px;
-	object-fit: cover;
+	object-fit: contain;
 	border-top-left-radius: 15px;
 	border-top-right-radius: 15px;
 }
@@ -50,7 +50,18 @@
 	overflow: hidden;
 }
 
-.modal-body img {
+.modal-activity-img {
+	width: 35%;
+	height: 350px;
+	object-fit: contain;
+	object-position: center;
 	border-radius: 10px;
+}
+
+/* Responsive: ajustar altura en pantallas pequeñas */
+@media (max-width: 768px) {
+	.modal-activity-img {
+		height: 250px;
+	}
 }
 /*END ACTIVITY MODAL*/

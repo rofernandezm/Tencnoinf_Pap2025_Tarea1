@@ -174,10 +174,10 @@ public class Activities extends HttpServlet {
 			}
 		}
 
+		DtTouristActivity newActivity = new DtTouristActivity(activityName, description, duration, cost, city, hora,
+				supplier, TouristActivityStatus.ADDED, imagePath);
+		
 		try {
-			DtTouristActivity newActivity = new DtTouristActivity(activityName, description, duration, cost, city, hora,
-					supplier, TouristActivityStatus.ADDED, imagePath);
-
 			iTouristActivityController.activityDataEntry(newActivity);
 			request.setAttribute("mensaje",
 					"Se ha ingresado correctamente la actividad turística: " + activityName + " en el sistema.");
@@ -185,6 +185,7 @@ public class Activities extends HttpServlet {
 
 		}catch (RepeatedActivityNameException e) {
 			    request.setAttribute("activityError", "La actividad \"" + activityName + "\" ya existe.");
+			    request.setAttribute("draftedActivity", newActivity);
 			    handleShowActivities(request, response); 
 			    return;
 			}   
