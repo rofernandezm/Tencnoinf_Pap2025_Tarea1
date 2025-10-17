@@ -19,6 +19,9 @@
 							<select id="activitySelect" name="activitySelect" required class="form-select">
 								<%
 								String[] userActivities = (String[]) request.getAttribute("userActivities");
+								if (userActivities == null) {
+								    userActivities = new String[0];
+								}
 								for (String a : userActivities) {
 								%>
 								<option value="<%=a%>">
