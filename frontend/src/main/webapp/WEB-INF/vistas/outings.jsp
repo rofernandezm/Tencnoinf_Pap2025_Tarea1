@@ -58,7 +58,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 			List<String> errs = (List<String>) request.getAttribute("errors");
 			if ("ok".equals(status)) {
 			%>
-			<div class="alert alert-success">Inscripción registrada con
+			<div class="alert alert-success">Salida registrada con
 				éxito.</div>
 			<%
 			} else if (errs != null && !errs.isEmpty()) {
@@ -210,7 +210,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 												</div>
 
 												<div class="modal-footer">
-													<button type="button" class="btn btn-outline-secondary"
+													<button type="button" class="btn btn-secondary"
 														data-bs-dismiss="modal">Cerrar</button>
 
 													<form method="get"
