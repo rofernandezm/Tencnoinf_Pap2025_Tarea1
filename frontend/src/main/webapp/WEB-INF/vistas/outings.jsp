@@ -54,6 +54,29 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 
 			<!-- Start Cards -->
 			<%
+			String status = request.getParameter("status");
+			List<String> errs = (List<String>) request.getAttribute("errors");
+			if ("ok".equals(status)) {
+			%>
+			<div class="alert alert-success">Salida registrada con
+				éxito.</div>
+			<%
+			} else if (errs != null && !errs.isEmpty()) {
+			%>
+			<div class="alert alert-danger">
+				<ul class="mb-0">
+					<%
+					for (String e : errs) {
+					%><li><%=e%></li>
+					<%
+					}
+					%>
+				</ul>
+			</div>
+			<%
+			}
+			%>
+			<%
 			if (actWtOuts.isEmpty()) {
 			%>
 			<div class="alert alert-info">No hay coincidencias.</div>
@@ -187,7 +210,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 												</div>
 
 												<div class="modal-footer">
-													<button type="button" class="btn btn-outline-secondary"
+													<button type="button" class="btn btn-secondary"
 														data-bs-dismiss="modal">Cerrar</button>
 
 													<form method="get"
