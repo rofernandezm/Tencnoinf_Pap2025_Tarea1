@@ -14,7 +14,31 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
---><!-- The contents of this file will be loaded for each web application --><Context>
+--><!-- The contents of this file will be loaded for each web application -->
+<Context>
+
+    <!-- Default set of monitored resources. If one of these changes, the -->
+    <!-- web application will be reloaded. -->
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <WatchedResource>WEB-INF/tomcat-web.xml</WatchedResource>
+    <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
+
+    <!-- Uncomment this to enable session persistence across Tomcat restarts -->
+    <!-- <Manager pathname="SESSIONS.ser" /> -->
+    <Resources>
+        <PreResources
+            className="org.apache.catalina.webresources.DirResourceSet"
+            base="${catalina.base}/data/turismouy.UI/profile_img"
+            webAppMount="/profile_img" internalPath="/" />
+        <PreResources
+            className="org.apache.catalina.webresources.DirResourceSet"
+            base="${catalina.base}/data/turismouy.UI/activity_img"
+            webAppMount="/activity_img" internalPath="/" />
+        <PreResources
+            className="org.apache.catalina.webresources.DirResourceSet"
+            base="${catalina.base}/data/turismouy.UI/res" webAppMount="/res"
+            internalPath="/" />
+    </Resources>
 
     <!-- Default set of monitored resources. If one of these changes, the    -->
     <!-- web application will be reloaded.                                   -->
@@ -22,9 +46,4 @@
     <WatchedResource>WEB-INF/tomcat-web.xml</WatchedResource>
     <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
 
-    <!-- Uncomment this to enable session persistence across Tomcat restarts -->
-    <!--
-    <Manager pathname="SESSIONS.ser" />
-    -->
-    C:\Programacion_de_aplicaciones\Entrega2PApps\Tencnoinf_Pap2025_Tarea1\server\apache-tomcat-11.0.11\wtpwebapps\turismouy.UI
 </Context>

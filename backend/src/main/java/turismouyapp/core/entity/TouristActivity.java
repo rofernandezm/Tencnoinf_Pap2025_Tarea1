@@ -60,7 +60,7 @@ public class TouristActivity {
 		this.city = dtTouristActivity.getCity();
 		this.dischargeDate = dtTouristActivity.getRegistrationDate();
 		this.status = dtTouristActivity.getStatus();
-		this.imageActPath = dtTouristActivity.getimageActPath();
+		this.imageActPath = dtTouristActivity.getImageActPath();
 	}
 
 	public String getActivityName() {
@@ -129,7 +129,7 @@ public class TouristActivity {
 
 	public DtTouristActivity getDtTouristActivity() {
 		return new DtTouristActivity(this.activityName, this.description, this.duration, this.touristFee, this.city,
-				this.dischargeDate, this.supplier.getNickname(), this.getStatus(), this.getimageActPath());
+				this.dischargeDate, this.supplier.getNickname(), this.getStatus(), this.getImageActPath());
 	}
 
 	public TouristActivityStatus getStatus() {
@@ -140,11 +140,11 @@ public class TouristActivity {
 		this.status = status;
 	}
 	
-	public String getimageActPath() {
+	public String getImageActPath() {
 		return imageActPath;
 	}
 
-	public void setimageActPath(String image) {
+	public void setImageActPath(String image) {
 		this.imageActPath = image;
 	}
 }

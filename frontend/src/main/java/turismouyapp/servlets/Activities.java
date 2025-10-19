@@ -2,7 +2,9 @@ package turismouyapp.servlets;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
@@ -28,10 +30,10 @@ import turismouyapp.core.factory.FactoryUyTourism;
 import turismouyapp.core.interfaces.ITouristActivityController;
 
 @WebServlet("/activities")
-@MultipartConfig									
+@MultipartConfig
 public class Activities extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	private final ITouristActivityController iTouristActivityController;
 
 	public Activities() {
@@ -40,11 +42,11 @@ public class Activities extends HttpServlet {
 		this.iTouristActivityController = factory.getITouristActivityController();
 	}
 
-	
 	protected void handleShowActivities(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-		
-		// cargo una lista con los nombres de las actividades para sugirir en la busqueda
+			throws IOException, ServletException {
+
+		// cargo una lista con los nombres de las actividades para sugirir en la
+		// busqueda
 		String[] activities = null;
 		try {
 			activities = iTouristActivityController.listTouristActivities();
@@ -52,7 +54,7 @@ public class Activities extends HttpServlet {
 			activities = new String[0];
 		}
 		request.setAttribute("activities", activities);
-				
+
 		// obtengo la busqueda
 		String q = request.getParameter("q");
 		String needle = (q == null) ? "" : q.trim().toLowerCase();
@@ -75,9 +77,9 @@ public class Activities extends HttpServlet {
 
 				if (matchActivity) {
 					filtered.add(awo);
-					}
 				}
 			}
+		}
 
 		// mando la lista filtrada y muestro pantalla
 		request.setAttribute("activitiesWithOutings", filtered);
@@ -95,88 +97,100 @@ public class Activities extends HttpServlet {
 		System.out.println(".");
 	}
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		// Mostrar formulario de modificación
 //    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vistas/activities.jsp");
 //    	dispatcher.forward(request, response);
 		handleShowActivities(request, response);
-	}	
-    	
-    	
+	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		handleRegisterActivity(request, response);
-	}	
-	
-	
-	
-	private void handleRegisterActivity(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	}
 
-        // Obtener datos del registro
-        String activityName = request.getParameter("title");
-        String supplier = request.getParameter("supplier"); //deberia ser el usuario loggeado?
-        String city = request.getParameter("city");
-        Duration duration = Duration.ofHours(Integer.parseInt(request.getParameter("durationHours")));
-        float cost = Float.parseFloat(request.getParameter("cost"));
-        String description = request.getParameter("description");
-        LocalDate hora= LocalDate.now();
-        
-        
-     // Foto de perfil
-        Part activityPhotoPart = request.getPart("image");
-        String rawPath = getServletContext().getInitParameter("uploadActivityFolder");
+	private void handleRegisterActivity(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 
-        // Reemplaza la variable ${catalina.base} por su valor real
-        String catalinaBase = System.getProperty("catalina.base");
-        String uploadPath = rawPath.replace("${catalina.base}", catalinaBase);
+		// Obtener datos del registro
+		String activityName = request.getParameter("title");
+		String supplier = request.getParameter("supplier"); // deberia ser el usuario loggeado?
+		String city = request.getParameter("city");
+		Duration duration = Duration.ofHours(Integer.parseInt(request.getParameter("durationHours")));
+		float cost = Float.parseFloat(request.getParameter("cost"));
+		String description = request.getParameter("description");
+		LocalDate hora = LocalDate.now();
 
-        File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists())
-            uploadDir.mkdirs();
+		// Foto de perfil
+		Part activityPhotoPart = request.getPart("image");
+		String rawPath_out = getServletContext().getInitParameter("uploadActivityFolder");
+		String rawPath_def = getServletContext().getInitParameter("defaultPath_img");
 
-        String imagePath = "default_activity.jpg";
+		// Reemplaza la variable ${catalina.base} por su valor real
+		String catalinaToken = "${catalina.base}";
+		String catalinaBase = System.getProperty("catalina.base");
+		String outPath = rawPath_out.replace(catalinaToken, catalinaBase);
+		String defPath = rawPath_def.replace(catalinaToken, catalinaBase);
 
-        if (activityPhotoPart != null && activityPhotoPart.getSize() > 0) {
+		File uploadDir = new File(outPath);
+		if (!uploadDir.exists())
+			uploadDir.mkdirs();
 
-            // Obtiene el nombre original (ej: "foto.png")
-            String originalName = Path.of(activityPhotoPart.getSubmittedFileName()).getFileName().toString();
+		String imagePath = "default_activity.jpg";
 
-            // Extrae la extensión (todo después del último '.')
-            String extension = "";
-            int i = originalName.lastIndexOf('.');
-            if (i > 0) {
-                extension = originalName.substring(i); // incluye el punto, ej: ".png"
-            }
+		if (activityPhotoPart != null && activityPhotoPart.getSize() > 0) {
 
-            // Genera nombre único + extensión
-            String fileName = UUID.randomUUID().toString() + extension;
+			// Obtiene el nombre original (ej: "foto.png")
+			String originalName = Path.of(activityPhotoPart.getSubmittedFileName()).getFileName().toString();
 
-            // Guardar el archivo en el servidor
-            activityPhotoPart.write(uploadPath + File.separator + fileName);
+			// Extrae la extensión (todo después del último '.')
+			String extension = "";
+			int i = originalName.lastIndexOf('.');
+			if (i > 0) {
+				extension = originalName.substring(i); // incluye el punto, ej: ".png"
+			}
 
-            // Guardar la ruta relativa
-            imagePath = fileName;
-            
-        }
+			// Genera nombre único + extensión
+			String fileName = UUID.randomUUID().toString() + extension;
+
+			// Guardar el archivo en el servidor
+			activityPhotoPart.write(outPath + File.separator + fileName);
+
+			// Guardar la ruta relativa
+			imagePath = fileName;
+
+		} else {
+
+			File out_img = new File(outPath + File.separator + imagePath);
+			if (!out_img.exists()) {
+				File default_img = new File(defPath + File.separator + imagePath);
+				try {
+					Files.copy(default_img.toPath(), out_img.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		DtTouristActivity newActivity = new DtTouristActivity(activityName, description, duration, cost, city, hora,
+				supplier, TouristActivityStatus.ADDED, imagePath);
 		
-			try {
-		        DtTouristActivity newActivity = new DtTouristActivity(activityName, description, duration, cost, city, hora ,supplier,TouristActivityStatus.ADDED, imagePath);
-		        
-		        iTouristActivityController.activityDataEntry(newActivity);
-		        request.setAttribute("mensaje", "Se ha ingresado correctamente la actividad turística: " + activityName + " en el sistema.");
-		        request.getRequestDispatcher("/WEB-INF/vistas/activities.jsp").forward(request, response);
-		        
-		      		        
-			} catch (RepeatedActivityNameException e) {
-				// Muestro error de registro
-				request.setAttribute("registerError", "La actividad " + activityName + " ya existe.");
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/activities.jsp");
-				rd.forward(request, response);
-			
+		try {
+			iTouristActivityController.activityDataEntry(newActivity);
+			request.setAttribute("mensaje",
+					"Se ha ingresado correctamente la actividad turística: " + activityName + " en el sistema.");
+			request.getRequestDispatcher("/WEB-INF/vistas/activities.jsp").forward(request, response);
+
+		}catch (RepeatedActivityNameException e) {
+			    request.setAttribute("activityError", "La actividad \"" + activityName + "\" ya existe.");
+			    request.setAttribute("draftedActivity", newActivity);
+			    handleShowActivities(request, response); 
+			    return;
 			}   
+			
+			
     }
 
 }

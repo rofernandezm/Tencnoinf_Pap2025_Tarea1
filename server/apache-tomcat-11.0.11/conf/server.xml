@@ -102,10 +102,10 @@
 				<!-- Access log processes all example. Documentation at: /docs/config/valve.html 
 					Note: The pattern used is equivalent to using pattern="common" -->
 				<Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
-				<Context docBase="C:\Programacion_de_aplicaciones\Entrega2PApps\Tencnoinf_Pap2025_Tarea1\server\apache-tomcat-11.0.11\wtpwebapps\turismouy.UI" path="/turismouy.UI" reloadable="true" source="org.eclipse.jst.jee.server:turismouy.UI"/>
+				--&gt;
 				
 			 	
-			<Context docBase="turismouy.UI" path="/turismouy.UI" reloadable="true" source="org.eclipse.jst.jee.server:turismouy.UI"/><Context docBase="DemoWeb" path="/DemoWeb" reloadable="true" source="org.eclipse.jst.jee.server:DemoWeb"/></Host>
+			<!-- <Context docBase="turismouy.UI" path="/turismouy.UI" reloadable="true" source="org.eclipse.jst.jee.server:turismouy.UI"/>--><Context docBase="C:\Programacion_de_aplicaciones\Entrega2PApps\Tencnoinf_Pap2025_Tarea1\server\apache-tomcat-11.0.11\wtpwebapps\turismouy.UI" path="/turismouy.UI" reloadable="true" source="org.eclipse.jst.jee.server:turismouy.UI"/></Host>
 		</Engine>
 	</Service>
 </Server>
