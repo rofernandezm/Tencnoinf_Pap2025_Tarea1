@@ -63,7 +63,7 @@ public class DtTouristActivity {
 		return status;
 	}
 	
-	public String getimageActPath() {
+	public String getImageActPath() {
 		return imageActPath;
 	}
 }

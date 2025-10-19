@@ -6,10 +6,18 @@
 <%@ page import="turismouyapp.core.dto.DtActivityWithOutings"%>
 <%@ page import="turismouyapp.core.dto.DtTouristOuting"%>
 <%@ page import="java.text.SimpleDateFormat"%>
-
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%! 
+private static String fmtDuration(java.time.Duration d) {
+    if (d == null) return "";
+    return d.toHours() + " h";
+}
+%>
+	
 <%
 String ctx = request.getContextPath();
+String activityImgPath = ctx + "/activity_img";
+String defaultImgPath = ctx + "/res/default_activity.jpg";
 
 List<DtActivityWithOutings> actWtOuts = (List<DtActivityWithOutings>) request.getAttribute("activitiesWithOutings");
 if (actWtOuts == null) {
@@ -18,7 +26,9 @@ if (actWtOuts == null) {
 
 SimpleDateFormat sdfDateTime = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
+
 %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -78,10 +88,13 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 				String accId = "acc_" + aIdx;
 				String modalId = "modal_" + aIdx;
 			%>
-					<section class="card mb-3">
+					<section >
 						<div class="col">
 							<div class="card h-100">
-								<img src="<%=ctx%>/${a.getImageActPath()}" alt="Imagen de actividad" class="card-img-top">
+								<img src="<%= (a.getImageActPath() != null && !a.getImageActPath().isEmpty()) ? activityImgPath + "/" + a.getImageActPath() : defaultImgPath %>" 
+								     alt="Imagen de actividad" 
+								     class="card-img-top"
+								     style="object-fit: contain; object-position: center;">
 								<div class="card-body">
 									<h5 class="card-title"><%=a.getActivityName()%></h5>
 									<!-- BOTON DETALLES CARGANDO EL MODAL -->
@@ -105,8 +118,10 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 								data-bs-dismiss="modal" aria-label="Cerrar"></button>
 						</div>
 						<div class="modal-body">
-							<img src="<%=ctx%>/${a.getImageActPath()}" id="actividadImg" alt="Imagen de la actividad" class="img-fluid rounded mb-3"
-								style="height: 300px; width: 100%; object-fit: cover;">
+							<img src="<%= (a.getImageActPath() != null && !a.getImageActPath().isEmpty()) ? activityImgPath + "/" + a.getImageActPath() : defaultImgPath %>" 
+							     id="actividadImg" 
+							     alt="Imagen de la actividad" 
+							     class="modal-activity-img rounded mb-3">
 							<!-- Detalles -->
 							<p class="mb-3">
 								<strong>Descripción:</strong>
@@ -118,7 +133,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 								<dt class="col-sm-4">Ciudad</dt>
 								<dd class="col-sm-8"><%=a.getCity()%></dd>
 								<dt class="col-sm-4">Duración</dt>
-								<dd class="col-sm-8"><%=a.getDuration()%></dd>
+								<dd class="col-sm-8"><%= fmtDuration(a.getDuration()) %></dd>
 								<dt class="col-sm-4">Costo por turista</dt>
 								<dd class="col-sm-8">
 									$<%=a.getCostTurist()%></dd>
@@ -126,10 +141,17 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 						</div>
 
 						<!-- VER TEMA DE NAVEGACION -->
-
+						
 						<div class="modal-footer">
-							<a href="salidas.html" class="btn btn-primary">Ver salidas</a>
-						</div>
+										<form method="get"
+											action="<%=request.getContextPath()%>/outings"
+											class="d-inline">
+											<input type="hidden" name="q"
+												value="<%=a.getActivityName()%>">
+											<button type="submit" class="btn btn-primary">Ver
+												salidas</button>
+										</form>
+									</div>
 					</div>
 				</div>
 			</div>
@@ -152,7 +174,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 
 	<!-- MODAL PARA AGREGAR ACTIVIDAD-->
 	<div class="modal fade" id="modalActividadForm" tabindex="-1"
-		aria-hidden="true">
+		aria-hidden="true" > 
 		<div class="modal-dialog modal-lg modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header bg-primary text-white">
@@ -164,11 +186,16 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 					<div class="modal-body">
 						<input type="hidden" id="actId" name="id">
 						<div class="row g-3">
-							<div class="col-12">
-								<label for="actName" class="form-label">Nombre de la
-									actividad *</label> <input type="text" class="form-control"
-									id="actName" name="title" required>
-								<div class="invalid-feedback">Ingresá el nombre.</div>
+						<div class="col-12">
+							  <label for="actName" class="form-label">Nombre de la actividad *</label>
+							  <input type="text" 
+							         class="form-control <%= request.getAttribute("activityError") != null ? "is-invalid" : "" %>"
+							         id="actName" name="title"
+							         value="${not empty activityError ? draftedActivity.activityName : ''}"
+							         required>
+							  <div class="invalid-feedback">
+							    <%= request.getAttribute("activityError") != null ? request.getAttribute("activityError") : "Ingrese el nombre." %>
+							  </div>
 							</div>
 							<div class="col-md-6">
 								<label for="actProvider" class="form-label">Proveedor *</label>
@@ -178,7 +205,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 							</div>
 							<div class="col-md-6">
 								<label for="actCity" class="form-label">Ciudad *</label> <input
-									type="text" class="form-control" id="actCity" name="city"
+									type="text" class="form-control" id="actCity" name="city" value="${not empty activityError ? draftedActivity.city : ''}"
 									required>
 								<div class="invalid-feedback">Ingresá la ciudad.</div>
 							</div>
@@ -186,7 +213,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 								<label class="form-label">Duración *</label>
 								<div class="input-group">
 									<input type="number" min="1" step="1" class="form-control"
-										id="actDurationHours" name="durationHours" required> <span
+										id="actDurationHours" name="durationHours" value="${not empty activityError ? draftedActivity.duration.toHours() : ''}" required> <span
 										class="input-group-text">horas</span>
 									<div class="invalid-feedback">Ingresá la duración en
 										horas.</div>
@@ -197,7 +224,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 								<div class="input-group">
 									<span class="input-group-text">UYU</span> <input type="number"
 										min="0" step="1" class="form-control" id="actCost" name="cost"
-										required>
+										value="${not empty activityError ? draftedActivity.costTurist : ''}" required>
 									<div class="invalid-feedback">Ingresá el costo en UYU.</div>
 								</div>
 							</div>
@@ -205,7 +232,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 								<label for="actDescription" class="form-label">Descripción
 									*</label>
 								<textarea class="form-control" id="actDescription"
-									name="description" rows="4" required></textarea>
+									name="description" rows="4" required>${not empty activityError ? draftedActivity.description : ''}</textarea>
 								<div class="invalid-feedback">Ingresá la descripción.</div>
 							</div>
 							<div class="col-12">
@@ -231,7 +258,14 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 		integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
 		crossorigin="anonymous"></script>
 	<script src="<%=request.getContextPath()%>/assets/js/app.js" defer></script>
-
+	<c:if test="${not empty activityError}">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var modal = new bootstrap.Modal(document.getElementById('modalActividadForm'));
+            modal.show();
+        });
+    </script>
+	</c:if>
 
 </body>
 

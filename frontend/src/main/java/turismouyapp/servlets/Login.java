@@ -8,7 +8,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import jakarta.servlet.http.Part;
+
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.io.File;
 
 import jakarta.servlet.RequestDispatcher;
@@ -136,13 +139,16 @@ public class Login extends HttpServlet {
 
 		// Foto de perfil
 		Part profilePhotoPart = request.getPart("new-profilephoto");
-		String rawPath = getServletContext().getInitParameter("uploadProfileFolder"); 
+		String rawPath_out = getServletContext().getInitParameter("uploadProfileFolder"); 
+		String rawPath_def = getServletContext().getInitParameter("defaultPath_img");
 
 		// Reemplaza la variable ${catalina.base} por su valor real
+		String catalinaToken = "${catalina.base}";
 		String catalinaBase = System.getProperty("catalina.base");
-		String uploadPath = rawPath.replace("${catalina.base}", catalinaBase);
+		String outPath = rawPath_out.replace(catalinaToken, catalinaBase);
+		String defPath = rawPath_def.replace(catalinaToken, catalinaBase);
 
-		File uploadDir = new File(uploadPath);
+		File uploadDir = new File(outPath);
 		if (!uploadDir.exists())
 			uploadDir.mkdirs();
 
@@ -164,10 +170,21 @@ public class Login extends HttpServlet {
 			String fileName = UUID.randomUUID().toString() + extension;
 
 			// Guardar el archivo en el servidor
-			profilePhotoPart.write(uploadPath + File.separator + fileName);
+			profilePhotoPart.write(rawPath_out + File.separator + fileName);
 
 			// Guardar la ruta relativa
 			imagePath = fileName;
+		}
+		else {
+			File out_img = new File(outPath + File.separator + imagePath);
+			if (!out_img.exists()) {
+				File default_img = new File(defPath + File.separator + imagePath);
+				try {
+					Files.copy(default_img.toPath(), out_img.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 		// Validar contraseñas ANTES de procesar
