@@ -21,7 +21,6 @@
 (function () {
   var form  = document.getElementById('searchForm');
   var input = document.getElementById('searchInput');
-  var clear = document.getElementById('searchClear');
 
   // si no hay buscador en esta página, salimos
   if (!input) return;
@@ -29,9 +28,6 @@
   // id del datalist (por defecto: actSuggestions)
   var listId = input.getAttribute('data-list-id') || 'actSuggestions';
 
-  function toggleClear() {
-    if (clear) clear.hidden = !(input.value && input.value.trim().length > 0);
-  }
 
   function updateDatalistBinding() {
     var hasMinChars = (input.value || '').length >= 0; // en caso de tener demasiadas actividades conviene subirlo a 2
@@ -49,16 +45,6 @@
   });
   input.addEventListener('focus', updateDatalistBinding);
 
-  if (clear) {
-    clear.addEventListener('click', function () {
-      input.value = '';
-      toggleClear();
-      input.removeAttribute('list');
-      if (form) form.submit(); // recarga “limpia”
-    });
-  }
-
   // estado inicial
-  toggleClear();
   updateDatalistBinding();
 })();

@@ -60,38 +60,6 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 	<jsp:include page="/WEB-INF/partials/header.jsp" />
 	<!-- End Navbar-->
 
-	<%--<!--  	<c:if --> --%>
-	<%--  		test="${not empty sessionScope.logged_user and  --%>
-	<%--                        sessionScope.logged_user.userType eq 'SUPPLIER'}">  --%>
-
-
-
-	<!-- CONTENEDOR AGREGAR ACTIVIDAD-->
-	<section class="py-3">
-		<div class="container">
-			<div class="card shadow-sm border-0 card-agregar"
-				style="margin-top: 5rem;">
-				<div
-					class="card-body d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
-					<div>
-						<h5 class="mb-1">Agregar actividad</h5>
-						<p class="text-body-secondary mb-0">Publicá una nueva
-							actividad para que aparezca en el listado.</p>
-					<div class="d-flex gap-2">
-						<button type="button" class="btn btn-outline-primary"
-							data-bs-toggle="modal" data-bs-target="#modalActividadForm">
-							<i class="bi bi-plus-circle me-2"></i> Agregar actividad
-						</button>
-						<a href="<%=ctx%>/activities" class="btn btn-outline-secondary" title="Actualizar actividades">
-							<img src="<%=ctx%>/res/refresh.png" alt="Refresh" style="width: 20px; height: 20px;">
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-
 	<main class="flex-fill pt-5 mt-5">
 		<div class="container pt-1">
 			<!-- Start Searchbar -->
