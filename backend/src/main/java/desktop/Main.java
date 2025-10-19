@@ -130,6 +130,7 @@ public class Main {
 		JMenuBar menuBar = new JMenuBar();
 		frmTourismUy.setJMenuBar(menuBar);
 
+		/*
 		// Menu Users
 		JMenu menuUsers = new JMenu(texts.getString("main.menu.users"));
 		menuBar.add(menuUsers);
@@ -159,12 +160,13 @@ public class Main {
 				hideAllComponents();
 				modifyUserInternalFrame.setVisible(true);
 			}
-		});
+		});*/
 
 		// Menu Activities
 		JMenu menuActivities = new JMenu(texts.getString("main.menu.activities"));
 		menuBar.add(menuActivities);
 
+		/*
 		JMenuItem menuItemAddAct = new JMenuItem(texts.getString("main.menu.activities.create"));
 		menuActivities.add(menuItemAddAct);
 		menuItemAddAct.addActionListener(new ActionListener() {
@@ -205,7 +207,7 @@ public class Main {
 				activityRankingInternalFrame.init();
 				activityRankingInternalFrame.setVisible(true);
 			}
-		});
+		});*/
 		
 		JMenuItem mnApprovalActivity = new JMenuItem(texts.getString("main.menu.activities.approval"));
 		menuActivities.add(mnApprovalActivity);
@@ -216,6 +218,7 @@ public class Main {
 			}
 		});
 
+		/*
 		JMenu mnOuting = new JMenu(texts.getString("main.menu.outings"));
 		menuBar.add(mnOuting);
 
@@ -260,7 +263,7 @@ public class Main {
 				consultInscriptionInternalFrame.init();
 				consultInscriptionInternalFrame.setVisible(true);
 			}
-		});
+		});*/
 
 		JMenu menuSystem = new JMenu(texts.getString("main.menu.system"));
 		menuBar.add(menuSystem);

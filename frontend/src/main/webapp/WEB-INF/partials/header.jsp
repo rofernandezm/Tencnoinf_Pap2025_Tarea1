@@ -33,7 +33,7 @@ String ctx = request.getContextPath();
 						<li class="nav-item"><a
 							class="nav-link px-lg-2 <%="outings".equals(active) ? "active" : ""%>"
 							href="<%=ctx%>/outings">Salidas</a></li>
-						<li class="nav-item"><a
+						<li class="nav-item <% if(turismouyapp.core.dto.UserType.TOURIST != request.getSession().getAttribute("user_role")) {%>d-none<% }%>"><a
 							class="nav-link px-lg-2 <%="inscriptions".equals(active) ? "active" : ""%>"
 							href="<%=ctx%>/inscriptions">Inscripción</a></li>
 						<li class="nav-item"><a

@@ -220,7 +220,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 															value="<%=a.getActivityName()%>"> <input
 															type="hidden" name="outing"
 															value="<%=t.getOutingName()%>">
-														<button type="submit" class="btn btn-primary">Inscribirme</button>
+														<button type="submit" class="btn btn-primary <% if(turismouyapp.core.dto.UserType.TOURIST != request.getSession().getAttribute("user_role")) {%>d-none<% }%>">Inscribirme</button>
 													</form>
 												</div>
 
