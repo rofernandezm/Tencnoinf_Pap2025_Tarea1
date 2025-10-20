@@ -40,7 +40,6 @@
 
   // eventos
   input.addEventListener('input', function () {
-    toggleClear();
     updateDatalistBinding();
   });
   input.addEventListener('focus', updateDatalistBinding);
