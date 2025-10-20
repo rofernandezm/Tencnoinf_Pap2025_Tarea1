@@ -7,7 +7,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -105,6 +107,24 @@ public class Outings extends HttpServlet {
 				}
 			}
 		}
+		
+		Map<String, Integer> disponibilidadPorSalida = new HashMap<>();
+
+		for (DtActivityWithOutings awo : all) {
+		    for (DtTouristOuting salida : awo.getOutings()) {
+		        DtInscriptionTouristOuting[] inscripciones = itoaic.listOutingInscription(salida.getOutingName());
+		        int totalInscriptos = 0;
+		        if (inscripciones != null) {
+		            for (DtInscriptionTouristOuting insc : inscripciones) {
+		                totalInscriptos += insc.getTouristAmount();
+		            }
+		        }
+		        int cantDisp = salida.getMaxNumTourists() - totalInscriptos;
+		        disponibilidadPorSalida.put(salida.getOutingName(), cantDisp < 0 ? 0 : cantDisp);
+		    }
+		}
+
+		request.setAttribute("dispPorSalida", disponibilidadPorSalida);
 
 		// mando la lista filtrada y muestro pantalla
 		request.setAttribute("activitiesWithOutings", filtered);

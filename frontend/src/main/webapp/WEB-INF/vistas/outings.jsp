@@ -86,6 +86,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 			} else {
 
 			int aIdx = 0;
+			Map<String, Integer> dispMap = (Map<String, Integer>) request.getAttribute("dispPorSalida");
 			for (DtActivityWithOutings act : actWtOuts) {
 				DtTouristActivity a = act.getActivity();
 				String accId = "acc_" + aIdx;
@@ -143,7 +144,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 													<div class="col-md-8">
 														<ul class="list-unstyled my-0 small">
 															<li><strong>Cupos:</strong> <%=t.getMaxNumTourists()%></li>
-															<li><strong>Disponibilidad:</strong> <%=t.getMaxNumTourists()%></li>
+															<li><strong>Disponibilidad:</strong> <%=dispMap != null && dispMap.get(t.getOutingName()) != null ? dispMap.get(t.getOutingName()) : 0%></li>
 															<li><strong>Punto de salida:</strong> <%=t.getDeparturePoint()%></li>
 															<li><strong>Fecha de salida:</strong> <%=t.getDepartureDate()%></li>
 														</ul>
@@ -205,7 +206,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
  %></li>
 																<li><strong>Cupos totales:</strong> <%=t.getMaxNumTourists()%></li>
 																<%-- Si tuvieramos disponibilidad real, mostrar aca --%>
-																<%-- <li><strong>Disponibles:</strong> <%= t.getAvailableSlots() %></li> --%>
+																<li><strong>Disponibles:</strong> <%=dispMap != null && dispMap.get(t.getOutingName()) != null ? dispMap.get(t.getOutingName()) : 0%></li>
 															</ul>
 														</div>
 													</div>
