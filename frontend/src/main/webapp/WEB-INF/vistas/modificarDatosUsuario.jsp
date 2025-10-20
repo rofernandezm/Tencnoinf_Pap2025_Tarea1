@@ -187,7 +187,6 @@ main {
 													id="birthdate-user" name="birthdate-user"
 													value="${sessionScope.logged_user.birthDate}">
 											</div>
-										
 
 											<c:if test="${sessionScope.logged_user.userType == 'TOURIST'}">
 												<div class="col-md-6 mb-3">
@@ -197,22 +196,20 @@ main {
 												</div>
 											</c:if>
 										</div>
-										
-										
+
+
 										<c:if test="${sessionScope.logged_user.userType == 'SUPPLIER'}">
 											<div class="row">
 												<div class="col-md-6 mb-3">
 													<label for="description-user" class="form-label">Descripción</label>
 													<textarea class="form-control" id="description-user" name="description-user">${sessionScope.logged_user.description}</textarea>
 												</div>
-													
 												<div class="col-md-6 mb-3">
 													<label for="website-user" class="form-label">Sitio web</label>
 													<input type="url" class="form-control" id="website-user" name="website-user" value="${sessionScope.logged_user.webSite}">
 												</div>
 											</div>
 										</c:if>
-										
 
 										<!-- Botones -->
 										<div
