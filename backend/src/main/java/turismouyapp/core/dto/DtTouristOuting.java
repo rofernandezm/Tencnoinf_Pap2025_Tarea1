@@ -11,18 +11,20 @@ public class DtTouristOuting {
 	private LocalDateTime departureDate;
 	private LocalDate dischargeDate;
 	private String activityName;
+	private String imageOutPath;
 
 	public DtTouristOuting() {
 	};
 
 	public DtTouristOuting(String outingName, int maxNumTourists, String departurePoint, LocalDateTime departureDate,
-			LocalDate dischargeDate, String activityName) {
+			LocalDate dischargeDate, String activityName, String imageOutPath) {
 		this.outingName = outingName;
 		this.maxNumTourists = maxNumTourists;
 		this.departurePoint = departurePoint;
 		this.departureDate = departureDate;
 		this.dischargeDate = dischargeDate;
 		this.activityName = activityName;
+		this.imageOutPath = imageOutPath;
 	}
 
 	public String getOutingName() {
@@ -47,5 +49,9 @@ public class DtTouristOuting {
 
 	public String getActivityName() {
 		return activityName;
+	}
+	
+	public String getImageOutPath() {
+		return imageOutPath;
 	}
 }
