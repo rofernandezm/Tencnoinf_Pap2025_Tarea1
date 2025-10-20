@@ -17,6 +17,8 @@ if (actWtOuts == null) {
 
 SimpleDateFormat sdfDateTime = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
+String activityImgPath = ctx + "/activity_img";
+String defaultImgPath = ctx + "/res/default_activity.jpg";
 %>
 
 <!DOCTYPE html>
@@ -64,7 +66,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 			<%
 			} else if (errs != null && !errs.isEmpty()) {
 			%>
-			<div class="alert alert-danger">
+			<div class="alert alert-danger alert-dismissible fade show">
 				<ul class="mb-0">
 					<%
 					for (String e : errs) {
@@ -73,19 +75,15 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 					}
 					%>
 				</ul>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>
 			<%
 			}
+
+			if (actWtOuts.isEmpty()) {
 			%>
-			<%
-			if (actWtOuts.size() > 1) {
-			%>
-			<div class="alert alert-info">Por favor, ingrese el nombre de
-				la actividad a la que desea inscribirse en la barra de búsqueda.</div>
-			<%
-			} else if (actWtOuts.isEmpty()) {
-			%>
-			<div class="alert alert-info">No hay coincidencias.</div>
+			<div class="alert alert-info alert-dismissible fade show"><%=request.getAttribute("info")%><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
+			
 			<%
 			} else {
 
@@ -98,7 +96,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 				<div class="row g-0">
 					<div class="col-md-4">
 						<img
-							src="<%=request.getContextPath()%>/assets/img/actividad_img.jpg"
+							src="<%= (a.getImageActPath() != null && !a.getImageActPath().isEmpty()) ? activityImgPath + "/" + a.getImageActPath() : defaultImgPath %>"
 							class="img-fluid rounded-start" alt="Imagen de la actividad">
 					</div>
 
@@ -120,21 +118,24 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 
 								<%
 								List<DtTouristOuting> outs = act.getOutings() != null ? act.getOutings() : java.util.Collections.emptyList();
-								String outingParam = request.getParameter("outing");
+								String outingParam = request.getAttribute("outing") != null ? (String)request.getAttribute("outing") : request.getParameter("outing") != null ? request.getParameter("outing"): null;
 								DtTouristOuting sel = null;
 								if (!outs.isEmpty()) {
 									if (outingParam != null) {
 										for (DtTouristOuting o : outs) {
-									if (outingParam.equals(o.getOutingName())) {
-										sel = o;
-										break;
-									}
+											if (outingParam.equals(o.getOutingName())) {
+												sel = o;
+												break;
+											}
 										}
 									}
 									if (sel == null)
 										sel = outs.get(0);
 								}
+						
+								Map<String, Integer> dispMap = (Map<String, Integer>) request.getAttribute("dispPorSalida");
 								%>
+
 								<div class="p-3 col-md-12 border-bottom">
 									<h5 class="card-title">Datos de la salida</h5>
 
@@ -155,6 +156,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 													data-max="<%=o.getMaxNumTourists()%>"
 													data-cost="<%=a.getCostTurist()%>"
 													data-date="<%=o.getDepartureDate()%>"
+													data-disp=<%=dispMap != null && dispMap.get(o.getOutingName()) != null ? dispMap.get(o.getOutingName()) : 0%>
 													<%=(sel != null && sel.getOutingName().equals(o.getOutingName())) ? "selected" : ""%>>
 													<%=o.getOutingName()%>
 												</option>
@@ -168,7 +170,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 									<!-- Datos de la salida seleccionada -->
 									<ul class="list-unstyled my-0 small">
 										<li><strong>Cupos:</strong> <span id="capMax"><%=sel != null ? sel.getMaxNumTourists() : "-"%></span></li>
-										<li><strong>Disponibilidad:</strong> <span id="capAvail"><%=sel != null ? sel.getMaxNumTourists() : "-"%></span></li>
+										<li><strong>Disponibilidad:</strong> <span id="capAvail"><%=dispMap != null && sel != null ? dispMap.get(sel.getOutingName()) : "-"%></span></li>
 										<li><strong>Punto de salida:</strong> <span id="depPoint"><%=sel != null ? sel.getDeparturePoint() : "-"%></span></li>
 										<li><strong>Fecha de salida:</strong> <span id="depDate"><%=sel != null ? sel.getDepartureDate() : ""%></span></li>
 									</ul>
@@ -178,8 +180,8 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 									<form class="small" method="post"
 										action="<%=request.getContextPath()%>/inscriptions">
 										<input type="hidden" name="activity"
-											value="<%=a.getActivityName()%>"> <input
-											type="hidden" id="outingHidden" name="outing"
+											value="<%=a.getActivityName()%>"> 
+											<input type="hidden" id="outingHidden" name="outing"
 											value="<%=(sel != null ? sel.getOutingName() : "")%>">
 										<input type="hidden" id="inscriptionDate"
 											name="inscriptionDate">
@@ -234,7 +236,9 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 	<script src="<%=request.getContextPath()%>/assets/js/app.js" defer></script>
 	<script>
 		(function() {
+			debugger;
 			var sel = document.getElementById('outingSelect');
+			var hiddOut = document.getElementById('outingHidden');
 			var capMax = document.getElementById('capMax');
 			var capAvail = document.getElementById('capAvail');
 			var depPoint = document.getElementById('depPoint');
@@ -253,18 +257,22 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 				if (!sel || !sel.options.length)
 					return;
 				var opt = sel.options[sel.selectedIndex];
+				var name = opt.value;
 				var max = opt.getAttribute('data-max') || '-';
+				var disp = opt.getAttribute('data-disp') || '-';
 				var point = opt.getAttribute('data-point') || '-';
 				var date = opt.getAttribute('data-date') || '';
-
+				
+				
+				hiddOut.value = name;
 				capMax.textContent = max;
-				capAvail.textContent = max; // reemplazá si tenés disponibilidad real
+				capAvail.textContent = disp; // reemplazá si tenés disponibilidad real
 				depPoint.textContent = point;
 				depDate.textContent = date ? date.replace('T', ' ') : '-';
 
 				// opcional: restringir cupos máximos
 				if (seatsInp)
-					seatsInp.max = (max && max !== '-') ? max : '';
+					seatsInp.max = (disp && disp !== '-') ? disp : '';
 
 				recalcTotal();
 			}
