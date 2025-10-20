@@ -28,7 +28,11 @@
 			className="org.apache.catalina.webresources.DirResourceSet"
 			base="${catalina.base}/data/turismouy.UI/activity_img"
 			webAppMount="/activity_img" internalPath="/" />
-		<PreResources
+        <PreResources
+            className="org.apache.catalina.webresources.DirResourceSet"
+            base="${catalina.base}/data/turismouy.UI/outing_img"
+            webAppMount="/outing_img" internalPath="/" />
+        <PreResources
 			className="org.apache.catalina.webresources.DirResourceSet"
 			base="${catalina.base}/data/turismouy.UI/res" webAppMount="/res"
 			internalPath="/" />

@@ -10,7 +10,7 @@
 			</div>
 			<div class="modal-body pb-0">
 				<form id="outingForm" method="post"
-					action="<%=request.getContextPath()%>/outings/add">
+					action="<%=request.getContextPath()%>/outings/add" enctype="multipart/form-data">
 					<div class="row align-items-center mb-3">
 						<label for="activitySelect" class="col-sm-6 col-form-label">Actividades
 							turísticas</label>
@@ -62,6 +62,14 @@
 							<input type="datetime-local" id="outingDate" name="outingDate" required class="form-control">
 						</div>
 					</div>
+					
+					<div class="row align-items-center mb-3">
+						<label for="outImage" class="col-sm-6 col-form-label">Imagen</label> <input
+									type="file" class="form-control" id="outImage" name="outImage"
+									accept="image/*">
+					</div>
+					
+					
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-primary" id="confirmOuting">Confirmar</button>
 						<button type="button" class="btn btn-secondary"

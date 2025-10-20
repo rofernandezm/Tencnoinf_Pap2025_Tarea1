@@ -216,7 +216,7 @@ public class TouristOutingRegistration extends JInternalFrame {
 			int maxNumTouristsTOint = Integer.parseInt(maxNumTouristsTO);
 			// Create Dt to assign to the method
 			DtTouristOuting newTouristOuting = new DtTouristOuting(outingNameTO, maxNumTouristsTOint, departurePointTO,
-					departureDateTOldt, dischargeDateTO, touristActivityName);
+					departureDateTOldt, dischargeDateTO, touristActivityName, null);
 
 			try {
 
