@@ -8,6 +8,8 @@
 
 <%
 String ctx = request.getContextPath();
+String activityImgPath = ctx + "/activity_img";
+String outingImgPath = ctx + "/outing_img";
 
 List<DtActivityWithOutings> actWtOuts = (List<DtActivityWithOutings>) request.getAttribute("activitiesWithOutings");
 if (actWtOuts == null) {
@@ -92,7 +94,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 				<div class="row g-0">
 					<div class="col-md-3">
 						<img
-							src="<%=request.getContextPath()%>/assets/img/actividad_img.jpg"
+							src="<%= activityImgPath + "/" + a.getImageActPath() %>" 
 							class="img-fluid rounded-start" alt="Imagen de la actividad">
 					</div>
 
@@ -102,7 +104,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 								<h5 class="card-title"><%=a.getActivityName()%></h5>
 								<ul class="list-unstyled mb-0 small">
 									<li><strong>Descripción:</strong> <%=a.getDescription()%></li>
-									<li><strong>Duración:</strong> <%=a.getDuration()%></li>
+									<li><strong>Duración:</strong> <%=a.getDuration().toHours() + " h"%></li>
 									<li><strong>Costo por turista:</strong> $<%=a.getCostTurist()%></li>
 									<li><strong>Ciudad:</strong> <%=a.getCity()%></li>
 									<li><strong>Proveedor:</strong> <%=a.getSupplierNickname()%></li>
@@ -178,14 +180,14 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 													<div class="row g-3">
 														<div class="col-md-6">
 															<img
-																src="<%=request.getContextPath()%>/assets/img/actividad_img.jpg"
+																src="<%= outingImgPath + "/" + t.getImageOutPath() %>" 
 																class="img-fluid" alt="Imagen de la actividad">
 														</div>
 														<div class="col-md-6">
 															<h6 class="mb-1">Actividad</h6>
 															<ul class="list-unstyled small mb-2">
 																<li><strong>Descripción:</strong> <%=a.getDescription()%></li>
-																<li><strong>Duración:</strong> <%=a.getDuration()%></li>
+																<li><strong>Duración:</strong> <%=a.getDuration().toHours() + " h"%></li>
 																<li><strong>Costo por turista:</strong> $<%=a.getCostTurist()%></li>
 																<li><strong>Ciudad:</strong> <%=a.getCity()%></li>
 																<li><strong>Proveedor:</strong> <%=a.getSupplierNickname()%></li>
