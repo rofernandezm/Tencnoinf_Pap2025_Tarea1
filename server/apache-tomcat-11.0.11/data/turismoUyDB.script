@@ -29,7 +29,7 @@ SET FILES NIO TRUE
 SET FILES NIO SIZE 256
 SET FILES LOG TRUE
 SET FILES LOG SIZE 50
-SET FILES CHECK 1843
+SET FILES CHECK 2586
 SET DATABASE COLLATION "SQL_TEXT" PAD SPACE
 CREATE USER SA PASSWORD DIGEST 'd41d8cd98f00b204e9800998ecf8427e'
 ALTER USER SA SET LOCAL TRUE
@@ -55,6 +55,8 @@ SET SCHEMA SYSTEM_LOBS
 INSERT INTO BLOCKS VALUES(0,2147483647,0)
 SET SCHEMA PUBLIC
 INSERT INTO USERS VALUES('gastchar','Tourist','2025-10-01','gc@web.com','25b8c11e-7465-427a-9ae4-e0820319515b.jpg','Charquero','Gaston','123')
+INSERT INTO USERS VALUES('proveedor_A','Supplier','2025-10-18','pa@prov.com','default_profile.jpg','proveedor','Proveedor_A','123')
+INSERT INTO USERS VALUES('proveedor_B','Supplier','2025-10-19','pb@prov.com','default_profile.jpg','B','proveedor','123')
 INSERT INTO USERS VALUES('rodrifer','Supplier','2025-10-10','rf@web.com','default_profile.jpg','fernandez','rodrigo','123')
 INSERT INTO USERS VALUES('valesant','Supplier','2025-10-02','vs@web.com','ab80c5fc-a02f-4c86-b038-548b25238a9d.jpg','Sant','Vale','123')
 INSERT INTO TOURISTACTIVITY VALUES('actividad_1','montevideo','actividad de prueba','2025-10-19','aced00057372000d6a6176612e74696d652e536572955d84ba1b2248b20c00007870770d010000000000001c200000000078','a93415c7-0813-486f-bb26-78f5cf955c7e.jpg','CONFIRMED',500.0E0,'valesant',NULL)
@@ -62,5 +64,7 @@ INSERT INTO TOURISTACTIVITY VALUES('actividad_2','maldonado','prueba500','2025-1
 INSERT INTO TOURISTOUTING VALUES('salida_1','2025-02-22 18:00:00.000000','puerto','2025-10-19',10,'actividad_1')
 INSERT INTO TOURIST VALUES('gastchar','uruguayo')
 INSERT INTO INSCRIPTION VALUES(1,'2025-10-19',5,2500.0E0,'gastchar','salida_1',NULL)
+INSERT INTO SUPPLIER VALUES('proveedor_A','desc prov a','www.google.com')
+INSERT INTO SUPPLIER VALUES('proveedor_B','Desc prov B','')
 INSERT INTO SUPPLIER VALUES('rodrifer','provedr2 ','http://rf.com')
 INSERT INTO SUPPLIER VALUES('valesant','prov prueba','http://vs.com')

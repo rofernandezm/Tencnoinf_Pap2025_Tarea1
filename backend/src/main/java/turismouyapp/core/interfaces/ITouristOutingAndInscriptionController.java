@@ -1,6 +1,7 @@
 package turismouyapp.core.interfaces;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import turismouyapp.core.dto.DtInscriptionTouristOuting;
 import turismouyapp.core.dto.DtTouristOuting;
@@ -36,4 +37,6 @@ public interface ITouristOutingAndInscriptionController {
 	public String[] listInscriptionTouristOutingByTourist(String nickname);
 	
 	public String[] listTouristOutingByActivity(String activityName);
+	
+	public List<DtInscriptionTouristOuting> listDtInscriptionTouristOutingByTouristNickname(String nickname);
 }

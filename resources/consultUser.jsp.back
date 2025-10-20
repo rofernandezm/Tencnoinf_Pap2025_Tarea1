@@ -203,98 +203,134 @@ request.setAttribute("navActive", "consult-user");
 						</div>
 
 						<div class="modal-body">
-							<c:if test="${usuario.userType == 'SUPPLIER'}">
-								<div class="accordion" id="accordionActivities">
-									<c:forEach var="activityWithOutings"
-										items="${activitiesWithOutings}" varStatus="status">
-										<div class="accordion-item">
-											<h2 class="accordion-header" id="heading${status.index}">
-												<button
-													class="accordion-button ${status.index != 0 ? 'collapsed' : ''}"
-													type="button" data-bs-toggle="collapse"
-													data-bs-target="#collapse${status.index}"
-													aria-expanded="${status.index == 0 ? 'true' : 'false'}"
-													aria-controls="collapse${status.index}">
-													<i class="bi bi-geo-alt me-2"></i> <strong>${activityWithOutings.activity.activityName}</strong>
-												</button>
-											</h2>
-											<div id="collapse${status.index}"
-												class="accordion-collapse collapse ${status.index == 0 ? 'show' : ''}"
-												aria-labelledby="heading${status.index}"
-												data-bs-parent="#accordionActivities">
-												<div class="accordion-body">
-													<!-- InformaciÃ³n de la actividad -->
-													<div class="mb-3">
-														<p class="mb-2">
-															<strong>Descripción:</strong>
-															${activityWithOutings.activity.description}
-														</p>
-														<p class="mb-2">
-															<strong>Duración:</strong>
-															${activityWithOutings.activity.duration.toHours()} horas
-														</p>
-														<p class="mb-2">
-															<strong>Costo:</strong>
-															$${activityWithOutings.activity.costTurist}
-														</p>
-														<p class="mb-2">
-															<strong>Ciudad:</strong>
-															${activityWithOutings.activity.city}
-														</p>
-													</div>
+							<c:choose>
+								<%-- Vista para SUPPLIER: Acordeón de actividades con salidas --%>
+								<c:when test="${usuario.userType == 'SUPPLIER'}">
+									<div class="accordion" id="accordionActivities">
+										<c:forEach var="activityWithOutings"
+											items="${activitiesWithOutings}" varStatus="status">
+											<div class="accordion-item">
+												<h2 class="accordion-header" id="heading${status.index}">
+													<button
+														class="accordion-button ${status.index != 0 ? 'collapsed' : ''}"
+														type="button" data-bs-toggle="collapse"
+														data-bs-target="#collapse${status.index}"
+														aria-expanded="${status.index == 0 ? 'true' : 'false'}"
+														aria-controls="collapse${status.index}">
+														<i class="bi bi-geo-alt me-2"></i> <strong>${activityWithOutings.activity.activityName}</strong>
+													</button>
+												</h2>
+												<div id="collapse${status.index}"
+													class="accordion-collapse collapse ${status.index == 0 ? 'show' : ''}"
+													aria-labelledby="heading${status.index}"
+													data-bs-parent="#accordionActivities">
+													<div class="accordion-body">
+														<!-- InformaciÃ³n de la actividad -->
+														<div class="mb-3">
+															<p class="mb-2">
+																<strong>Descripción:</strong>
+																${activityWithOutings.activity.description}
+															</p>
+															<p class="mb-2">
+																<strong>Duración:</strong>
+																${activityWithOutings.activity.duration.toHours()} horas
+															</p>
+															<p class="mb-2">
+																<strong>Costo:</strong>
+																$${activityWithOutings.activity.costTurist}
+															</p>
+															<p class="mb-2">
+																<strong>Ciudad:</strong>
+																${activityWithOutings.activity.city}
+															</p>
+														</div>
 
-													<!-- Salidas de la actividad -->
-													<h6 class="border-top pt-3 mb-3">
-														<i class="bi bi-calendar-event me-2"></i>Salidas
-														Turí­sticas
-													</h6>
-													<c:choose>
-														<c:when test="${not empty activityWithOutings.outings}">
-															<div class="table-responsive">
-																<table class="table table-sm table-hover">
-																	<thead class="table-light">
-																		<tr>
-																			<th>Nombre</th>
-																			<th>Fecha</th>
-																			<th>Hora</th>
-																			<th>Lugar</th>
-																			<th>Cupos</th>
-																			<th>Fecha Alta</th>
-																		</tr>
-																	</thead>
-																	<tbody>
-																		<c:forEach var="outing"
-																			items="${activityWithOutings.outings}">
+														<!-- Salidas de la actividad -->
+														<h6 class="border-top pt-3 mb-3">
+															<i class="bi bi-calendar-event me-2"></i>Salidas
+															Turí­sticas
+														</h6>
+														<c:choose>
+															<c:when test="${not empty activityWithOutings.outings}">
+																<div class="table-responsive">
+																	<table class="table table-sm table-hover">
+																		<thead class="table-light">
 																			<tr>
-																				<td><strong>${outing.outingName}</strong></td>
-																				<td>${outing.outingDate}</td>
-																				<td>${outing.outingTime}</td>
-																				<td>${outing.meetingPlace}</td>
-																				<td><span
-																					class="badge ${outing.maxTouristAmount - outing.currentTouristAmount > 0 ? 'bg-success' : 'bg-danger'}">
-																						${outing.maxTouristAmount -
-                                                                                            outing.currentTouristAmount}
-																						disponibles </span></td>
-																				<td>${outing.registrationDate}</td>
+																				<th>Nombre</th>
+																				<th>Fecha</th>
+																				<th>Hora</th>
+																				<th>Lugar</th>
+																				<th>Cupos</th>
+																				<th>Fecha Alta</th>
 																			</tr>
-																		</c:forEach>
-																	</tbody>
-																</table>
-															</div>
-														</c:when>
+																		</thead>
+																		<tbody>
+																			<c:forEach var="outing"
+																				items="${activityWithOutings.outings}">
+																				<tr>
+																					<td><strong>${outing.outingName}</strong></td>
+																					<td>${outing.outingDate}</td>
+																					<td>${outing.outingTime}</td>
+																					<td>${outing.meetingPlace}</td>
+																					<td><span
+																						class="badge ${outing.maxTouristAmount - outing.currentTouristAmount > 0 ? 'bg-success' : 'bg-danger'}">
+																							${outing.maxTouristAmount -
+                                                                                            outing.currentTouristAmount}
+																							disponibles </span></td>
+																					<td>${outing.registrationDate}</td>
+																				</tr>
+																			</c:forEach>
+																		</tbody>
+																	</table>
+																</div>
+															</c:when> && (not empty activitiesWithOutings or not empty outingInscriptions)
 															<c:otherwise>
-															<div class="alert alert-info">
-																<i class="bi bi-info-circle me-2"></i>Esta actividad no
-																tiene salidas turÃ­sticas registradas.
-															</div>
-														</c:otherwise>
-													</c:choose>
+																<div class="alert alert-info">
+																	<i class="bi bi-info-circle me-2"></i>Esta actividad no
+																	tiene salidas turÃ­sticas registradas.
+																</div>
+															</c:otherwise>
+														</c:choose>
+													</div>
 												</div>
 											</div>
-										</div>
-									</c:forEach>
-								</div>
-							</c:if>
+										</c:forEach>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="row g-4">
+										<c:forEach var="inscription" items="${outingInscriptions}">
+											<div class="col-md-6 col-lg-4">
+												<div class="card h-100 shadow-sm">
+													<div class="card-header bg-primary text-white">
+														<h6 class="mb-0">
+															<i class="bi bi-calendar-check me-2"></i>${inscription.turistOuting.outingName}
+														</h6>
+													</div>
+													<div class="card-body">
+
+														<div class="small">
+															<p class="mb-1">
+																<i class="bi bi-calendar3 me-2"></i><strong>Fecha
+																	y hora:</strong> ${inscription.turistOuting.departureDate}
+															</p>
+															<p class="mb-1">
+																<i class="bi bi-geo-alt me-2"></i><strong>Lugar:</strong>
+															</p>
+														</div>
+													</div>
+													<div class="card-footer text-muted small">
+														<i class="bi bi-clock-history me-1"></i>Inscripto el:
+														${inscription.turistOuting.dischargeDate}
+													</div>
+												</div>
+											</div>
+										</c:forEach>
+									</div>
+								</c:otherwise>
+								<%-- Vista para TOURIST: Cards de inscripciones --%>
+
+							</c:choose>
 						</div>
 
 						<div class="modal-footer">

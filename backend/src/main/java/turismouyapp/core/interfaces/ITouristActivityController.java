@@ -165,7 +165,6 @@ public interface ITouristActivityController {
 	
 	public List<DtActivityWithOutings> listTouristActivityData() throws ActivityDoesNotExistException;
 	
-	
 	/**
 	 * Obtiene el ranking de actividades turísticas ordenadas por algún criterio.
 	 * <p>
@@ -310,6 +309,8 @@ public interface ITouristActivityController {
 	 * @see turismouyapp.core.entity.Supplier
 	 */
 	public String[] listTouristActivitiesBySupplierNickname(String nickname);
+	
+	public List<DtActivityWithOutings> listTouristActivitiesBySupplierNickName(String nickname) throws ActivityDoesNotExistException;
 	
 	public String[] listTouristActivitiesByStatus(TouristActivityStatus status) throws IllegalArgumentException;
 	

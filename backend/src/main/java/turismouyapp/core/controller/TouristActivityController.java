@@ -59,15 +59,15 @@ public class TouristActivityController implements ITouristActivityController {
 		}
 	}
 
-	public void updateTouristActivityStatus(String activityName, TouristActivityStatus status) throws ActivityDoesNotExistException{
+	public void updateTouristActivityStatus(String activityName, TouristActivityStatus status)
+			throws ActivityDoesNotExistException {
 		try {
 			TouristActivityHandler.getIntance().updateActivityStatus(activityName, status);
-		}
-		catch(ActivityDoesNotExistException ex) {
+		} catch (ActivityDoesNotExistException ex) {
 			throw ex;
 		}
 	}
-	
+
 	public DtActivityWithOutings consultTouristActivityData(String activityName) throws ActivityDoesNotExistException {
 
 		TouristActivity ta = TouristActivityHandler.getIntance().getTouristActivityByName(activityName);
@@ -88,33 +88,65 @@ public class TouristActivityController implements ITouristActivityController {
 
 		return new DtActivityWithOutings(ta.getDtTouristActivity(), dtTouristOuting);
 	}
-	
+
 	public List<DtActivityWithOutings> listTouristActivityData() throws ActivityDoesNotExistException {
-		
+
 		List<DtActivityWithOutings> actWtOuts = new ArrayList<DtActivityWithOutings>();
-		
+
 		String[] taNames = listTouristActivitiesByStatus(TouristActivityStatus.CONFIRMED);
-		
-		if(taNames == null)
+
+		if (taNames == null)
 			throw new ActivityDoesNotExistException("No existen actividades confirmadas");
-		
+
 		for (String activity : taNames) {
 			TouristActivity ta = TouristActivityHandler.getIntance().getTouristActivityByName(activity);
-			if (ta == null) 
-				throw new ActivityDoesNotExistException("No existe actividad para el nombre indicado. Por favor reintente");
-				
+			if (ta == null)
+				throw new ActivityDoesNotExistException(
+						"No existe actividad para el nombre indicado. Por favor reintente");
+
 			List<String> actOutingNames = TouristOutingAndInscrptionHandler.getIntance()
 					.getTouristOutingByActivityName(activity);
-			
+
 			List<DtTouristOuting> dtTouristOutings = new ArrayList<>();
-			
+
 			for (String outing : actOutingNames) {
 				TouristOuting to = TouristOutingAndInscrptionHandler.getIntance().getTouristOutingByName(outing);
 				dtTouristOutings.add(to.getDtTouristOuting());
 			}
 			actWtOuts.add(new DtActivityWithOutings(ta.getDtTouristActivity(), dtTouristOutings));
 		}
-			
+
+		return actWtOuts;
+	}
+
+	public List<DtActivityWithOutings> listTouristActivitiesBySupplierNickName(String nickname)
+			throws ActivityDoesNotExistException {
+
+		List<DtActivityWithOutings> actWtOuts = new ArrayList<DtActivityWithOutings>();
+		List<String> activitiesList = TouristActivityHandler.getIntance()
+				.listTouristActivitiesBySupplierNickname(nickname);
+
+		if (activitiesList == null)
+			throw new ActivityDoesNotExistException("No existen actividades confirmadas");
+
+		for (String activity : activitiesList) {
+			TouristActivity ta = TouristActivityHandler.getIntance().getTouristActivityByName(activity);
+			if (ta == null)
+				throw new ActivityDoesNotExistException(
+						"No existe actividad para el nombre indicado. Por favor reintente");
+
+			List<String> actOutingNames = TouristOutingAndInscrptionHandler.getIntance()
+					.getTouristOutingByActivityName(activity);
+
+			List<DtTouristOuting> dtTouristOutings = new ArrayList<>();
+
+			for (String outing : actOutingNames) {
+				TouristOuting to = TouristOutingAndInscrptionHandler.getIntance().getTouristOutingByName(outing);
+				dtTouristOutings.add(to.getDtTouristOuting());
+			}
+			actWtOuts.add(new DtActivityWithOutings(ta.getDtTouristActivity(), dtTouristOutings));
+		}
+
 		return actWtOuts;
 	}
 

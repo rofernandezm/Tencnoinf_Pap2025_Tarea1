@@ -131,4 +131,8 @@ public class TouristOutingAndInscriptionController implements ITouristOutingAndI
 		}
 		return listTouristOuting;
 	}
+	
+	public List<DtInscriptionTouristOuting> listDtInscriptionTouristOutingByTouristNickname(String nickname){
+		return TouristOutingAndInscrptionHandler.getIntance().getDtInscriptionTouristOutingListByTouristName(nickname);
+	}
 }
