@@ -104,7 +104,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 								<h5 class="card-title"><%=a.getActivityName()%></h5>
 								<ul class="list-unstyled mb-0 small">
 									<li><strong>Descripción:</strong> <%=a.getDescription()%></li>
-									<li><strong>Duración:</strong> <%=a.getDuration()%></li>
+									<li><strong>Duración:</strong> <%=a.getDuration().toHours() + " h"%></li>
 									<li><strong>Costo por turista:</strong> $<%=a.getCostTurist()%></li>
 									<li><strong>Ciudad:</strong> <%=a.getCity()%></li>
 									<li><strong>Proveedor:</strong> <%=a.getSupplierNickname()%></li>
@@ -187,7 +187,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 															<h6 class="mb-1">Actividad</h6>
 															<ul class="list-unstyled small mb-2">
 																<li><strong>Descripción:</strong> <%=a.getDescription()%></li>
-																<li><strong>Duración:</strong> <%=a.getDuration()%></li>
+																<li><strong>Duración:</strong> <%=a.getDuration().toHours() + " h"%></li>
 																<li><strong>Costo por turista:</strong> $<%=a.getCostTurist()%></li>
 																<li><strong>Ciudad:</strong> <%=a.getCity()%></li>
 																<li><strong>Proveedor:</strong> <%=a.getSupplierNickname()%></li>
