@@ -17,6 +17,7 @@ public class TouristOuting {
 	private String departurePoint;
 	private LocalDateTime departureDate;
 	private LocalDate dischargeDate;
+	private String imageOutPath;
 
 	// Relation with one TouristActivity
 	// We use an attribute with the name activity as link with the parent
@@ -35,12 +36,13 @@ public class TouristOuting {
 	};
 
 	public TouristOuting(String outingName, int maxNumTourists, String departurePoint, LocalDateTime departureDate,
-			LocalDate dischargeDate) {
+			LocalDate dischargeDate, String imageOutPath) {
 		this.outingName = outingName;
 		this.maxNumTourists = maxNumTourists;
 		this.departurePoint = departurePoint;
 		this.departureDate = departureDate;
 		this.dischargeDate = dischargeDate;
+		this.imageOutPath = imageOutPath; 
 	};
 
 	public TouristOuting(DtTouristOuting dt) {
@@ -49,6 +51,7 @@ public class TouristOuting {
 		this.departurePoint = dt.getDeparturePoint();
 		this.departureDate = dt.getDepartureDate();
 		this.dischargeDate = dt.getDischargeDate();
+		this.imageOutPath = dt.getImageOutPath();
 	}
 
 	public String getOutingName() {
@@ -109,6 +112,14 @@ public class TouristOuting {
 
 	public DtTouristOuting getDtTouristOuting() {
 		return new DtTouristOuting(this.outingName, this.maxNumTourists, this.departurePoint, this.departureDate,
-				this.dischargeDate, this.activity.getActivityName());
+				this.dischargeDate, this.activity.getActivityName(), this.getImageOutPath());
+	}
+	
+	public String getImageOutPath() {
+		return imageOutPath;
+	}
+
+	public void setImageOutPath(String image) {
+		this.imageOutPath = image;
 	}
 }

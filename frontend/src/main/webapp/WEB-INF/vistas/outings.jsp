@@ -9,6 +9,7 @@
 <%
 String ctx = request.getContextPath();
 String activityImgPath = ctx + "/activity_img";
+String outingImgPath = ctx + "/outing_img";
 
 List<DtActivityWithOutings> actWtOuts = (List<DtActivityWithOutings>) request.getAttribute("activitiesWithOutings");
 if (actWtOuts == null) {
@@ -179,7 +180,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 													<div class="row g-3">
 														<div class="col-md-6">
 															<img
-																src="<%=request.getContextPath()%>/assets/img/actividad_img.jpg"
+																src="<%= outingImgPath + "/" + t.getImageOutPath() %>" 
 																class="img-fluid" alt="Imagen de la actividad">
 														</div>
 														<div class="col-md-6">

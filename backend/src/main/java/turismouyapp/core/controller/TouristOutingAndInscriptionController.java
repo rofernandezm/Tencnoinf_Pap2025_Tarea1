@@ -25,7 +25,7 @@ public class TouristOutingAndInscriptionController implements ITouristOutingAndI
 		TouristOuting to = toih.getTouristOutingByName(outingName);
 		if (to != null)
 			return new DtTouristOuting(to.getOutingName(), to.getMaxNumTourists(), to.getDeparturePoint(),
-					to.getDepartureDate(), to.getDischargeDate(), to.getActivity().getActivityName());
+					to.getDepartureDate(), to.getDischargeDate(), to.getActivity().getActivityName(), to.getImageOutPath());
 		else
 			throw new TouristOutingDoesNotExistException("La salida turistica de nombre " + outingName + " no existe");
 	}

@@ -15,6 +15,10 @@
     <param-value>${catalina.base}/data/turismouy.UI/activity_img</param-value>
 </context-param>
 <context-param>
+    <param-name>uploadOutingFolder</param-name>
+    <param-value>${catalina.base}/data/turismouy.UI/outing_img</param-value>
+</context-param>
+<context-param>
     <param-name>defaultPath_img</param-name>
     <param-value>${catalina.base}/data/turismouy.UI/res</param-value>
 </context-param>
