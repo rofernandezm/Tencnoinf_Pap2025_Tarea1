@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <%
-// Recibo qué item va activo (activities | outings | inscriptions)
+// Recibo qué item va activo (home | activities | outings | inscriptions | consult-user)
 String active = (String) request.getAttribute("navActive");
 if (active == null)
     active = "";
@@ -27,6 +27,9 @@ String ctx = request.getContextPath();
 
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-center flex-grow-1 pe-3 fs-5">
+                        <li class="nav-item"><a
+                            class="nav-link px-lg-2 <%="home".equals(active) ? "active" : ""%>"
+                            href="<%=ctx%>/home">Inicio</a></li>
                         <li class="nav-item"><a
                             class="nav-link px-lg-2 <%="activities".equals(active) ? "active" : ""%>"
                             href="<%=ctx%>/activities">Actividades</a></li>

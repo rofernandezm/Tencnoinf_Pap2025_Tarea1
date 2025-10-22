@@ -63,7 +63,12 @@ public class ConsultUser extends HttpServlet {
 
                 DtUser loggedUser = (DtUser) session.getAttribute("logged_user");
                 request.setAttribute("usuario", selectedUser);
-                request.setAttribute("isOwnProfile", requestedNickname.equalsIgnoreCase(loggedUser.getNickname()));
+                
+                // Verificar si es el propio perfil (solo si hay un usuario logueado)
+                boolean isOwnProfile = loggedUser != null && 
+                                      requestedNickname.equalsIgnoreCase(loggedUser.getNickname());
+                request.setAttribute("isOwnProfile", isOwnProfile);
+                
                 this.loadUserActivitiesOrInscriptions(request);
             }
         }

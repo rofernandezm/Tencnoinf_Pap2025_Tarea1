@@ -26,25 +26,63 @@
     <link rel="icon" type="image/png" href="<%=ctx%>/res/turismouyAppIcon.png">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="<%=ctx%>/assets/css/app.css">
 
     <style>
         body {
-              background-color: #ffffff; /* Fondo blanco */
+            background-color: #ffffff;
         }
 
         .form-control {
-          border-radius: 50px; /* Textboxs redondeados */
+            border-radius: 50px;
         }
 
-        .btn-custom {
-          background-color: #2979f1;
-          color: #fff;
-          border-radius: 20px;
-          padding: 6px 20px;
-          font-weight: bold;
+        .card {
+            border: none;
         }
 
-      </style>
+        .nav-tabs {
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .nav-tabs .nav-link {
+            color: var(--primary-color);
+            border: none;
+            border-radius: 0;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+        }
+
+        .nav-tabs .nav-link:hover {
+            color: var(--secondary-color);
+            border: none;
+        }
+
+        .nav-tabs .nav-link.active {
+            color: #ffffff !important;
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 10px 10px 0 0;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .form-label {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        a {
+            color: var(--primary-color);
+        }
+
+        a:hover {
+            color: var(--secondary-color);
+        }
+    </style>
 
 </head>
 
@@ -105,8 +143,8 @@
 
                   <!-- Botones -->
                   <div class="d-flex justify-content-center gap-3">
-                    <button type="submit" name="action" value="login" class="btn btn-custom">Ingresar</button>
-                    <button type="reset" class="btn btn-custom">Cancelar</button>
+                    <button type="submit" name="action" value="login" class="btn btn-primary">Ingresar</button>
+                    <button type="reset" class="btn btn-secondary">Cancelar</button>
                   </div>
 
                   <!-- Ingresar como visitante -->
@@ -203,8 +241,8 @@
 
                   <!-- Botones -->
                   <div class="d-flex justify-content-center gap-3">
-                    <button type="submit" name="action" value="register" class="btn btn-custom">Registrarse</button>
-                    <button type="reset" class="btn btn-custom">Cancelar</button>
+                    <button type="submit" name="action" value="register" class="btn btn-primary">Registrarse</button>
+                    <button type="reset" class="btn btn-secondary">Cancelar</button>
                   </div>
                 </form>
               </div>

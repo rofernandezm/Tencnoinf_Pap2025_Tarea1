@@ -30,6 +30,33 @@
 	outline: none;
 }
 
+.form-check-input:checked {
+	background-color: var(--secondary-color);
+	border-color: var(--secondary-color);
+}
+
+.form-check-input:focus {
+	border-color: var(--primary-color);
+	box-shadow: 0 0 0 0.25rem rgba(30, 55, 90, 0.25);
+}
+
+input[type="date"] {
+	accent-color: var(--secondary-color);
+	color-scheme: light;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+	cursor: pointer;
+	opacity: 1;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%231E375A' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z'/%3E%3C/svg%3E");
+	width: 20px;
+	height: 20px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+	opacity: 0.7;
+}
+
 /*START NAVBAR*/
 .login-button i {
 	font-size: 2.5rem;
@@ -200,15 +227,20 @@
 
 /*START FOOTER*/
 footer {
-	background-color: var(--background-primary-color);
-	color: var(--primary-color);
-	border-top: 2px solid #1E375A1A;
+    background-color: var(--background-primary-color);
+    color: var(--primary-color);
+    border-top: 2px solid #1E375A1A;
 }
 
 .footer a {
-	color: var(--primary-color) !important;
-	text-decoration: none !important;
-	transition: color 0.3s ease;
+    color: var(--primary-color) !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+.footer a:hover {
+    color: var(--secondary-color) !important;
 }
 
 /*END FOOTER*/
