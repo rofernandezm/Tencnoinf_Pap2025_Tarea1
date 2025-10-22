@@ -186,7 +186,6 @@ public class TouristActivityController implements ITouristActivityController {
 		return ta.getDtTouristActivity();
 	}
 
-	// TODO
 	public float getActivityCostTourist(String activityName) throws ActivityDoesNotExistException {
 		TouristActivity ta = TouristActivityHandler.getIntance().getTouristActivityByName(activityName);
 		if (ta == null) {

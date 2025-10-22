@@ -32,13 +32,13 @@ String ctx = request.getContextPath();
 
 <body class="d-flex flex-column min-vh-100">
 
-	<!-- Navbar -->
-	<%
-	request.setAttribute("navActive", "home"); // activities | outings | inscriptions | home
-	%>
-	<jsp:include page="/WEB-INF/partials/header.jsp" />
-	<!-- End Navbar-->
-	
+    <!-- Navbar -->
+    <%
+    request.setAttribute("navActive", "home"); // activities | outings | inscriptions | home
+    %>
+    <jsp:include page="/WEB-INF/partials/header.jsp" />
+    <!-- End Navbar-->
+
     <!-- INICIO CARROUSEL -->
     <div id="carouselActividades" class="carousel slide my-5 mt-5" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -49,7 +49,7 @@ String ctx = request.getContextPath();
             <button type="button" data-bs-target="#carouselActividades" data-bs-slide-to="2"
                 aria-label="Slide 3"></button>
         </div>
-        
+
         <div class="carousel-inner">
             <!-- INICIO PRIMER ITEM -->
             <div class="carousel-item active">
@@ -94,9 +94,9 @@ String ctx = request.getContextPath();
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-	<!-- Footer -->
-	<jsp:include page="/WEB-INF/partials/footer.jsp" />
-	<!-- End Footer -->
+    <!-- Footer -->
+    <jsp:include page="/WEB-INF/partials/footer.jsp" />
+    <!-- End Footer -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>

@@ -82,18 +82,6 @@ public class TouristOutingAndInscriptionController implements ITouristOutingAndI
 		return result;
 	}
 
-	public void modifyOutingName(String outingName) {
-	}
-
-	public void modifyMaxTourist(int maxTourist) {
-	}
-
-	public void modifyExitPoint(String exitPoint) {
-	}
-
-	public void modifydateTime(LocalDateTime dateTime) {
-	}
-
 	public String getOutingName() {
 		return outingName;
 	}

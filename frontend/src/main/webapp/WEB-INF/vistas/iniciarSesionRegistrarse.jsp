@@ -2,14 +2,14 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <%
     String ctx = request.getContextPath();
-    
+
     // Pestaña activa por defecto
-    String activeTab = "login"; 
+    String activeTab = "login";
 
     // Si desde el servlet te mandan un atributo "activeTab", lo usás
     if (request.getAttribute("activeTab") != null) {
         activeTab = (String) request.getAttribute("activeTab");
-    } 
+    }
     else if (request.getAttribute("registerError") != null) {
         activeTab = "register";
     }
@@ -20,32 +20,32 @@
 
 <head>
 
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Inicio de Sesión</title>
-	<link rel="icon" type="image/png" href="<%=ctx%>/res/turismouyAppIcon.png">
-  
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión</title>
+    <link rel="icon" type="image/png" href="<%=ctx%>/res/turismouyAppIcon.png">
 
-	<style>
-    	body {
-      		background-color: #ffffff; /* Fondo blanco */
-    	}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    	.form-control {
-      	border-radius: 50px; /* Textboxs redondeados */
-    	}
+    <style>
+        body {
+              background-color: #ffffff; /* Fondo blanco */
+        }
 
-	    .btn-custom {
-	      background-color: #2979f1;
-	      color: #fff;
-	      border-radius: 20px;
-	      padding: 6px 20px;
-	      font-weight: bold;
-	    }
+        .form-control {
+          border-radius: 50px; /* Textboxs redondeados */
+        }
 
-  	</style>
-  
+        .btn-custom {
+          background-color: #2979f1;
+          color: #fff;
+          border-radius: 20px;
+          padding: 6px 20px;
+          font-weight: bold;
+        }
+
+      </style>
+
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -56,21 +56,21 @@
         <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
           <div class="card shadow rounded-3">
             <div class="card-body p-4">
-            
-	            <%-- Mostrar mensaje de registro --%>
-				<% if (request.getAttribute("mensaje") != null) { %>
-				    <div class="alert alert-info"><%= request.getAttribute("mensaje") %></div>
-				<% } %>
-				
-				<%-- Mostrar error de login --%>
-				<% if (request.getAttribute("loginError") != null) { %>
-				    <div class="alert alert-danger"><%= request.getAttribute("loginError") %></div>
-				<% } %>
-				
-				<%-- Mostrar error de registro --%>
-				<% if (request.getAttribute("registerError") != null) { %>
-				    <div class="alert alert-danger"><%= request.getAttribute("registerError") %></div>
-				<% } %>
+
+                <%-- Mostrar mensaje de registro --%>
+                <% if (request.getAttribute("mensaje") != null) { %>
+                    <div class="alert alert-info"><%= request.getAttribute("mensaje") %></div>
+                <% } %>
+
+                <%-- Mostrar error de login --%>
+                <% if (request.getAttribute("loginError") != null) { %>
+                    <div class="alert alert-danger"><%= request.getAttribute("loginError") %></div>
+                <% } %>
+
+                <%-- Mostrar error de registro --%>
+                <% if (request.getAttribute("registerError") != null) { %>
+                    <div class="alert alert-danger"><%= request.getAttribute("registerError") %></div>
+                <% } %>
 
               <h3 class="text-center mb-4">Bienvenido a tu próxima experiencia</h3>
 
@@ -90,7 +90,7 @@
               <div class="tab-pane fade <%= "login".equals(activeTab) ? "show active" : "" %>" id="login" role="tabpanel">
                 <form action="login" method="POST">
                  <!-- <input type="hidden" name="action" value="login">-->
-                  
+
                   <!--Nickname -->
                   <div class="mb-3">
                     <label for="nickname-or-email" class="form-label">Nickname o correo electrónico</label>
@@ -120,7 +120,7 @@
               <div class="tab-pane fade <%= "register".equals(activeTab) ? "show active" : "" %>" id="register" role="tabpanel">
                 <form action="login" method="POST" enctype="multipart/form-data">
                   <!-- <input type="hidden" name="action" value="register">-->
-                  
+
                   <!--Nickname -->
                   <div class="mb-3">
                     <label for="new-nickname" class="form-label">Nickname</label>
@@ -173,14 +173,14 @@
                   <!--Nacionalidad -->
                   <c:if test="${userType == 'supplier'}">
                   </c:if>
-                  
+
                   <div id="tourist-fields">
                     <div class="mb-3">
                       <label for="nationality" class="form-label">Nacionalidad</label>
                       <input type="text" class="form-control" id="nationality" name="nationality" placeholder="Ingrese su nacionalidad">
                     </div>
                   </div>
-                  
+
                   <!--Si es proveedor-->
                   <div id="supplier-fields" style="display:none;">
                     <!--Descripción -->
@@ -218,7 +218,7 @@
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  
+
   <script>
   // Mostrar u ocultar campos según tipo de usuario
   const touristRadio = document.getElementById('tourist');
@@ -227,10 +227,10 @@
   const supplierFields = document.getElementById('supplier-fields');
   const nationalityInput = document.getElementById('nationality');
   const descriptionInput = document.getElementById('new-description');
-  
+
   function displayUserFields() {
     if (touristRadio.checked) {
-    	
+
       nationalityInput.setAttribute('required', '');
       touristFields.style.display = 'block';
       touristFields.setAttribute('required', '')
@@ -240,7 +240,7 @@
       descriptionInput.setAttribute('required', '');
       touristFields.style.display = 'none';
       nationalityInput.removeAttribute("required");
-      supplierFields.style.display = 'block';      
+      supplierFields.style.display = 'block';
     }
   }
 

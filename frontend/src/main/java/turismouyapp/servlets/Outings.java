@@ -32,121 +32,121 @@ import turismouyapp.core.interfaces.ITouristOutingAndInscriptionController;
 
 @WebServlet("/outings")
 public class Outings extends HttpServlet {
-	
-	private static final long serialVersionUID = 1L;
-	private final ITouristActivityController itac;
-	private final ITouristOutingAndInscriptionController itoaic;
 
-	public Outings() {
-		super();
-		FactoryUyTourism factory = FactoryUyTourism.getInstance();
-		this.itac = factory.getITouristActivityController();
-		this.itoaic = factory.getITouristOutingAndInscriptionController();
-	}
+    private static final long serialVersionUID = 1L;
+    private final ITouristActivityController itac;
+    private final ITouristOutingAndInscriptionController itoaic;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    public Outings() {
+        super();
+        FactoryUyTourism factory = FactoryUyTourism.getInstance();
+        this.itac = factory.getITouristActivityController();
+        this.itoaic = factory.getITouristOutingAndInscriptionController();
+    }
 
-		// cargo una lista con los nombres de las actividades para sugirir en la
-		// busqueda
-		String[] activities = null;
-		try {
-			activities = itac.listTouristActivitiesByStatus(TouristActivityStatus.CONFIRMED);
-		} catch (IllegalArgumentException e) {
-			activities = new String[0];
-		}
-		request.setAttribute("activities", activities);
-		HttpSession session = request.getSession(false);
-		// si es un supplier, cargo las actividades que le pertenecen
-		if (session.getAttribute("user_role") == UserType.SUPPLIER) {
-			DtUser user = (DtUser) session.getAttribute("logged_user");
-			String[] userActivities = null;
-			try {
-				userActivities = itac.listTouristActivitiesBySupplierNickname(user.getNickname());
-			} catch (IllegalArgumentException e) {
-				userActivities = new String[0];
-			}
-			request.setAttribute("userActivities", userActivities);
-		}else {
-			request.setAttribute("userActivities", new String[0]);
-		}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		// obtengo la busqueda
-		String q = request.getParameter("q");
-		String needle = (q == null) ? "" : q.trim().toLowerCase();
+        // cargo una lista con los nombres de las actividades para sugirir en la
+        // busqueda
+        String[] activities = null;
+        try {
+            activities = itac.listTouristActivitiesByStatus(TouristActivityStatus.CONFIRMED);
+        } catch (IllegalArgumentException e) {
+            activities = new String[0];
+        }
+        request.setAttribute("activities", activities);
+        HttpSession session = request.getSession(false);
+        // si es un supplier, cargo las actividades que le pertenecen
+        if (session.getAttribute("user_role") == UserType.SUPPLIER) {
+            DtUser user = (DtUser) session.getAttribute("logged_user");
+            String[] userActivities = null;
+            try {
+                userActivities = itac.listTouristActivitiesBySupplierNickname(user.getNickname());
+            } catch (IllegalArgumentException e) {
+                userActivities = new String[0];
+            }
+            request.setAttribute("userActivities", userActivities);
+        }else {
+            request.setAttribute("userActivities", new String[0]);
+        }
 
-		// traigo todas las actividades con sus salidas
-		List<DtActivityWithOutings> all;
-		try {
-			all = itac.listTouristActivityData();
-		} catch (ActivityDoesNotExistException e) {
-			all = java.util.Collections.emptyList();
-		}
+        // obtengo la busqueda
+        String q = request.getParameter("q");
+        String needle = (q == null) ? "" : q.trim().toLowerCase();
 
-		// filtro en base a la busqueda
-		List<DtActivityWithOutings> filtered = all;
-		if (!needle.isEmpty()) {
-			filtered = new java.util.ArrayList<>();
-			for (DtActivityWithOutings awo : all) {
-				boolean matchActivity = awo.getActivity() != null && awo.getActivity().getActivityName() != null
-						&& awo.getActivity().getActivityName().toLowerCase().contains(needle);
+        // traigo todas las actividades con sus salidas
+        List<DtActivityWithOutings> all;
+        try {
+            all = itac.listTouristActivityData();
+        } catch (ActivityDoesNotExistException e) {
+            all = java.util.Collections.emptyList();
+        }
 
-				// (Opcional) también matchear por nombre de salida
-				boolean matchOuting = false;
-				if (!matchActivity && awo.getOutings() != null) {
-					for (DtTouristOuting o : awo.getOutings()) {
-						if (o.getOutingName() != null && o.getOutingName().toLowerCase().contains(needle)) {
-							matchOuting = true;
-							break;
-						}
-					}
-				}
+        // filtro en base a la busqueda
+        List<DtActivityWithOutings> filtered = all;
+        if (!needle.isEmpty()) {
+            filtered = new java.util.ArrayList<>();
+            for (DtActivityWithOutings awo : all) {
+                boolean matchActivity = awo.getActivity() != null && awo.getActivity().getActivityName() != null
+                        && awo.getActivity().getActivityName().toLowerCase().contains(needle);
 
-				if (matchActivity || matchOuting) {
-					filtered.add(awo);
-				}
-			}
-		}
-		
-		Map<String, Integer> disponibilidadPorSalida = new HashMap<>();
+                // (Opcional) también matchear por nombre de salida
+                boolean matchOuting = false;
+                if (!matchActivity && awo.getOutings() != null) {
+                    for (DtTouristOuting o : awo.getOutings()) {
+                        if (o.getOutingName() != null && o.getOutingName().toLowerCase().contains(needle)) {
+                            matchOuting = true;
+                            break;
+                        }
+                    }
+                }
 
-		for (DtActivityWithOutings awo : all) {
-		    for (DtTouristOuting salida : awo.getOutings()) {
-		        DtInscriptionTouristOuting[] inscripciones = itoaic.listOutingInscription(salida.getOutingName());
-		        int totalInscriptos = 0;
-		        if (inscripciones != null) {
-		            for (DtInscriptionTouristOuting insc : inscripciones) {
-		                totalInscriptos += insc.getTouristAmount();
-		            }
-		        }
-		        int cantDisp = salida.getMaxNumTourists() - totalInscriptos;
-		        disponibilidadPorSalida.put(salida.getOutingName(), cantDisp < 0 ? 0 : cantDisp);
-		    }
-		}
+                if (matchActivity || matchOuting) {
+                    filtered.add(awo);
+                }
+            }
+        }
 
-		request.setAttribute("dispPorSalida", disponibilidadPorSalida);
+        Map<String, Integer> disponibilidadPorSalida = new HashMap<>();
 
-		// mando la lista filtrada y muestro pantalla
-		request.setAttribute("activitiesWithOutings", filtered);
-		request.getRequestDispatcher("WEB-INF/vistas/outings.jsp").forward(request, response);
+        for (DtActivityWithOutings awo : all) {
+            for (DtTouristOuting salida : awo.getOutings()) {
+                DtInscriptionTouristOuting[] inscripciones = itoaic.listOutingInscription(salida.getOutingName());
+                int totalInscriptos = 0;
+                if (inscripciones != null) {
+                    for (DtInscriptionTouristOuting insc : inscripciones) {
+                        totalInscriptos += insc.getTouristAmount();
+                    }
+                }
+                int cantDisp = salida.getMaxNumTourists() - totalInscriptos;
+                disponibilidadPorSalida.put(salida.getOutingName(), cantDisp < 0 ? 0 : cantDisp);
+            }
+        }
 
-		// Imprimo por consola el resultado filtrado
-		System.out.println("Listado filtrado de actividades con salidas");
-		for (DtActivityWithOutings res : filtered) {
-			System.out.println("|--" + res.getActivity().getActivityName());
-			for (DtTouristOuting dtOuting : res.getOutings()) {
-				System.out.println("| |--" + dtOuting.getOutingName());
-			}
-			System.out.println("| .");
-		}
-		System.out.println(".");
-	}
+        request.setAttribute("dispPorSalida", disponibilidadPorSalida);
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	        throws ServletException, IOException {
+        // mando la lista filtrada y muestro pantalla
+        request.setAttribute("activitiesWithOutings", filtered);
+        request.getRequestDispatcher("WEB-INF/vistas/outings.jsp").forward(request, response);
 
-	   doGet(request, response);
-	}
+        // Imprimo por consola el resultado filtrado
+        System.out.println("Listado filtrado de actividades con salidas");
+        for (DtActivityWithOutings res : filtered) {
+            System.out.println("|--" + res.getActivity().getActivityName());
+            for (DtTouristOuting dtOuting : res.getOutings()) {
+                System.out.println("| |--" + dtOuting.getOutingName());
+            }
+            System.out.println("| .");
+        }
+        System.out.println(".");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+       doGet(request, response);
+    }
 
 }

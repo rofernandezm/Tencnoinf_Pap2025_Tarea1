@@ -10,11 +10,11 @@ import java.io.IOException;
 
 /**
  * Servlet implementation class Logout
- * 
+ *
  * @author Equipo TurismoUY
  * @version 1.0.0
  * @since 2025
- * 
+ *
  * <pre>
  * GET http://localhost:8080/turismouy.UI/logout
  * </pre>
@@ -22,12 +22,12 @@ import java.io.IOException;
 
 @WebServlet("/logout")
 public class Logout extends HttpServlet {
-	
-	/**
-	 * Identificador de versión para serialización.
-	 */
-	private static final long serialVersionUID = 1L;
-       
+
+    /**
+     * Identificador de versión para serialización.
+     */
+    private static final long serialVersionUID = 1L;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -35,29 +35,29 @@ public class Logout extends HttpServlet {
         super();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		
-		// Obtener la sesión, si existe
-		HttpSession session = request.getSession(false);
-		
-		if (session != null) {
-			// Invalida la sesión
-			session.invalidate();
-		}
-		
-		// Redirige al login
-		response.sendRedirect(request.getContextPath() + "/login");
-	}
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		doGet(request, response);
-	}
+        // Obtener la sesión, si existe
+        HttpSession session = request.getSession(false);
+
+        if (session != null) {
+            // Invalida la sesión
+            session.invalidate();
+        }
+
+        // Redirige al login
+        response.sendRedirect(request.getContextPath() + "/login");
+    }
+
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
+    }
 }

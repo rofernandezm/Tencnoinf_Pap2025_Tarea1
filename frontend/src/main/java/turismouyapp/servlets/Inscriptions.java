@@ -31,219 +31,218 @@ import turismouyapp.core.interfaces.ITouristOutingAndInscriptionController;
 @WebServlet("/inscriptions")
 public class Inscriptions extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
-	private final ITouristActivityController itac;
-	private final ITouristOutingAndInscriptionController itoaic;
+    private static final long serialVersionUID = 1L;
+    private final ITouristActivityController itac;
+    private final ITouristOutingAndInscriptionController itoaic;
 
-	public Inscriptions() {
-		super();
-		FactoryUyTourism factory = FactoryUyTourism.getInstance();
-		this.itac = factory.getITouristActivityController();
-		this.itoaic = factory.getITouristOutingAndInscriptionController();
-	}
+    public Inscriptions() {
+        super();
+        FactoryUyTourism factory = FactoryUyTourism.getInstance();
+        this.itac = factory.getITouristActivityController();
+        this.itoaic = factory.getITouristOutingAndInscriptionController();
+    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		this.handleShowInscription(request, response);
-		
-	}
-	
-	protected void handleShowInscription(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		// cargo una lista con los nombres de las actividades para sugirir en la
-				// busqueda
-				String[] activities = null;
-				try {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        this.handleShowInscription(request, response);
 
-					activities = itac.listTouristActivitiesByStatus(TouristActivityStatus.CONFIRMED);
+    }
 
-				} catch (IllegalArgumentException e) {
-					activities = new String[0];
-				}
-				request.setAttribute("activities", activities);
+    protected void handleShowInscription(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        // cargo una lista con los nombres de las actividades para sugirir en la
+                // busqueda
+                String[] activities = null;
+                try {
 
-				// obtengo la busqueda
-				String q = request.getParameter("q");
-				
-				if (q == null || q.isEmpty()) {
-					q = request.getAttribute("activity") != null ? (String)request.getAttribute("activity") : "";
-					
-					if (q == null || q.isEmpty()) {
-						request.setAttribute("info", "Por favor, ingrese el nombre de la actividad a la que desea inscribirse en la barra de búsqueda.");
-						request.setAttribute("activitiesWithOutings", new ArrayList<>());
-						request.getRequestDispatcher("WEB-INF/vistas/inscriptions.jsp").forward(request, response);
-						return;
-					}
-				}
-				String needle = q.trim().toLowerCase();
+                    activities = itac.listTouristActivitiesByStatus(TouristActivityStatus.CONFIRMED);
 
-				// traigo todas las actividades con sus salidas
-				List<DtActivityWithOutings> all;
-				try {
-					all = itac.listTouristActivityData();
-				} catch (ActivityDoesNotExistException e) {
-					all = Collections.emptyList();
-				}
+                } catch (IllegalArgumentException e) {
+                    activities = new String[0];
+                }
+                request.setAttribute("activities", activities);
 
-				// filtro en base a la busqueda
-				List<DtActivityWithOutings> filtered = new ArrayList<>();
-				int coincidencias = 0;
-				for (DtActivityWithOutings awo : all) {
-					DtTouristActivity act = awo.getActivity();
-					if (act != null && !act.getActivityName().isEmpty()) {
+                // obtengo la busqueda
+                String q = request.getParameter("q");
 
-						if (act.getActivityName().equalsIgnoreCase(needle)) {
-							filtered.add(awo);
-							coincidencias++;
-						}
-					}
-				}
-				if(coincidencias == 0) {
-					request.setAttribute("info", "No hay coincidencias. Asegurese de ingresar el nombre completo de la actividad.");
-				}else if(coincidencias > 1) {
-					request.setAttribute("info", "Más de un resultado para la búsqueda, ingrese el nombre completo de la actividad.");
-					
-				}else {
-					Map<String, Integer> disponibilidadPorSalida = new HashMap<>();
+                if (q == null || q.isEmpty()) {
+                    q = request.getAttribute("activity") != null ? (String)request.getAttribute("activity") : "";
 
-					for (DtActivityWithOutings awo : all) {
-					    for (DtTouristOuting salida : awo.getOutings()) {
-					        DtInscriptionTouristOuting[] inscripciones = itoaic.listOutingInscription(salida.getOutingName());
-					        int totalInscriptos = 0;
-					        if (inscripciones != null) {
-					            for (DtInscriptionTouristOuting insc : inscripciones) {
-					                totalInscriptos += insc.getTouristAmount();
-					            }
-					        }
-					        int cantDisp = salida.getMaxNumTourists() - totalInscriptos;
-					        disponibilidadPorSalida.put(salida.getOutingName(), cantDisp < 0 ? 0 : cantDisp);
-					    }
-					}
+                    if (q == null || q.isEmpty()) {
+                        request.setAttribute("info", "Por favor, ingrese el nombre de la actividad a la que desea inscribirse en la barra de búsqueda.");
+                        request.setAttribute("activitiesWithOutings", new ArrayList<>());
+                        request.getRequestDispatcher("WEB-INF/vistas/inscriptions.jsp").forward(request, response);
+                        return;
+                    }
+                }
+                String needle = q.trim().toLowerCase();
 
-					request.setAttribute("dispPorSalida", disponibilidadPorSalida);
-				}
-				
-				
+                // traigo todas las actividades con sus salidas
+                List<DtActivityWithOutings> all;
+                try {
+                    all = itac.listTouristActivityData();
+                } catch (ActivityDoesNotExistException e) {
+                    all = Collections.emptyList();
+                }
 
-				// mando la lista filtrada y muestro pantalla
-				request.setAttribute("activitiesWithOutings", filtered);
-				request.getRequestDispatcher("WEB-INF/vistas/inscriptions.jsp").forward(request, response);
+                // filtro en base a la busqueda
+                List<DtActivityWithOutings> filtered = new ArrayList<>();
+                int coincidencias = 0;
+                for (DtActivityWithOutings awo : all) {
+                    DtTouristActivity act = awo.getActivity();
+                    if (act != null && !act.getActivityName().isEmpty()) {
 
-				// Imprimo por consola el resultado filtrado
-				System.out.println("Listado filtrado de actividades con salidas");
-				for (DtActivityWithOutings res : filtered) {
-					System.out.println("|--" + res.getActivity().getActivityName());
-					for (DtTouristOuting dtOuting : res.getOutings()) {
-						System.out.println("| |--" + dtOuting.getOutingName());
-					}
-					System.out.println("| .");
-				}
-				System.out.println(".");
-	}
+                        if (act.getActivityName().equalsIgnoreCase(needle)) {
+                            filtered.add(awo);
+                            coincidencias++;
+                        }
+                    }
+                }
+                if(coincidencias == 0) {
+                    request.setAttribute("info", "No hay coincidencias. Asegurese de ingresar el nombre completo de la actividad.");
+                }else if(coincidencias > 1) {
+                    request.setAttribute("info", "Más de un resultado para la búsqueda, ingrese el nombre completo de la actividad.");
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+                }else {
+                    Map<String, Integer> disponibilidadPorSalida = new HashMap<>();
 
-		HttpSession session = request.getSession(false);
+                    for (DtActivityWithOutings awo : all) {
+                        for (DtTouristOuting salida : awo.getOutings()) {
+                            DtInscriptionTouristOuting[] inscripciones = itoaic.listOutingInscription(salida.getOutingName());
+                            int totalInscriptos = 0;
+                            if (inscripciones != null) {
+                                for (DtInscriptionTouristOuting insc : inscripciones) {
+                                    totalInscriptos += insc.getTouristAmount();
+                                }
+                            }
+                            int cantDisp = salida.getMaxNumTourists() - totalInscriptos;
+                            disponibilidadPorSalida.put(salida.getOutingName(), cantDisp < 0 ? 0 : cantDisp);
+                        }
+                    }
 
-		request.setCharacterEncoding("UTF-8");
+                    request.setAttribute("dispPorSalida", disponibilidadPorSalida);
+                }
 
-		String activity = request.getParameter("activity");
-		String outing = request.getParameter("outing");
-		String seatsStr = request.getParameter("seats");
-		DtUser loggedUser = (DtUser) session.getAttribute("logged_user");
 
-		List<String> errors = new ArrayList<>();
-		if (activity == null || activity.isBlank())
-			errors.add("Actividad requerida.");
-		if (outing == null || outing.isBlank())
-			errors.add("Salida requerida.");
-		if (loggedUser == null)
-			errors.add("Usuario no autenticado.");
 
-		int seats = 0;
-		try {
-			seats = Integer.parseInt(seatsStr);
-			if (seats <= 0)
-				errors.add("Cupos debe ser mayor a 0.");
-		} catch (Exception e) {
-			errors.add("Cupos inválidos.");
-		}
+                // mando la lista filtrada y muestro pantalla
+                request.setAttribute("activitiesWithOutings", filtered);
+                request.getRequestDispatcher("WEB-INF/vistas/inscriptions.jsp").forward(request, response);
 
-		if (!errors.isEmpty()) {
-			request.setAttribute("errors", errors);
-			request.setAttribute("activity", activity);
-			request.setAttribute("outing", outing);
-			handleShowInscription(request, response);
-			return;
-		}
+                // Imprimo por consola el resultado filtrado
+                System.out.println("Listado filtrado de actividades con salidas");
+                for (DtActivityWithOutings res : filtered) {
+                    System.out.println("|--" + res.getActivity().getActivityName());
+                    for (DtTouristOuting dtOuting : res.getOutings()) {
+                        System.out.println("| |--" + dtOuting.getOutingName());
+                    }
+                    System.out.println("| .");
+                }
+                System.out.println(".");
+    }
 
-		try {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-			// Traigo datos para validar/calcular
-			DtActivityWithOutings activWithOut = itac.consultTouristActivityData(activity);
-			DtTouristActivity dtactiv = activWithOut.getActivity();
-			DtTouristOuting dtouting = itoaic.consultTouristOutingData(outing);
+        HttpSession session = request.getSession(false);
 
-			//Verifico que el numero de turistas a inscribir no sea mayor a la cantidad de turistas adminitidos en la salida
-			if(seats <= dtouting.getMaxNumTourists() ) {
-				
-				//verifico que la cantidad de inscriptos mas la nueva inscripcion no supera la cantidad de turistas adminitidos en la salida
-				DtInscriptionTouristOuting[] totalInscripTouristOuting = itoaic.listOutingInscription(outing);
-				int totalInscriptos = 0; 
-				
-				if (totalInscripTouristOuting != null && totalInscripTouristOuting.length > 0) {
-					for (DtInscriptionTouristOuting insc : totalInscripTouristOuting) {
-						totalInscriptos += insc.getTouristAmount();
-					}
-				}
+        request.setCharacterEncoding("UTF-8");
 
-				int cantDisp = dtouting.getMaxNumTourists() - totalInscriptos;
-				
-				
-				//supongo que hay cupos suficientes
-				if ((cantDisp - seats ) >= 0) {
-				// Fecha actual del servidor (Montevideo)
-				LocalDate inscriptionDate = LocalDate.now(ZoneId.systemDefault());
-				
-				// Costo total (unitario x cupos)
-				float cost = dtactiv.getCostTurist() * seats;
-				
-				// Armo el DTO e (idealmente) persisto
-				DtInscriptionTouristOuting dtinscription = new DtInscriptionTouristOuting(seats, cost, inscriptionDate,
-						dtouting);
-				
-				//cantDisp me da cuantos cupos hay al dia de hoy disponibles para esa salida cantDisp >= 0
-			
-					// TODO: Llamá al método real que guarda la inscripción en tu capa core
-					itoaic.inscriptionDataEntry(dtinscription, loggedUser.getNickname(), outing);
-		
-					// PRG
-					response.sendRedirect(request.getContextPath() + "/inscriptions?status=ok&q="
-							+ URLEncoder.encode(activity, StandardCharsets.UTF_8) + "&outing=" + URLEncoder.encode(outing, StandardCharsets.UTF_8));
-				}else {
-					errors.add("Lamentablemente solo quedan "+ cantDisp +" cupos disponibles. No se pudo realizar la inscripcion.");
-				}
-			}else {
-				errors.add("Los cupos a reservar debe ser menor a "+ dtouting.getMaxNumTourists() +".");
-			}
-			
-			if (!errors.isEmpty()) {
-				request.setAttribute("errors", errors);
-				request.setAttribute("activity", activity);
-				request.setAttribute("outing", outing);
-//				response.sendRedirect(request.getContextPath() + "/inscriptions?q="
-//						+ URLEncoder.encode(activity, StandardCharsets.UTF_8));
-				handleShowInscription(request, response);
-				return;
-			}
-		} catch (Exception ex) {
-			errors.add(ex.getMessage() != null ? ex.getMessage() : "No se pudo registrar la inscripción.");
-			request.setAttribute("errors", errors);
-			request.setAttribute("activity", activity);
-			request.setAttribute("outing", outing);
-			handleShowInscription(request, response);
-		}
-	}
+        String activity = request.getParameter("activity");
+        String outing = request.getParameter("outing");
+        String seatsStr = request.getParameter("seats");
+        DtUser loggedUser = (DtUser) session.getAttribute("logged_user");
+
+        List<String> errors = new ArrayList<>();
+        if (activity == null || activity.isBlank())
+            errors.add("Actividad requerida.");
+        if (outing == null || outing.isBlank())
+            errors.add("Salida requerida.");
+        if (loggedUser == null)
+            errors.add("Usuario no autenticado.");
+
+        int seats = 0;
+        try {
+            seats = Integer.parseInt(seatsStr);
+            if (seats <= 0)
+                errors.add("Cupos debe ser mayor a 0.");
+        } catch (Exception e) {
+            errors.add("Cupos inválidos.");
+        }
+
+        if (!errors.isEmpty()) {
+            request.setAttribute("errors", errors);
+            request.setAttribute("activity", activity);
+            request.setAttribute("outing", outing);
+            handleShowInscription(request, response);
+            return;
+        }
+
+        try {
+
+            // Traigo datos para validar/calcular
+            DtActivityWithOutings activWithOut = itac.consultTouristActivityData(activity);
+            DtTouristActivity dtactiv = activWithOut.getActivity();
+            DtTouristOuting dtouting = itoaic.consultTouristOutingData(outing);
+
+            //Verifico que el numero de turistas a inscribir no sea mayor a la cantidad de turistas adminitidos en la salida
+            if(seats <= dtouting.getMaxNumTourists() ) {
+
+                //verifico que la cantidad de inscriptos mas la nueva inscripcion no supera la cantidad de turistas adminitidos en la salida
+                DtInscriptionTouristOuting[] totalInscripTouristOuting = itoaic.listOutingInscription(outing);
+                int totalInscriptos = 0;
+
+                if (totalInscripTouristOuting != null && totalInscripTouristOuting.length > 0) {
+                    for (DtInscriptionTouristOuting insc : totalInscripTouristOuting) {
+                        totalInscriptos += insc.getTouristAmount();
+                    }
+                }
+
+                int cantDisp = dtouting.getMaxNumTourists() - totalInscriptos;
+
+
+                //supongo que hay cupos suficientes
+                if ((cantDisp - seats ) >= 0) {
+                // Fecha actual del servidor (Montevideo)
+                LocalDate inscriptionDate = LocalDate.now(ZoneId.systemDefault());
+
+                // Costo total (unitario x cupos)
+                float cost = dtactiv.getCostTurist() * seats;
+
+                // Armo el DTO e (idealmente) persisto
+                DtInscriptionTouristOuting dtinscription = new DtInscriptionTouristOuting(seats, cost, inscriptionDate,
+                        dtouting);
+
+                //cantDisp me da cuantos cupos hay al dia de hoy disponibles para esa salida cantDisp >= 0
+
+                    itoaic.inscriptionDataEntry(dtinscription, loggedUser.getNickname(), outing);
+
+                    // PRG
+                    response.sendRedirect(request.getContextPath() + "/inscriptions?status=ok&q="
+                            + URLEncoder.encode(activity, StandardCharsets.UTF_8) + "&outing=" + URLEncoder.encode(outing, StandardCharsets.UTF_8));
+                }else {
+                    errors.add("Lamentablemente solo quedan "+ cantDisp +" cupos disponibles. No se pudo realizar la inscripcion.");
+                }
+            }else {
+                errors.add("Los cupos a reservar debe ser menor a "+ dtouting.getMaxNumTourists() +".");
+            }
+
+            if (!errors.isEmpty()) {
+                request.setAttribute("errors", errors);
+                request.setAttribute("activity", activity);
+                request.setAttribute("outing", outing);
+//                response.sendRedirect(request.getContextPath() + "/inscriptions?q="
+//                        + URLEncoder.encode(activity, StandardCharsets.UTF_8));
+                handleShowInscription(request, response);
+                return;
+            }
+        } catch (Exception ex) {
+            errors.add(ex.getMessage() != null ? ex.getMessage() : "No se pudo registrar la inscripción.");
+            request.setAttribute("errors", errors);
+            request.setAttribute("activity", activity);
+            request.setAttribute("outing", outing);
+            handleShowInscription(request, response);
+        }
+    }
 
 }

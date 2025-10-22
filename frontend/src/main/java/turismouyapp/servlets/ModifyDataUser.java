@@ -25,15 +25,15 @@ import java.util.UUID;
 
 /**
  * Servlet implementation class ModifyDataUser
- * 
+ *
  * @author Equipo TurismoUY
  * @version 1.0.0
  * @since 2025
- * 
+ *
  * <pre>
  * GET http://localhost:8080/turismouy.UI/modify-data-user
  * </pre>
- * 
+ *
  * @see turismouyapp.core.factory.FactoryUyTourism
  * @see turismouyapp.core.interfaces.IUserController
  */
@@ -41,14 +41,14 @@ import java.util.UUID;
 @WebServlet("/modify-data-user")
 @MultipartConfig
 public class ModifyDataUser extends HttpServlet {
-	
-	/**
-	 * Identificador de versión para serialización.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	private final IUserController iUserController;
-       
+
+    /**
+     * Identificador de versión para serialización.
+     */
+    private static final long serialVersionUID = 1L;
+
+    private final IUserController iUserController;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -57,14 +57,14 @@ public class ModifyDataUser extends HttpServlet {
         FactoryUyTourism factory = FactoryUyTourism.getInstance();
         this.iUserController = factory.getIUserController();
     }
-    
-    protected void handleModifyData(HttpServletRequest request, HttpServletResponse response)	
-    		throws ServletException, IOException {
-    	
-    	HttpSession session = request.getSession();
-    	DtUser loggedUser = (DtUser) session.getAttribute("logged_user");
-    	UserType userRole = (UserType) session.getAttribute("user_role");
-    	
+
+    protected void handleModifyData(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        DtUser loggedUser = (DtUser) session.getAttribute("logged_user");
+        UserType userRole = (UserType) session.getAttribute("user_role");
+
         String name = request.getParameter("name-user");
         String lastname = request.getParameter("lastname-user");
         String password = request.getParameter("password-user");
@@ -99,7 +99,7 @@ public class ModifyDataUser extends HttpServlet {
             } else {
                 birthdate = loggedUser.getBirthDate();
             }
-            
+
             // Foto de perfil
             Part profilePhotoPart = request.getPart("new-profilephoto");
             String rawPath = getServletContext().getInitParameter("uploadProfileFolder");
@@ -137,20 +137,20 @@ public class ModifyDataUser extends HttpServlet {
             }
 
             DtUser updatedUser = null;
-            
+
             if (userRole == UserType.TOURIST) {
                 String nationality = request.getParameter("nationality-user");
                 if (nationality == null || nationality.trim().isEmpty()) {
                     nationality = ((DtTourist) loggedUser).getNationality();
                 }
                 updatedUser = new DtTourist(
-                    loggedUser.getNickname(), 
-                    name, 
-                    lastname, 
-                    loggedUser.getEmail(), 
-                    birthdate, 
-                    password, 
-                    nationality, 
+                    loggedUser.getNickname(),
+                    name,
+                    lastname,
+                    loggedUser.getEmail(),
+                    birthdate,
+                    password,
+                    nationality,
                     imagePath
                 );
             } else if (userRole == UserType.SUPPLIER) {
@@ -163,44 +163,44 @@ public class ModifyDataUser extends HttpServlet {
                     website = ((DtSupplier) loggedUser).getWebSite();
                 }
                 updatedUser = new DtSupplier(
-                    loggedUser.getNickname(), 
-                    name, 
-                    lastname, 
-                    loggedUser.getEmail(), 
-                    birthdate, 
-                    password, 
-                    description, 
-                    website, 
+                    loggedUser.getNickname(),
+                    name,
+                    lastname,
+                    loggedUser.getEmail(),
+                    birthdate,
+                    password,
+                    description,
+                    website,
                     imagePath
                 );
             }
-            
+
             iUserController.modifyUserDate(updatedUser);
-            
+
             // Actualizar sesión con los nuevos datos
             session.setAttribute("logged_user", updatedUser);
-            
+
             response.sendRedirect(request.getContextPath() + "/home");
-            
+
         } catch (Exception e) {
             request.setAttribute("error", e.getMessage());
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vistas/modificarDatosUsuario.jsp");
             dispatcher.forward(request, response);
         }
-        
+
     }
-    
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-    		throws ServletException, IOException {
-    	// Mostrar formulario de modificación
-    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vistas/modificarDatosUsuario.jsp");
-    	dispatcher.forward(request, response);
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Mostrar formulario de modificación
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vistas/modificarDatosUsuario.jsp");
+        dispatcher.forward(request, response);
     }
-    
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-    	handleModifyData(request, response);
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        handleModifyData(request, response);
     }
-    
+
 
 }

@@ -20,14 +20,6 @@ public interface ITouristOutingAndInscriptionController {
 
 	public DtInscriptionTouristOuting[] listOutingInscription(String outingName);
 
-	public void modifyOutingName(String outingName);
-
-	public void modifyMaxTourist(int maxTourist);
-
-	public void modifyExitPoint(String exitPoint);
-
-	public void modifydateTime(LocalDateTime dateTime);
-
 	public String getOutingName();
 
 	public String[] listTouristOutings() throws TouristOutingDoesNotExistException;

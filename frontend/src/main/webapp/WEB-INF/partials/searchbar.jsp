@@ -12,11 +12,11 @@ if (activities == null) activities = new String[0];
 <section class="searchbar px-3 mb-3 d-flex flex-wrap justify-content-center align-items-center gap-2">
     <form id="searchForm" class="flex-grow-1 d-flex" method="get" action="<%=request.getContextPath()%>/<%=active%>">
         <div class="input-group flex-grow-1">
-            <input id="searchInput" 
-                   class="form-control" 
-                   type="text" 
-                   name="q" 
-                   list="actSuggestions" 
+            <input id="searchInput"
+                   class="form-control"
+                   type="text"
+                   name="q"
+                   list="actSuggestions"
                    autocomplete="off"
                    placeholder="Buscar actividad por nombre..."
                    value="<%=q%>">
@@ -25,7 +25,7 @@ if (activities == null) activities = new String[0];
                     <option value="<%= name %>"></option>
                 <% }} %>
             </datalist>
-           
+
             <button class="btn btn-primary" type="submit">
                 <i class="bi bi-search"></i>
             </button>
