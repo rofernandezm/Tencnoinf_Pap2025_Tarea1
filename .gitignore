@@ -36,7 +36,7 @@ out/
 /server/apache-tomcat-11.0.11/logs/
 /server/apache-tomcat-11.0.11/temp/
 /server/apache-tomcat-11.0.11/work/
-/server/apache-tomcat-11.0.11/webapps/
+!/server/apache-tomcat-11.0.11/webapps/
 /server/apache-tomcat-11.0.11/wtpwebapps/
 /server/apache-tomcat-11.0.11/backup/
 
