@@ -29,7 +29,7 @@ SET FILES NIO TRUE
 SET FILES NIO SIZE 256
 SET FILES LOG TRUE
 SET FILES LOG SIZE 50
-SET FILES CHECK 4140
+SET FILES CHECK 4234
 SET DATABASE COLLATION "SQL_TEXT" PAD SPACE
 CREATE USER SA PASSWORD DIGEST 'd41d8cd98f00b204e9800998ecf8427e'
 ALTER USER SA SET LOCAL TRUE
@@ -58,6 +58,7 @@ INSERT INTO USERS VALUES('ab','Tourist','2025-10-02','ab@web.iom','default_profi
 INSERT INTO USERS VALUES('gastchar','Tourist','2025-10-01','gc@web.com','25b8c11e-7465-427a-9ae4-e0820319515b.jpg','Charquero','Gaston','123')
 INSERT INTO USERS VALUES('proveedor_A','Supplier','2025-10-18','pa@prov.com','default_profile.jpg','proveedor','Proveedor_A','123')
 INSERT INTO USERS VALUES('proveedor_B','Supplier','2025-10-19','pb@prov.com','default_profile.jpg','B','proveedor','123')
+INSERT INTO USERS VALUES('pruebaImg','Tourist','2025-10-19','prueba@img.com','default_profile.jpg','img','pruebaImg','123')
 INSERT INTO USERS VALUES('rodrifer','Supplier','2025-10-10','rf@web.com','default_profile.jpg','fernandez','rodrigo','123')
 INSERT INTO USERS VALUES('valesant','Supplier','2025-10-02','vs@web.com','ab80c5fc-a02f-4c86-b038-548b25238a9d.jpg','Sant','Vale','123')
 INSERT INTO TOURISTACTIVITY VALUES('actividad 3','Montevideo','Descripcion de la act','2025-10-20','aced00057372000d6a6176612e74696d652e536572955d84ba1b2248b20c00007870770d010000000000001c200000000078','default_activity.jpg','CONFIRMED',500.0E0,'proveedor_A',NULL)
@@ -73,6 +74,7 @@ INSERT INTO TOURISTOUTING VALUES('salida_prueba','2025-10-15 18:00:00.000000','p
 INSERT INTO TOURISTOUTING VALUES('ultimna','2025-10-16 09:30:00.000000','hj','2025-10-19',15,'actividad_1','default_outing.jpg')
 INSERT INTO TOURIST VALUES('ab','uru')
 INSERT INTO TOURIST VALUES('gastchar','uruguayo')
+INSERT INTO TOURIST VALUES('pruebaImg','uru')
 INSERT INTO INSCRIPTION VALUES(1,'2025-10-19',5,2500.0E0,'gastchar','salida_1',NULL)
 INSERT INTO INSCRIPTION VALUES(3,'2025-10-20',1,500.0E0,'gastchar','agorasim',NULL)
 INSERT INTO INSCRIPTION VALUES(4,'2025-10-20',6,3000.0E0,'gastchar','salida 1',NULL)
