@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 import jakarta.servlet.ServletContext;
@@ -15,6 +14,8 @@ import jakarta.servlet.http.Part;
 
 public class ImageManager {
 
+	private ImageManager() {}
+	
 	public static String generateFileName(Part imagePart) {
 
 		// Obtiene el nombre original (ej: "foto.png")
