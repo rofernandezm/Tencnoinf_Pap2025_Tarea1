@@ -5,9 +5,13 @@ import java.time.LocalDate;
 import java.util.Map;
 
 import jakarta.persistence.*;
+import org.eclipse.persistence.annotations.Cache;
+import org.eclipse.persistence.config.CacheIsolationType;
+
 import turismouyapp.core.dto.DtTouristActivity;
 import turismouyapp.core.dto.TouristActivityStatus;
 
+@Cache(isolation = CacheIsolationType.ISOLATED)
 @Entity
 public class TouristActivity {
 

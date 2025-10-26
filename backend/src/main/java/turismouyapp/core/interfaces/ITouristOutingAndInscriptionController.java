@@ -31,4 +31,6 @@ public interface ITouristOutingAndInscriptionController {
 	public String[] listTouristOutingByActivity(String activityName);
 	
 	public List<DtInscriptionTouristOuting> listDtInscriptionTouristOutingByTouristNickname(String nickname);
+	
+	public void updateOutingImageName(String outingName, String imageName);
 }

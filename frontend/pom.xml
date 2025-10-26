@@ -1,6 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>turismouy.FrontEnd</groupId>
@@ -22,6 +21,8 @@
     <jakarta.servlet.jstl.version>3.0.1</jakarta.servlet.jstl.version>
     <maven.javadoc.version>3.6.3</maven.javadoc.version>
     <maven.war.version>3.4.0</maven.war.version>
+    <common.codecs.version>1.17.0</common.codecs.version>
+    <bcrypt.version>0.4</bcrypt.version>
   </properties>
 
   <dependencies>
@@ -37,7 +38,7 @@
       <version>${jakarta.servlet.version}</version>
       <scope>provided</scope>
     </dependency>
-    
+
     <!-- Jakarta Servlet JSP API: necesario para compilar archivos JSP -->
     <dependency>
       <groupId>jakarta.servlet.jsp</groupId>
@@ -45,7 +46,7 @@
       <version>${jakarta.servlet.jsp.version}</version>
       <scope>provided</scope>
     </dependency>
-    
+
     <!-- Jakarta Expression Language API: para sintaxis EL en JSP -->
     <dependency>
       <groupId>jakarta.el</groupId>
@@ -75,19 +76,31 @@
       <version>${hsqldb.version}</version>
       <scope>provided</scope>
     </dependency>
-    
+
     <dependency>
       <groupId>jakarta.servlet.jsp.jstl</groupId>
       <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
       <version>${jakarta.servlet.jstl.api.version}</version>
     </dependency>
-    
+
     <dependency>
       <groupId>org.glassfish.web</groupId>
       <artifactId>jakarta.servlet.jsp.jstl</artifactId>
       <version>${jakarta.servlet.jstl.version}</version>
     </dependency>
-    
+
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>${common.codecs.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mindrot</groupId>
+      <artifactId>jbcrypt</artifactId>
+      <version>${bcrypt.version}</version>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -101,14 +114,14 @@
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
-      
+
       <!-- Plugin para generar Javadoc -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${maven.javadoc.version}</version>
         <configuration>
-        <skip>true</skip>
+          <skip>true</skip>
           <source>17</source>
           <show>private</show>
           <encoding>UTF-8</encoding>
@@ -149,8 +162,8 @@
               <head>Nota de Implementación:</head>
             </tag>
           </tags>
-    	  <doclint>none</doclint>
-    	  <failOnError>false</failOnError>
+          <doclint>none</doclint>
+          <failOnError>false</failOnError>
         </configuration>
         <executions>
           <execution>

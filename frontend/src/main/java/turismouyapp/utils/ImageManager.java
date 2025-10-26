@@ -2,9 +2,12 @@ package turismouyapp.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 import jakarta.servlet.ServletContext;
@@ -113,5 +116,32 @@ public class ImageManager {
 
 	public enum UploadFolderType {
 		PROFILE, ACTIVITY, OUTING, DEFAULT
+	}
+
+	public static String getFileHash(Part part) {
+
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			byte[] buffer = new byte[8192];
+			int bytesRead;
+
+			try (InputStream inputStream = part.getInputStream()) {
+				while ((bytesRead = inputStream.read(buffer)) != -1) {
+					md.update(buffer, 0, bytesRead);
+				}
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+
+			byte[] digest = md.digest();
+			StringBuilder sb = new StringBuilder();
+			for (byte b : digest) {
+				sb.append(String.format("%02x", b));
+			}
+			return sb.toString();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }

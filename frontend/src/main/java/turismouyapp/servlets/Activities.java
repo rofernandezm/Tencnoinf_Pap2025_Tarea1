@@ -1,17 +1,11 @@
 package turismouyapp.servlets;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 import jakarta.servlet.annotation.MultipartConfig;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,16 +13,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import turismouyapp.core.dto.DtActivityWithOutings;
-import turismouyapp.core.dto.DtSupplier;
-import turismouyapp.core.dto.DtTourist;
 import turismouyapp.core.dto.DtTouristActivity;
 import turismouyapp.core.dto.DtTouristOuting;
 import turismouyapp.core.dto.TouristActivityStatus;
-import turismouyapp.core.dto.UserType;
-import turismouyapp.core.entity.TouristOuting;
 import turismouyapp.core.exceptions.ActivityDoesNotExistException;
 import turismouyapp.core.exceptions.RepeatedActivityNameException;
-import turismouyapp.core.exceptions.TouristOutingDoesNotExistException;
 import turismouyapp.core.factory.FactoryUyTourism;
 import turismouyapp.core.interfaces.ITouristActivityController;
 import turismouyapp.utils.ImageManager;
@@ -143,6 +132,17 @@ public class Activities extends HttpServlet {
 		// Foto de actividad
 		Part activityPhotoPart = request.getPart("image");
 		
+		// Valida imagen guardada antes del error de duplicado.
+		if(request.getAttribute("draftedActivityImgPart") != null) {
+			String draftedHash = (String)request.getAttribute("draftedActivityImgHash");
+			String currentHash = ImageManager.getFileHash(activityPhotoPart);
+			
+			if(activityPhotoPart == null || draftedHash.equals(currentHash))
+				// Se lanzo error por duplicado, no se solicita nueva carga de imagen.
+				activityPhotoPart = (Part)request.getAttribute("draftedActivityImgPart");
+			
+		}
+		
 		if(activityPhotoPart == null && request.getAttribute("draftedActivityImgPart") != null)
 			activityPhotoPart = (Part)request.getAttribute("draftedActivityImgPart"); // Se lanzo error por duplicado, no se solicita nueva carga de imagen.
 		
@@ -178,6 +178,7 @@ public class Activities extends HttpServlet {
 			request.setAttribute("activityError", "La actividad \"" + activityName + "\" ya existe.");
 			request.setAttribute("draftedActivity", newActivity);
 			request.setAttribute("draftedActivityImgPart", activityPhotoPart);
+			request.setAttribute("draftedActivityImgHash", ImageManager.getFileHash(activityPhotoPart));
 			this.handleShowActivities(request, response);
 		}
 	}

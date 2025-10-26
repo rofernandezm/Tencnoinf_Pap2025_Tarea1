@@ -2,9 +2,13 @@ package turismouyapp.core.entity;
 
 import java.time.LocalDate;
 
+import org.eclipse.persistence.annotations.Cache;
+import org.eclipse.persistence.config.CacheIsolationType;
+
 import jakarta.persistence.*;
 import turismouyapp.core.dto.DtUser;
 
+@Cache(isolation = CacheIsolationType.ISOLATED)
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "Users", uniqueConstraints = {

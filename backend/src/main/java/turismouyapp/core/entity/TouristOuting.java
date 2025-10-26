@@ -4,9 +4,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+import org.eclipse.persistence.annotations.Cache;
+import org.eclipse.persistence.config.CacheIsolationType;
+
 import jakarta.persistence.*;
 import turismouyapp.core.dto.DtTouristOuting;
 
+@Cache(isolation = CacheIsolationType.ISOLATED)
 @Entity
 public class TouristOuting {
 
