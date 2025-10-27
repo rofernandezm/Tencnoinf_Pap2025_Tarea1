@@ -107,7 +107,7 @@ public class UserController implements IUserController {
 		return selected.createDtUser();
 	}
 
-	public void modifyUserDate(DtUser dtUser) {
+	public void modifyUserData(DtUser dtUser) {
 		UserHandler.getIntance().updateUser(dtUser);
 	}
 

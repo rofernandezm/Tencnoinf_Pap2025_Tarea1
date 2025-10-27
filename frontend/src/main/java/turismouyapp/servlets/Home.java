@@ -17,12 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "home", urlPatterns = {"/home"})
-public class home extends HttpServlet {
+public class Home extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     private final ITouristActivityController iActivityController;
 
-    public home() {
+    public Home() {
         super();
         FactoryUyTourism factory = FactoryUyTourism.getInstance();
         this.iActivityController = factory.getITouristActivityController();
