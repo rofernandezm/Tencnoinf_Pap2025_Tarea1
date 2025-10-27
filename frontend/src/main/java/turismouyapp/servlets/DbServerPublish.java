@@ -4,6 +4,7 @@ import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 import org.hsqldb.server.Server;
+import java.io.File;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -70,7 +71,7 @@ import java.net.Socket;
  * @see org.hsqldb.server.Server
  * @see turismouyapp.core.db.HsqldbServerListener
  */
-@WebListener
+//@WebListener
 public class DbServerPublish implements ServletContextListener {
 
   /**
@@ -119,20 +120,24 @@ public class DbServerPublish implements ServletContextListener {
     // Leer configuración desde propiedades del sistema
     int port = Integer.parseInt(System.getProperty("db.port", "9001"));
     String name = System.getProperty("db.name", "turismoUyDB");
-    String path = System.getProperty("db.path", "./data/turismoUyDB");
+    String path = System.getProperty("db.path", "./data/db/turismoUyDB");
+
+    // Resolver ruta absoluta para evitar confusiones entre rutas relativas
+    File dbFile = new File(path);
+    String absPath = dbFile.getAbsolutePath();
 
     // Verificar si el puerto ya está en uso
     if (!isPortOpen("127.0.0.1", port, 350)) {
       // Puerto disponible - iniciar nuevo servidor HSQLDB
       server = new Server();
       server.setDatabaseName(0, name);
-      server.setDatabasePath(0, "file:" + path);
+      server.setDatabasePath(0, "file:" + absPath);
       server.setPort(port);
       server.setSilent(false);  // Habilitar logs del servidor
       server.setTrace(false);   // Deshabilitar trazas de debug
       server.setTls(false);     // Sin encriptación TLS
       server.start();
-      sce.getServletContext().log("[DB] HSQLDB iniciado por WAR en puerto " + port);
+      sce.getServletContext().log("[DB] HSQLDB iniciado por WAR en puerto " + port + " (db.path=" + absPath + ")");
     } else {
       // Puerto ocupado - asumir que hay un servidor existente
       sce.getServletContext().log("[DB] HSQLDB ya estaba arriba; no se inicia otro.");

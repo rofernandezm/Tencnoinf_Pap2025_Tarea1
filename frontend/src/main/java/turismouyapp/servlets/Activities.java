@@ -44,7 +44,8 @@ public class Activities extends HttpServlet {
 		String[] activities = null;
 		try {
 			activities = iTouristActivityController.listTouristActivities();
-		} catch (ActivityDoesNotExistException e) {
+		} catch (ActivityDoesNotExistException ex) {
+			ex.printStackTrace();
 			activities = new String[0];
 		}
 		request.setAttribute("activities", activities);
@@ -142,10 +143,7 @@ public class Activities extends HttpServlet {
 				activityPhotoPart = (Part)request.getAttribute("draftedActivityImgPart");
 			
 		}
-		
-		if(activityPhotoPart == null && request.getAttribute("draftedActivityImgPart") != null)
-			activityPhotoPart = (Part)request.getAttribute("draftedActivityImgPart"); // Se lanzo error por duplicado, no se solicita nueva carga de imagen.
-		
+				
 		String fileName = (activityPhotoPart != null && activityPhotoPart.getSize() > 0)
 				? ImageManager.generateFileName(activityPhotoPart)
 				: ImageManager.resolveDefaultImageName(UploadFolderType.ACTIVITY);
@@ -163,7 +161,6 @@ public class Activities extends HttpServlet {
 				
 				// Setea imagen default
 				String defaultImage = ImageManager.resolveDefaultImageName(UploadFolderType.ACTIVITY);
-				
 				newActivity = new DtTouristActivity(newActivity.getActivityName(), newActivity.getDescription(), newActivity.getDuration(), newActivity.getCostTurist(), newActivity.getCity(), newActivity.getRegistrationDate(),
 						newActivity.getSupplierNickname(), TouristActivityStatus.ADDED, defaultImage);
 

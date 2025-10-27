@@ -12,6 +12,7 @@ import jakarta.servlet.http.Part;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpSession;
 import turismouyapp.core.interfaces.IUserController;
+import turismouyapp.security.PasswordEncoder;
 import turismouyapp.utils.ImageManager;
 import turismouyapp.utils.ImageManager.UploadFolderType;
 import turismouyapp.core.factory.FactoryUyTourism;
@@ -75,20 +76,34 @@ public class Login extends HttpServlet {
 			throws ServletException, IOException {
 
 		String nicknameOrEmail = request.getParameter("nickname-or-email");
-		String password = request.getParameter("password");
-		DtUser result = iUserController.consultUserData(nicknameOrEmail);
-		if (result == null) {
-			result = iUserController.consultUserDataByEmail(nicknameOrEmail);
+		DtUser requestedUser = this.findUserByNicknameOrEmail(nicknameOrEmail);
+		boolean isValidAccess = false;
+
+		if (requestedUser != null) {
+			String password = request.getParameter("password");
+			String newHash = PasswordEncoder.encode(request.getParameter("password"));
+			isValidAccess = PasswordEncoder.matches(password, requestedUser.getPassword());
 		}
 
-		if (result != null && password.equals(result.getPassword())) {
-			this.createNewSessionAndAssingUser(request, response, result);
-		} else {
-			request.setAttribute("loginError", "Usuario o contraseña incorrectos");
-			request.setAttribute("activeTab", "login");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vistas/iniciarSesionRegistrarse.jsp");
-			dispatcher.forward(request, response);
+		if (isValidAccess) {
+			try {
+				this.createNewSessionAndAssingUser(request, response, requestedUser);
+				return;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				isValidAccess = false;
+			}
 		}
+
+		if (requestedUser == null || !isValidAccess) {
+			request.setAttribute("activeTab", "login");
+			this.setErrorAndDispatchForward(request, response, "loginError", "Usuario o contraseña incorrectos");
+		}
+	}
+
+	private DtUser findUserByNicknameOrEmail(String nicknameOrEmail) {
+		DtUser requestedUser = iUserController.consultUserData(nicknameOrEmail);
+		return requestedUser == null ? iUserController.consultUserDataByEmail(nicknameOrEmail) : requestedUser;
 	}
 
 	private void createNewSessionAndAssingUser(HttpServletRequest request, HttpServletResponse response, DtUser user)
@@ -129,17 +144,16 @@ public class Login extends HttpServlet {
 		try {
 			birthDate = LocalDate.parse(birthDateStr);
 		} catch (DateTimeParseException ex) {
-			request.setAttribute("registerError", "Fecha de nacimiento inválida, reintente.");
+			ex.printStackTrace();
 			request.setAttribute("activeTab", "register");
-			request.getRequestDispatcher("/WEB-INF/vistas/iniciarSesionRegistrarse.jsp").forward(request, response);
+			this.setErrorAndDispatchForward(request, response, "registerError", "Fecha de nacimiento inválida, reintente.");
 			return;
 		}
 
 		// Validacion de contraseñas
 		if (!password.equals(passwordConf)) {
-			request.setAttribute("registerError", "Las contraseñas no coinciden");
 			request.setAttribute("activeTab", "register");
-			request.getRequestDispatcher("/WEB-INF/vistas/iniciarSesionRegistrarse.jsp").forward(request, response);
+			this.setErrorAndDispatchForward(request, response, "registerError", "Las contraseñas no coinciden");
 			return;
 		}
 
@@ -153,28 +167,30 @@ public class Login extends HttpServlet {
 				? ImageManager.generateFileName(profilePhotoPart)
 				: ImageManager.resolveDefaultImageName(UploadFolderType.PROFILE);
 
+		// Registro de usuario
+		DtUser newUser = null;
+		String hashedPassword = PasswordEncoder.encode(password);
+		if (user == UserType.TOURIST) {
+			String nationality = request.getParameter("nationality");
+			newUser = new DtTourist(nickname, name, lastName, email, birthDate, hashedPassword, nationality,
+					fileName);
+		} else {
+			String supplierDesc = request.getParameter("description");
+			String webSite = request.getParameter("website");
+			newUser = new DtSupplier(nickname, name, lastName, email, birthDate, hashedPassword, supplierDesc,
+					webSite, fileName);
+		}
+		
 		try {
-
-			DtUser newUser = null;
-
-			if (user == UserType.TOURIST) {
-				String nationality = request.getParameter("nationality");
-				newUser = new DtTourist(nickname, name, lastName, email, birthDate, password, nationality, fileName);
-			} else {
-				String supplierDesc = request.getParameter("description");
-				String webSite = request.getParameter("website");
-				newUser = new DtSupplier(nickname, name, lastName, email, birthDate, password, supplierDesc, webSite,
-						fileName);
-			}
-
 			iUserController.dataEntry(newUser);
 			iUserController.confirmRegistration();
 
 			// Persistir imagen
 			try {
-				ImageManager.persistFile(this.getServletContext(), profilePhotoPart, fileName, UploadFolderType.PROFILE);
+				ImageManager.persistFile(this.getServletContext(), profilePhotoPart, fileName,
+						UploadFolderType.PROFILE);
 			} catch (IOException ex) {
-				
+
 				// Setea imagen default
 				String defaultImage = ImageManager.resolveDefaultImageName(UploadFolderType.PROFILE);
 				if (newUser.getUserType() == UserType.TOURIST) {
@@ -186,7 +202,7 @@ public class Login extends HttpServlet {
 							newUser.getBirthDate(), newUser.getPassword(), ((DtSupplier) newUser).getDescription(),
 							((DtSupplier) newUser).getWebSite(), defaultImage);
 				}
-				iUserController.modifyUserDate(newUser);
+				iUserController.modifyUserData(newUser);
 			}
 
 			request.setAttribute("mensaje", "Se ha ingresado correctamente el usuario " + nickname + " en el sistema.");
@@ -195,18 +211,14 @@ public class Login extends HttpServlet {
 		} catch (RepeatedUserNicknameException e) {
 
 			// Muestro error de registro
-			request.setAttribute("registerError", "El usuario " + nickname + " ya existe.");
 			request.setAttribute("activeTab", "register");
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/iniciarSesionRegistrarse.jsp");
-			rd.forward(request, response);
+			this.setErrorAndDispatchForward(request, response, "registerError", "El usuario " + nickname + " ya existe.");
 
 		} catch (RepeatedUserEmailException e) {
 
 			// Muestro error de registro
-			request.setAttribute("registerError", "El usuario con email: " + email + " ya existe.");
 			request.setAttribute("activeTab", "register");
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/iniciarSesionRegistrarse.jsp");
-			rd.forward(request, response);
+			this.setErrorAndDispatchForward(request, response, "registerError", "El usuario con email: " + email + " ya existe.");
 		}
 	}
 
@@ -238,5 +250,16 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		this.doGet(request, response);
+	}
+	
+	private void setErrorAndDispatchForward(HttpServletRequest request, HttpServletResponse response, String attributeName, String errorMsg) {
+		try {
+			request.setAttribute(attributeName, errorMsg);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vistas/iniciarSesionRegistrarse.jsp");
+			dispatcher.forward(request, response);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 }

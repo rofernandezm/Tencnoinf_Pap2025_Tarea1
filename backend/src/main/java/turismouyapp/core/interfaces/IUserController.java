@@ -216,7 +216,7 @@ public interface IUserController {
 	 *         Retorna {@code null} si el usuario no existe.
 	 * 
 	 * @see #selectUser(String)
-	 * @see #modifyUserDate(DtUser)
+	 * @see #modifyUserData(DtUser)
 	 */
 	public DtUser consultUserData(String nickname);
 
@@ -248,7 +248,7 @@ public interface IUserController {
 	 * 
 	 * @see #consultUserData(String)
 	 */
-	public void modifyUserDate(DtUser dtUser);
+	public void modifyUserData(DtUser dtUser);
 	
 	public DtUser consultUserDataByEmail(String email);
 }

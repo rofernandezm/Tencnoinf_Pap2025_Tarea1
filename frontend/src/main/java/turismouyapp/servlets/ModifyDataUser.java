@@ -8,20 +8,22 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import jakarta.servlet.http.Part;
-import java.nio.file.Path;
-import java.io.File;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpSession;
 import turismouyapp.core.interfaces.IUserController;
+import turismouyapp.security.PasswordEncoder;
+import turismouyapp.utils.ImageManager;
+import turismouyapp.utils.ImageManager.UploadFolderType;
 import turismouyapp.core.factory.FactoryUyTourism;
 import turismouyapp.core.dto.DtUser;
 import turismouyapp.core.dto.UserType;
 import turismouyapp.core.dto.DtSupplier;
 import turismouyapp.core.dto.DtTourist;
+import java.util.logging.Logger;
 
 import java.time.LocalDate;
-import java.util.UUID;
+import java.time.format.DateTimeParseException;
 
 /**
  * Servlet implementation class ModifyDataUser
@@ -30,9 +32,9 @@ import java.util.UUID;
  * @version 1.0.0
  * @since 2025
  *
- * <pre>
+ *        <pre>
  * GET http://localhost:8080/turismouy.UI/modify-data-user
- * </pre>
+ *        </pre>
  *
  * @see turismouyapp.core.factory.FactoryUyTourism
  * @see turismouyapp.core.interfaces.IUserController
@@ -42,165 +44,158 @@ import java.util.UUID;
 @MultipartConfig
 public class ModifyDataUser extends HttpServlet {
 
-    /**
-     * Identificador de versión para serialización.
-     */
-    private static final long serialVersionUID = 1L;
+	/**
+	 * Identificador de versión para serialización.
+	 */
+	private static final long serialVersionUID = 1L;
 
-    private final IUserController iUserController;
+	private final IUserController iUserController;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ModifyDataUser() {
-        super();
-        FactoryUyTourism factory = FactoryUyTourism.getInstance();
-        this.iUserController = factory.getIUserController();
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ModifyDataUser() {
+		super();
+		FactoryUyTourism factory = FactoryUyTourism.getInstance();
+		this.iUserController = factory.getIUserController();
+	}
 
-    protected void handleModifyData(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	protected void handleModifyData(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
-        DtUser loggedUser = (DtUser) session.getAttribute("logged_user");
-        UserType userRole = (UserType) session.getAttribute("user_role");
+		// TODO: CONTROL DE PERMISOS PARA USUARIO LOGGED_USER
 
-        String name = request.getParameter("name-user");
-        String lastname = request.getParameter("lastname-user");
-        String password = request.getParameter("password-user");
-        String passwordConf = request.getParameter("passwordconf-user");
-        String birthdateStr = request.getParameter("birthdate-user");
+		HttpSession session = request.getSession();
+		DtUser loggedUser = (DtUser) session.getAttribute("logged_user");
+		UserType userRole = (UserType) session.getAttribute("user_role");
 
-        // Usar valores actuales si no se proporcionaron nuevos
-        if (name == null || name.trim().isEmpty()) {
-            name = loggedUser.getName();
-        }
-        if (lastname == null || lastname.trim().isEmpty()) {
-            lastname = loggedUser.getLastName();
-        }
+		String name = this.isNullOrEmptyParameter(request, "name-user") ? loggedUser.getName()
+				: request.getParameter("name-user");
 
-        // Validar contraseñas solo si se intenta cambiar
-        if (password != null && !password.trim().isEmpty()) {
-            if (!password.equals(passwordConf)) {
-                request.setAttribute("error", "Las contraseñas no coinciden");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vistas/modificarDatosUsuario.jsp");
-                dispatcher.forward(request, response);
-                return;
-            }
-        } else {
-            // Si no se proporciona contraseña, usar la actual
-            password = loggedUser.getPassword();
-        }
+		String lastname = this.isNullOrEmptyParameter(request, "lastname-user") ? loggedUser.getLastName()
+				: request.getParameter("lastname-user");
 
-        try {
-            LocalDate birthdate = null;
-            if (birthdateStr != null && !birthdateStr.isEmpty()) {
-                birthdate = LocalDate.parse(birthdateStr);
-            } else {
-                birthdate = loggedUser.getBirthDate();
-            }
+		String password = this.isNullOrEmptyParameter(request, "password-user") ? loggedUser.getPassword()
+				: request.getParameter("password-user");
 
-            // Foto de perfil
-            Part profilePhotoPart = request.getPart("new-profilephoto");
-            String rawPath = getServletContext().getInitParameter("uploadProfileFolder");
+		LocalDate birthDate = loggedUser.getBirthDate();
 
-            // Reemplaza la variable ${catalina.base} por su valor real
-            String catalinaBase = System.getProperty("catalina.base");
-            String uploadPath = rawPath.replace("${catalina.base}", catalinaBase);
+		// Si passsword no es encriptada, es nueva
+		if (!PasswordEncoder.isBCryptHash(password)) {
+			String passwordConf = request.getParameter("passwordconf-user");
+			if (!password.equals(passwordConf)) {
+				this.setErrorAndDispatchForward(request, response, "Las contraseñas no coinciden");
+				return;
+			}
+		}
 
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists())
-                uploadDir.mkdirs();
+		// Valida fecha nueva fecha de nacimiento
+		if (!this.isNullOrEmptyParameter(request, "birthdate-user")) {
 
-            String imagePath = loggedUser.getImagePath();
+			try {
 
-            if (profilePhotoPart != null && profilePhotoPart.getSize() > 0) {
+				String birthDateStr = request.getParameter("birthdate-user");
+				birthDate = LocalDate.parse(birthDateStr);
 
-                // Obtiene el nombre original (ej: "foto.png")
-                String originalName = Path.of(profilePhotoPart.getSubmittedFileName()).getFileName().toString();
+			} catch (DateTimeParseException ex) {
 
-                // Extrae la extensión (todo después del último '.')
-                String extension = "";
-                int i = originalName.lastIndexOf('.');
-                if (i > 0) {
-                    extension = originalName.substring(i); // incluye el punto, ej: ".png"
-                }
+				ex.printStackTrace();
+				this.setErrorAndDispatchForward(request, response, "Fecha de nacimiento inválida, por favor verique.");
+				return;
+			}
+		}
 
-                // Genera nombre único + extensión
-                String fileName = UUID.randomUUID().toString() + extension;
+		// Foto de perfil
+		Part profilePhotoPart = request.getPart("new-profilephoto");
+		String fileName = (profilePhotoPart != null && profilePhotoPart.getSize() > 0)
+				? ImageManager.generateFileName(profilePhotoPart)
+				: loggedUser.getImagePath();
 
-                // Guardar el archivo en el servidor
-                profilePhotoPart.write(uploadPath + File.separator + fileName);
+		// Actualizacion de perfil actual
 
-                // Guardar la ruta relativa
-                imagePath = fileName;
-            }
+		DtUser updatedUser = null;
+		String hashedPassword = !PasswordEncoder.isBCryptHash(password)
+				|| !PasswordEncoder.matches(password, loggedUser.getPassword()) ? PasswordEncoder.encode(password)
+						: password;
 
-            DtUser updatedUser = null;
+		switch (userRole) {
+		case TOURIST:
+			String nationality = this.isNullOrEmptyParameter(request, "nationality-user")
+					? ((DtTourist) loggedUser).getNationality()
+					: request.getParameter("nationality-user");
 
-            if (userRole == UserType.TOURIST) {
-                String nationality = request.getParameter("nationality-user");
-                if (nationality == null || nationality.trim().isEmpty()) {
-                    nationality = ((DtTourist) loggedUser).getNationality();
-                }
-                updatedUser = new DtTourist(
-                    loggedUser.getNickname(),
-                    name,
-                    lastname,
-                    loggedUser.getEmail(),
-                    birthdate,
-                    password,
-                    nationality,
-                    imagePath
-                );
-            } else if (userRole == UserType.SUPPLIER) {
-                String description = request.getParameter("description-user");
-                String website = request.getParameter("website-user");
-                if (description == null || description.trim().isEmpty()) {
-                    description = ((DtSupplier) loggedUser).getDescription();
-                }
-                if (website == null || website.trim().isEmpty()) {
-                    website = ((DtSupplier) loggedUser).getWebSite();
-                }
-                updatedUser = new DtSupplier(
-                    loggedUser.getNickname(),
-                    name,
-                    lastname,
-                    loggedUser.getEmail(),
-                    birthdate,
-                    password,
-                    description,
-                    website,
-                    imagePath
-                );
-            }
+			updatedUser = new DtTourist(loggedUser.getNickname(), name, lastname, loggedUser.getEmail(), birthDate,
+					hashedPassword, nationality, fileName);
+			break;
 
-            iUserController.modifyUserDate(updatedUser);
+		case SUPPLIER:
 
-            // Actualizar sesión con los nuevos datos
-            session.setAttribute("logged_user", updatedUser);
+			String description = this.isNullOrEmptyParameter(request, "description-user")
+					? ((DtSupplier) loggedUser).getDescription()
+					: request.getParameter("description-user");
 
-            response.sendRedirect(request.getContextPath() + "/home");
+			String website = this.isNullOrEmptyParameter(request, "website-user")
+					? ((DtSupplier) loggedUser).getWebSite()
+					: request.getParameter("website-user");
 
-        } catch (Exception e) {
-            request.setAttribute("error", e.getMessage());
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vistas/modificarDatosUsuario.jsp");
-            dispatcher.forward(request, response);
-        }
+			updatedUser = new DtSupplier(loggedUser.getNickname(), name, lastname, loggedUser.getEmail(), birthDate,
+					hashedPassword, description, website, fileName);
+			break;
 
-    }
+		default:
+			this.setErrorAndDispatchForward(request, response, "Rol indefinido para esta funcionalidad: " + userRole);
+			return;
+		}
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // Mostrar formulario de modificación
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vistas/modificarDatosUsuario.jsp");
-        dispatcher.forward(request, response);
-    }
+		try {
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        handleModifyData(request, response);
-    }
+			iUserController.modifyUserData(updatedUser);
 
+			// PERSISTIR IMAGEN
+			if (!fileName.equals(loggedUser.getImagePath())) {
+				try {
+					ImageManager.persistFile(this.getServletContext(), profilePhotoPart, fileName,
+							UploadFolderType.PROFILE);
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+
+			// Actualizar sesión con los nuevos datos
+			session.setAttribute("logged_user", updatedUser);
+			response.sendRedirect(request.getContextPath() + "/home");
+
+		} catch (Exception e) {
+			this.setErrorAndDispatchForward(request, response, e.getMessage());
+		}
+	}
+
+	private boolean isNullOrEmptyParameter(HttpServletRequest request, String parameterName) {
+		return request.getParameter(parameterName) == null
+				|| ((String) request.getParameter(parameterName)).trim().isEmpty();
+	}
+
+	private void setErrorAndDispatchForward(HttpServletRequest request, HttpServletResponse response, String errorMsg) {
+		try {
+			request.setAttribute("error", errorMsg);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vistas/modificarDatosUsuario.jsp");
+			dispatcher.forward(request, response);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// Mostrar formulario de modificación
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vistas/modificarDatosUsuario.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		this.handleModifyData(request, response);
+	}
 
 }

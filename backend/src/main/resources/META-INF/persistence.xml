@@ -23,23 +23,4 @@
 				value="database" />
 		</properties>
 	</persistence-unit>
-<!--
-	<persistence-unit name="turismoUyDB-File" transaction-type="RESOURCE_LOCAL">
-		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-		<exclude-unlisted-classes>false</exclude-unlisted-classes>
-
-		<properties>
-			<property name="jakarta.persistence.jdbc.driver"
-				value="org.hsqldb.jdbc.JDBCDriver" />
-			<property name="jakarta.persistence.jdbc.url"
-				value="jdbc:hsqldb:file:./data/db/turismoUyDB;shutdown=true" />
-			<property name="jakarta.persistence.jdbc.user" value="sa" />
-			<property name="jakarta.persistence.jdbc.password" value="" />
-			<property name="eclipselink.ddl-generation"
-				value="create-or-extend-tables" />
-			<property name="eclipselink.ddl-generation.output-mode"
-				value="database" />
-		</properties>
-	</persistence-unit>
--->
 </persistence>
