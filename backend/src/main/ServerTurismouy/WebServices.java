@@ -1,6 +1,5 @@
 package ServerTurismouy;
 
-import turismouyapp.core.*;
 import turismouyapp.core.dto.DtActivityWithOutings;
 import turismouyapp.core.dto.DtInscriptionTouristOuting;
 import turismouyapp.core.dto.DtTouristActivity;
@@ -47,112 +46,112 @@ public class WebServices {
     //Metodos de user
     @WebMethod
     public DtUser consultUserData(String nicknameOrEmail) {
-    	turismouyapp.core.IUserController a = new turismouyapp.core.UserController();
+    	turismouyapp.core.interfaces.IUserController a = new turismouyapp.core.controller.UserController();
         return a.consultUserData(nicknameOrEmail);
     }
     
     @WebMethod
     public DtUser consultUserDataByEmail(String nicknameOrEmail) {
-    	turismouyapp.core.IUserController a = new turismouyapp.core.UserController();
+    	turismouyapp.core.interfaces.IUserController a = new turismouyapp.core.controller.UserController();
         return a.consultUserDataByEmail(nicknameOrEmail);
     }
     
     @WebMethod
     public void dataEntryUser(DtUser dtUser) throws RepeatedUserEmailException, RepeatedUserNicknameException{
-    	turismouyapp.core.IUserController a = new turismouyapp.core.UserController();
+    	turismouyapp.core.interfaces.IUserController a = new turismouyapp.core.controller.UserController();
         a.dataEntry(dtUser);
     }
     
     @WebMethod
     public void confirmRegistration(){
-    	turismouyapp.core.IUserController a = new turismouyapp.core.UserController();
+    	turismouyapp.core.interfaces.IUserController a = new turismouyapp.core.controller.UserController();
         a.confirmRegistration();
     }
     
     @WebMethod
     public void modifyUserData(DtUser dtUser){
-    	turismouyapp.core.IUserController a = new turismouyapp.core.UserController();
+    	turismouyapp.core.interfaces.IUserController a = new turismouyapp.core.controller.UserController();
         a.modifyUserData(dtUser);
     }
     
     @WebMethod
     public String[] listUsers(){
-    	turismouyapp.core.IUserController a = new turismouyapp.core.UserController();
+    	turismouyapp.core.interfaces.IUserController a = new turismouyapp.core.controller.UserController();
         return a.listUsers();
     }
     
   //Metodos de tourist activity
     @WebMethod
     public List<DtActivityWithOutings> listTouristActivityData() throws ActivityDoesNotExistException{
-    	turismouyapp.core.ITouristActivityController a = new turismouyapp.core.TouristActivityController();
+    	turismouyapp.core.interfaces.ITouristActivityController a = new turismouyapp.core.controller.TouristActivityController();
         return a.listTouristActivityData();
     }
     
     @WebMethod
     public String[] listTouristActivities() throws ActivityDoesNotExistException{
-    	turismouyapp.core.ITouristActivityController a = new turismouyapp.core.TouristActivityController();
+    	turismouyapp.core.interfaces.ITouristActivityController a = new turismouyapp.core.controller.TouristActivityController();
         return a.listTouristActivities();
     }
     
     @WebMethod
     public void activityDataEntry(DtTouristActivity dtTouristActivity) throws ActivityDoesNotExistException{
-    	turismouyapp.core.ITouristActivityController a = new turismouyapp.core.TouristActivityController();
+    	turismouyapp.core.interfaces.ITouristActivityController a = new turismouyapp.core.controller.TouristActivityController();
         a.activityDataEntry(dtTouristActivity);
     }
     
     @WebMethod
     public void modifyActivity(DtTouristActivity dtTouristActivity) {
-    	turismouyapp.core.ITouristActivityController a = new turismouyapp.core.TouristActivityController();
+    	turismouyapp.core.interfaces.ITouristActivityController a = new turismouyapp.core.controller.TouristActivityController();
         a.modifyActivity(dtTouristActivity);
     }
     
     @WebMethod
     public String[] listTouristActivitiesByStatus(TouristActivityStatus status) {
-    	turismouyapp.core.ITouristActivityController a = new turismouyapp.core.TouristActivityController();
+    	turismouyapp.core.interfaces.ITouristActivityController a = new turismouyapp.core.controller.TouristActivityController();
         return a.listTouristActivitiesByStatus(status);
     }
     
     @WebMethod
     public DtActivityWithOutings consultTouristActivityData(String activityName) {
-    	turismouyapp.core.ITouristActivityController a = new turismouyapp.core.TouristActivityController();
+    	turismouyapp.core.interfaces.ITouristActivityController a = new turismouyapp.core.controller.TouristActivityController();
         return a.consultTouristActivityData(activityName);
     }
     
     @WebMethod
     public List<DtActivityWithOutings> listTouristActivitiesBySupplierNickname(String nickname) {
-    	turismouyapp.core.ITouristActivityController a = new turismouyapp.core.TouristActivityController();
+    	turismouyapp.core.interfaces.ITouristActivityController a = new turismouyapp.core.controller.TouristActivityController();
         return a.listTouristActivitiesBySupplierNickname(nickname);
     }
     
   //Metodos de tourist outings and inscriptions
     @WebMethod
     public void outingDataEntry(DtTouristOuting dtTouristOuting) throws RepeatedTouristOutingException {
-    	turismouyapp.core.ITouristOutingAndInscriptionController  a = new turismouyapp.core.TouristOutingAndInscriptionController ();
+    	turismouyapp.core.interfaces.ITouristOutingAndInscriptionController  a = new turismouyapp.core.controller.TouristOutingAndInscriptionController ();
         a.outingDataEntry(dtTouristOuting);
     }
     
     @WebMethod
     public void updateOutingImageName(String outingName, String imageName){
-    	turismouyapp.core.ITouristOutingAndInscriptionController  a = new turismouyapp.core.TouristOutingAndInscriptionController ();
+    	turismouyapp.core.interfaces.ITouristOutingAndInscriptionController  a = new turismouyapp.core.controller.TouristOutingAndInscriptionController ();
         a.updateOutingImageName(outingName, imageName);
     }
     
     @WebMethod
     public DtInscriptionTouristOuting[] listOutingInscription(String outingName){
-    	turismouyapp.core.ITouristOutingAndInscriptionController  a = new turismouyapp.core.TouristOutingAndInscriptionController ();
+    	turismouyapp.core.interfaces.ITouristOutingAndInscriptionController  a = new turismouyapp.core.controller.TouristOutingAndInscriptionController ();
         return a.listOutingInscription(outingName);
     }
     
     @WebMethod
     public DtTouristOuting consultTouristOutingData(String outingName) throws TouristOutingDoesNotExistException{
-    	turismouyapp.core.ITouristOutingAndInscriptionController  a = new turismouyapp.core.TouristOutingAndInscriptionController ();
+    	turismouyapp.core.interfaces.ITouristOutingAndInscriptionController  a = new turismouyapp.core.controller.TouristOutingAndInscriptionController ();
         return a.consultTouristOutingData(outingName);
     }
     
     @WebMethod
     public void inscriptionDataEntry(DtInscriptionTouristOuting dtInscriptionOuting, String userNickname,
 			String outingName) throws RepeatedInscriptionToTouristOutingException{
-    	turismouyapp.core.ITouristOutingAndInscriptionController  a = new turismouyapp.core.TouristOutingAndInscriptionController ();
+    	turismouyapp.core.interfaces.ITouristOutingAndInscriptionController  a = new turismouyapp.core.controller.TouristOutingAndInscriptionController ();
         a.inscriptionDataEntry(dtInscriptionOuting, userNickname, outingName);
     }
     
