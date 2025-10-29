@@ -51,6 +51,10 @@ public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private final IUserController iUserController;
+	private static final int SESSION_TIMEOUT_SECONDS = 1800; // 30 minutos
+
+	
+
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -60,6 +64,31 @@ public class Login extends HttpServlet {
 		FactoryUyTourism factory = FactoryUyTourism.getInstance();
 		this.iUserController = factory.getIUserController();
 	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String action = request.getParameter("action");
+		
+		if (action == null || action.isEmpty()) {
+			// Mostrar formulario de login/registro
+			request.getRequestDispatcher("/WEB-INF/vistas/iniciarSesionRegistrarse.jsp").forward(request, response);
+		} else {
+			switch (action) {
+			case "login":
+				this.handleLogin(request, response);
+				break;
+			case "register":
+				this.handleRegister(request, response);
+				break;
+			case "guest":
+				this.handleGuestLogin(request, response);
+				break;
+			default:
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Acción desconocida");
+				break;
+			}
+		}
+	}
 
 	protected void handleGuestLogin(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -67,9 +96,13 @@ public class Login extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		session.setAttribute("guest_mode", true);
 		session.setAttribute("user_role", UserType.GUEST);
+		session.setMaxInactiveInterval(SESSION_TIMEOUT_SECONDS);
 
 		// Al ser invitado, no hay usuario logueado
-		response.sendRedirect(request.getContextPath() + "/home");
+
+		String next = sanitizeNext(request.getParameter("next"), request);
+	    response.sendRedirect(next != null ? next : request.getContextPath() + "/home");
+	    
 	}
 
 	protected void handleLogin(HttpServletRequest request, HttpServletResponse response)
@@ -121,10 +154,13 @@ public class Login extends HttpServlet {
 		session = request.getSession(true);
 		session.setAttribute("logged_user", user);
 		session.setAttribute("user_role", user.getUserType());
+		session.setMaxInactiveInterval(SESSION_TIMEOUT_SECONDS);
+
 		if (msg != null) {
 			request.setAttribute("mensaje", msg);
 		}
-		response.sendRedirect(request.getContextPath() + "/home");
+		String next = sanitizeNext(request.getParameter("next"), request);
+	    response.sendRedirect(next != null ? next : request.getContextPath() + "/home");
 	}
 
 	private void handleRegister(HttpServletRequest request, HttpServletResponse response)
@@ -222,30 +258,34 @@ public class Login extends HttpServlet {
 		}
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String action = request.getParameter("action");
+	// Sanitiza 'next' para evitar open redirect
+		private String sanitizeNext(String next, HttpServletRequest req) {
+		    if (next == null || next.isBlank()) return null;
 
-		if (action == null || action.isEmpty()) {
-			// Mostrar formulario de login/registro
-			request.getRequestDispatcher("/WEB-INF/vistas/iniciarSesionRegistrarse.jsp").forward(request, response);
-		} else {
-			switch (action) {
-			case "login":
-				this.handleLogin(request, response);
-				break;
-			case "register":
-				this.handleRegister(request, response);
-				break;
-			case "guest":
-				this.handleGuestLogin(request, response);
-				break;
-			default:
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Acción desconocida");
-				break;
-			}
+		    // Permitir rutas relativas internas
+		    if (next.startsWith("/")) {
+		        if (next.startsWith("//") || next.contains("\r") || next.contains("\n")) return null;
+		        return next;
+		    }
+
+		    // Permitir URL absoluta solo si es mismo host/puerto/esquema
+		    try {
+		        java.net.URI n = java.net.URI.create(next);
+		        String scheme = req.getScheme(); // http/https
+		        String host = req.getServerName();
+		        int port = req.getServerPort();
+		        int defaultPort = scheme.equalsIgnoreCase("https") ? 443 : 80;
+
+		        boolean sameScheme = scheme.equalsIgnoreCase(n.getScheme());
+		        boolean sameHost = host.equalsIgnoreCase(n.getHost());
+		        boolean samePort = (n.getPort() == -1 ? port == defaultPort : n.getPort() == port);
+
+		        if (sameScheme && sameHost && samePort) {
+		            return n.getRawPath() + (n.getRawQuery() != null ? "?" + n.getRawQuery() : "");
+		        }
+		    } catch (IllegalArgumentException ignored) {}
+		    return null;
 		}
-	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
