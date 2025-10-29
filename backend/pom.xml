@@ -13,7 +13,7 @@
     <jakarta.persistence.version>3.1.0</jakarta.persistence.version>
     <hsqldb.version>2.7.2</hsqldb.version>
     <tomcat-catalina.version>11.0.11</tomcat-catalina.version>
-    <jax-ws.version>3.0.2</jax-ws.version>
+    <jax-ws.version>4.0.3</jax-ws.version>
   </properties>
 
   <dependencies>
@@ -41,7 +41,7 @@
     </dependency>
     <dependency>
       <groupId>com.sun.xml.ws</groupId>
-      <artifactId>rt</artifactId>
+      <artifactId>jaxws-rt</artifactId>
       <version>${jax-ws.version}</version>
     </dependency>
   </dependencies>

@@ -1,4 +1,4 @@
-package publisher;
+package WsPublisher;
 
 import ServerTurismouy.WebServices;
 
