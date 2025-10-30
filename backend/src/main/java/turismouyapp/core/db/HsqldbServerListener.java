@@ -26,7 +26,7 @@ public class HsqldbServerListener implements LifecycleListener {
   private void startIfNeeded() {
     int port = Integer.parseInt(System.getProperty("db.port", "9001"));
     String name = System.getProperty("db.name", "turismoUyDB");
-    String path = System.getProperty("db.path", "./data/turismoUyDB");
+    String path = System.getProperty("db.path", "./data/db/turismoUyDB");
 
     if (isPortOpen("127.0.0.1", port, 300)) return;
 
