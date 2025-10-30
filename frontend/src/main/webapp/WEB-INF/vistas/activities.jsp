@@ -6,7 +6,7 @@
 <%@ page import="turismouyapp.core.dto.DtActivityWithOutings"%>
 <%@ page import="turismouyapp.core.dto.DtTouristOuting"%>
 <%@ page import="java.text.SimpleDateFormat"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%!
 private static String fmtDuration(java.time.Duration d) {
     if (d == null) return "";

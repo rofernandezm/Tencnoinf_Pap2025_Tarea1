@@ -23,6 +23,8 @@
     <maven.war.version>3.4.0</maven.war.version>
     <common.codecs.version>1.17.0</common.codecs.version>
     <bcrypt.version>0.4</bcrypt.version>
+    <jax-ws.version>4.0.3</jax-ws.version>
+    <jaxws-plugin.version>3.0.0</jaxws-plugin.version>
   </properties>
 
   <dependencies>
@@ -87,7 +89,7 @@
       <groupId>org.glassfish.web</groupId>
       <artifactId>jakarta.servlet.jsp.jstl</artifactId>
       <version>${jakarta.servlet.jstl.version}</version>
-    </dependency>
+    </dependency>	  <!-- Plugin de import ws -->
 
     <dependency>
       <groupId>commons-codec</groupId>
@@ -110,11 +112,30 @@
         <version>${maven.war.version}</version>
         <configuration>
           <warName>turismouy.UI</warName>
-          <!-- Si no tenés web.xml clásico, evita warnings -->
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
-
+	  <!-- Plugin de import ws -->
+      <plugin>
+        <groupId>com.sun.xml.ws</groupId>
+        <artifactId>jaxws-maven-plugin</artifactId>
+        <version>${jaxws-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>wsimport</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>        
+	      <wsdlUrls>
+	        <wsdlUrl>http://localhost:8007/ws/user?wsdl</wsdlUrl>
+	      </wsdlUrls>
+	      <packageName>turismouyapp.webservices</packageName>
+	      <keep>true</keep>
+	      <sourceDestDir>${project.build.directory}/generated-sources/wsimport</sourceDestDir>
+        </configuration>
+      </plugin>
       <!-- Plugin para generar Javadoc -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

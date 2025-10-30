@@ -14,6 +14,7 @@
     <hsqldb.version>2.7.2</hsqldb.version>
     <tomcat-catalina.version>11.0.11</tomcat-catalina.version>
     <jax-ws.version>4.0.3</jax-ws.version>
+    <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
   </properties>
 
   <dependencies>
@@ -61,7 +62,7 @@
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   <!-- Cambiá por tu clase con el método main -->
-                  <mainClass>src.main.java.desktop.Main</mainClass>
+                  <mainClass>desktop.Main</mainClass>
                 </transformer>
               </transformers>
             </configuration>
@@ -97,7 +98,6 @@
           </execution>
         </executions>
       </plugin>
-      
       <!-- Plugin de compilación -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -111,4 +111,38 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>run-publisher</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>${exec-maven-plugin.version}</version>
+            <configuration>
+              <mainClass>turismouyapp.webservices.Publisher</mainClass>
+              <classpathScope>runtime</classpathScope>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>run-desktop</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>${exec-maven-plugin.version}</version>
+            <configuration>
+              <mainClass>desktop.Main</mainClass>
+              <classpathScope>runtime</classpathScope>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
