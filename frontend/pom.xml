@@ -11,6 +11,10 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
+    <!-- Web Services Server Configuration -->
+    <ws.server>localhost</ws.server>
+    <ws.port>8007</ws.port>
+    <!-- Dependencies Versions -->
     <jakarta.servlet.version>6.0.0</jakarta.servlet.version>
     <jakarta.servlet.jsp.version>3.1.0</jakarta.servlet.jsp.version>
     <jakarta.el.version>5.0.0</jakarta.el.version>
@@ -25,6 +29,8 @@
     <bcrypt.version>0.4</bcrypt.version>
     <jax-ws.version>4.0.3</jax-ws.version>
     <jaxws-plugin.version>3.0.0</jaxws-plugin.version>
+    <jakarta.xml.bind.version>4.0.2</jakarta.xml.bind.version>
+    <jaxb.runtime.version>4.0.5</jaxb.runtime.version>
   </properties>
 
   <dependencies>
@@ -103,6 +109,27 @@
       <version>${bcrypt.version}</version>
     </dependency>
 
+    <!-- JAX-WS Runtime: necesario para generar y usar stubs de web services -->
+    <dependency>
+      <groupId>com.sun.xml.ws</groupId>
+      <artifactId>jaxws-rt</artifactId>
+      <version>${jax-ws.version}</version>
+    </dependency>
+
+    <!-- JAXB API (anotaciones Jakarta) -->
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <version>${jakarta.xml.bind.version}</version>
+    </dependency>
+
+    <!-- JAXB runtime (implementación) -->
+    <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <version>${jaxb.runtime.version}</version>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -129,7 +156,9 @@
         </executions>
         <configuration>        
 	      <wsdlUrls>
-	        <wsdlUrl>http://localhost:8007/ws/user?wsdl</wsdlUrl>
+	        <wsdlUrl>http://${ws.server}:${ws.port}/ws/user?wsdl</wsdlUrl>
+	        <wsdlUrl>http://${ws.server}:${ws.port}/ws/activity?wsdl</wsdlUrl>
+	        <wsdlUrl>http://${ws.server}:${ws.port}/ws/outingAndInscription?wsdl</wsdlUrl>
 	      </wsdlUrls>
 	      <packageName>turismouyapp.webservices</packageName>
 	      <keep>true</keep>

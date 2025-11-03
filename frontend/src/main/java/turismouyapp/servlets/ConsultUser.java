@@ -16,6 +16,9 @@ import jakarta.servlet.RequestDispatcher;
 import turismouyapp.webservices.ActivityWebService;
 import turismouyapp.webservices.OutingAndInscriptionWebService;
 import turismouyapp.webservices.UserWebService;
+import turismouyapp.webservices.interfaces.IActivityWebService;
+import turismouyapp.webservices.interfaces.IOutingAndInscriptionWebService;
+import turismouyapp.webservices.interfaces.IUserWebService;
 import turismouyapp.core.dto.DtUser;
 import turismouyapp.core.dto.DtActivityWithOutings;
 import turismouyapp.core.dto.DtInscriptionTouristOuting;
@@ -30,9 +33,9 @@ public class ConsultUser extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private final UserWebService userWebService;
-	private final ActivityWebService activityWebService;
-	private final OutingAndInscriptionWebService outingAndInscriptionWebService;
+	private final IUserWebService userWebService;
+	private final IActivityWebService activityWebService;
+	private final IOutingAndInscriptionWebService outingAndInscriptionWebService;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -128,7 +131,7 @@ public class ConsultUser extends HttpServlet {
 		List<DtActivityWithOutings> activities = Collections.emptyList();
 		if (isOwnProfile) {
 			try {
-				activities = activityWebService.listTouristActivitiesBySupplierNickName(supplierNickname);
+				activities = activityWebService.listTouristActivitiesBySupplierNickname(supplierNickname);
 			} catch (ActivityDoesNotExistException e) {
 				e.printStackTrace();
 			}

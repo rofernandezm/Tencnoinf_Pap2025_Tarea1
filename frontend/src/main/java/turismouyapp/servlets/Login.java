@@ -214,7 +214,7 @@ public class Login extends HttpServlet {
 		}
 
 		try {
-			userWebService.dataEntry(newUser);
+			userWebService.dataEntryUser(newUser);
 			userWebService.confirmRegistration();
 
 			// Persistir imagen
