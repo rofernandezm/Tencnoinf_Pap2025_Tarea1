@@ -32,8 +32,14 @@ package turismouyapp.core.exceptions;
  * @see turismouyapp.core.entity.TouristActivity
  * @see turismouyapp.core.handler.TouristActivityHandler
  */
+import jakarta.xml.ws.WebFault;
+import turismouyapp.core.exceptions.fault.ActivityDoesNotExistFault;
+
 @SuppressWarnings("serial")
+@WebFault(name = "ActivityDoesNotExistFault", targetNamespace = "http://ws.turismouyapp/schema", faultBean = "turismouyapp.core.exceptions.fault.ActivityDoesNotExistFault")
 public class ActivityDoesNotExistException extends Exception {
+
+	private ActivityDoesNotExistFault faultInfo;
 
 	/**
 	 * Construye una nueva excepción de actividad no existente con el mensaje de detalle especificado.
@@ -46,6 +52,16 @@ public class ActivityDoesNotExistException extends Exception {
 	 *               y en qué contexto ocurrió el error
 	 */
 	public ActivityDoesNotExistException(String string) {
-        super(string); 
+        super(string);
+        this.faultInfo = new ActivityDoesNotExistFault(string);
     }
+
+	public ActivityDoesNotExistException(String message, ActivityDoesNotExistFault faultInfo) {
+		super(message);
+		this.faultInfo = faultInfo;
+	}
+
+	public ActivityDoesNotExistFault getFaultInfo() {
+		return faultInfo;
+	}
 }

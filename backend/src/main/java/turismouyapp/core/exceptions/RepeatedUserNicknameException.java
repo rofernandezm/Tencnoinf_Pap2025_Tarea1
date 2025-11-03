@@ -49,9 +49,15 @@ package turismouyapp.core.exceptions;
  * @see turismouyapp.core.entity.Supplier
  * @see RepeatedUserEmailException
  */
+import jakarta.xml.ws.WebFault;
+import turismouyapp.core.exceptions.fault.RepeatedUserNicknameFault;
+
 @SuppressWarnings("serial")
+@WebFault(name = "RepeatedUserNicknameFault", targetNamespace = "http://ws.turismouyapp/schema", faultBean = "turismouyapp.core.exceptions.fault.RepeatedUserNicknameFault")
 public class RepeatedUserNicknameException extends Exception {
-	
+
+	private RepeatedUserNicknameFault faultInfo;
+
 	/**
 	 * Construye una nueva excepción de nickname duplicado con el mensaje especificado.
 	 * <p>
@@ -64,5 +70,15 @@ public class RepeatedUserNicknameException extends Exception {
 	 */
 	public RepeatedUserNicknameException(String string) {
 		super(string);
+		this.faultInfo = new RepeatedUserNicknameFault(string);
+	}
+
+	public RepeatedUserNicknameException(String message, RepeatedUserNicknameFault faultInfo) {
+		super(message);
+		this.faultInfo = faultInfo;
+	}
+
+	public RepeatedUserNicknameFault getFaultInfo() {
+		return faultInfo;
 	}
 }

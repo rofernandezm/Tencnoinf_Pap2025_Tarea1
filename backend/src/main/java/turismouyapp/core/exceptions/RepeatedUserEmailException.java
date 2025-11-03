@@ -40,8 +40,14 @@ package turismouyapp.core.exceptions;
  * @see turismouyapp.core.handler.UserHandler
  * @see RepeatedUserNicknameException
  */
+import jakarta.xml.ws.WebFault;
+import turismouyapp.core.exceptions.fault.RepeatedUserEmailFault;
+
 @SuppressWarnings("serial")
+@WebFault(name = "RepeatedUserEmailFault", targetNamespace = "http://ws.turismouyapp/schema", faultBean = "turismouyapp.core.exceptions.fault.RepeatedUserEmailFault")
 public class RepeatedUserEmailException extends Exception {
+
+	private RepeatedUserEmailFault faultInfo;
 	
 	/**
 	 * Construye una nueva excepción de email de usuario duplicado con el mensaje especificado.
@@ -55,5 +61,18 @@ public class RepeatedUserEmailException extends Exception {
 	 */
 	public RepeatedUserEmailException(String string) {
 		super(string);
+		this.faultInfo = new RepeatedUserEmailFault(string);
+	}
+
+	public RepeatedUserEmailException(String message, RepeatedUserEmailFault faultInfo) {
+		super(message);
+		this.faultInfo = faultInfo;
+	}
+
+	/**
+	 * Información del fault para serializar en el WSDL como detalle de la excepción.
+	 */
+	public RepeatedUserEmailFault getFaultInfo() {
+		return faultInfo;
 	}
 }

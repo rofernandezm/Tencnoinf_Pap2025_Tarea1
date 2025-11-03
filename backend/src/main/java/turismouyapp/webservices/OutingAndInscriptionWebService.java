@@ -7,17 +7,14 @@ import turismouyapp.core.exceptions.RepeatedInscriptionToTouristOutingException;
 import turismouyapp.core.exceptions.RepeatedTouristOutingException;
 import turismouyapp.core.exceptions.TouristOutingDoesNotExistException;
 import turismouyapp.core.interfaces.ITouristOutingAndInscriptionController;
+import turismouyapp.webservices.interfaces.IOutingAndInscriptionWebService;
 
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
-import jakarta.jws.soap.SOAPBinding;
-import jakarta.jws.soap.SOAPBinding.ParameterStyle;
-import jakarta.jws.soap.SOAPBinding.Style;
 import jakarta.xml.ws.Endpoint;
 
-@WebService
-@SOAPBinding(style = Style.RPC, parameterStyle = ParameterStyle.WRAPPED)
-public class OutingAndInscriptionWebService {
+@WebService(serviceName = "OutingAndInscriptionService", portName = "OutingAndInscriptionPort", targetNamespace = "http://ws.turismouyapp/schema", endpointInterface = "turismouyapp.webservices.interfaces.IOutingAndInscriptionWebService")
+public class OutingAndInscriptionWebService implements IOutingAndInscriptionWebService {
 
 	private Endpoint endpoint = null;
 	private final ITouristOutingAndInscriptionController iTouristOutingAndInscriptionController;
@@ -38,27 +35,22 @@ public class OutingAndInscriptionWebService {
 		return endpoint;
 	}
 
-	@WebMethod
 	public void outingDataEntry(DtTouristOuting dtTouristOuting) throws RepeatedTouristOutingException {
 		iTouristOutingAndInscriptionController.outingDataEntry(dtTouristOuting);
 	}
 
-	@WebMethod
 	public void updateOutingImageName(String outingName, String imageName) {
 		iTouristOutingAndInscriptionController.updateOutingImageName(outingName, imageName);
 	}
 
-	@WebMethod
 	public DtInscriptionTouristOuting[] listOutingInscription(String outingName) {
 		return iTouristOutingAndInscriptionController.listOutingInscription(outingName);
 	}
 
-	@WebMethod
 	public DtTouristOuting consultTouristOutingData(String outingName) throws TouristOutingDoesNotExistException {
 		return iTouristOutingAndInscriptionController.consultTouristOutingData(outingName);
 	}
 
-	@WebMethod
 	public void inscriptionDataEntry(DtInscriptionTouristOuting dtInscriptionOuting, String userNickname,
 			String outingName) throws RepeatedInscriptionToTouristOutingException {
 		iTouristOutingAndInscriptionController.inscriptionDataEntry(dtInscriptionOuting, userNickname, outingName);

@@ -7,20 +7,17 @@ import turismouyapp.core.dto.TouristActivityStatus;
 import turismouyapp.core.exceptions.ActivityDoesNotExistException;
 import turismouyapp.core.exceptions.RepeatedActivityNameException;
 import turismouyapp.core.interfaces.ITouristActivityController;
+import turismouyapp.webservices.interfaces.IActivityWebService;
 
 import java.util.ArrayList;
 
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
-import jakarta.jws.soap.SOAPBinding;
-import jakarta.jws.soap.SOAPBinding.ParameterStyle;
-import jakarta.jws.soap.SOAPBinding.Style;
 import jakarta.xml.ws.Endpoint;
 
 @SuppressWarnings("unchecked")
-@WebService
-@SOAPBinding(style = Style.RPC, parameterStyle = ParameterStyle.WRAPPED)
-public class ActivityWebService {
+@WebService(serviceName = "ActivityService", portName = "ActivityPort", targetNamespace = "http://ws.turismouyapp/schema", endpointInterface = "turismouyapp.webservices.interfaces.IActivityWebService")
+public class ActivityWebService implements IActivityWebService {
 
 	private Endpoint endpoint = null;
 	private final ITouristActivityController iTouristActivityController;
@@ -42,38 +39,31 @@ public class ActivityWebService {
 	}
 
 	// Metodos de tourist activity
-	@WebMethod
 	public ArrayList<DtActivityWithOutings> listTouristActivityData() throws ActivityDoesNotExistException {
 		return (ArrayList) iTouristActivityController.listTouristActivityData();
 	}
 
-	@WebMethod
 	public String[] listTouristActivities() throws ActivityDoesNotExistException {
 		return iTouristActivityController.listTouristActivities();
 	}
 
-	@WebMethod
 	public void activityDataEntry(DtTouristActivity dtTouristActivity)
 			throws ActivityDoesNotExistException, RepeatedActivityNameException {
 		iTouristActivityController.activityDataEntry(dtTouristActivity);
 	}
 
-	@WebMethod
 	public void modifyActivity(DtTouristActivity dtTouristActivity) {
 		iTouristActivityController.modifyActivity(dtTouristActivity);
 	}
 
-	@WebMethod
 	public String[] listTouristActivitiesByStatus(TouristActivityStatus status) {
 		return iTouristActivityController.listTouristActivitiesByStatus(status);
 	}
 
-	@WebMethod
 	public DtActivityWithOutings consultTouristActivityData(String activityName) throws ActivityDoesNotExistException {
 		return iTouristActivityController.consultTouristActivityData(activityName);
 	}
 
-	@WebMethod
 	public String[] listTouristActivitiesBySupplierNickname(String nickname) {
 		return iTouristActivityController.listTouristActivitiesBySupplierNickname(nickname);
 	}

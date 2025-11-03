@@ -5,17 +5,14 @@ import turismouyapp.core.dto.DtUser;
 import turismouyapp.core.exceptions.RepeatedUserEmailException;
 import turismouyapp.core.exceptions.RepeatedUserNicknameException;
 import turismouyapp.core.interfaces.IUserController;
+import turismouyapp.webservices.interfaces.IUserWebService;
 
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
-import jakarta.jws.soap.SOAPBinding;
-import jakarta.jws.soap.SOAPBinding.ParameterStyle;
-import jakarta.jws.soap.SOAPBinding.Style;
 import jakarta.xml.ws.Endpoint;
 
-@WebService
-@SOAPBinding(style = Style.RPC, parameterStyle = ParameterStyle.WRAPPED)
-public class UserWebService {
+@WebService(serviceName = "UserService", portName = "UserPort", targetNamespace = "http://ws.turismouyapp/schema", endpointInterface = "turismouyapp.webservices.interfaces.IUserWebService")
+public class UserWebService implements IUserWebService {
 
 	private Endpoint endpoint = null;
 	private final IUserController iUserController;
@@ -36,32 +33,26 @@ public class UserWebService {
 		return endpoint;
 	}
 
-	@WebMethod
 	public DtUser consultUserData(String nicknameOrEmail) {
 		return iUserController.consultUserData(nicknameOrEmail);
 	}
 
-	@WebMethod
 	public DtUser consultUserDataByEmail(String nicknameOrEmail) {
 		return iUserController.consultUserDataByEmail(nicknameOrEmail);
 	}
 
-	@WebMethod
 	public void dataEntryUser(DtUser dtUser) throws RepeatedUserEmailException, RepeatedUserNicknameException {
 		iUserController.dataEntry(dtUser);
 	}
 
-	@WebMethod
 	public void confirmRegistration() {
 		iUserController.confirmRegistration();
 	}
 
-	@WebMethod
 	public void modifyUserData(DtUser dtUser) {
 		iUserController.modifyUserData(dtUser);
 	}
 
-	@WebMethod
 	public String[] listUsers() {
 		return iUserController.listUsers();
 	}

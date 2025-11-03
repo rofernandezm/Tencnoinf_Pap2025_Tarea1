@@ -11,10 +11,10 @@ import jakarta.servlet.http.Part;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpSession;
-import turismouyapp.core.interfaces.IUserController;
 import turismouyapp.security.PasswordEncoder;
 import turismouyapp.utils.ImageManager;
 import turismouyapp.utils.ImageManager.UploadFolderType;
+import turismouyapp.webservices.UserWebService;
 import turismouyapp.core.factory.FactoryUyTourism;
 import turismouyapp.core.dto.DtUser;
 import turismouyapp.core.dto.UserType;
@@ -50,25 +50,21 @@ public class Login extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private final IUserController iUserController;
+	private final UserWebService userWebService;
 	private static final int SESSION_TIMEOUT_SECONDS = 1800; // 30 minutos
-
-	
-
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public Login() {
 		super();
-		FactoryUyTourism factory = FactoryUyTourism.getInstance();
-		this.iUserController = factory.getIUserController();
+		this.userWebService = new UserWebService();
 	}
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
-		
+
 		if (action == null || action.isEmpty()) {
 			// Mostrar formulario de login/registro
 			request.getRequestDispatcher("/WEB-INF/vistas/iniciarSesionRegistrarse.jsp").forward(request, response);
@@ -101,8 +97,8 @@ public class Login extends HttpServlet {
 		// Al ser invitado, no hay usuario logueado
 
 		String next = sanitizeNext(request.getParameter("next"), request);
-	    response.sendRedirect(next != null ? next : request.getContextPath() + "/home");
-	    
+		response.sendRedirect(next != null ? next : request.getContextPath() + "/home");
+
 	}
 
 	protected void handleLogin(HttpServletRequest request, HttpServletResponse response)
@@ -135,8 +131,8 @@ public class Login extends HttpServlet {
 	}
 
 	private DtUser findUserByNicknameOrEmail(String nicknameOrEmail) {
-		DtUser requestedUser = iUserController.consultUserData(nicknameOrEmail);
-		return requestedUser == null ? iUserController.consultUserDataByEmail(nicknameOrEmail) : requestedUser;
+		DtUser requestedUser = userWebService.consultUserData(nicknameOrEmail);
+		return requestedUser == null ? userWebService.consultUserDataByEmail(nicknameOrEmail) : requestedUser;
 	}
 
 	private void createNewSessionAndAssingUser(HttpServletRequest request, HttpServletResponse response, DtUser user)
@@ -160,7 +156,7 @@ public class Login extends HttpServlet {
 			request.setAttribute("mensaje", msg);
 		}
 		String next = sanitizeNext(request.getParameter("next"), request);
-	    response.sendRedirect(next != null ? next : request.getContextPath() + "/home");
+		response.sendRedirect(next != null ? next : request.getContextPath() + "/home");
 	}
 
 	private void handleRegister(HttpServletRequest request, HttpServletResponse response)
@@ -182,7 +178,8 @@ public class Login extends HttpServlet {
 		} catch (DateTimeParseException ex) {
 			ex.printStackTrace();
 			request.setAttribute("activeTab", "register");
-			this.setErrorAndDispatchForward(request, response, "registerError", "Fecha de nacimiento inválida, reintente.");
+			this.setErrorAndDispatchForward(request, response, "registerError",
+					"Fecha de nacimiento inválida, reintente.");
 			return;
 		}
 
@@ -208,18 +205,17 @@ public class Login extends HttpServlet {
 		String hashedPassword = PasswordEncoder.encode(password);
 		if (user == UserType.TOURIST) {
 			String nationality = request.getParameter("nationality");
-			newUser = new DtTourist(nickname, name, lastName, email, birthDate, hashedPassword, nationality,
-					fileName);
+			newUser = new DtTourist(nickname, name, lastName, email, birthDate, hashedPassword, nationality, fileName);
 		} else {
 			String supplierDesc = request.getParameter("description");
 			String webSite = request.getParameter("website");
-			newUser = new DtSupplier(nickname, name, lastName, email, birthDate, hashedPassword, supplierDesc,
-					webSite, fileName);
+			newUser = new DtSupplier(nickname, name, lastName, email, birthDate, hashedPassword, supplierDesc, webSite,
+					fileName);
 		}
-		
+
 		try {
-			iUserController.dataEntry(newUser);
-			iUserController.confirmRegistration();
+			userWebService.dataEntry(newUser);
+			userWebService.confirmRegistration();
 
 			// Persistir imagen
 			try {
@@ -238,7 +234,7 @@ public class Login extends HttpServlet {
 							newUser.getBirthDate(), newUser.getPassword(), ((DtSupplier) newUser).getDescription(),
 							((DtSupplier) newUser).getWebSite(), defaultImage);
 				}
-				iUserController.modifyUserData(newUser);
+				userWebService.modifyUserData(newUser);
 			}
 
 			request.setAttribute("mensaje", "Se ha ingresado correctamente el usuario " + nickname + " en el sistema.");
@@ -248,51 +244,57 @@ public class Login extends HttpServlet {
 
 			// Muestro error de registro
 			request.setAttribute("activeTab", "register");
-			this.setErrorAndDispatchForward(request, response, "registerError", "El usuario " + nickname + " ya existe.");
+			this.setErrorAndDispatchForward(request, response, "registerError",
+					"El usuario " + nickname + " ya existe.");
 
 		} catch (RepeatedUserEmailException e) {
 
 			// Muestro error de registro
 			request.setAttribute("activeTab", "register");
-			this.setErrorAndDispatchForward(request, response, "registerError", "El usuario con email: " + email + " ya existe.");
+			this.setErrorAndDispatchForward(request, response, "registerError",
+					"El usuario con email: " + email + " ya existe.");
 		}
 	}
 
 	// Sanitiza 'next' para evitar open redirect
-		private String sanitizeNext(String next, HttpServletRequest req) {
-		    if (next == null || next.isBlank()) return null;
+	private String sanitizeNext(String next, HttpServletRequest req) {
+		if (next == null || next.isBlank())
+			return null;
 
-		    // Permitir rutas relativas internas
-		    if (next.startsWith("/")) {
-		        if (next.startsWith("//") || next.contains("\r") || next.contains("\n")) return null;
-		        return next;
-		    }
-
-		    // Permitir URL absoluta solo si es mismo host/puerto/esquema
-		    try {
-		        java.net.URI n = java.net.URI.create(next);
-		        String scheme = req.getScheme(); // http/https
-		        String host = req.getServerName();
-		        int port = req.getServerPort();
-		        int defaultPort = scheme.equalsIgnoreCase("https") ? 443 : 80;
-
-		        boolean sameScheme = scheme.equalsIgnoreCase(n.getScheme());
-		        boolean sameHost = host.equalsIgnoreCase(n.getHost());
-		        boolean samePort = (n.getPort() == -1 ? port == defaultPort : n.getPort() == port);
-
-		        if (sameScheme && sameHost && samePort) {
-		            return n.getRawPath() + (n.getRawQuery() != null ? "?" + n.getRawQuery() : "");
-		        }
-		    } catch (IllegalArgumentException ignored) {}
-		    return null;
+		// Permitir rutas relativas internas
+		if (next.startsWith("/")) {
+			if (next.startsWith("//") || next.contains("\r") || next.contains("\n"))
+				return null;
+			return next;
 		}
+
+		// Permitir URL absoluta solo si es mismo host/puerto/esquema
+		try {
+			java.net.URI n = java.net.URI.create(next);
+			String scheme = req.getScheme(); // http/https
+			String host = req.getServerName();
+			int port = req.getServerPort();
+			int defaultPort = scheme.equalsIgnoreCase("https") ? 443 : 80;
+
+			boolean sameScheme = scheme.equalsIgnoreCase(n.getScheme());
+			boolean sameHost = host.equalsIgnoreCase(n.getHost());
+			boolean samePort = (n.getPort() == -1 ? port == defaultPort : n.getPort() == port);
+
+			if (sameScheme && sameHost && samePort) {
+				return n.getRawPath() + (n.getRawQuery() != null ? "?" + n.getRawQuery() : "");
+			}
+		} catch (IllegalArgumentException ignored) {
+		}
+		return null;
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		this.doGet(request, response);
 	}
-	
-	private void setErrorAndDispatchForward(HttpServletRequest request, HttpServletResponse response, String attributeName, String errorMsg) {
+
+	private void setErrorAndDispatchForward(HttpServletRequest request, HttpServletResponse response,
+			String attributeName, String errorMsg) {
 		try {
 			request.setAttribute(attributeName, errorMsg);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vistas/iniciarSesionRegistrarse.jsp");

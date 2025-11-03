@@ -65,8 +65,14 @@ package turismouyapp.core.exceptions;
  * @see turismouyapp.core.entity.TouristActivity
  * @see turismouyapp.core.handler.TouristOutingAndInscrptionHandler
  */
+import jakarta.xml.ws.WebFault;
+import turismouyapp.core.exceptions.fault.RepeatedTouristOutingFault;
+
 @SuppressWarnings("serial")
+@WebFault(name = "RepeatedTouristOutingFault", targetNamespace = "http://ws.turismouyapp/schema", faultBean = "turismouyapp.core.exceptions.fault.RepeatedTouristOutingFault")
 public class RepeatedTouristOutingException extends Exception {
+
+	private RepeatedTouristOutingFault faultInfo;
 
 	/**
 	 * Construye una nueva excepción de salida turística duplicada con el mensaje especificado.
@@ -80,6 +86,15 @@ public class RepeatedTouristOutingException extends Exception {
 	 */
 	public RepeatedTouristOutingException (String string) {
 		super(string);
+		this.faultInfo = new RepeatedTouristOutingFault(string);
 	}
-	
+
+	public RepeatedTouristOutingException(String message, RepeatedTouristOutingFault faultInfo) {
+		super(message);
+		this.faultInfo = faultInfo;
+	}
+
+	public RepeatedTouristOutingFault getFaultInfo() {
+		return faultInfo;
+	}
 }

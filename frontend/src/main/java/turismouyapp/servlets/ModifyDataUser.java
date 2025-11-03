@@ -11,16 +11,14 @@ import jakarta.servlet.http.Part;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpSession;
-import turismouyapp.core.interfaces.IUserController;
 import turismouyapp.security.PasswordEncoder;
 import turismouyapp.utils.ImageManager;
 import turismouyapp.utils.ImageManager.UploadFolderType;
-import turismouyapp.core.factory.FactoryUyTourism;
+import turismouyapp.webservices.UserWebService;
 import turismouyapp.core.dto.DtUser;
 import turismouyapp.core.dto.UserType;
 import turismouyapp.core.dto.DtSupplier;
 import turismouyapp.core.dto.DtTourist;
-import java.util.logging.Logger;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -49,15 +47,13 @@ public class ModifyDataUser extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private final IUserController iUserController;
-
+	private final UserWebService userWebService;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public ModifyDataUser() {
 		super();
-		FactoryUyTourism factory = FactoryUyTourism.getInstance();
-		this.iUserController = factory.getIUserController();
+		this.userWebService = new UserWebService();
 	}
 
 	protected void handleModifyData(HttpServletRequest request, HttpServletResponse response)
@@ -149,7 +145,7 @@ public class ModifyDataUser extends HttpServlet {
 
 		try {
 
-			iUserController.modifyUserData(updatedUser);
+			userWebService.modifyUserData(updatedUser);
 
 			// PERSISTIR IMAGEN
 			if (!fileName.equals(loggedUser.getImagePath())) {

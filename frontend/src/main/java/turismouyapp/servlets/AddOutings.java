@@ -20,22 +20,20 @@ import jakarta.servlet.http.Part;
 import turismouyapp.core.dto.DtTouristOuting;
 import turismouyapp.core.dto.DtUser;
 import turismouyapp.core.exceptions.RepeatedTouristOutingException;
-import turismouyapp.core.factory.FactoryUyTourism;
-import turismouyapp.core.interfaces.ITouristOutingAndInscriptionController;
 import turismouyapp.utils.ImageManager;
 import turismouyapp.utils.ImageManager.UploadFolderType;
+import turismouyapp.webservices.OutingAndInscriptionWebService;
 
 @WebServlet("/outings/add")
 @MultipartConfig
 public class AddOutings extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private final ITouristOutingAndInscriptionController itoaic;
+	private final OutingAndInscriptionWebService outingAndInscriptionWebService;
 
 	public AddOutings() {
 		super();
-		FactoryUyTourism factory = FactoryUyTourism.getInstance();
-		this.itoaic = factory.getITouristOutingAndInscriptionController();
+		this.outingAndInscriptionWebService = new OutingAndInscriptionWebService();
 	}
 
 	@Override
@@ -110,7 +108,7 @@ public class AddOutings extends HttpServlet {
 
 		try {
 
-			itoaic.outingDataEntry(newOuting);
+			outingAndInscriptionWebService.outingDataEntry(newOuting);
 
 			// Persistir imagen
 			try {
@@ -119,7 +117,7 @@ public class AddOutings extends HttpServlet {
 
 				// Setea imagen default
 				String defaultImage = ImageManager.resolveDefaultImageName(UploadFolderType.OUTING);
-				itoaic.updateOutingImageName(outingName, defaultImage);
+				outingAndInscriptionWebService.updateOutingImageName(outingName, defaultImage);
 			}
 
 			response.sendRedirect(request.getContextPath() + "/outings?status=ok&q="

@@ -44,4 +44,9 @@
  * @version 1.0.0
  * @author TurismoUY Team
  */
+
+@jakarta.xml.bind.annotation.XmlSchema(
+	namespace = "http://ws.turismouyapp/schema",
+	elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED
+)
 package turismouyapp.core.dto;

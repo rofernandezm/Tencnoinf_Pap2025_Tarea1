@@ -72,8 +72,14 @@ package turismouyapp.core.exceptions;
  * @see turismouyapp.core.handler.TouristOutingAndInscrptionHandler
  * @see ActivityDoesNotExistException
  */
+import jakarta.xml.ws.WebFault;
+import turismouyapp.core.exceptions.fault.TouristOutingDoesNotExistFault;
+
 @SuppressWarnings("serial")
+@WebFault(name = "TouristOutingDoesNotExistFault", targetNamespace = "http://ws.turismouyapp/schema", faultBean = "turismouyapp.core.exceptions.fault.TouristOutingDoesNotExistFault")
 public class TouristOutingDoesNotExistException extends Exception {
+
+	private TouristOutingDoesNotExistFault faultInfo;
 
 	/**
 	 * Construye una nueva excepción de salida turística inexistente con el mensaje especificado.
@@ -95,6 +101,15 @@ public class TouristOutingDoesNotExistException extends Exception {
 	 */
 	public TouristOutingDoesNotExistException(String string) {
 		super(string);
+		this.faultInfo = new TouristOutingDoesNotExistFault(string);
 	}
 
+	public TouristOutingDoesNotExistException(String message, TouristOutingDoesNotExistFault faultInfo) {
+		super(message);
+		this.faultInfo = faultInfo;
+	}
+
+	public TouristOutingDoesNotExistFault getFaultInfo() {
+		return faultInfo;
+	}
 }

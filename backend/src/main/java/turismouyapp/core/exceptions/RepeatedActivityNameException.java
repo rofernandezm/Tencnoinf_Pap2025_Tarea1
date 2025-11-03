@@ -39,9 +39,15 @@ package turismouyapp.core.exceptions;
  * @see turismouyapp.core.handler.TouristActivityHandler
  * @see turismouyapp.core.controller.TouristActivityController
  */
+import jakarta.xml.ws.WebFault;
+import turismouyapp.core.exceptions.fault.RepeatedActivityNameFault;
+
 @SuppressWarnings("serial")
+@WebFault(name = "RepeatedActivityNameFault", targetNamespace = "http://ws.turismouyapp/schema", faultBean = "turismouyapp.core.exceptions.fault.RepeatedActivityNameFault")
 public class RepeatedActivityNameException extends Exception {
-	
+
+	private RepeatedActivityNameFault faultInfo;
+
 	/**
 	 * Construye una nueva excepción de nombre de actividad duplicado con el mensaje especificado.
 	 * <p>
@@ -54,5 +60,15 @@ public class RepeatedActivityNameException extends Exception {
 	 */
 	public RepeatedActivityNameException(String string) {
 		super(string);
+		this.faultInfo = new RepeatedActivityNameFault(string);
+	}
+
+	public RepeatedActivityNameException(String message, RepeatedActivityNameFault faultInfo) {
+		super(message);
+		this.faultInfo = faultInfo;
+	}
+
+	public RepeatedActivityNameFault getFaultInfo() {
+		return faultInfo;
 	}
 }
