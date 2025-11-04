@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Collections;
+import java.util.ArrayList;
 import jakarta.servlet.annotation.MultipartConfig;
 
 import jakarta.servlet.ServletException;
@@ -45,7 +47,7 @@ public class Activities extends HttpServlet {
 			activities = activityWebService.listTouristActivities();
 		} catch (ActivityDoesNotExistException ex) {
 			ex.printStackTrace();
-			activities = new java.util.ArrayList<>();
+			activities = new ArrayList<>();
 		}
 		request.setAttribute("activities", activities);
 
@@ -58,13 +60,13 @@ public class Activities extends HttpServlet {
 		try {
 			all = activityWebService.listTouristActivityData();
 		} catch (ActivityDoesNotExistException e) {
-			all = java.util.Collections.emptyList();
+			all = Collections.emptyList();
 		}
 
 		// filtro en base a la busqueda
 		List<DtActivityWithOutings> filtered = all;
 		if (!needle.isEmpty()) {
-			filtered = new java.util.ArrayList<>();
+			filtered = new ArrayList<>();
 			for (DtActivityWithOutings awo : all) {
 				boolean matchActivity = awo.getActivity() != null && awo.getActivity().getActivityName() != null
 						&& awo.getActivity().getActivityName().toLowerCase().contains(needle);
