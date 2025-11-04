@@ -67,4 +67,9 @@ public class ActivityWebService implements IActivityWebService {
 	public String[] listTouristActivitiesBySupplierNickname(String nickname) {
 		return iTouristActivityController.listTouristActivitiesBySupplierNickname(nickname);
 	}
+	
+	public ArrayList<DtActivityWithOutings> arrayListTouristActivitiesBySupplierNickName(String nickname) throws ActivityDoesNotExistException{
+		return (ArrayList) iTouristActivityController.listTouristActivitiesBySupplierNickName(nickname);
+	}
+	
 }

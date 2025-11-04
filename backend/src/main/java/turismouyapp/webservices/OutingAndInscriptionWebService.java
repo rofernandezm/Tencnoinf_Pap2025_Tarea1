@@ -9,6 +9,8 @@ import turismouyapp.core.exceptions.TouristOutingDoesNotExistException;
 import turismouyapp.core.interfaces.ITouristOutingAndInscriptionController;
 import turismouyapp.webservices.interfaces.IOutingAndInscriptionWebService;
 
+import java.util.ArrayList;
+
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
 import jakarta.xml.ws.Endpoint;
@@ -54,6 +56,10 @@ public class OutingAndInscriptionWebService implements IOutingAndInscriptionWebS
 	public void inscriptionDataEntry(DtInscriptionTouristOuting dtInscriptionOuting, String userNickname,
 			String outingName) throws RepeatedInscriptionToTouristOutingException {
 		iTouristOutingAndInscriptionController.inscriptionDataEntry(dtInscriptionOuting, userNickname, outingName);
+	}
+	
+	public ArrayList<DtInscriptionTouristOuting> listDtInscriptionTouristOutingByTouristNickname(String nickname){
+		return (ArrayList)iTouristOutingAndInscriptionController.listDtInscriptionTouristOutingByTouristNickname(nickname);
 	}
 
 }

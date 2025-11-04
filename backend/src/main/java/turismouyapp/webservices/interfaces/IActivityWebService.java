@@ -51,4 +51,9 @@ public interface IActivityWebService {
     @WebMethod
     @WebResult(name = "activityNames")
     String[] listTouristActivitiesBySupplierNickname(@WebParam(name = "nickname") String nickname);
+    
+    @WebMethod
+    @WebResult(name = "DtActivityWithOutings")
+    public ArrayList<DtActivityWithOutings> arrayListTouristActivitiesBySupplierNickName(@WebParam(name = "nickname") String nickname) 
+    		throws ActivityDoesNotExistException;
 }

@@ -1,10 +1,14 @@
 package turismouyapp.webservices.interfaces;
 
+import turismouyapp.core.dto.DtActivityWithOutings;
 import turismouyapp.core.dto.DtInscriptionTouristOuting;
 import turismouyapp.core.dto.DtTouristOuting;
+import turismouyapp.core.exceptions.ActivityDoesNotExistException;
 import turismouyapp.core.exceptions.RepeatedInscriptionToTouristOutingException;
 import turismouyapp.core.exceptions.RepeatedTouristOutingException;
 import turismouyapp.core.exceptions.TouristOutingDoesNotExistException;
+
+import java.util.ArrayList;
 
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
@@ -44,4 +48,8 @@ public interface IOutingAndInscriptionWebService {
                               @WebParam(name = "userNickname") String userNickname,
                               @WebParam(name = "outingName") String outingName)
             throws RepeatedInscriptionToTouristOutingException;
+    
+    @WebMethod
+    @WebResult(name = "DtInscriptionTouristOuting")
+    ArrayList<DtInscriptionTouristOuting> listDtInscriptionTouristOutingByTouristNickname(@WebParam(name = "nickname") String nickname);
 }

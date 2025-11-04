@@ -34,12 +34,12 @@
   </properties>
 
   <dependencies>
-    <!-- Backend: 'mvn install' en Backend -->
+    <!-- Backend: 'mvn install' en Backend 
     <dependency>
       <groupId>turismouy.Backend</groupId>
       <artifactId>turismouy.Backend</artifactId>
       <version>1.0.0</version>
-    </dependency>
+    </dependency>-->
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>

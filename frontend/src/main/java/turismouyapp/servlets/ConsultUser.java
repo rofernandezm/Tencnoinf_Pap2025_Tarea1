@@ -131,7 +131,7 @@ public class ConsultUser extends HttpServlet {
 		List<DtActivityWithOutings> activities = Collections.emptyList();
 		if (isOwnProfile) {
 			try {
-				activities = activityWebService.listTouristActivitiesBySupplierNickname(supplierNickname);
+				activities = activityWebService.arrayListTouristActivitiesBySupplierNickName(supplierNickname);
 			} catch (ActivityDoesNotExistException e) {
 				e.printStackTrace();
 			}
