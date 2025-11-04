@@ -17,27 +17,29 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import turismouyapp.core.dto.DtActivityWithOutings;
-import turismouyapp.core.dto.DtInscriptionTouristOuting;
-import turismouyapp.core.dto.DtTouristActivity;
-import turismouyapp.core.dto.DtTouristOuting;
-import turismouyapp.core.dto.DtUser;
-import turismouyapp.core.dto.TouristActivityStatus;
-import turismouyapp.core.exceptions.ActivityDoesNotExistException;
-import turismouyapp.webservices.ActivityWebService;
-import turismouyapp.webservices.OutingAndInscriptionWebService;
+import turismouyapp.webservices.ActivityService;
+import turismouyapp.webservices.ActivityPortType;
+import turismouyapp.webservices.OutingAndInscriptionService;
+import turismouyapp.webservices.OutingAndInscriptionPortType;
+import turismouyapp.webservices.DtActivityWithOutings;
+import turismouyapp.webservices.DtInscriptionTouristOuting;
+import turismouyapp.webservices.DtTouristActivity;
+import turismouyapp.webservices.DtTouristOuting;
+import turismouyapp.webservices.DtUser;
+import turismouyapp.webservices.TouristActivityStatus;
+import turismouyapp.webservices.ActivityDoesNotExistException;
 
 @WebServlet("/inscriptions")
 public class Inscriptions extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private final ActivityWebService activityWebService;
-	private final OutingAndInscriptionWebService outingAndInscriptionWebService;
+	private final ActivityPortType activityWebService;
+	private final OutingAndInscriptionPortType outingAndInscriptionWebService;
 
 	public Inscriptions() {
 		super();
-		this.activityWebService = new ActivityWebService();
-		this.outingAndInscriptionWebService = new OutingAndInscriptionWebService();
+		this.activityWebService = new ActivityService().getActivityPort();
+		this.outingAndInscriptionWebService = new OutingAndInscriptionService().getOutingAndInscriptionPort();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -50,13 +52,13 @@ public class Inscriptions extends HttpServlet {
 			throws IOException, ServletException {
 		// cargo una lista con los nombres de las actividades para sugirir en la
 		// busqueda
-		String[] activities = null;
+		List<String> activities = null;
 		try {
 
 			activities = activityWebService.listTouristActivitiesByStatus(TouristActivityStatus.CONFIRMED);
 
 		} catch (IllegalArgumentException e) {
-			activities = new String[0];
+			activities = new ArrayList<>();
 		}
 		request.setAttribute("activities", activities);
 
@@ -108,17 +110,20 @@ public class Inscriptions extends HttpServlet {
 			Map<String, Integer> disponibilidadPorSalida = new HashMap<>();
 
 			for (DtActivityWithOutings awo : all) {
-				for (DtTouristOuting salida : awo.getOutings()) {
-					DtInscriptionTouristOuting[] inscripciones = outingAndInscriptionWebService
-							.listOutingInscription(salida.getOutingName());
-					int totalInscriptos = 0;
-					if (inscripciones != null) {
-						for (DtInscriptionTouristOuting insc : inscripciones) {
-							totalInscriptos += insc.getTouristAmount();
+				DtActivityWithOutings.Outings outingsWrapper = awo.getOutings();
+				if (outingsWrapper != null && outingsWrapper.getOuting() != null) {
+					for (DtTouristOuting salida : outingsWrapper.getOuting()) {
+						List<DtInscriptionTouristOuting> inscripciones = outingAndInscriptionWebService
+								.listOutingInscription(salida.getOutingName());
+						int totalInscriptos = 0;
+						if (inscripciones != null) {
+							for (DtInscriptionTouristOuting insc : inscripciones) {
+								totalInscriptos += insc.getTouristAmount();
+							}
 						}
+						int cantDisp = salida.getMaxNumTourists() - totalInscriptos;
+						disponibilidadPorSalida.put(salida.getOutingName(), cantDisp < 0 ? 0 : cantDisp);
 					}
-					int cantDisp = salida.getMaxNumTourists() - totalInscriptos;
-					disponibilidadPorSalida.put(salida.getOutingName(), cantDisp < 0 ? 0 : cantDisp);
 				}
 			}
 
@@ -133,8 +138,11 @@ public class Inscriptions extends HttpServlet {
 		System.out.println("Listado filtrado de actividades con salidas");
 		for (DtActivityWithOutings res : filtered) {
 			System.out.println("|--" + res.getActivity().getActivityName());
-			for (DtTouristOuting dtOuting : res.getOutings()) {
-				System.out.println("| |--" + dtOuting.getOutingName());
+			DtActivityWithOutings.Outings outingsWrapper = res.getOutings();
+			if (outingsWrapper != null && outingsWrapper.getOuting() != null) {
+				for (DtTouristOuting dtOuting : outingsWrapper.getOuting()) {
+					System.out.println("| |--" + dtOuting.getOutingName());
+				}
 			}
 			System.out.println("| .");
 		}
@@ -191,11 +199,11 @@ public class Inscriptions extends HttpServlet {
 
 				// verifico que la cantidad de inscriptos mas la nueva inscripcion no supera la
 				// cantidad de turistas adminitidos en la salida
-				DtInscriptionTouristOuting[] totalInscripTouristOuting = outingAndInscriptionWebService
+				List<DtInscriptionTouristOuting> totalInscripTouristOuting = outingAndInscriptionWebService
 						.listOutingInscription(outing);
 				int totalInscriptos = 0;
 
-				if (totalInscripTouristOuting != null && totalInscripTouristOuting.length > 0) {
+				if (totalInscripTouristOuting != null && !totalInscripTouristOuting.isEmpty()) {
 					for (DtInscriptionTouristOuting insc : totalInscripTouristOuting) {
 						totalInscriptos += insc.getTouristAmount();
 					}
@@ -212,8 +220,11 @@ public class Inscriptions extends HttpServlet {
 					float cost = dtactiv.getCostTurist() * seats;
 
 					// Armo el DTO e (idealmente) persisto
-					DtInscriptionTouristOuting dtinscription = new DtInscriptionTouristOuting(seats, cost,
-							inscriptionDate, dtouting);
+					DtInscriptionTouristOuting dtinscription = new DtInscriptionTouristOuting();
+					dtinscription.setTouristAmount(seats);
+					dtinscription.setCost(cost);
+					dtinscription.setInscriptionDate(inscriptionDate.toString());
+					dtinscription.setOuting(dtouting);
 
 					// cantDisp me da cuantos cupos hay al dia de hoy disponibles para esa salida
 					// cantDisp >= 0

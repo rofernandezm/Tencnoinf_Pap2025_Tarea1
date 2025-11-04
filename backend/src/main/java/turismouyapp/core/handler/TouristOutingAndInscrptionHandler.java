@@ -15,7 +15,6 @@ import turismouyapp.core.dto.DtInscriptionTouristOuting;
 import turismouyapp.core.dto.DtTouristOuting;
 import turismouyapp.core.entity.Inscription;
 import turismouyapp.core.entity.Tourist;
-import turismouyapp.core.entity.TouristActivity;
 import turismouyapp.core.entity.TouristOuting;
 
 public class TouristOutingAndInscrptionHandler {

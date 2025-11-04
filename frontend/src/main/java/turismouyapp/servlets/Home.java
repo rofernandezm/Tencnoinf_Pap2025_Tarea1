@@ -5,10 +5,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import turismouyapp.webservices.ActivityWebService;
-import turismouyapp.core.dto.DtTouristActivity;
-import turismouyapp.core.dto.DtActivityWithOutings;
-import turismouyapp.core.dto.TouristActivityStatus;
+import turismouyapp.webservices.ActivityService;
+import turismouyapp.webservices.ActivityPortType;
+import turismouyapp.webservices.DtTouristActivity;
+import turismouyapp.webservices.DtActivityWithOutings;
+import turismouyapp.webservices.TouristActivityStatus;
+import turismouyapp.webservices.ActivityDoesNotExistException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,17 +20,17 @@ import java.util.List;
 public class Home extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private final ActivityWebService activityWebService;
+	private final ActivityPortType activityWebService;
 
 	public Home() {
 		super();
-		this.activityWebService = new ActivityWebService();
+		this.activityWebService = new ActivityService().getActivityPort();
 	}
-
+A
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		// Obtener actividades confirmadas para el carousel
-		String[] activityNames = activityWebService.listTouristActivitiesByStatus(TouristActivityStatus.CONFIRMED);
+		List<String> activityNames = activityWebService.listTouristActivitiesByStatus(TouristActivityStatus.CONFIRMED);
 
 		List<DtTouristActivity> confirmedActivities = new ArrayList<>();
 		if (activityNames != null) {
@@ -38,7 +40,7 @@ public class Home extends HttpServlet {
 					if (activityWithOutings != null && activityWithOutings.getActivity() != null) {
 						confirmedActivities.add(activityWithOutings.getActivity());
 					}
-				} catch (Exception e) {
+				} catch (ActivityDoesNotExistException e) {
 					e.printStackTrace();
 				}
 			}

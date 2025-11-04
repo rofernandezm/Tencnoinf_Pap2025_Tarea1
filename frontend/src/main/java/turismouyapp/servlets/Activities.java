@@ -12,14 +12,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
-//import turismouyapp.core.dto.DtActivityWithOutings;
-//import turismouyapp.core.dto.DtTouristActivity;
-//import turismouyapp.core.dto.DtTouristOuting;
-//import turismouyapp.core.dto.TouristActivityStatus;
-//import turismouyapp.core.exceptions.ActivityDoesNotExistException;
-//import turismouyapp.core.exceptions.RepeatedActivityNameException;
-//import turismouyapp.core.factory.FactoryUyTourism;
-//import turismouyapp.core.interfaces.ITouristActivityController;
+import turismouyapp.webservices.ActivityService;
+import turismouyapp.webservices.ActivityPortType;
+import turismouyapp.webservices.DtActivityWithOutings;
+import turismouyapp.webservices.DtTouristActivity;
+import turismouyapp.webservices.DtTouristOuting;
+import turismouyapp.webservices.TouristActivityStatus;
+import turismouyapp.webservices.ActivityDoesNotExistException;
+import turismouyapp.webservices.RepeatedActivityNameException;
 import turismouyapp.utils.ImageManager;
 import turismouyapp.utils.ImageManager.UploadFolderType;
 
@@ -28,12 +28,11 @@ import turismouyapp.utils.ImageManager.UploadFolderType;
 public class Activities extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private final ITouristActivityController iTouristActivityController;
+	private final ActivityPortType activityWebService;
 
 	public Activities() {
 		super();
-		FactoryUyTourism factory = FactoryUyTourism.getInstance();
-		this.iTouristActivityController = factory.getITouristActivityController();
+		this.activityWebService = new ActivityService().getActivityPort();
 	}
 
 	protected void handleShowActivities(HttpServletRequest request, HttpServletResponse response)
@@ -41,12 +40,12 @@ public class Activities extends HttpServlet {
 
 		// cargo una lista con los nombres de las actividades para sugirir en la
 		// busqueda
-		String[] activities = null;
+		List<String> activities = null;
 		try {
-			activities = iTouristActivityController.listTouristActivities();
+			activities = activityWebService.listTouristActivities();
 		} catch (ActivityDoesNotExistException ex) {
 			ex.printStackTrace();
-			activities = new String[0];
+			activities = new java.util.ArrayList<>();
 		}
 		request.setAttribute("activities", activities);
 
@@ -57,7 +56,7 @@ public class Activities extends HttpServlet {
 		// traigo todas las actividades con sus salidas
 		List<DtActivityWithOutings> all;
 		try {
-			all = iTouristActivityController.listTouristActivityData();
+			all = activityWebService.listTouristActivityData();
 		} catch (ActivityDoesNotExistException e) {
 			all = java.util.Collections.emptyList();
 		}
@@ -84,8 +83,11 @@ public class Activities extends HttpServlet {
 		System.out.println("Listado filtrado de actividades con salidas");
 		for (DtActivityWithOutings res : filtered) {
 			System.out.println("|--" + res.getActivity().getActivityName());
-			for (DtTouristOuting dtOuting : res.getOutings()) {
-				System.out.println("| |--" + dtOuting.getOutingName());
+			DtActivityWithOutings.Outings outingsWrapper = res.getOutings();
+			if (outingsWrapper != null && outingsWrapper.getOuting() != null) {
+				for (DtTouristOuting dtOuting : outingsWrapper.getOuting()) {
+					System.out.println("| |--" + dtOuting.getOutingName());
+				}
 			}
 			System.out.println("| .");
 		}
@@ -148,11 +150,19 @@ public class Activities extends HttpServlet {
 				? ImageManager.generateFileName(activityPhotoPart)
 				: ImageManager.resolveDefaultImageName(UploadFolderType.ACTIVITY);
 		
-		DtTouristActivity newActivity = new DtTouristActivity(activityName, description, duration, cost, city, hora,
-				supplier, TouristActivityStatus.ADDED, fileName);
+		DtTouristActivity newActivity = new DtTouristActivity();
+		newActivity.setActivityName(activityName);
+		newActivity.setDescription(description);
+		newActivity.setDuration(duration != null ? duration.toString() : null);
+		newActivity.setCostTurist(cost);
+		newActivity.setCity(city);
+		newActivity.setRegistrationDate(hora.toString());
+		newActivity.setSupplierNickname(supplier);
+		newActivity.setStatus(TouristActivityStatus.ADDED);
+		newActivity.setImageActPath(fileName);
 
 		try {
-			iTouristActivityController.activityDataEntry(newActivity);
+			activityWebService.activityDataEntry(newActivity);
 			
 			// Persistir imagen
 			try {
@@ -161,10 +171,9 @@ public class Activities extends HttpServlet {
 				
 				// Setea imagen default
 				String defaultImage = ImageManager.resolveDefaultImageName(UploadFolderType.ACTIVITY);
-				newActivity = new DtTouristActivity(newActivity.getActivityName(), newActivity.getDescription(), newActivity.getDuration(), newActivity.getCostTurist(), newActivity.getCity(), newActivity.getRegistrationDate(),
-						newActivity.getSupplierNickname(), TouristActivityStatus.ADDED, defaultImage);
+				newActivity.setImageActPath(defaultImage);
 
-				iTouristActivityController.modifyActivity(newActivity);
+				activityWebService.modifyActivity(newActivity);
 			}
 			
 			request.setAttribute("mensaje",

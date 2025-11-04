@@ -17,23 +17,24 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
-import turismouyapp.core.dto.DtTouristOuting;
-import turismouyapp.core.dto.DtUser;
-import turismouyapp.core.exceptions.RepeatedTouristOutingException;
+import turismouyapp.webservices.OutingAndInscriptionService;
+import turismouyapp.webservices.OutingAndInscriptionPortType;
+import turismouyapp.webservices.DtTouristOuting;
+import turismouyapp.webservices.DtUser;
+import turismouyapp.webservices.RepeatedTouristOutingException;
 import turismouyapp.utils.ImageManager;
 import turismouyapp.utils.ImageManager.UploadFolderType;
-import turismouyapp.webservices.OutingAndInscriptionWebService;
 
 @WebServlet("/outings/add")
 @MultipartConfig
 public class AddOutings extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private final OutingAndInscriptionWebService outingAndInscriptionWebService;
+	private final OutingAndInscriptionPortType outingAndInscriptionWebService;
 
 	public AddOutings() {
 		super();
-		this.outingAndInscriptionWebService = new OutingAndInscriptionWebService();
+		this.outingAndInscriptionWebService = new OutingAndInscriptionService().getOutingAndInscriptionPort();
 	}
 
 	@Override
@@ -103,8 +104,14 @@ public class AddOutings extends HttpServlet {
 			return;
 		}
 
-		DtTouristOuting newOuting = new DtTouristOuting(outingName, maxTourists, outingPlace, outingDate,
-				LocalDate.now(), activityName, fileName);
+		DtTouristOuting newOuting = new DtTouristOuting();
+		newOuting.setOutingName(outingName);
+		newOuting.setMaxNumTourists(maxTourists);
+		newOuting.setDeparturePoint(outingPlace);
+		newOuting.setDepartureDate(outingDate.toString());
+		newOuting.setDischargeDate(LocalDate.now().toString());
+		newOuting.setActivityName(activityName);
+		newOuting.setImageOutPath(fileName);
 
 		try {
 

@@ -13,17 +13,23 @@ import java.util.Collections;
 import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
-import turismouyapp.webservices.ActivityWebService;
-import turismouyapp.webservices.OutingAndInscriptionWebService;
-import turismouyapp.webservices.UserWebService;
-import turismouyapp.webservices.interfaces.IActivityWebService;
-import turismouyapp.webservices.interfaces.IOutingAndInscriptionWebService;
-import turismouyapp.webservices.interfaces.IUserWebService;
-import turismouyapp.core.dto.DtUser;
-import turismouyapp.core.dto.DtActivityWithOutings;
-import turismouyapp.core.dto.DtInscriptionTouristOuting;
-import turismouyapp.core.dto.UserType;
-import turismouyapp.core.exceptions.ActivityDoesNotExistException;
+
+// Web Service Stubs (generados por wsimport)
+import turismouyapp.webservices.UserService;
+import turismouyapp.webservices.UserPortType;
+import turismouyapp.webservices.ActivityService;
+import turismouyapp.webservices.ActivityPortType;
+import turismouyapp.webservices.OutingAndInscriptionService;
+import turismouyapp.webservices.OutingAndInscriptionPortType;
+
+// DTOs (generados por wsimport)
+import turismouyapp.webservices.DtUser;
+import turismouyapp.webservices.DtActivityWithOutings;
+import turismouyapp.webservices.DtInscriptionTouristOuting;
+import turismouyapp.webservices.UserType;
+
+// Excepciones SOAP (generadas por wsimport)
+import turismouyapp.webservices.ActivityDoesNotExistException;
 
 @WebServlet("/consult-user")
 public class ConsultUser extends HttpServlet {
@@ -33,18 +39,18 @@ public class ConsultUser extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private final IUserWebService userWebService;
-	private final IActivityWebService activityWebService;
-	private final IOutingAndInscriptionWebService outingAndInscriptionWebService;
+	private final UserPortType userWebService;
+	private final ActivityPortType activityWebService;
+	private final OutingAndInscriptionPortType outingAndInscriptionWebService;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public ConsultUser() {
 		super();
-		this.userWebService = new UserWebService();
-		this.activityWebService = new ActivityWebService();
-		this.outingAndInscriptionWebService = new OutingAndInscriptionWebService();
+		this.userWebService = new UserService().getUserPort();
+		this.activityWebService = new ActivityService().getActivityPort();
+		this.outingAndInscriptionWebService = new OutingAndInscriptionService().getOutingAndInscriptionPort();
 	}
 
 	/**
@@ -82,7 +88,7 @@ public class ConsultUser extends HttpServlet {
 	 * Carga la lista de usuarios para el combobox.
 	 */
 	private void loadUsersList(HttpServletRequest request) {
-		String[] userNicknames = userWebService.listUsers();
+		List<String> userNicknames = userWebService.listUsers();
 		request.setAttribute("usuarios", userNicknames);
 	}
 
