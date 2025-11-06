@@ -212,6 +212,7 @@ public class Login extends HttpServlet {
 			newUser.setEmail(email);
 			newUser.setBirthDate(birthDate.toString());
 			newUser.setPassword(hashedPassword);
+			newUser.setUserType(UserType.TOURIST);
 			((DtTourist) newUser).setNationality(nationality);
 			newUser.setImagePath(fileName);
 		} else {
@@ -224,6 +225,7 @@ public class Login extends HttpServlet {
 			newUser.setEmail(email);
 			newUser.setBirthDate(birthDate.toString());
 			newUser.setPassword(hashedPassword);
+			newUser.setUserType(UserType.SUPPLIER);
 			((DtSupplier) newUser).setDescription(supplierDesc);
 			((DtSupplier) newUser).setWebSite(webSite);
 			newUser.setImagePath(fileName);
@@ -231,7 +233,7 @@ public class Login extends HttpServlet {
 
 		try {
 			userWebService.dataEntryUser(newUser);
-			userWebService.confirmRegistration();
+//			userWebService.confirmRegistration();
 
 			// Persistir imagen
 			try {
@@ -241,26 +243,30 @@ public class Login extends HttpServlet {
 
 				// Setea imagen default
 				String defaultImage = ImageManager.resolveDefaultImageName(UploadFolderType.PROFILE);
-				if (newUser.getUserType() == UserType.TOURIST) {
+				// Preserve old user data before creating new instance
+				DtUser oldUser = newUser;
+				if (oldUser.getUserType() == UserType.TOURIST) {
 					newUser = new DtTourist();
-					newUser.setNickname(newUser.getNickname());
-					newUser.setName(newUser.getName());
-					newUser.setLastName(newUser.getLastName());
-					newUser.setEmail(newUser.getEmail());
-					newUser.setBirthDate(newUser.getBirthDate());
-					newUser.setPassword(newUser.getPassword());
-					((DtTourist) newUser).setNationality(((DtTourist) newUser).getNationality());
+					newUser.setNickname(oldUser.getNickname());
+					newUser.setName(oldUser.getName());
+					newUser.setLastName(oldUser.getLastName());
+					newUser.setEmail(oldUser.getEmail());
+					newUser.setBirthDate(oldUser.getBirthDate());
+					newUser.setPassword(oldUser.getPassword());
+					newUser.setUserType(UserType.TOURIST);
+					((DtTourist) newUser).setNationality(((DtTourist) oldUser).getNationality());
 					newUser.setImagePath(defaultImage);
 				} else {
 					newUser = new DtSupplier();
-					newUser.setNickname(newUser.getNickname());
-					newUser.setName(newUser.getName());
-					newUser.setLastName(newUser.getLastName());
-					newUser.setEmail(newUser.getEmail());
-					newUser.setBirthDate(newUser.getBirthDate());
-					newUser.setPassword(newUser.getPassword());
-					((DtSupplier) newUser).setDescription(((DtSupplier) newUser).getDescription());
-					((DtSupplier) newUser).setWebSite(((DtSupplier) newUser).getWebSite());
+					newUser.setNickname(oldUser.getNickname());
+					newUser.setName(oldUser.getName());
+					newUser.setLastName(oldUser.getLastName());
+					newUser.setEmail(oldUser.getEmail());
+					newUser.setBirthDate(oldUser.getBirthDate());
+					newUser.setPassword(oldUser.getPassword());
+					newUser.setUserType(UserType.SUPPLIER);
+					((DtSupplier) newUser).setDescription(((DtSupplier) oldUser).getDescription());
+					((DtSupplier) newUser).setWebSite(((DtSupplier) oldUser).getWebSite());
 					newUser.setImagePath(defaultImage);
 				}
 				userWebService.modifyUserData(newUser);

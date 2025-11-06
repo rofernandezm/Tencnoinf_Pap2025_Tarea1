@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 String active = (String) request.getAttribute("navActive");
@@ -5,8 +7,9 @@ if (active == null) active = "";
 String q = request.getParameter("q");
 if (q == null)
     q = "";
-String[] activities = (String[]) request.getAttribute("activities");
-if (activities == null) activities = new String[0];
+@SuppressWarnings("unchecked")
+List<String> activities = (List<String>) request.getAttribute("activities");
+if (activities == null) activities = new ArrayList<String>();
 %>
 
 <section class="searchbar px-3 mb-3 d-flex flex-wrap justify-content-center align-items-center gap-2">
