@@ -2,6 +2,7 @@ package turismouyapp.servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import turismouyapp.webservices.DtTouristOuting;
 import turismouyapp.webservices.DtUser;
 import turismouyapp.webservices.OutingAndInscriptionPortType;
 import turismouyapp.webservices.OutingAndInscriptionService;
+import turismouyapp.webservices.TouristActivityStatus;
 import turismouyapp.webservices.UserType;
 
 
@@ -42,11 +44,11 @@ public class Outings extends HttpServlet {
 
 		// cargo una lista con los nombres de las actividades para sugirir en la
 		// busqueda
-		String[] activities = null;
+		List<String> activities = null;
 		try {
-			activities = null; //activityWebService.listTouristActivitiesByStatus(TouristActivityStatus.CONFIRMED);
+			activities = activityWebService.listTouristActivitiesByStatus(TouristActivityStatus.CONFIRMED);
 		} catch (IllegalArgumentException e) {
-			activities = new String[0];
+			activities = new ArrayList<String>();
 		}
 		request.setAttribute("activities", activities);
 		HttpSession session = request.getSession(false);
@@ -73,7 +75,7 @@ public class Outings extends HttpServlet {
 		try {
 			all = activityWebService.listTouristActivityData();
 		} catch (ActivityDoesNotExistException e) {
-			all = java.util.Collections.emptyList();
+			all = Collections.emptyList();
 		}
 
 		// filtro en base a la busqueda
@@ -123,17 +125,6 @@ public class Outings extends HttpServlet {
 		// mando la lista filtrada y muestro pantalla
 		request.setAttribute("activitiesWithOutings", filtered);
 		request.getRequestDispatcher("WEB-INF/vistas/outings.jsp").forward(request, response);
-
-//		// Imprimo por consola el resultado filtrado
-//		System.out.println("Listado filtrado de actividades con salidas");
-//		for (DtActivityWithOutings res : filtered) {
-//			System.out.println("|--" + res.getActivity().getActivityName());
-////			for (DtTouristOuting dtOuting : res.getOutings()) {
-////				System.out.println("| |--" + dtOuting.getOutingName());
-////			}
-//			System.out.println("| .");
-//		}
-//		System.out.println(".");
 	}
 
 	@Override

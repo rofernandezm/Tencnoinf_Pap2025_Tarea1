@@ -1,6 +1,7 @@
 package turismouyapp.servlets;
 
 import java.io.IOException;
+import java.net.URI;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -17,12 +18,14 @@ import turismouyapp.security.PasswordEncoder;
 import turismouyapp.utils.ImageManager;
 import turismouyapp.utils.ImageManager.UploadFolderType;
 import turismouyapp.webservices.DtSupplier;
+import turismouyapp.webservices.DtTourist;
 import turismouyapp.webservices.DtUser;
 import turismouyapp.webservices.RepeatedUserEmailException;
 import turismouyapp.webservices.RepeatedUserNicknameException;
 import turismouyapp.webservices.UserPortType;
 import turismouyapp.webservices.UserService;
 import turismouyapp.webservices.UserType;
+
 /**
  * Servlet implementation class Login
  *
@@ -201,13 +204,29 @@ public class Login extends HttpServlet {
 		DtUser newUser = null;
 		String hashedPassword = PasswordEncoder.encode(password);
 		if (user == UserType.TOURIST) {
-//			String nationality = request.getParameter("nationality");
-//			newUser = new DtTourist(nickname, name, lastName, email, birthDate, hashedPassword, nationality, fileName);
+			String nationality = request.getParameter("nationality");
+			newUser = new DtTourist();
+			newUser.setNickname(nickname);
+			newUser.setName(name);
+			newUser.setLastName(lastName);
+			newUser.setEmail(email);
+			newUser.setBirthDate(birthDate.toString());
+			newUser.setPassword(hashedPassword);
+			((DtTourist) newUser).setNationality(nationality);
+			newUser.setImagePath(fileName);
 		} else {
 			String supplierDesc = request.getParameter("description");
 			String webSite = request.getParameter("website");
-//			newUser = new DtSupplier(nickname, name, lastName, email, birthDate, hashedPassword, supplierDesc, webSite,
-//					fileName);
+			newUser = new DtSupplier();
+			newUser.setNickname(nickname);
+			newUser.setName(name);
+			newUser.setLastName(lastName);
+			newUser.setEmail(email);
+			newUser.setBirthDate(birthDate.toString());
+			newUser.setPassword(hashedPassword);
+			((DtSupplier) newUser).setDescription(supplierDesc);
+			((DtSupplier) newUser).setWebSite(webSite);
+			newUser.setImagePath(fileName);
 		}
 
 		try {
@@ -223,13 +242,26 @@ public class Login extends HttpServlet {
 				// Setea imagen default
 				String defaultImage = ImageManager.resolveDefaultImageName(UploadFolderType.PROFILE);
 				if (newUser.getUserType() == UserType.TOURIST) {
-//					newUser = new DtTourist(newUser.getNickname(), newUser.getName(), newUser.getLastName(),
-//							newUser.getEmail(), newUser.getBirthDate(), newUser.getPassword(),
-//							((DtTourist) newUser).getNationality(), defaultImage);
+					newUser = new DtTourist();
+					newUser.setNickname(newUser.getNickname());
+					newUser.setName(newUser.getName());
+					newUser.setLastName(newUser.getLastName());
+					newUser.setEmail(newUser.getEmail());
+					newUser.setBirthDate(newUser.getBirthDate());
+					newUser.setPassword(newUser.getPassword());
+					((DtTourist) newUser).setNationality(((DtTourist) newUser).getNationality());
+					newUser.setImagePath(defaultImage);
 				} else {
-//					new DtSupplier(newUser.getNickname(), newUser.getName(), newUser.getLastName(), newUser.getEmail(),
-//							newUser.getBirthDate(), newUser.getPassword(), ((DtSupplier) newUser).getDescription(),
-//							((DtSupplier) newUser).getWebSite(), defaultImage);
+					newUser = new DtSupplier();
+					newUser.setNickname(newUser.getNickname());
+					newUser.setName(newUser.getName());
+					newUser.setLastName(newUser.getLastName());
+					newUser.setEmail(newUser.getEmail());
+					newUser.setBirthDate(newUser.getBirthDate());
+					newUser.setPassword(newUser.getPassword());
+					((DtSupplier) newUser).setDescription(((DtSupplier) newUser).getDescription());
+					((DtSupplier) newUser).setWebSite(((DtSupplier) newUser).getWebSite());
+					newUser.setImagePath(defaultImage);
 				}
 				userWebService.modifyUserData(newUser);
 			}
@@ -267,7 +299,7 @@ public class Login extends HttpServlet {
 
 		// Permitir URL absoluta solo si es mismo host/puerto/esquema
 		try {
-			java.net.URI n = java.net.URI.create(next);
+			URI n = URI.create(next);
 			String scheme = req.getScheme(); // http/https
 			String host = req.getServerName();
 			int port = req.getServerPort();

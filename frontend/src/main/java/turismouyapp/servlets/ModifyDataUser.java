@@ -120,8 +120,15 @@ public class ModifyDataUser extends HttpServlet {
 					? ((DtTourist) loggedUser).getNationality()
 					: request.getParameter("nationality-user");
 
-			//updatedUser = new DtTourist(loggedUser.getNickname(), name, lastname, loggedUser.getEmail(), birthDate,
-			//		hashedPassword, nationality, fileName);
+			updatedUser = new DtTourist();
+			updatedUser.setNickname(loggedUser.getNickname());
+			updatedUser.setName(name);
+			updatedUser.setLastName(lastname);
+			updatedUser.setEmail(loggedUser.getEmail());
+			updatedUser.setBirthDate(birthDate.toString());
+			updatedUser.setPassword(hashedPassword);
+			((DtTourist)updatedUser).setNationality(nationality);
+			updatedUser.setImagePath(fileName);
 			break;
 
 		case SUPPLIER:
@@ -134,8 +141,17 @@ public class ModifyDataUser extends HttpServlet {
 					? ((DtSupplier) loggedUser).getWebSite()
 					: request.getParameter("website-user");
 
-			//updatedUser = new DtSupplier(loggedUser.getNickname(), name, lastname, loggedUser.getEmail(), birthDate,
-			//		hashedPassword, description, website, fileName);
+			updatedUser = new DtSupplier();
+			updatedUser.setNickname(loggedUser.getNickname());
+			updatedUser.setName(name);
+			updatedUser.setLastName(lastname);
+			updatedUser.setEmail(loggedUser.getEmail());
+			updatedUser.setBirthDate(birthDate.toString());
+			updatedUser.setPassword(hashedPassword);
+			((DtSupplier)updatedUser).setDescription(description);
+			((DtSupplier)updatedUser).setWebSite(website);
+			updatedUser.setImagePath(fileName);
+			
 			break;
 
 		default:

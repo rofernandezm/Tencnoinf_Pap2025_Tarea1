@@ -133,20 +133,6 @@ public class Inscriptions extends HttpServlet {
 		// mando la lista filtrada y muestro pantalla
 		request.setAttribute("activitiesWithOutings", filtered);
 		request.getRequestDispatcher("WEB-INF/vistas/inscriptions.jsp").forward(request, response);
-
-		// Imprimo por consola el resultado filtrado
-		System.out.println("Listado filtrado de actividades con salidas");
-		for (DtActivityWithOutings res : filtered) {
-			System.out.println("|--" + res.getActivity().getActivityName());
-			DtActivityWithOutings.Outings outingsWrapper = res.getOutings();
-			if (outingsWrapper != null && outingsWrapper.getOuting() != null) {
-				for (DtTouristOuting dtOuting : outingsWrapper.getOuting()) {
-					System.out.println("| |--" + dtOuting.getOutingName());
-				}
-			}
-			System.out.println("| .");
-		}
-		System.out.println(".");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
