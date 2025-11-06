@@ -222,9 +222,9 @@ public class Inscriptions extends HttpServlet {
 					// Armo el DTO e (idealmente) persisto
 					DtInscriptionTouristOuting dtinscription = new DtInscriptionTouristOuting();
 					dtinscription.setTouristAmount(seats);
-					dtinscription.setCost(cost);
+					dtinscription.setTotalCost(seats);
 					dtinscription.setInscriptionDate(inscriptionDate.toString());
-					dtinscription.setOuting(dtouting);
+					dtinscription.setTuristOuting(dtouting);
 
 					// cantDisp me da cuantos cupos hay al dia de hoy disponibles para esa salida
 					// cantDisp >= 0

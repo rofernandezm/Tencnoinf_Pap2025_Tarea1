@@ -3,27 +3,27 @@ package turismouyapp.servlets;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Collections;
 import java.util.ArrayList;
-import jakarta.servlet.annotation.MultipartConfig;
+import java.util.Collections;
+import java.util.List;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
-import turismouyapp.webservices.ActivityService;
+import turismouyapp.utils.ImageManager;
+import turismouyapp.utils.ImageManager.UploadFolderType;
+import turismouyapp.webservices.ActivityDoesNotExistException;
 import turismouyapp.webservices.ActivityPortType;
+import turismouyapp.webservices.ActivityService;
 import turismouyapp.webservices.DtActivityWithOutings;
 import turismouyapp.webservices.DtTouristActivity;
 import turismouyapp.webservices.DtTouristOuting;
-import turismouyapp.webservices.TouristActivityStatus;
-import turismouyapp.webservices.ActivityDoesNotExistException;
 import turismouyapp.webservices.RepeatedActivityNameException;
-import turismouyapp.utils.ImageManager;
-import turismouyapp.utils.ImageManager.UploadFolderType;
+import turismouyapp.webservices.TouristActivityStatus;
 
 @WebServlet("/activities")
 @MultipartConfig
@@ -182,7 +182,7 @@ public class Activities extends HttpServlet {
 					"Se ha ingresado correctamente la actividad turística: " + activityName + " en el sistema.");
 			request.getRequestDispatcher("/WEB-INF/vistas/activities.jsp").forward(request, response);
 
-		} catch (RepeatedActivityNameException e) {
+		} catch (RepeatedActivityNameException | ActivityDoesNotExistException e) {
 			request.setAttribute("activityError", "La actividad \"" + activityName + "\" ya existe.");
 			request.setAttribute("draftedActivity", newActivity);
 			request.setAttribute("draftedActivityImgPart", activityPhotoPart);

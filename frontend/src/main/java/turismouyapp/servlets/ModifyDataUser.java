@@ -1,27 +1,27 @@
 package turismouyapp.servlets;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import jakarta.servlet.http.Part;
-
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 import turismouyapp.security.PasswordEncoder;
 import turismouyapp.utils.ImageManager;
 import turismouyapp.utils.ImageManager.UploadFolderType;
-import turismouyapp.webservices.UserWebService;
-import turismouyapp.core.dto.DtUser;
-import turismouyapp.core.dto.UserType;
-import turismouyapp.core.dto.DtSupplier;
-import turismouyapp.core.dto.DtTourist;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
+import turismouyapp.webservices.DtSupplier;
+import turismouyapp.webservices.DtTourist;
+import turismouyapp.webservices.DtUser;
+import turismouyapp.webservices.UserPortType;
+import turismouyapp.webservices.UserService;
+import turismouyapp.webservices.UserType;
 
 /**
  * Servlet implementation class ModifyDataUser
@@ -47,13 +47,13 @@ public class ModifyDataUser extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private final UserWebService userWebService;
+	private final UserPortType userWebService;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public ModifyDataUser() {
 		super();
-		this.userWebService = new UserWebService();
+		this.userWebService = new UserService().getUserPort();
 	}
 
 	protected void handleModifyData(HttpServletRequest request, HttpServletResponse response)
@@ -74,7 +74,7 @@ public class ModifyDataUser extends HttpServlet {
 		String password = this.isNullOrEmptyParameter(request, "password-user") ? loggedUser.getPassword()
 				: request.getParameter("password-user");
 
-		LocalDate birthDate = loggedUser.getBirthDate();
+		LocalDate birthDate = LocalDate.now();//loggedUser.getBirthDate();
 
 		// Si passsword no es encriptada, es nueva
 		if (!PasswordEncoder.isBCryptHash(password)) {
@@ -120,8 +120,8 @@ public class ModifyDataUser extends HttpServlet {
 					? ((DtTourist) loggedUser).getNationality()
 					: request.getParameter("nationality-user");
 
-			updatedUser = new DtTourist(loggedUser.getNickname(), name, lastname, loggedUser.getEmail(), birthDate,
-					hashedPassword, nationality, fileName);
+			//updatedUser = new DtTourist(loggedUser.getNickname(), name, lastname, loggedUser.getEmail(), birthDate,
+			//		hashedPassword, nationality, fileName);
 			break;
 
 		case SUPPLIER:
@@ -134,8 +134,8 @@ public class ModifyDataUser extends HttpServlet {
 					? ((DtSupplier) loggedUser).getWebSite()
 					: request.getParameter("website-user");
 
-			updatedUser = new DtSupplier(loggedUser.getNickname(), name, lastname, loggedUser.getEmail(), birthDate,
-					hashedPassword, description, website, fileName);
+			//updatedUser = new DtSupplier(loggedUser.getNickname(), name, lastname, loggedUser.getEmail(), birthDate,
+			//		hashedPassword, description, website, fileName);
 			break;
 
 		default:

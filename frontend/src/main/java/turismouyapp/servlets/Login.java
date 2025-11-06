@@ -1,31 +1,28 @@
 package turismouyapp.servlets;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import jakarta.servlet.http.Part;
-
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 import turismouyapp.security.PasswordEncoder;
 import turismouyapp.utils.ImageManager;
 import turismouyapp.utils.ImageManager.UploadFolderType;
-import turismouyapp.webservices.UserWebService;
-import turismouyapp.core.factory.FactoryUyTourism;
-import turismouyapp.core.dto.DtUser;
-import turismouyapp.core.dto.UserType;
-import turismouyapp.core.exceptions.RepeatedUserEmailException;
-import turismouyapp.core.exceptions.RepeatedUserNicknameException;
-import turismouyapp.core.dto.DtSupplier;
-import turismouyapp.core.dto.DtTourist;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-
+import turismouyapp.webservices.DtSupplier;
+import turismouyapp.webservices.DtUser;
+import turismouyapp.webservices.RepeatedUserEmailException;
+import turismouyapp.webservices.RepeatedUserNicknameException;
+import turismouyapp.webservices.UserPortType;
+import turismouyapp.webservices.UserService;
+import turismouyapp.webservices.UserType;
 /**
  * Servlet implementation class Login
  *
@@ -50,7 +47,7 @@ public class Login extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private final UserWebService userWebService;
+	private final UserPortType userWebService;
 	private static final int SESSION_TIMEOUT_SECONDS = 1800; // 30 minutos
 
 	/**
@@ -58,7 +55,7 @@ public class Login extends HttpServlet {
 	 */
 	public Login() {
 		super();
-		this.userWebService = new UserWebService();
+		this.userWebService = new UserService().getUserPort();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -204,13 +201,13 @@ public class Login extends HttpServlet {
 		DtUser newUser = null;
 		String hashedPassword = PasswordEncoder.encode(password);
 		if (user == UserType.TOURIST) {
-			String nationality = request.getParameter("nationality");
-			newUser = new DtTourist(nickname, name, lastName, email, birthDate, hashedPassword, nationality, fileName);
+//			String nationality = request.getParameter("nationality");
+//			newUser = new DtTourist(nickname, name, lastName, email, birthDate, hashedPassword, nationality, fileName);
 		} else {
 			String supplierDesc = request.getParameter("description");
 			String webSite = request.getParameter("website");
-			newUser = new DtSupplier(nickname, name, lastName, email, birthDate, hashedPassword, supplierDesc, webSite,
-					fileName);
+//			newUser = new DtSupplier(nickname, name, lastName, email, birthDate, hashedPassword, supplierDesc, webSite,
+//					fileName);
 		}
 
 		try {
@@ -226,13 +223,13 @@ public class Login extends HttpServlet {
 				// Setea imagen default
 				String defaultImage = ImageManager.resolveDefaultImageName(UploadFolderType.PROFILE);
 				if (newUser.getUserType() == UserType.TOURIST) {
-					newUser = new DtTourist(newUser.getNickname(), newUser.getName(), newUser.getLastName(),
-							newUser.getEmail(), newUser.getBirthDate(), newUser.getPassword(),
-							((DtTourist) newUser).getNationality(), defaultImage);
+//					newUser = new DtTourist(newUser.getNickname(), newUser.getName(), newUser.getLastName(),
+//							newUser.getEmail(), newUser.getBirthDate(), newUser.getPassword(),
+//							((DtTourist) newUser).getNationality(), defaultImage);
 				} else {
-					new DtSupplier(newUser.getNickname(), newUser.getName(), newUser.getLastName(), newUser.getEmail(),
-							newUser.getBirthDate(), newUser.getPassword(), ((DtSupplier) newUser).getDescription(),
-							((DtSupplier) newUser).getWebSite(), defaultImage);
+//					new DtSupplier(newUser.getNickname(), newUser.getName(), newUser.getLastName(), newUser.getEmail(),
+//							newUser.getBirthDate(), newUser.getPassword(), ((DtSupplier) newUser).getDescription(),
+//							((DtSupplier) newUser).getWebSite(), defaultImage);
 				}
 				userWebService.modifyUserData(newUser);
 			}

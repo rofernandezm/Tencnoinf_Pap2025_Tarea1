@@ -142,8 +142,8 @@ public class ConsultUser extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else {
-			String[] activityNames = activityWebService.listTouristActivitiesBySupplierNickname(supplierNickname);
-			if (activityNames != null && activityNames.length > 0)
+			List<String> activityNames = activityWebService.listTouristActivitiesBySupplierNickname(supplierNickname);
+			if (activityNames != null && activityNames.size() > 0)
 				activities = this.buildActivitiesWithOutings(activityNames);
 		}
 		request.setAttribute("activitiesWithOutings", activities);
@@ -153,7 +153,7 @@ public class ConsultUser extends HttpServlet {
 	 * Construye una lista de DtActivityWithOutings a partir de nombres de
 	 * actividades.
 	 */
-	private List<DtActivityWithOutings> buildActivitiesWithOutings(String[] activityNames) {
+	private List<DtActivityWithOutings> buildActivitiesWithOutings(List<String> activityNames) {
 
 		List<DtActivityWithOutings> activities = new ArrayList<>();
 		if (activityNames != null) {

@@ -26,7 +26,7 @@ public class Home extends HttpServlet {
 		super();
 		this.activityWebService = new ActivityService().getActivityPort();
 	}
-A
+
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		// Obtener actividades confirmadas para el carousel

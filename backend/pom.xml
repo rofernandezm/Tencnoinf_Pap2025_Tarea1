@@ -1,4 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
   <groupId>turismouy.Backend</groupId>
   <artifactId>turismouy.Backend</artifactId>
@@ -14,58 +17,83 @@
     <hsqldb.version>2.7.2</hsqldb.version>
     <tomcat-catalina.version>11.0.11</tomcat-catalina.version>
     <jax-ws.version>4.0.3</jax-ws.version>
-      <jakarta.xml.bind.version>4.0.2</jakarta.xml.bind.version>
-      <jaxb.runtime.version>4.0.5</jaxb.runtime.version>
+    <jakarta.xml.bind.version>4.0.2</jakarta.xml.bind.version>
+    <jaxb.runtime.version>4.0.5</jaxb.runtime.version>
     <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
   </properties>
 
   <dependencies>
+    <!-- EclipseLink JPA sin MOXy -->
     <dependency>
       <groupId>org.eclipse.persistence</groupId>
-      <artifactId>eclipselink</artifactId>
+      <artifactId>org.eclipse.persistence.jpa</artifactId>
       <version>${eclipselink.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.eclipse.persistence</groupId>
+          <artifactId>org.eclipse.persistence.moxy</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
+
     <dependency>
       <groupId>jakarta.persistence</groupId>
       <artifactId>jakarta.persistence-api</artifactId>
       <version>${jakarta.persistence.version}</version>
     </dependency>
-    <!-- Driver para ejecutar Desktop/Swing en runtime -->
+
+    <!-- Driver HSQLDB -->
     <dependency>
       <groupId>org.hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
       <version>${hsqldb.version}</version>
     </dependency>
+
+    <!-- Tomcat APIs (solo si alguna clase las referencia) -->
     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-catalina</artifactId>
       <version>${tomcat-catalina.version}</version>
       <scope>provided</scope>
     </dependency>
+
+    <!-- Metro JAX-WS runtime (Jakarta) -->
     <dependency>
       <groupId>com.sun.xml.ws</groupId>
       <artifactId>jaxws-rt</artifactId>
       <version>${jax-ws.version}</version>
     </dependency>
-    <!-- JAXB API (anotaciones Jakarta) -->
+
+    <!-- JAXB API (Jakarta) -->
     <dependency>
       <groupId>jakarta.xml.bind</groupId>
       <artifactId>jakarta.xml.bind-api</artifactId>
       <version>${jakarta.xml.bind.version}</version>
     </dependency>
 
-    <!-- JAXB runtime (implementación) -->
+    <!-- JAXB RI runtime (implementación oficial) -->
     <dependency>
       <groupId>org.glassfish.jaxb</groupId>
       <artifactId>jaxb-runtime</artifactId>
       <version>${jaxb.runtime.version}</version>
-      <scope>runtime</scope>
     </dependency>
   </dependencies>
 
-  <!-- Opcional: si querés un JAR ejecutable para el desktop -->
   <build>
     <plugins>
+      <!-- Compilador -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration>
+          <source>17</source>
+          <target>17</target>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+
+      <!-- JAR ejecutable (opcional) -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
@@ -75,9 +103,17 @@
             <phase>package</phase>
             <goals><goal>shade</goal></goals>
             <configuration>
+              <filters>
+                <!-- Excluir MOXy del uber-jar si se sombrea -->
+                <filter>
+                  <artifact>org.eclipse.persistence:eclipselink</artifact>
+                  <excludes>
+                    <exclude>org/eclipse/persistence/jaxb/**</exclude>
+                  </excludes>
+                </filter>
+              </filters>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <!-- Cambiá por tu clase con el método main -->
                   <mainClass>desktop.Main</mainClass>
                 </transformer>
               </transformers>
@@ -85,7 +121,8 @@
           </execution>
         </executions>
       </plugin>
-      <!-- Plugin de Javadoc para generación de documentación -->
+
+      <!-- Javadoc -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -98,7 +135,7 @@
           <docencoding>UTF-8</docencoding>
           <windowtitle>TurismoUY Backend API</windowtitle>
           <doctitle><![CDATA[<h1>TurismoUY - Backend API Documentation</h1>]]></doctitle>
-          <bottom><![CDATA[<i>Copyright &#169; 2025 TurismoUY Team - Taller de Tecnologías de Información</i>]]></bottom>
+          <bottom><![CDATA[<i>© 2025 TurismoUY Team</i>]]></bottom>
           <additionalOptions>
             <additionalOption>-html5</additionalOption>
           </additionalOptions>
@@ -108,25 +145,13 @@
         <executions>
           <execution>
             <id>attach-javadocs</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
+            <goals><goal>jar</goal></goals>
           </execution>
         </executions>
       </plugin>
-      <!-- Plugin de compilación -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.11.0</version>
-        <configuration>
-          <source>17</source>
-          <target>17</target>
-          <encoding>UTF-8</encoding>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
+
   <profiles>
     <profile>
       <id>run-publisher</id>
@@ -139,11 +164,28 @@
             <configuration>
               <mainClass>turismouyapp.webservices.Publisher</mainClass>
               <classpathScope>runtime</classpathScope>
+              <systemProperties>
+                <!-- Forzar JAXB-RI (para Metro y para cualquier JAXBContext) -->
+                <systemProperty>
+                  <key>com.sun.xml.ws.spi.db.BindingContextFactory</key>
+                  <value>com.sun.xml.ws.db.glassfish.JAXBRIContextFactory</value>
+                </systemProperty>
+                <systemProperty>
+                  <key>jakarta.xml.bind.JAXBContextFactory</key>
+                  <value>org.glassfish.jaxb.runtime.v2.ContextFactory</value>
+                </systemProperty>
+                <!-- Dump de SOAP para debug -->
+                <systemProperty>
+                  <key>com.sun.xml.ws.transport.http.HttpAdapter.dump</key>
+                  <value>true</value>
+                </systemProperty>
+              </systemProperties>
             </configuration>
           </plugin>
         </plugins>
       </build>
     </profile>
+
     <profile>
       <id>run-desktop</id>
       <build>
