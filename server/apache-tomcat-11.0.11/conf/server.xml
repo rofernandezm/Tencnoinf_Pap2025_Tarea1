@@ -105,7 +105,7 @@
 
 				
 			 	
-			<Context docBase="/home/rodrigo/blds/turismouyApp/server/apache-tomcat-11.0.11/wtpwebapps/turismouy.UI" path="/turismouy.UI" reloadable="true" source="org.eclipse.jst.jee.server:turismouy.UI"/></Host>
+			<Context docBase="/home/rodrigo/blds/webServices_checking/server/apache-tomcat-11.0.11/wtpwebapps/turismouy.UI" path="/turismouy.UI" reloadable="true" source="org.eclipse.jst.jee.server:turismouy.UI"/></Host>
 		</Engine>
 	</Service>
 </Server>

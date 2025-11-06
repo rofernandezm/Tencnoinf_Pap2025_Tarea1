@@ -9,7 +9,7 @@ import jakarta.xml.bind.annotation.XmlType;
 // JAXB: anotaciones para serializar DtTourist usando getters (PROPERTY)
 @XmlRootElement(name = "DtTourist")
 @XmlAccessorType(XmlAccessType.PROPERTY)
-@XmlType(name = "DtTourist")
+@XmlType(name = "DtTourist", propOrder = { "nationality"})
 public class DtTourist extends DtUser {
 
 	private String nationality;

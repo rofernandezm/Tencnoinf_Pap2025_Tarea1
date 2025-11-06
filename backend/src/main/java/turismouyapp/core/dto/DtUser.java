@@ -14,7 +14,7 @@ import turismouyapp.core.dto.adapter.LocalDateAdapter;
 @XmlRootElement(name = "DtUser")
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlType(propOrder = { "nickname", "name", "lastName", "email", "birthDate", "userType", "password", "imagePath" })
-@XmlSeeAlso({DtTourist.class, DtSupplier.class, DtUserProfile.class})
+@XmlSeeAlso({DtTourist.class, DtSupplier.class})
 public abstract class DtUser {
 
 	private String nickname;

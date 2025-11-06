@@ -1,10 +1,10 @@
 
-<%@page import="turismouyapp.core.dto.DtTouristActivity"%>
+<%@page import="turismouyapp.webservices.DtTouristActivity"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 
-<%@ page import="turismouyapp.core.dto.DtActivityWithOutings"%>
-<%@ page import="turismouyapp.core.dto.DtTouristOuting"%>
+<%@ page import="turismouyapp.webservices.DtActivityWithOutings"%>
+<%@ page import="turismouyapp.webservices.DtTouristOuting"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%!
@@ -137,7 +137,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 											<dt class="col-sm-4">Ciudad</dt>
 											<dd class="col-sm-8"><%=a.getCity()%></dd>
 											<dt class="col-sm-4">Duración</dt>
-											<dd class="col-sm-8"><%= fmtDuration(a.getDuration()) %></dd>
+											<dd class="col-sm-8"><%= a.getDuration()%></dd>
 											<dt class="col-sm-4">Costo por turista</dt>
 											<dd class="col-sm-8">
 												$<%=a.getCostTurist()%></dd>

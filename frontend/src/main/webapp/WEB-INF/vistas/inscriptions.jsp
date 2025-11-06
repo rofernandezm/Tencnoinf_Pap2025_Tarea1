@@ -1,15 +1,15 @@
 
-<%@page import="turismouyapp.core.dto.DtTouristActivity"%>
+<%@page import="turismouyapp.webservices.DtTouristActivity"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ page import="java.util.*"%>
-<%@ page import="turismouyapp.core.dto.DtActivityWithOutings"%>
-<%@ page import="turismouyapp.core.dto.DtTouristOuting"%>
+<%@ page import="turismouyapp.webservices.DtActivityWithOutings"%>
+<%@ page import="turismouyapp.webservices.DtTouristOuting"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 
 <%
 String ctx = request.getContextPath();
-
+@SuppressWarnings("unchecked")
 List<DtActivityWithOutings> actWtOuts = (List<DtActivityWithOutings>) request.getAttribute("activitiesWithOutings");
 if (actWtOuts == null) {
     actWtOuts = Collections.emptyList();
@@ -58,6 +58,7 @@ String defaultImgPath = ctx + "/res/default_activity.jpg";
             <!-- Start Cards -->
             <%
             String status = request.getParameter("status");
+            @SuppressWarnings("unchecked")
             List<String> errs = (List<String>) request.getAttribute("errors");
             if ("ok".equals(status)) {
             %>
@@ -117,7 +118,7 @@ String defaultImgPath = ctx + "/res/default_activity.jpg";
                             <div class="col-md-8">
 
                                 <%
-                                List<DtTouristOuting> outs = act.getOutings() != null ? act.getOutings() : java.util.Collections.emptyList();
+                                List<DtTouristOuting> outs = act.getOutings() != null ? act.getOutings().getOuting() : java.util.Collections.emptyList();
                                 String outingParam = request.getAttribute("outing") != null ? (String)request.getAttribute("outing") : request.getParameter("outing") != null ? request.getParameter("outing"): null;
                                 DtTouristOuting sel = null;
                                 if (!outs.isEmpty()) {
@@ -132,7 +133,7 @@ String defaultImgPath = ctx + "/res/default_activity.jpg";
                                     if (sel == null)
                                         sel = outs.get(0);
                                 }
-
+								@SuppressWarnings("unchecked")
                                 Map<String, Integer> dispMap = (Map<String, Integer>) request.getAttribute("dispPorSalida");
                                 %>
 

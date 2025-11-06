@@ -8,8 +8,7 @@
 	by applicable law or agreed to in writing, software distributed under the 
 	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
 	OF ANY KIND, either express or implied. See the License for the specific 
-	language governing permissions and limitations under the License. --><!-- The contents of this file will be loaded for each web application -->
-<Context>
+	language governing permissions and limitations under the License. --><!-- The contents of this file will be loaded for each web application --><Context>
 
 	<!-- Default set of monitored resources. If one of these changes, the -->
 	<!-- web application will be reloaded. -->
@@ -20,21 +19,9 @@
 	<!-- Uncomment this to enable session persistence across Tomcat restarts -->
 	<!-- <Manager pathname="SESSIONS.ser" /> -->
 	<Resources>
-		<PreResources
-			className="org.apache.catalina.webresources.DirResourceSet"
-			base="${catalina.base}/data/turismouy.UI/profile_img"
-			webAppMount="/profile_img" internalPath="/" />
-		<PreResources
-			className="org.apache.catalina.webresources.DirResourceSet"
-			base="${catalina.base}/data/turismouy.UI/activity_img"
-			webAppMount="/activity_img" internalPath="/" />
-		<PreResources
-			className="org.apache.catalina.webresources.DirResourceSet"
-			base="${catalina.base}/data/turismouy.UI/outing_img"
-			webAppMount="/outing_img" internalPath="/" />
-		<PreResources
-			className="org.apache.catalina.webresources.DirResourceSet"
-			base="${catalina.base}/data/turismouy.UI/res" webAppMount="/res"
-			internalPath="/" />
+		<PreResources base="${catalina.base}/data/turismouy.UI/profile_img" className="org.apache.catalina.webresources.DirResourceSet" internalPath="/" webAppMount="/profile_img"/>
+		<PreResources base="${catalina.base}/data/turismouy.UI/activity_img" className="org.apache.catalina.webresources.DirResourceSet" internalPath="/" webAppMount="/activity_img"/>
+		<PreResources base="${catalina.base}/data/turismouy.UI/outing_img" className="org.apache.catalina.webresources.DirResourceSet" internalPath="/" webAppMount="/outing_img"/>
+		<PreResources base="${catalina.base}/data/turismouy.UI/res" className="org.apache.catalina.webresources.DirResourceSet" internalPath="/" webAppMount="/res"/>
 	</Resources>
 </Context>

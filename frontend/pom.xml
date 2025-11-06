@@ -31,7 +31,8 @@
     <jaxws-plugin.version>3.0.0</jaxws-plugin.version>
     <jakarta.xml.bind.version>4.0.2</jakarta.xml.bind.version>
     <jaxb.runtime.version>4.0.5</jaxb.runtime.version>
-  </properties>
+    <build-helper-plugin>3.5.0</build-helper-plugin>
+    </properties>
 
   <dependencies>
     <!-- Backend: 'mvn install' en Backend 
@@ -165,7 +166,26 @@
 	      <sourceDestDir>${project.build.directory}/generated-sources/wsimport</sourceDestDir>
         </configuration>
       </plugin>
-      <!-- Plugin para generar Javadoc -->
+      <plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>build-helper-maven-plugin</artifactId>
+    <version>${build-helper-plugin}</version>
+    <executions>
+        <execution>
+            <id>add-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+                <goal>add-source</goal>
+            </goals>
+            <configuration>
+                <sources>
+                    <source>${project.build.directory}/generated-sources/wsimport</source>
+                </sources>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+      <!-- Plugin para generar Javadoc 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -223,7 +243,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
+      </plugin> -->
     </plugins>
   </build>
 </project>

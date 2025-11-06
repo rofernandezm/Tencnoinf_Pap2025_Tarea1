@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <%@ page import="java.util.List"%>
-<%@ page import="turismouyapp.core.dto.DtTouristActivity"%>
+<%@ page import="turismouyapp.webservices.DtTouristActivity"%>
 <%
 String ctx = request.getContextPath();
 String activityImgPath = ctx + "/activity_img";

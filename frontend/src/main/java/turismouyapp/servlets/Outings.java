@@ -87,12 +87,12 @@ public class Outings extends HttpServlet {
 				// (Opcional) también matchear por nombre de salida
 				boolean matchOuting = false;
 				if (!matchActivity && awo.getOutings() != null) {
-//					for (DtTouristOuting o : awo.getOutings()) {
-//						if (o.getOutingName() != null && o.getOutingName().toLowerCase().contains(needle)) {
-//							matchOuting = true;
-//							break;
-//						}
-//					}
+					for (DtTouristOuting o : awo.getOutings().getOuting()) {
+						if (o.getOutingName() != null && o.getOutingName().toLowerCase().contains(needle)) {
+							matchOuting = true;
+							break;
+						}
+					}
 				}
 
 				if (matchActivity || matchOuting) {
@@ -104,18 +104,18 @@ public class Outings extends HttpServlet {
 		Map<String, Integer> disponibilidadPorSalida = new HashMap<>();
 
 		for (DtActivityWithOutings awo : all) {
-//			for (DtTouristOuting salida : awo.getOutings()) {
-//				DtInscriptionTouristOuting[] inscripciones = outingAndInscriptionWebService
-//						.listOutingInscription(salida.getOutingName());
-//				int totalInscriptos = 0;
-//				if (inscripciones != null) {
-//					for (DtInscriptionTouristOuting insc : inscripciones) {
-//						totalInscriptos += insc.getTouristAmount();
-//					}
-//				}
-//				int cantDisp = salida.getMaxNumTourists() - totalInscriptos;
-//				disponibilidadPorSalida.put(salida.getOutingName(), cantDisp < 0 ? 0 : cantDisp);
-//			}
+			for (DtTouristOuting salida : awo.getOutings().getOuting()) {
+				List<DtInscriptionTouristOuting> inscripciones = outingAndInscriptionWebService
+						.listOutingInscription(salida.getOutingName());
+				int totalInscriptos = 0;
+				if (inscripciones != null) {
+					for (DtInscriptionTouristOuting insc : inscripciones) {
+						totalInscriptos += insc.getTouristAmount();
+					}
+				}
+				int cantDisp = salida.getMaxNumTourists() - totalInscriptos;
+				disponibilidadPorSalida.put(salida.getOutingName(), cantDisp < 0 ? 0 : cantDisp);
+			}
 		}
 
 		request.setAttribute("dispPorSalida", disponibilidadPorSalida);
@@ -124,16 +124,16 @@ public class Outings extends HttpServlet {
 		request.setAttribute("activitiesWithOutings", filtered);
 		request.getRequestDispatcher("WEB-INF/vistas/outings.jsp").forward(request, response);
 
-		// Imprimo por consola el resultado filtrado
-		System.out.println("Listado filtrado de actividades con salidas");
-		for (DtActivityWithOutings res : filtered) {
-			System.out.println("|--" + res.getActivity().getActivityName());
-//			for (DtTouristOuting dtOuting : res.getOutings()) {
-//				System.out.println("| |--" + dtOuting.getOutingName());
-//			}
-			System.out.println("| .");
-		}
-		System.out.println(".");
+//		// Imprimo por consola el resultado filtrado
+//		System.out.println("Listado filtrado de actividades con salidas");
+//		for (DtActivityWithOutings res : filtered) {
+//			System.out.println("|--" + res.getActivity().getActivityName());
+////			for (DtTouristOuting dtOuting : res.getOutings()) {
+////				System.out.println("| |--" + dtOuting.getOutingName());
+////			}
+//			System.out.println("| .");
+//		}
+//		System.out.println(".");
 	}
 
 	@Override

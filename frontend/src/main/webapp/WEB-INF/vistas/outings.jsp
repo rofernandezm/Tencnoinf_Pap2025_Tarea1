@@ -1,9 +1,10 @@
 
-<%@page import="turismouyapp.core.dto.DtTouristActivity"%>
+<%@page import="java.time.Duration"%>
+<%@page import="turismouyapp.webservices.DtTouristActivity"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
-<%@ page import="turismouyapp.core.dto.DtActivityWithOutings"%>
-<%@ page import="turismouyapp.core.dto.DtTouristOuting"%>
+<%@ page import="turismouyapp.webservices.DtActivityWithOutings"%>
+<%@ page import="turismouyapp.webservices.DtTouristOuting"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 
 <%
@@ -105,7 +106,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
                                 <h5 class="card-title"><%=a.getActivityName()%></h5>
                                 <ul class="list-unstyled mb-0 small">
                                     <li><strong>Descripción:</strong> <%=a.getDescription()%></li>
-                                    <li><strong>Duración:</strong> <%=a.getDuration().toHours() + " h"%></li>
+                                    <li><strong>Duración:</strong> <%=Duration.parse(a.getDuration()).toHours() + " h"%></li>
                                     <li><strong>Costo por turista:</strong> $<%=a.getCostTurist()%></li>
                                     <li><strong>Ciudad:</strong> <%=a.getCity()%></li>
                                     <li><strong>Proveedor:</strong> <%=a.getSupplierNickname()%></li>
@@ -115,7 +116,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
                                 <!-- Start Accordion -->
                                 <div class="accordion accordion-flush" id="<%=accId%>">
                                     <%
-                                    List<DtTouristOuting> outs = act.getOutings();
+                                    List<DtTouristOuting> outs = act.getOutings().getOuting();
                                     if (outs == null || outs.isEmpty()) {
                                     %>
                                     <div class="p-3">
@@ -188,7 +189,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
                                                             <h6 class="mb-1">Actividad</h6>
                                                             <ul class="list-unstyled small mb-2">
                                                                 <li><strong>Descripción:</strong> <%=a.getDescription()%></li>
-                                                                <li><strong>Duración:</strong> <%=a.getDuration().toHours() + " h"%></li>
+                                                                <li><strong>Duración:</strong> <%=Duration.parse(a.getDuration()).toHours() + " h"%></li>
                                                                 <li><strong>Costo por turista:</strong> $<%=a.getCostTurist()%></li>
                                                                 <li><strong>Ciudad:</strong> <%=a.getCity()%></li>
                                                                 <li><strong>Proveedor:</strong> <%=a.getSupplierNickname()%></li>
@@ -223,7 +224,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
                                                             value="<%=a.getActivityName()%>"> <input
                                                             type="hidden" name="outing"
                                                             value="<%=t.getOutingName()%>">
-                                                        <button type="submit" class="btn btn-primary <% if(turismouyapp.core.dto.UserType.TOURIST != request.getSession().getAttribute("user_role")) {%>d-none<% }%>">Inscribirme</button>
+                                                        <button type="submit" class="btn btn-primary <% if(turismouyapp.webservices.UserType.TOURIST != request.getSession().getAttribute("user_role")) {%>d-none<% }%>">Inscribirme</button>
                                                     </form>
                                                 </div>
 

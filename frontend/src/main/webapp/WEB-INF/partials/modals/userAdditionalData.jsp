@@ -145,7 +145,7 @@ DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 																					<%
 																					Object dep = pageContext.getAttribute("outing");
 																					if (dep != null) {
-																						turismouyapp.core.dto.DtTouristOuting outingObj = (turismouyapp.core.dto.DtTouristOuting) dep;
+																						turismouyapp.webservices.DtTouristOuting outingObj = (turismouyapp.webservices.DtTouristOuting) dep;
 																						Object depDate = outingObj.getDepartureDate();
 																						if (depDate instanceof LocalDateTime) {
 																							out.print(((LocalDateTime) depDate).format(dtfDateTime));
@@ -258,7 +258,7 @@ DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 																	<%
 																	Object insc = pageContext.getAttribute("inscription");
 																	if (insc != null) {
-																		turismouyapp.core.dto.DtInscriptionTouristOuting inscObj = (turismouyapp.core.dto.DtInscriptionTouristOuting) insc;
+																		turismouyapp.webservices.DtInscriptionTouristOuting inscObj = (turismouyapp.webservices.DtInscriptionTouristOuting) insc;
 																		Object depDate = inscObj.getTuristOuting().getDepartureDate();
 																		if (depDate instanceof LocalDateTime) {
 																			out.print(((LocalDateTime) depDate).format(dtfDateTime));

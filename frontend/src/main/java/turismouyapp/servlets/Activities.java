@@ -21,7 +21,6 @@ import turismouyapp.webservices.ActivityPortType;
 import turismouyapp.webservices.ActivityService;
 import turismouyapp.webservices.DtActivityWithOutings;
 import turismouyapp.webservices.DtTouristActivity;
-import turismouyapp.webservices.DtTouristOuting;
 import turismouyapp.webservices.RepeatedActivityNameException;
 import turismouyapp.webservices.TouristActivityStatus;
 
@@ -80,20 +79,6 @@ public class Activities extends HttpServlet {
 		// mando la lista filtrada y muestro pantalla
 		request.setAttribute("activitiesWithOutings", filtered);
 		request.getRequestDispatcher("WEB-INF/vistas/activities.jsp").forward(request, response);
-
-		// Imprimo por consola el resultado filtrado
-		System.out.println("Listado filtrado de actividades con salidas");
-		for (DtActivityWithOutings res : filtered) {
-			System.out.println("|--" + res.getActivity().getActivityName());
-			DtActivityWithOutings.Outings outingsWrapper = res.getOutings();
-			if (outingsWrapper != null && outingsWrapper.getOuting() != null) {
-				for (DtTouristOuting dtOuting : outingsWrapper.getOuting()) {
-					System.out.println("| |--" + dtOuting.getOutingName());
-				}
-			}
-			System.out.println("| .");
-		}
-		System.out.println(".");
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
