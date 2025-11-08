@@ -1,5 +1,6 @@
 package turismouyapp.core.interfaces;
 
+import turismouyapp.core.dto.DtSupplier;
 import turismouyapp.core.dto.DtUser;
 import turismouyapp.core.dto.DtUserProfile;
 import turismouyapp.core.exceptions.RepeatedUserEmailException;
@@ -251,4 +252,6 @@ public interface IUserController {
 	public void modifyUserData(DtUser dtUser);
 	
 	public DtUser consultUserDataByEmail(String email);
+
+	public void dataEntrySupplier(DtSupplier dtUser) throws RepeatedUserEmailException, RepeatedUserNicknameException;
 }
