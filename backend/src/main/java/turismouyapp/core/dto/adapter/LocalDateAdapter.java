@@ -14,11 +14,13 @@ public class LocalDateAdapter extends XmlAdapter<String, LocalDate> {
 
     @Override
     public LocalDate unmarshal(String v) throws Exception {
+    	System.out.println(v);
         return (v == null || v.isEmpty()) ? null : LocalDate.parse(v, FORMATTER);
     }
 
     @Override
     public String marshal(LocalDate v) throws Exception {
+    	System.out.println(v.toString());
         return (v == null) ? null : v.format(FORMATTER);
     }
 }

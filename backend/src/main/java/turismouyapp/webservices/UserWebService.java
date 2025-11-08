@@ -1,6 +1,7 @@
 package turismouyapp.webservices;
 
 import turismouyapp.core.controller.UserController;
+import turismouyapp.core.dto.DtSupplier;
 import turismouyapp.core.dto.DtUser;
 import turismouyapp.core.exceptions.RepeatedUserEmailException;
 import turismouyapp.core.exceptions.RepeatedUserNicknameException;
@@ -43,6 +44,11 @@ public class UserWebService implements IUserWebService {
 
 	public void dataEntryUser(DtUser dtUser) throws RepeatedUserEmailException, RepeatedUserNicknameException {
 		iUserController.dataEntry(dtUser);
+	}
+	
+	public void dataEntrySupplier(DtSupplier dtSupplier) throws RepeatedUserEmailException, RepeatedUserNicknameException {
+		System.out.println(dtSupplier.getBirthDate().getClass());
+		iUserController.dataEntrySupplier(dtSupplier);
 	}
 
 	public void confirmRegistration() {

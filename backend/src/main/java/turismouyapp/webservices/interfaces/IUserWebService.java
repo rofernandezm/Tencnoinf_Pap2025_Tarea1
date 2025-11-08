@@ -1,5 +1,6 @@
 package turismouyapp.webservices.interfaces;
 
+import turismouyapp.core.dto.DtSupplier;
 import turismouyapp.core.dto.DtUser;
 import turismouyapp.core.exceptions.RepeatedUserEmailException;
 import turismouyapp.core.exceptions.RepeatedUserNicknameException;
@@ -23,6 +24,7 @@ public interface IUserWebService {
     @WebMethod
     @WebResult(name = "DtUser")
     DtUser consultUserData(@WebParam(name = "nicknameOrEmail") String nicknameOrEmail);
+ 
 
     @WebMethod
     @WebResult(name = "DtUser")
@@ -30,6 +32,10 @@ public interface IUserWebService {
 
     @WebMethod
     void dataEntryUser(@WebParam(name = "dtUser") DtUser dtUser)
+            throws RepeatedUserEmailException, RepeatedUserNicknameException;
+    
+    @WebMethod
+    void dataEntrySupplier(@WebParam(name = "dtSupplier") DtSupplier dtSupplier)
             throws RepeatedUserEmailException, RepeatedUserNicknameException;
 
     @WebMethod

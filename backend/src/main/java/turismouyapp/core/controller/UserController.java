@@ -42,6 +42,23 @@ public class UserController implements IUserController {
 					"Error - El correo electrónico ingresado ya está en uso. Por favor, utiliza otro.");
 	}
 
+	public void dataEntrySupplier(DtSupplier dtSupplier)
+			throws RepeatedUserEmailException, RepeatedUserNicknameException {
+
+		UserHandler uh = UserHandler.getIntance();
+
+		if (uh.existNickname(dtSupplier.getNickname()))
+			throw new RepeatedUserNicknameException(
+					"Error - El nombre de usuario ingresado ya está en uso. Por favor, elige otro.");
+		if (uh.existEmail(dtSupplier.getEmail()))
+			throw new RepeatedUserEmailException(
+					"Error - El correo electrónico ingresado ya está en uso. Por favor, utiliza otro.");
+//
+//		User user = new Supplier(dtSupplier);
+		uh.addUser(new Supplier(dtSupplier));
+
+	}
+
 	public void cancelRegistration() {
 		this.dtUser = null;
 	}
