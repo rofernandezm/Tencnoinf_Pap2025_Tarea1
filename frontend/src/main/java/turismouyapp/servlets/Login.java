@@ -3,6 +3,7 @@ package turismouyapp.servlets;
 import java.io.IOException;
 import java.net.URI;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import jakarta.servlet.RequestDispatcher;
@@ -173,10 +174,11 @@ public class Login extends HttpServlet {
 		LocalDate birthDate = null;
 
 		// Fecha de nacimiento
-		try {
-			birthDate = LocalDate.parse(birthDateStr);
-		} catch (DateTimeParseException ex) {
-			ex.printStackTrace();
+//		try {
+//			birthDate = LocalDate.parse(birthDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
+//		} catch (DateTimeParseException ex) {
+//			ex.printStackTrace();
+		if(birthDateStr == null || birthDateStr.isEmpty()) {
 			request.setAttribute("activeTab", "register");
 			this.setErrorAndDispatchForward(request, response, "registerError",
 					"Fecha de nacimiento inválida, reintente.");
@@ -201,38 +203,39 @@ public class Login extends HttpServlet {
 				: ImageManager.resolveDefaultImageName(UploadFolderType.PROFILE);
 
 		// Registro de usuario
-		DtUser newUser = null;
+		DtUser newUser = user == UserType.TOURIST ? new DtTourist() : new DtSupplier();
 		String hashedPassword = PasswordEncoder.encode(password);
+		newUser.setNickname(nickname);
+		newUser.setName(name);
+		newUser.setLastName(lastName);
+		newUser.setEmail(email);
+		System.out.println("birthDate: " + birthDateStr);
+		newUser.setBirthDate(birthDateStr);
+		newUser.setPassword(hashedPassword);
+		newUser.setImagePath(fileName);
+
 		if (user == UserType.TOURIST) {
 			String nationality = request.getParameter("nationality");
-			newUser = new DtTourist();
-			newUser.setNickname(nickname);
-			newUser.setName(name);
-			newUser.setLastName(lastName);
-			newUser.setEmail(email);
-			newUser.setBirthDate(birthDate.toString());
-			newUser.setPassword(hashedPassword);
 			newUser.setUserType(UserType.TOURIST);
 			((DtTourist) newUser).setNationality(nationality);
-			newUser.setImagePath(fileName);
 		} else {
 			String supplierDesc = request.getParameter("description");
 			String webSite = request.getParameter("website");
-			newUser = new DtSupplier();
-			newUser.setNickname(nickname);
-			newUser.setName(name);
-			newUser.setLastName(lastName);
-			newUser.setEmail(email);
-			newUser.setBirthDate(birthDate.toString());
-			newUser.setPassword(hashedPassword);
 			newUser.setUserType(UserType.SUPPLIER);
 			((DtSupplier) newUser).setDescription(supplierDesc);
 			((DtSupplier) newUser).setWebSite(webSite);
-			newUser.setImagePath(fileName);
 		}
 
 		try {
-			userWebService.dataEntryUser(newUser);
+			if (newUser instanceof DtTourist) {
+				
+				userWebService.dataEntryUser(newUser);
+			}else {
+				DtSupplier userSup = (DtSupplier) newUser;	
+				
+				userWebService.dataEntrySupplier(userSup);
+
+			}
 //			userWebService.confirmRegistration();
 
 			// Persistir imagen
@@ -242,34 +245,34 @@ public class Login extends HttpServlet {
 			} catch (IOException ex) {
 
 				// Setea imagen default
-				String defaultImage = ImageManager.resolveDefaultImageName(UploadFolderType.PROFILE);
-				// Preserve old user data before creating new instance
-				DtUser oldUser = newUser;
-				if (oldUser.getUserType() == UserType.TOURIST) {
-					newUser = new DtTourist();
-					newUser.setNickname(oldUser.getNickname());
-					newUser.setName(oldUser.getName());
-					newUser.setLastName(oldUser.getLastName());
-					newUser.setEmail(oldUser.getEmail());
-					newUser.setBirthDate(oldUser.getBirthDate());
-					newUser.setPassword(oldUser.getPassword());
-					newUser.setUserType(UserType.TOURIST);
-					((DtTourist) newUser).setNationality(((DtTourist) oldUser).getNationality());
-					newUser.setImagePath(defaultImage);
-				} else {
-					newUser = new DtSupplier();
-					newUser.setNickname(oldUser.getNickname());
-					newUser.setName(oldUser.getName());
-					newUser.setLastName(oldUser.getLastName());
-					newUser.setEmail(oldUser.getEmail());
-					newUser.setBirthDate(oldUser.getBirthDate());
-					newUser.setPassword(oldUser.getPassword());
-					newUser.setUserType(UserType.SUPPLIER);
-					((DtSupplier) newUser).setDescription(((DtSupplier) oldUser).getDescription());
-					((DtSupplier) newUser).setWebSite(((DtSupplier) oldUser).getWebSite());
-					newUser.setImagePath(defaultImage);
-				}
-				userWebService.modifyUserData(newUser);
+//				String defaultImage = ImageManager.resolveDefaultImageName(UploadFolderType.PROFILE);
+//				// Preserve old user data before creating new instance
+//				DtUser oldUser = newUser;
+//				if (oldUser.getUserType() == UserType.TOURIST) {
+//					newUser = new DtTourist();
+//					newUser.setNickname(oldUser.getNickname());
+//					newUser.setName(oldUser.getName());
+//					newUser.setLastName(oldUser.getLastName());
+//					newUser.setEmail(oldUser.getEmail());
+//					newUser.setBirthDate(oldUser.getBirthDate());
+//					newUser.setPassword(oldUser.getPassword());
+//					newUser.setUserType(UserType.TOURIST);
+//					((DtTourist) newUser).setNationality(((DtTourist) oldUser).getNationality());
+//					newUser.setImagePath(defaultImage);
+//				} else {
+//					newUser = new DtSupplier();
+//					newUser.setNickname(oldUser.getNickname());
+//					newUser.setName(oldUser.getName());
+//					newUser.setLastName(oldUser.getLastName());
+//					newUser.setEmail(oldUser.getEmail());
+//					newUser.setBirthDate(oldUser.getBirthDate());
+//					newUser.setPassword(oldUser.getPassword());
+//					newUser.setUserType(UserType.SUPPLIER);
+//					((DtSupplier) newUser).setDescription(((DtSupplier) oldUser).getDescription());
+//					((DtSupplier) newUser).setWebSite(((DtSupplier) oldUser).getWebSite());
+//					newUser.setImagePath(defaultImage);
+//				}
+//				userWebService.modifyUserData(newUser);
 			}
 
 			request.setAttribute("mensaje", "Se ha ingresado correctamente el usuario " + nickname + " en el sistema.");

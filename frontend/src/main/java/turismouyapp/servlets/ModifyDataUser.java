@@ -2,6 +2,7 @@ package turismouyapp.servlets;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import jakarta.servlet.RequestDispatcher;
@@ -91,7 +92,7 @@ public class ModifyDataUser extends HttpServlet {
 			try {
 
 				String birthDateStr = request.getParameter("birthdate-user");
-				birthDate = LocalDate.parse(birthDateStr);
+				birthDate = LocalDate.parse(birthDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
 
 			} catch (DateTimeParseException ex) {
 

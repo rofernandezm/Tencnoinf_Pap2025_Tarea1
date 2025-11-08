@@ -155,7 +155,7 @@ a:hover {
 										<!-- <input type="hidden" name="action" value="login">-->
 
 										<!--Luego del login -->
-										<input type="text" name="next"
+										<input type="hidden" name="next"
 											value="<%=request.getParameter("next")%>" />
 
 										<!--Nickname -->
@@ -199,7 +199,7 @@ a:hover {
 										<!-- <input type="hidden" name="action" value="register">-->
 										
 										<!--Luego del login -->
-										<input type="text" name="next"
+										<input type="hidden" name="next"
 											value="<%=request.getParameter("next")%>" />
 											
 										<!--Nickname -->
