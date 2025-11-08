@@ -254,4 +254,6 @@ public interface IUserController {
 	public void modifyUserData(DtUser dtUser);
 	
 	public DtUser consultUserDataByEmail(String email);
+
+	public void dataEntrySupplier(DtSupplier dtUser) throws RepeatedUserEmailException, RepeatedUserNicknameException;
 }
