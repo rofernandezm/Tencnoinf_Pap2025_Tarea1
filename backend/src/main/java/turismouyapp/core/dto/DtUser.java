@@ -13,7 +13,7 @@ import turismouyapp.core.dto.adapter.LocalDateAdapter;
 // JAXB: anotaciones para permitir serialización JAXB usando getters (PROPERTY)
 @XmlRootElement(name = "DtUser")
 @XmlAccessorType(XmlAccessType.PROPERTY)
-@XmlType(propOrder = { "nickname", "name", "lastName", "email", "birthDate", "userType", "password", "imagePath" })
+@XmlType(name = "DtUser", propOrder = { "nickname", "name", "lastName", "email", "birthDate", "userType", "password", "imagePath" })
 @XmlSeeAlso({DtTourist.class, DtSupplier.class})
 public abstract class DtUser {
 

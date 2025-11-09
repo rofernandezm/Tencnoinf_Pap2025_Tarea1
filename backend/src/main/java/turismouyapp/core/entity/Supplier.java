@@ -6,6 +6,7 @@ import java.util.Map;
 import jakarta.persistence.*;
 import turismouyapp.core.dto.DtSupplier;
 import turismouyapp.core.dto.DtUser;
+import turismouyapp.webservices.utils.DateUtils;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "nickname")
@@ -32,7 +33,7 @@ public class Supplier extends User {
 
 	public Supplier(DtSupplier dtSupplier) {
 		super(dtSupplier.getNickname(), dtSupplier.getName(), dtSupplier.getLastName(), dtSupplier.getEmail(),
-				dtSupplier.getBirthDate(), dtSupplier.getPassword(), dtSupplier.getImagePath());
+				DateUtils.parseToLocalDate(dtSupplier.getBirthDate()), dtSupplier.getPassword(), dtSupplier.getImagePath());
 		this.description = dtSupplier.getDescription();
 		this.webSite = dtSupplier.getWebSite();
 	}

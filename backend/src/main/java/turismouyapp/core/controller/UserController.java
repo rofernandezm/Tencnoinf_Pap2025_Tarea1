@@ -30,7 +30,7 @@ public class UserController implements IUserController {
 
 	public void dataEntry(DtUser dtUser) throws RepeatedUserEmailException, RepeatedUserNicknameException {
 
-		this.dtUser = dtUser;
+		// this.dtUser = dtUser;
 
 		UserHandler uh = UserHandler.getIntance();
 
@@ -40,6 +40,21 @@ public class UserController implements IUserController {
 		if (uh.existEmail(dtUser.getEmail()))
 			throw new RepeatedUserEmailException(
 					"Error - El correo electrónico ingresado ya está en uso. Por favor, utiliza otro.");
+
+		User user;
+		if (dtUser instanceof DtSupplier) {
+			user = new Supplier((DtSupplier) dtUser);
+			
+		} else if (dtUser instanceof DtTourist) {
+			user = new Tourist((DtTourist) dtUser);
+			
+		} else {
+			
+			throw new IllegalArgumentException("Tipo de usuario no válido");
+		}
+
+		uh.addUser(user);
+
 	}
 
 	public void dataEntrySupplier(DtSupplier dtSupplier)
@@ -53,10 +68,23 @@ public class UserController implements IUserController {
 		if (uh.existEmail(dtSupplier.getEmail()))
 			throw new RepeatedUserEmailException(
 					"Error - El correo electrónico ingresado ya está en uso. Por favor, utiliza otro.");
-//
-//		User user = new Supplier(dtSupplier);
+
 		uh.addUser(new Supplier(dtSupplier));
 
+	}
+
+	public void dataEntryTourist(DtTourist dtTourist) throws RepeatedUserEmailException, RepeatedUserNicknameException {
+
+		UserHandler uh = UserHandler.getIntance();
+
+		if (uh.existNickname(dtTourist.getNickname()))
+			throw new RepeatedUserNicknameException(
+					"Error - El nombre de usuario ingresado ya está en uso. Por favor, elige otro.");
+		if (uh.existEmail(dtTourist.getEmail()))
+			throw new RepeatedUserEmailException(
+					"Error - El correo electrónico ingresado ya está en uso. Por favor, utiliza otro.");
+
+		uh.addUser(new Tourist(dtTourist));
 	}
 
 	public void cancelRegistration() {

@@ -162,7 +162,13 @@ public class ModifyDataUser extends HttpServlet {
 
 		try {
 
-			userWebService.modifyUserData(updatedUser);
+			if (updatedUser instanceof DtTourist) {
+				userWebService.modifyTouristData((DtTourist) updatedUser);
+			} else if (updatedUser instanceof DtSupplier) {
+				userWebService.modifySupplierData((DtSupplier) updatedUser);
+			} else {
+				userWebService.modifyUserData(updatedUser);
+			}
 
 			// PERSISTIR IMAGEN
 			if (!fileName.equals(loggedUser.getImagePath())) {

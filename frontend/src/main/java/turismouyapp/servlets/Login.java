@@ -3,8 +3,6 @@ package turismouyapp.servlets;
 import java.io.IOException;
 import java.net.URI;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -205,12 +203,15 @@ public class Login extends HttpServlet {
 		// Registro de usuario
 		DtUser newUser = user == UserType.TOURIST ? new DtTourist() : new DtSupplier();
 		String hashedPassword = PasswordEncoder.encode(password);
+		System.out.println("DEBUG - nickname from request: " + nickname);
+		System.out.println("DEBUG - user type: " + user);
 		newUser.setNickname(nickname);
 		newUser.setName(name);
 		newUser.setLastName(lastName);
 		newUser.setEmail(email);
-		System.out.println("birthDate: " + birthDateStr);
+		System.out.println("DEBUG - birthDate from request: " + birthDateStr);
 		newUser.setBirthDate(birthDateStr);
+		System.out.println("DEBUG - nickname after set: " + newUser.getNickname());
 		newUser.setPassword(hashedPassword);
 		newUser.setImagePath(fileName);
 
@@ -228,14 +229,19 @@ public class Login extends HttpServlet {
 
 		try {
 			if (newUser instanceof DtTourist) {
-				
-				userWebService.dataEntryUser(newUser);
-			}else {
-				DtSupplier userSup = (DtSupplier) newUser;	
-				
-				userWebService.dataEntrySupplier(userSup);
-
+				userWebService.dataEntryTourist((DtTourist) newUser);
+			} else {
+				userWebService.dataEntrySupplier((DtSupplier) newUser);
 			}
+//			userWebService.dataEntryUser(newUser);
+//			if (newUser instanceof DtTourist) {
+//				
+//			}else {
+//				DtSupplier userSup = (DtSupplier) newUser;	
+//				
+//				userWebService.dataEntrySupplier(userSup);
+//
+//			}
 //			userWebService.confirmRegistration();
 
 			// Persistir imagen

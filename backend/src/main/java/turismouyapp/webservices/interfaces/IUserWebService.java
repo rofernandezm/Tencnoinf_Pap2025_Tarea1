@@ -1,6 +1,7 @@
 package turismouyapp.webservices.interfaces;
 
 import turismouyapp.core.dto.DtSupplier;
+import turismouyapp.core.dto.DtTourist;
 import turismouyapp.core.dto.DtUser;
 import turismouyapp.core.exceptions.RepeatedUserEmailException;
 import turismouyapp.core.exceptions.RepeatedUserNicknameException;
@@ -12,6 +13,7 @@ import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
 import jakarta.jws.soap.SOAPBinding.ParameterStyle;
 import jakarta.jws.soap.SOAPBinding.Style;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
 
 /**
  * Interfaz del webservice de usuarios. Define el contrato estable (endpointInterface)
@@ -19,6 +21,7 @@ import jakarta.jws.soap.SOAPBinding.Style;
  */
 @WebService(targetNamespace = "http://ws.turismouyapp/schema", name = "UserPortType")
 @SOAPBinding(style = Style.DOCUMENT, parameterStyle = ParameterStyle.WRAPPED)
+@XmlSeeAlso({DtTourist.class, DtSupplier.class})
 public interface IUserWebService {
 
     @WebMethod
@@ -35,6 +38,10 @@ public interface IUserWebService {
             throws RepeatedUserEmailException, RepeatedUserNicknameException;
     
     @WebMethod
+    void dataEntryTourist(@WebParam(name = "dtTourist") DtTourist dtTourist)
+            throws RepeatedUserEmailException, RepeatedUserNicknameException;
+    
+    @WebMethod
     void dataEntrySupplier(@WebParam(name = "dtSupplier") DtSupplier dtSupplier)
             throws RepeatedUserEmailException, RepeatedUserNicknameException;
 
@@ -43,6 +50,12 @@ public interface IUserWebService {
 
     @WebMethod
     void modifyUserData(@WebParam(name = "dtUser") DtUser dtUser);
+    
+    @WebMethod
+    void modifyTouristData(@WebParam(name = "dtTourist") DtTourist dtTourist);
+    
+    @WebMethod
+    void modifySupplierData(@WebParam(name = "dtSupplier") DtSupplier dtSupplier);
 
     @WebMethod
     @WebResult(name = "users")

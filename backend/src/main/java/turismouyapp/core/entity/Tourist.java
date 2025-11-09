@@ -7,6 +7,7 @@ import java.util.Map;
 import jakarta.persistence.*;
 import turismouyapp.core.dto.DtTourist;
 import turismouyapp.core.dto.DtUser;
+import turismouyapp.webservices.utils.DateUtils;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "nickname")
@@ -31,7 +32,7 @@ public class Tourist extends User {
 
 	public Tourist(DtTourist dtTourist) {
 		super(dtTourist.getNickname(), dtTourist.getName(), dtTourist.getLastName(), dtTourist.getEmail(),
-				dtTourist.getBirthDate(), dtTourist.getPassword(), dtTourist.getImagePath());
+				DateUtils.parseToLocalDate(dtTourist.getBirthDate()), dtTourist.getPassword(), dtTourist.getImagePath());
 		this.nationality = dtTourist.getNationality();
 	}
 

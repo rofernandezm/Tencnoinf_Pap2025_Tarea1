@@ -1,6 +1,7 @@
 package turismouyapp.core.interfaces;
 
 import turismouyapp.core.dto.DtSupplier;
+import turismouyapp.core.dto.DtTourist;
 import turismouyapp.core.dto.DtUser;
 import turismouyapp.core.dto.DtUserProfile;
 import turismouyapp.core.exceptions.RepeatedUserEmailException;
@@ -86,6 +87,8 @@ public interface IUserController {
 	public void dataEntry(DtUser dtUser) throws RepeatedUserEmailException, RepeatedUserNicknameException;
 	
 	public void dataEntrySupplier(DtSupplier dtSupplier) throws RepeatedUserEmailException, RepeatedUserNicknameException;
+
+	public void dataEntryTourist(DtTourist dtTourist) throws RepeatedUserEmailException, RepeatedUserNicknameException;
 
 	/**
 	 * Cancela el proceso de registro actual descartando los datos ingresados.
