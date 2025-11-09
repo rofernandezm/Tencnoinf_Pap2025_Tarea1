@@ -203,15 +203,11 @@ public class Login extends HttpServlet {
 		// Registro de usuario
 		DtUser newUser = user == UserType.TOURIST ? new DtTourist() : new DtSupplier();
 		String hashedPassword = PasswordEncoder.encode(password);
-		System.out.println("DEBUG - nickname from request: " + nickname);
-		System.out.println("DEBUG - user type: " + user);
 		newUser.setNickname(nickname);
 		newUser.setName(name);
 		newUser.setLastName(lastName);
 		newUser.setEmail(email);
-		System.out.println("DEBUG - birthDate from request: " + birthDateStr);
 		newUser.setBirthDate(birthDateStr);
-		System.out.println("DEBUG - nickname after set: " + newUser.getNickname());
 		newUser.setPassword(hashedPassword);
 		newUser.setImagePath(fileName);
 
