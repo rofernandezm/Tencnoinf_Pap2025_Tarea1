@@ -10,18 +10,16 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import turismouyapp.core.dto.adapter.LocalDateAdapter;
 import turismouyapp.core.dto.adapter.LocalDateTimeAdapter;
 
-// JAXB: Salida de turista (outing), usar campos y adapters para fechas
+// JAXB: Salida de turista (outing), usar getters y adapters para fechas
 @XmlRootElement(name = "DtTouristOuting")
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlType(propOrder = { "outingName", "maxNumTourists", "departurePoint", "departureDate", "dischargeDate", "activityName", "imageOutPath" })
 public class DtTouristOuting {
 
 	private String outingName;
 	private int maxNumTourists;
 	private String departurePoint;
-	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime departureDate;
-	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	private LocalDate dischargeDate;
 	private String activityName;
 	private String imageOutPath;
@@ -52,10 +50,12 @@ public class DtTouristOuting {
 		return departurePoint;
 	}
 
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	public LocalDateTime getDepartureDate() {
 		return departureDate;
 	}
 
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	public LocalDate getDischargeDate() {
 		return dischargeDate;
 	}
@@ -80,10 +80,12 @@ public class DtTouristOuting {
 		this.departurePoint = departurePoint;
 	}
 
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	public void setDepartureDate(LocalDateTime departureDate) {
 		this.departureDate = departureDate;
 	}
 
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	public void setDischargeDate(LocalDate dischargeDate) {
 		this.dischargeDate = dischargeDate;
 	}

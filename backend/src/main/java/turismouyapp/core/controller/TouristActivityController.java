@@ -22,11 +22,6 @@ public class TouristActivityController implements ITouristActivityController {
 
 	public void activityDataEntry(DtTouristActivity dtTouristActivity) throws RepeatedActivityNameException {
 
-		// Validar que el nombre de la actividad no esté vacío
-		if (dtTouristActivity.getActivityName() == null || dtTouristActivity.getActivityName().trim().isEmpty()) {
-			throw new IllegalArgumentException("El nombre de la actividad no puede estar vacío.");
-		}
-		
 		if (TouristActivityHandler.getIntance().existActivityName(dtTouristActivity.getActivityName())) {
 			throw new RepeatedActivityNameException("Ya existe una actividad turistica con ese nombre.");
 		}

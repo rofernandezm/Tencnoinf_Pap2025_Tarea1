@@ -8,15 +8,14 @@ import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import turismouyapp.core.dto.adapter.LocalDateAdapter;
 
-// JAXB: inscripción a una salida turística, usar campos y adapter para fecha
+// JAXB: inscripción a una salida turística, usar getters y adapter para fecha
 @XmlRootElement(name = "DtInscriptionTouristOuting")
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlType(propOrder = { "touristAmount", "totalCost", "inscriptionDate", "turistOuting" })
 public class DtInscriptionTouristOuting {
     
 	private int touristAmount;
 	private float totalCost;
-	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	private LocalDate inscriptionDate;
 	private DtTouristOuting turistOuting;
     
@@ -37,6 +36,7 @@ public class DtInscriptionTouristOuting {
 		return totalCost;
 	}
 
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	public LocalDate getInscriptionDate() {
 		return inscriptionDate;
 	}
@@ -53,6 +53,7 @@ public class DtInscriptionTouristOuting {
 		this.totalCost = totalCost;
 	}
 
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	public void setInscriptionDate(LocalDate inscriptionDate) {
 		this.inscriptionDate = inscriptionDate;
 	}
