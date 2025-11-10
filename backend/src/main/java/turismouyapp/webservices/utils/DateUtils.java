@@ -103,4 +103,12 @@ public class DateUtils {
 	public static String formatToString(LocalDateTime dateTime) {
 		return dateTime != null ? dateTime.format(ISO_DATETIME_FORMATTER) : null;
 	}
+
+	public static DateTimeFormatter getIsoDateFormatter() {
+		return ISO_DATE_FORMATTER;
+	}
+
+	public static DateTimeFormatter getIsoDatetimeFormatter() {
+		return ISO_DATETIME_FORMATTER;
+	}
 }

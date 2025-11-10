@@ -49,6 +49,18 @@ public class ActivityWebService implements IActivityWebService {
 
 	public void activityDataEntry(DtTouristActivity dtTouristActivity)
 			throws ActivityDoesNotExistException, RepeatedActivityNameException {
+		// DEBUG: Log para ver qué está llegando
+		System.out.println("=== DEBUG activityDataEntry ===");
+		System.out.println("dtTouristActivity: " + dtTouristActivity);
+		if (dtTouristActivity != null) {
+			System.out.println("activityName: " + dtTouristActivity.getActivityName());
+			System.out.println("description: " + dtTouristActivity.getDescription());
+			System.out.println("duration: " + dtTouristActivity.getDuration());
+			System.out.println("registrationDate: " + dtTouristActivity.getRegistrationDate());
+			System.out.println("supplierNickname: " + dtTouristActivity.getSupplierNickname());
+		}
+		System.out.println("===============================");
+		
 		iTouristActivityController.activityDataEntry(dtTouristActivity);
 	}
 

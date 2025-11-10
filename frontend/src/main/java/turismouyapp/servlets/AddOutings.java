@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +57,6 @@ public class AddOutings extends HttpServlet {
 		String outingDateStr = request.getParameter("outingDate");
 
 		int maxTourists = 0;
-		LocalDateTime outingDate = null;
 
 		List<String> errors = new ArrayList<>();
 
@@ -89,13 +87,13 @@ public class AddOutings extends HttpServlet {
 			errors.add("Cantidad máxima de turistas inválida.");
 		}
 
-		// Fecha
-		try {
-			outingDate = LocalDateTime.parse(outingDateStr);
-		} catch (DateTimeParseException ex) {
-			ex.printStackTrace();
-			errors.add("Formato de fecha inválido.");
-		}
+//		// Fecha
+//		try {
+//			outingDate = LocalDateTime.parse(outingDateStr, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+//		} catch (DateTimeParseException ex) {
+//			ex.printStackTrace();
+//			errors.add("Formato de fecha inválido.");
+//		}
 
 		// Si hay errores, reenviamos al form con mensajes
 		if (!errors.isEmpty()) {
@@ -108,8 +106,8 @@ public class AddOutings extends HttpServlet {
 		newOuting.setOutingName(outingName);
 		newOuting.setMaxNumTourists(maxTourists);
 		newOuting.setDeparturePoint(outingPlace);
-		newOuting.setDepartureDate(outingDate.toString());
-		newOuting.setDischargeDate(LocalDate.now().toString());
+		newOuting.setDepartureDate(outingDateStr);
+		newOuting.setDischargeDate(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 		newOuting.setActivityName(activityName);
 		newOuting.setImageOutPath(fileName);
 

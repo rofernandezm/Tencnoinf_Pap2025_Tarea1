@@ -52,9 +52,6 @@ public class TouristActivityHandler {
 	}
 
 	public Boolean existActivityName(String activityName) {
-		if (activityName == null || activityName.trim().isEmpty()) {
-			return false;
-		}
 		EntityManager em = PersistenceHandler.getEntityManager();
 		try {
 			return em.find(TouristActivity.class, activityName) != null;

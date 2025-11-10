@@ -3,6 +3,7 @@ package turismouyapp.servlets;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -101,14 +102,6 @@ public class Activities extends HttpServlet {
 		String supplier = request.getParameter("supplier"); // deberia ser el usuario loggeado?
 		String city = request.getParameter("city");
 		String description = request.getParameter("description");
-		
-		// Validar que el nombre de la actividad no esté vacío
-		if (activityName == null || activityName.trim().isEmpty()) {
-			request.setAttribute("activityError", "El nombre de la actividad es obligatorio.");
-			this.handleShowActivities(request, response);
-			return;
-		}
-		
 		LocalDate hora = LocalDate.now();
 		Duration duration = null;
 		float cost = 0.0f;
