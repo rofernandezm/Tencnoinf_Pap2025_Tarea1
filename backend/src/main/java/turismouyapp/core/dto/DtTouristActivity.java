@@ -12,15 +12,17 @@ import turismouyapp.core.dto.adapter.LocalDateAdapter;
 
 // JAXB: representación de actividad turística, usar getters para serialización
 @XmlRootElement(name = "DtTouristActivity")
-@XmlAccessorType(XmlAccessType.PROPERTY)
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(propOrder = { "activityName", "description", "duration", "costTurist", "city", "registrationDate", "supplierNickname", "status", "imageActPath" })
 public class DtTouristActivity {
 
 	private String activityName;
 	private String description;
+	@XmlJavaTypeAdapter(DurationAdapter.class)
 	private Duration duration;
 	private float costTurist;
 	private String city;
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	private LocalDate registrationDate;
 	private String supplierNickname;
 	private TouristActivityStatus status;
@@ -50,7 +52,6 @@ public class DtTouristActivity {
 		return description;
 	}
 
-	@XmlJavaTypeAdapter(DurationAdapter.class)
 	public Duration getDuration() {
 		return duration;
 	}
@@ -63,7 +64,6 @@ public class DtTouristActivity {
 		return city;
 	}
 
-	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	public LocalDate getRegistrationDate() {
 		return registrationDate;
 	}
@@ -88,7 +88,6 @@ public class DtTouristActivity {
 		this.description = description;
 	}
 
-	@XmlJavaTypeAdapter(DurationAdapter.class)
 	public void setDuration(Duration duration) {
 		this.duration = duration;
 	}
@@ -101,7 +100,6 @@ public class DtTouristActivity {
 		this.city = city;
 	}
 
-	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	public void setRegistrationDate(LocalDate registrationDate) {
 		this.registrationDate = registrationDate;
 	}
