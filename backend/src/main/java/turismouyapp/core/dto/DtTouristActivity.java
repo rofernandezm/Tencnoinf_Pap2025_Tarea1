@@ -12,16 +12,18 @@ import turismouyapp.core.dto.adapter.LocalDateAdapter;
 
 // JAXB: representación de actividad turística, usar getters para serialización
 @XmlRootElement(name = "DtTouristActivity")
-@XmlAccessorType(XmlAccessType.PROPERTY)
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(propOrder = { "activityName", "description", "duration", "costTurist", "city", "registrationDate", "supplierNickname", "status", "imageActPath" })
 public class DtTouristActivity {
 
 	private String activityName;
 	private String description;
+	@XmlJavaTypeAdapter(DurationAdapter.class)
 	private Duration duration;
 	private float costTurist;
 	private String city;
-	private LocalDate registratioDate;
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
+	private LocalDate registrationDate;
 	private String supplierNickname;
 	private TouristActivityStatus status;
 	private String imageActPath;
@@ -30,13 +32,13 @@ public class DtTouristActivity {
 	};
 
 	public DtTouristActivity(String activityName, String description, Duration duration, float costTurist, String city,
-			LocalDate registratioDate, String supplierNickname, TouristActivityStatus status, String imageActPath) {
+			LocalDate registrationDate, String supplierNickname, TouristActivityStatus status, String imageActPath) {
 		this.activityName = activityName;
 		this.description = description;
 		this.duration = duration;
 		this.costTurist = costTurist;
 		this.city = city;
-		this.registratioDate = registratioDate;
+		this.registrationDate = registrationDate;
 		this.supplierNickname = supplierNickname;
 		this.status = status;
 		this.imageActPath = imageActPath;
@@ -50,7 +52,6 @@ public class DtTouristActivity {
 		return description;
 	}
 
-	@XmlJavaTypeAdapter(DurationAdapter.class)
 	public Duration getDuration() {
 		return duration;
 	}
@@ -63,10 +64,8 @@ public class DtTouristActivity {
 		return city;
 	}
 
-	// JAXB: adapter para LocalDate
-	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	public LocalDate getRegistrationDate() {
-		return registratioDate;
+		return registrationDate;
 	}
 
 	public String getSupplierNickname() {
@@ -102,7 +101,7 @@ public class DtTouristActivity {
 	}
 
 	public void setRegistrationDate(LocalDate registrationDate) {
-		this.registratioDate = registrationDate;
+		this.registrationDate = registrationDate;
 	}
 
 	public void setSupplierNickname(String supplierNickname) {

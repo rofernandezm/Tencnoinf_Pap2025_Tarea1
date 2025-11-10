@@ -3,10 +3,13 @@ package turismouyapp.servlets;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import com.google.gson.Gson;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -102,7 +105,7 @@ public class Activities extends HttpServlet {
 		String supplier = request.getParameter("supplier"); // deberia ser el usuario loggeado?
 		String city = request.getParameter("city");
 		String description = request.getParameter("description");
-		LocalDate hora = LocalDate.now();
+		String registrationDate = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
 		Duration duration = null;
 		float cost = 0.0f;
 		
@@ -144,11 +147,12 @@ public class Activities extends HttpServlet {
 		newActivity.setDuration(duration != null ? duration.toString() : null);
 		newActivity.setCostTurist(cost);
 		newActivity.setCity(city);
-		newActivity.setRegistrationDate(hora.toString());
+		newActivity.setRegistrationDate(registrationDate);
 		newActivity.setSupplierNickname(supplier);
 		newActivity.setStatus(TouristActivityStatus.ADDED);
 		newActivity.setImageActPath(fileName);
-
+		
+		System.out.println(new Gson().toJson(newActivity));
 		try {
 			activityWebService.activityDataEntry(newActivity);
 			

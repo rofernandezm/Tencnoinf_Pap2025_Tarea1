@@ -32,6 +32,7 @@
     <jakarta.xml.bind.version>4.0.2</jakarta.xml.bind.version>
     <jaxb.runtime.version>4.0.5</jaxb.runtime.version>
     <build-helper-plugin>3.5.0</build-helper-plugin>
+    <gson.version>2.13.2</gson.version>
     </properties>
 
   <dependencies>
@@ -131,6 +132,12 @@
       <version>${jaxb.runtime.version}</version>
     </dependency>
 
+	<dependency>
+	    <groupId>com.google.code.gson</groupId>
+	    <artifactId>gson</artifactId>
+	    <version>${gson.version}</version>
+	</dependency>
+    
   </dependencies>
 
   <build>

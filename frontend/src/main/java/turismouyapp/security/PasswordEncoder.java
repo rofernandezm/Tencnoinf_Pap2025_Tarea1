@@ -36,7 +36,8 @@ public class PasswordEncoder {
      * @param encodedPassword Hash BCrypt almacenado
      * @return {@code true} si coincide, {@code false} en cualquier otro caso
      */
-    public static boolean matches(String rawPassword, String encodedPassword) {
+    @SuppressWarnings("unused")
+	public static boolean matches(String rawPassword, String encodedPassword) {
         if (rawPassword == null || rawPassword.isEmpty() || 
             encodedPassword == null || encodedPassword.isEmpty()) {
             return false;
@@ -47,11 +48,12 @@ public class PasswordEncoder {
         }
         
         try {
-        	System.out.println("PasswordEncoder.matches :: ByCrypt.checkpw :: "+ BCrypt.checkpw(rawPassword, encodedPassword));
-        	System.out.println("PasswordEncoder.matches :: rawPassword :: "+ rawPassword);
-        	System.out.println("PasswordEncoder.matches :: Encoded rawPassword :: "+ PasswordEncoder.encode(rawPassword));
-        	System.out.println("PasswordEncoder.matches :: encodedPassword :: "+ encodedPassword);
-        	
+        	if (1 == 0) {
+	        	System.out.println("PasswordEncoder.matches :: ByCrypt.checkpw :: "+ BCrypt.checkpw(rawPassword, encodedPassword));
+	        	System.out.println("PasswordEncoder.matches :: rawPassword :: "+ rawPassword);
+	        	System.out.println("PasswordEncoder.matches :: Encoded rawPassword :: "+ PasswordEncoder.encode(rawPassword));
+	        	System.out.println("PasswordEncoder.matches :: encodedPassword :: "+ encodedPassword);
+        	}
             return BCrypt.checkpw(rawPassword, encodedPassword);
         } catch (Exception e) {
             return false;
