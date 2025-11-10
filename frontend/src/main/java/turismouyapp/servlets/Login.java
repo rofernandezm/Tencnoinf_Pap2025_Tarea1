@@ -109,7 +109,7 @@ public class Login extends HttpServlet {
 
 		if (requestedUser != null) {
 			String password = request.getParameter("password");
-//			String newHash = PasswordEncoder.encode(request.getParameter("password"));
+			String newHash = PasswordEncoder.encode(request.getParameter("password"));
 			isValidAccess = PasswordEncoder.matches(password, requestedUser.getPassword());
 		}
 

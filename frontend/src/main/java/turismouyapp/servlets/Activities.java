@@ -101,6 +101,14 @@ public class Activities extends HttpServlet {
 		String supplier = request.getParameter("supplier"); // deberia ser el usuario loggeado?
 		String city = request.getParameter("city");
 		String description = request.getParameter("description");
+		
+		// Validar que el nombre de la actividad no esté vacío
+		if (activityName == null || activityName.trim().isEmpty()) {
+			request.setAttribute("activityError", "El nombre de la actividad es obligatorio.");
+			this.handleShowActivities(request, response);
+			return;
+		}
+		
 		LocalDate hora = LocalDate.now();
 		Duration duration = null;
 		float cost = 0.0f;
@@ -169,6 +177,12 @@ public class Activities extends HttpServlet {
 
 		} catch (RepeatedActivityNameException | ActivityDoesNotExistException e) {
 			request.setAttribute("activityError", "La actividad \"" + activityName + "\" ya existe.");
+			request.setAttribute("draftedActivity", newActivity);
+			request.setAttribute("draftedActivityImgPart", activityPhotoPart);
+			request.setAttribute("draftedActivityImgHash", ImageManager.getFileHash(activityPhotoPart));
+			this.handleShowActivities(request, response);
+		} catch (IllegalArgumentException e) {
+			request.setAttribute("activityError", e.getMessage());
 			request.setAttribute("draftedActivity", newActivity);
 			request.setAttribute("draftedActivityImgPart", activityPhotoPart);
 			request.setAttribute("draftedActivityImgHash", ImageManager.getFileHash(activityPhotoPart));
