@@ -63,7 +63,7 @@ public class Outings extends HttpServlet {
 			}
 			request.setAttribute("userActivities", userActivities);
 		} else {
-			request.setAttribute("userActivities", new String[0]);
+			request.setAttribute("userActivities", new ArrayList<>());
 		}
 
 		// obtengo la busqueda

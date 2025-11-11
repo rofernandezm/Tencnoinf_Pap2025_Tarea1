@@ -3,6 +3,7 @@ package turismouyapp.core.dto;
 import java.time.LocalDate;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -14,10 +15,14 @@ import turismouyapp.core.dto.adapter.LocalDateAdapter;
 @XmlType(propOrder = { "touristAmount", "totalCost", "inscriptionDate", "turistOuting" })
 public class DtInscriptionTouristOuting {
     
+	@XmlElement(namespace = "")
 	private int touristAmount;
+	@XmlElement(namespace = "")
 	private float totalCost;
+	@XmlElement(namespace = "")
 	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	private LocalDate inscriptionDate;
+	@XmlElement(namespace = "")
 	private DtTouristOuting turistOuting;
     
 	public DtInscriptionTouristOuting() {};

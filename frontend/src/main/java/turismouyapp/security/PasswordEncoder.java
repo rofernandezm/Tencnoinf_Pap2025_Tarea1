@@ -48,10 +48,9 @@ public class PasswordEncoder {
         }
         
         try {
-        	if (1 == 0) {
+        	if (1 == 1) {
 	        	System.out.println("PasswordEncoder.matches :: ByCrypt.checkpw :: "+ BCrypt.checkpw(rawPassword, encodedPassword));
 	        	System.out.println("PasswordEncoder.matches :: rawPassword :: "+ rawPassword);
-	        	System.out.println("PasswordEncoder.matches :: Encoded rawPassword :: "+ PasswordEncoder.encode(rawPassword));
 	        	System.out.println("PasswordEncoder.matches :: encodedPassword :: "+ encodedPassword);
         	}
             return BCrypt.checkpw(rawPassword, encodedPassword);

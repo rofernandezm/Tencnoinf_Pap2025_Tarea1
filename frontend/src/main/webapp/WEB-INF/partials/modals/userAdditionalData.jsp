@@ -98,7 +98,7 @@ DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 															<div class="col-md-6">
 																<p class="mb-2">
 																	<strong>Duración:</strong>
-																	${activityWithOutings.activity.duration.toHours()}
+																	${activityWithOutings.activity.duration}
 																	horas
 																</p>
 																<p class="mb-2">
@@ -138,7 +138,7 @@ DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 																	</thead>
 																	<tbody>
 																		<c:forEach var="outing"
-																			items="${activityWithOutings.outings}">
+																			items="${activityWithOutings.outings.getOuting()}">
 																			<tr>
 																				<td><strong>${outing.outingName}</strong></td>
 																				<td>

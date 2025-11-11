@@ -16,6 +16,7 @@ import jakarta.xml.bind.annotation.XmlElementWrapper;
 public class DtActivityWithOutings {
 
 	private DtTouristActivity activity;
+	
 	private List<DtTouristOuting> outings = new ArrayList<>();
 
 	public DtActivityWithOutings() {

@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <div class="modal fade" id="modalOuting" tabindex="-1"
     aria-labelledby="modalOutingLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -18,9 +20,10 @@
 
                             <select id="activitySelect" name="activitySelect" required class="form-select">
                                 <%
-                                String[] userActivities = (String[]) request.getAttribute("userActivities");
+                                @SuppressWarnings("unchecked")
+                                List<String> userActivities = (List<String>) request.getAttribute("userActivities");
                                 if (userActivities == null) {
-                                    userActivities = new String[0];
+                                    userActivities = new ArrayList<>();
                                 }
                                 for (String a : userActivities) {
                                 %>
@@ -30,7 +33,7 @@
                                 <%
                                 }
                                 %>
-                            </select>
+                            </select> 
                         </div>
                     </div>
                     <div class="row align-items-center mb-3">
