@@ -8,10 +8,9 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Set;
 
-@WebFilter("/*") // protege TODA la app
+@WebFilter("/*")
 public class AuthFilter implements Filter {
 
-	// Ajustá estos paths a tu app
 	private static final Set<String> PUBLIC_PATHS = Set.of("/login", "/iniciarSesionRegistrarse.jsp", "/");
 
 	// Extensiones de archivos estáticos que no requieren sesión
@@ -28,7 +27,6 @@ public class AuthFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 
-		// Normalizá el path solicitado
 		String ctx = request.getContextPath(); // ej: /turismouy
 		String path = request.getRequestURI().substring(ctx.length()); // ej: /outings/list
 
@@ -71,7 +69,7 @@ public class AuthFilter implements Filter {
 			if (p.endsWith("/") && path.startsWith(p))
 				return true;
 		}
-		// No filtrar recursos bajo /resources, /assets, /static si los usás
+		// No filtrar recursos bajo /resources, /assets, /static
 		return path.startsWith("/resources/") || path.startsWith("/assets/") || path.startsWith("/static/");
 	}
 

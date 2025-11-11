@@ -42,7 +42,7 @@ public class Outings extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// cargo una lista con los nombres de las actividades para sugirir en la
+		// cargo una lista con los nombres de las actividades para sugerir en la
 		// busqueda
 		List<String> activities = null;
 		try {
@@ -81,7 +81,7 @@ public class Outings extends HttpServlet {
 		// filtro en base a la busqueda
 		List<DtActivityWithOutings> filtered = all;
 		if (!needle.isEmpty()) {
-			filtered = new java.util.ArrayList<>();
+			filtered = new ArrayList<>();
 			for (DtActivityWithOutings awo : all) {
 				boolean matchActivity = awo.getActivity() != null && awo.getActivity().getActivityName() != null
 						&& awo.getActivity().getActivityName().toLowerCase().contains(needle);
@@ -131,7 +131,7 @@ public class Outings extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		doGet(request, response);
+		this.doGet(request, response);
 	}
 
 }

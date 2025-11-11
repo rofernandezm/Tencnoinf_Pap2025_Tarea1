@@ -39,6 +39,7 @@ public class ActivityWebService implements IActivityWebService {
 	}
 
 	// Metodos de tourist activity
+	@SuppressWarnings("rawtypes")
 	public ArrayList<DtActivityWithOutings> listTouristActivityData() throws ActivityDoesNotExistException {
 		return (ArrayList) iTouristActivityController.listTouristActivityData();
 	}
@@ -47,24 +48,7 @@ public class ActivityWebService implements IActivityWebService {
 		return iTouristActivityController.listTouristActivities();
 	}
 
-	public void activityDataEntry(DtTouristActivity dtTouristActivity)
-			throws ActivityDoesNotExistException, RepeatedActivityNameException {
-		// DEBUG: Log para ver qué está llegando
-		System.out.println("=== DEBUG activityDataEntry ===");
-		System.out.println("dtTouristActivity: " + dtTouristActivity);
-		if (dtTouristActivity != null) {
-			System.out.println("activityName: [" + dtTouristActivity.getActivityName() + "]");
-			System.out.println("description: [" + dtTouristActivity.getDescription() + "]");
-			System.out.println("duration: [" + dtTouristActivity.getDuration() + "]");
-			System.out.println("costTurist: [" + dtTouristActivity.getCostTurist() + "]");
-			System.out.println("city: [" + dtTouristActivity.getCity() + "]");
-			System.out.println("registrationDate: [" + dtTouristActivity.getRegistrationDate() + "]");
-			System.out.println("supplierNickname: [" + dtTouristActivity.getSupplierNickname() + "]");
-			System.out.println("status: [" + dtTouristActivity.getStatus() + "]");
-			System.out.println("imageActPath: [" + dtTouristActivity.getImageActPath() + "]");
-		}
-		System.out.println("===============================");
-		
+	public void activityDataEntry(DtTouristActivity dtTouristActivity) throws RepeatedActivityNameException {
 		iTouristActivityController.activityDataEntry(dtTouristActivity);
 	}
 
@@ -84,6 +68,7 @@ public class ActivityWebService implements IActivityWebService {
 		return iTouristActivityController.listTouristActivitiesBySupplierNickname(nickname);
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public ArrayList<DtActivityWithOutings> arrayListTouristActivitiesBySupplierNickName(String nickname) throws ActivityDoesNotExistException{
 		return (ArrayList) iTouristActivityController.listTouristActivitiesBySupplierNickName(nickname);
 	}

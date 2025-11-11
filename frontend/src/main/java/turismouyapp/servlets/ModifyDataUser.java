@@ -76,7 +76,7 @@ public class ModifyDataUser extends HttpServlet {
 		String password = this.isNullOrEmptyParameter(request, "password-user") ? loggedUser.getPassword()
 				: request.getParameter("password-user");
 
-		LocalDate birthDate = LocalDate.now();//loggedUser.getBirthDate();
+		LocalDate birthDate = LocalDate.now();
 
 		// Si passsword no es encriptada, es nueva
 		if (!PasswordEncoder.isBCryptHash(password)) {
@@ -89,14 +89,9 @@ public class ModifyDataUser extends HttpServlet {
 
 		// Valida fecha nueva fecha de nacimiento
 		if (!this.isNullOrEmptyParameter(request, "birthdate-user")) {
-
 			try {
-
 				String birthDateStr = request.getParameter("birthdate-user");
-				
 				birthDate = LocalDate.parse(birthDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
-				
-//				DateUtils.formatDate)
 
 			} catch (DateTimeParseException ex) {
 
@@ -113,7 +108,6 @@ public class ModifyDataUser extends HttpServlet {
 				: loggedUser.getImagePath();
 
 		// Actualizacion de perfil actual
-
 		DtUser updatedUser = null;
 		String hashedPassword = !PasswordEncoder.isBCryptHash(password)
 				|| !PasswordEncoder.matches(password, loggedUser.getPassword()) ? PasswordEncoder.encode(password)

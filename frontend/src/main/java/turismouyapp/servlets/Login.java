@@ -2,7 +2,6 @@ package turismouyapp.servlets;
 
 import java.io.IOException;
 import java.net.URI;
-import java.time.LocalDate;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -36,8 +35,6 @@ import turismouyapp.webservices.UserType;
  * GET http://localhost:8080/turismouy.UI/
  *        </pre>
  *
- * @see turismouyapp.core.factory.FactoryUyTourism
- * @see turismouyapp.core.interfaces.IUserController
  */
 
 @WebServlet("/login")
@@ -109,7 +106,6 @@ public class Login extends HttpServlet {
 
 		if (requestedUser != null) {
 			String password = request.getParameter("password");
-//			String newHash = PasswordEncoder.encode(request.getParameter("password"));
 			isValidAccess = PasswordEncoder.matches(password, requestedUser.getPassword());
 		}
 
@@ -139,13 +135,13 @@ public class Login extends HttpServlet {
 
 		String msg = (String) request.getAttribute("mensaje");
 
-		// Invalidar sesión anterior si existe (seguridad)
+		// Invalidar sesión anterior si existe
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 			session.invalidate();
 		}
 
-		// Crear NUEVA sesión → genera nuevo JSESSIONID
+		// Crea una nueva sesion, se genera nuevo JSESSIONID
 		session = request.getSession(true);
 		session.setAttribute("logged_user", user);
 		session.setAttribute("user_role", user.getUserType());
@@ -154,7 +150,7 @@ public class Login extends HttpServlet {
 		if (msg != null) {
 			request.setAttribute("mensaje", msg);
 		}
-		String next = sanitizeNext(request.getParameter("next"), request);
+		String next = this.sanitizeNext(request.getParameter("next"), request);
 		response.sendRedirect(next != null ? next : request.getContextPath() + "/home");
 	}
 
@@ -169,13 +165,7 @@ public class Login extends HttpServlet {
 		String passwordConf = request.getParameter("passwordconf");
 		String email = request.getParameter("new-email");
 		String birthDateStr = request.getParameter("new-birthdate");
-		LocalDate birthDate = null;
 
-		// Fecha de nacimiento
-//		try {
-//			birthDate = LocalDate.parse(birthDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
-//		} catch (DateTimeParseException ex) {
-//			ex.printStackTrace();
 		if(birthDateStr == null || birthDateStr.isEmpty()) {
 			request.setAttribute("activeTab", "register");
 			this.setErrorAndDispatchForward(request, response, "registerError",
@@ -229,16 +219,6 @@ public class Login extends HttpServlet {
 			} else {
 				userWebService.dataEntrySupplier((DtSupplier) newUser);
 			}
-//			userWebService.dataEntryUser(newUser);
-//			if (newUser instanceof DtTourist) {
-//				
-//			}else {
-//				DtSupplier userSup = (DtSupplier) newUser;	
-//				
-//				userWebService.dataEntrySupplier(userSup);
-//
-//			}
-//			userWebService.confirmRegistration();
 
 			// Persistir imagen
 			try {
@@ -247,34 +227,8 @@ public class Login extends HttpServlet {
 			} catch (IOException ex) {
 
 				// Setea imagen default
-//				String defaultImage = ImageManager.resolveDefaultImageName(UploadFolderType.PROFILE);
-//				// Preserve old user data before creating new instance
-//				DtUser oldUser = newUser;
-//				if (oldUser.getUserType() == UserType.TOURIST) {
-//					newUser = new DtTourist();
-//					newUser.setNickname(oldUser.getNickname());
-//					newUser.setName(oldUser.getName());
-//					newUser.setLastName(oldUser.getLastName());
-//					newUser.setEmail(oldUser.getEmail());
-//					newUser.setBirthDate(oldUser.getBirthDate());
-//					newUser.setPassword(oldUser.getPassword());
-//					newUser.setUserType(UserType.TOURIST);
-//					((DtTourist) newUser).setNationality(((DtTourist) oldUser).getNationality());
-//					newUser.setImagePath(defaultImage);
-//				} else {
-//					newUser = new DtSupplier();
-//					newUser.setNickname(oldUser.getNickname());
-//					newUser.setName(oldUser.getName());
-//					newUser.setLastName(oldUser.getLastName());
-//					newUser.setEmail(oldUser.getEmail());
-//					newUser.setBirthDate(oldUser.getBirthDate());
-//					newUser.setPassword(oldUser.getPassword());
-//					newUser.setUserType(UserType.SUPPLIER);
-//					((DtSupplier) newUser).setDescription(((DtSupplier) oldUser).getDescription());
-//					((DtSupplier) newUser).setWebSite(((DtSupplier) oldUser).getWebSite());
-//					newUser.setImagePath(defaultImage);
-//				}
-//				userWebService.modifyUserData(newUser);
+				String defaultImage = ImageManager.resolveDefaultImageName(UploadFolderType.PROFILE);
+				userWebService.updateProfileImageUser(nickname, defaultImage);
 			}
 
 			request.setAttribute("mensaje", "Se ha ingresado correctamente el usuario " + nickname + " en el sistema.");

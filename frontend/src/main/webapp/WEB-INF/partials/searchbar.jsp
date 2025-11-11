@@ -1,3 +1,4 @@
+<%@page import="turismouyapp.webservices.UserType"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -39,7 +40,7 @@ if (activities == null) activities = new ArrayList<String>();
         <i class="bi bi-arrow-clockwise"></i>
     </button>
 
-    <button type="button" class="btn btn-success <% if(turismouyapp.webservices.UserType.SUPPLIER != request.getSession().getAttribute("user_role") || (!active.equals("outings") && !active.equals("activities"))) {%>d-none<% }%>" id="addButton">
+    <button type="button" class="btn btn-success <% if(UserType.SUPPLIER != request.getSession().getAttribute("user_role") || (!active.equals("outings") && !active.equals("activities"))) {%>d-none<% }%>" id="addButton">
         <i class="bi bi-plus-lg"></i> Agregar
     </button>
 </section>

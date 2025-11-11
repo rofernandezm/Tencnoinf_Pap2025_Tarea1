@@ -258,4 +258,5 @@ public interface IUserController {
 	
 	public DtUser consultUserDataByEmail(String email);
 
+	public void updateProfileImageUser(String nickname, String imageName);
 }

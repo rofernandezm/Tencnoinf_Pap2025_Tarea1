@@ -1,12 +1,11 @@
 
-<%@page import="turismouyapp.utils.DateUtils"%>
-<%@page import="turismouyapp.webservices.DtTouristActivity"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ page import="java.util.*"%>
+<%@page import="turismouyapp.utils.DateUtils"%>
+<%@page import="turismouyapp.webservices.DtTouristActivity"%>
 <%@ page import="turismouyapp.webservices.DtActivityWithOutings"%>
 <%@ page import="turismouyapp.webservices.DtTouristOuting"%>
-<%@ page import="java.text.SimpleDateFormat"%>
 
 <%
 String ctx = request.getContextPath();
@@ -16,8 +15,6 @@ if (actWtOuts == null) {
     actWtOuts = Collections.emptyList();
 }
 
-//SimpleDateFormat sdfDateTime = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-//SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 String activityImgPath = ctx + "/activity_img";
 String defaultImgPath = ctx + "/res/default_activity.jpg";
 %>

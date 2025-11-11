@@ -27,6 +27,7 @@ import turismouyapp.webservices.DtTouristActivity;
 import turismouyapp.webservices.DtTouristOuting;
 import turismouyapp.webservices.DtUser;
 import turismouyapp.webservices.TouristActivityStatus;
+import turismouyapp.utils.DateUtils;
 import turismouyapp.webservices.ActivityDoesNotExistException;
 
 @WebServlet("/inscriptions")
@@ -50,8 +51,7 @@ public class Inscriptions extends HttpServlet {
 
 	protected void handleShowInscription(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		// cargo una lista con los nombres de las actividades para sugirir en la
-		// busqueda
+		// Cargo una lista con los nombres de las actividades para sugerir en la busqueda
 		List<String> activities = null;
 		try {
 
@@ -62,15 +62,14 @@ public class Inscriptions extends HttpServlet {
 		}
 		request.setAttribute("activities", activities);
 
-		// obtengo la busqueda
+		// Obtengo la busqueda
 		String q = request.getParameter("q");
 
 		if (q == null || q.isEmpty()) {
 			q = request.getAttribute("activity") != null ? (String) request.getAttribute("activity") : "";
 
 			if (q == null || q.isEmpty()) {
-				request.setAttribute("info",
-						"Por favor, ingrese el nombre de la actividad a la que desea inscribirse en la barra de búsqueda.");
+				request.setAttribute("info", "Por favor, ingrese el nombre de la actividad a la que desea inscribirse en la barra de búsqueda.");
 				request.setAttribute("activitiesWithOutings", new ArrayList<>());
 				request.getRequestDispatcher("WEB-INF/vistas/inscriptions.jsp").forward(request, response);
 				return;
@@ -78,7 +77,7 @@ public class Inscriptions extends HttpServlet {
 		}
 		String needle = q.trim().toLowerCase();
 
-		// traigo todas las actividades con sus salidas
+		// Traigo todas las actividades con sus salidas
 		List<DtActivityWithOutings> all;
 		try {
 			all = activityWebService.listTouristActivityData();
@@ -86,7 +85,7 @@ public class Inscriptions extends HttpServlet {
 			all = Collections.emptyList();
 		}
 
-		// filtro en base a la busqueda
+		// Filtro en base a la busqueda
 		List<DtActivityWithOutings> filtered = new ArrayList<>();
 		int coincidencias = 0;
 		for (DtActivityWithOutings awo : all) {
@@ -130,7 +129,7 @@ public class Inscriptions extends HttpServlet {
 			request.setAttribute("dispPorSalida", disponibilidadPorSalida);
 		}
 
-		// mando la lista filtrada y muestro pantalla
+		// Mando la lista filtrada y muestro pantalla
 		request.setAttribute("activitiesWithOutings", filtered);
 		request.getRequestDispatcher("WEB-INF/vistas/inscriptions.jsp").forward(request, response);
 	}
@@ -168,7 +167,7 @@ public class Inscriptions extends HttpServlet {
 			request.setAttribute("errors", errors);
 			request.setAttribute("activity", activity);
 			request.setAttribute("outing", outing);
-			handleShowInscription(request, response);
+			this.handleShowInscription(request, response);
 			return;
 		}
 
@@ -179,12 +178,10 @@ public class Inscriptions extends HttpServlet {
 			DtTouristActivity dtactiv = activWithOut.getActivity();
 			DtTouristOuting dtouting = outingAndInscriptionWebService.consultTouristOutingData(outing);
 
-			// Verifico que el numero de turistas a inscribir no sea mayor a la cantidad de
-			// turistas adminitidos en la salida
+			// Verifico que el numero de turistas a inscribir no sea mayor a la cantidad de turistas admitidos en la salida
 			if (seats <= dtouting.getMaxNumTourists()) {
 
-				// verifico que la cantidad de inscriptos mas la nueva inscripcion no supera la
-				// cantidad de turistas adminitidos en la salida
+				// Verifico que la cantidad de inscriptos mas la nueva inscripcion no supera la cantidad de turistas admitidos en la salida
 				List<DtInscriptionTouristOuting> totalInscripTouristOuting = outingAndInscriptionWebService
 						.listOutingInscription(outing);
 				int totalInscriptos = 0;
@@ -197,10 +194,10 @@ public class Inscriptions extends HttpServlet {
 
 				int cantDisp = dtouting.getMaxNumTourists() - totalInscriptos;
 
-				// supongo que hay cupos suficientes
+				// Supongo que hay cupos suficientes
 				if ((cantDisp - seats) >= 0) {
 					// Fecha actual del servidor (Montevideo)
-					LocalDate inscriptionDate = LocalDate.now(ZoneId.systemDefault());
+					String inscriptionDate = DateUtils.getCurrentDateIso();
 
 					// Costo total (unitario x cupos)
 					float cost = dtactiv.getCostTurist() * seats;
@@ -208,8 +205,8 @@ public class Inscriptions extends HttpServlet {
 					// Armo el DTO e (idealmente) persisto
 					DtInscriptionTouristOuting dtinscription = new DtInscriptionTouristOuting();
 					dtinscription.setTouristAmount(seats);
-					dtinscription.setTotalCost(seats);
-					dtinscription.setInscriptionDate(inscriptionDate.toString());
+					dtinscription.setTotalCost(cost);
+					dtinscription.setInscriptionDate(inscriptionDate);
 					dtinscription.setTuristOuting(dtouting);
 
 					// cantDisp me da cuantos cupos hay al dia de hoy disponibles para esa salida
@@ -234,9 +231,7 @@ public class Inscriptions extends HttpServlet {
 				request.setAttribute("errors", errors);
 				request.setAttribute("activity", activity);
 				request.setAttribute("outing", outing);
-//                response.sendRedirect(request.getContextPath() + "/inscriptions?q="
-//                        + URLEncoder.encode(activity, StandardCharsets.UTF_8));
-				handleShowInscription(request, response);
+				this.handleShowInscription(request, response);
 				return;
 			}
 		} catch (Exception ex) {
@@ -244,7 +239,7 @@ public class Inscriptions extends HttpServlet {
 			request.setAttribute("errors", errors);
 			request.setAttribute("activity", activity);
 			request.setAttribute("outing", outing);
-			handleShowInscription(request, response);
+			this.handleShowInscription(request, response);
 		}
 	}
 

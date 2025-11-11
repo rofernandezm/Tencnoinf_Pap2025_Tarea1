@@ -1,15 +1,9 @@
 package turismouyapp.servlets;
 
 import java.io.IOException;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import com.google.gson.Gson;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -44,8 +38,7 @@ public class Activities extends HttpServlet {
 	protected void handleShowActivities(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		// cargo una lista con los nombres de las actividades para sugirir en la
-		// busqueda
+		// Cargo una lista con los nombres de las actividades para sugerir en la busqueda
 		List<String> activities = null;
 		try {
 			activities = activityWebService.listTouristActivities();
@@ -55,11 +48,11 @@ public class Activities extends HttpServlet {
 		}
 		request.setAttribute("activities", activities);
 
-		// obtengo la busqueda
+		// Obtengo la busqueda
 		String q = request.getParameter("q");
 		String needle = (q == null) ? "" : q.trim().toLowerCase();
 
-		// traigo todas las actividades con sus salidas
+		// Traigo todas las actividades con sus salidas
 		List<DtActivityWithOutings> all;
 		try {
 			all = activityWebService.listTouristActivityData();
@@ -67,7 +60,7 @@ public class Activities extends HttpServlet {
 			all = Collections.emptyList();
 		}
 
-		// filtro en base a la busqueda
+		// Filtro en base a la busqueda
 		List<DtActivityWithOutings> filtered = all;
 		if (!needle.isEmpty()) {
 			filtered = new ArrayList<>();
@@ -81,7 +74,7 @@ public class Activities extends HttpServlet {
 			}
 		}
 
-		// mando la lista filtrada y muestro pantalla
+		// Mando la lista filtrada y muestro pantalla
 		request.setAttribute("activitiesWithOutings", filtered);
 		request.getRequestDispatcher("WEB-INF/vistas/activities.jsp").forward(request, response);
 	}
@@ -108,15 +101,7 @@ public class Activities extends HttpServlet {
 		String description = request.getParameter("description");
 		String registrationDate = DateUtils.getCurrentDateIso();
 		String durationStr = DateUtils.parseDurationToHoursString(request.getParameter("durationHours"));
-//		Duration duration = null;
 		float cost = 0.0f;
-		
-//		try {
-//			duration = Duration.ofHours(Integer.parseInt(request.getParameter("durationHours")));
-//		} catch (NumberFormatException ex) {
-//			ex.printStackTrace();
-//			// TODO: Falta manejo de mensajes en caso de error parseInt de durationHours
-//		}
 		
 		try {
 			cost = Float.parseFloat(request.getParameter("cost"));
@@ -169,22 +154,17 @@ public class Activities extends HttpServlet {
 				activityWebService.modifyActivity(newActivity);
 			}
 			
-			request.setAttribute("mensaje",
-					"Se ha ingresado correctamente la actividad turística: " + activityName + " en el sistema.");
+			request.setAttribute("mensaje", "Se ha ingresado correctamente la actividad turística: " + activityName + " en el sistema.");
 			request.getRequestDispatcher("/WEB-INF/vistas/activities.jsp").forward(request, response);
 
-		} catch (RepeatedActivityNameException | ActivityDoesNotExistException e) {
-			request.setAttribute("activityError", "La actividad \"" + activityName + "\" ya existe.");
+		} catch (RepeatedActivityNameException | IllegalArgumentException e) {
+			String errMsg = e instanceof RepeatedActivityNameException ? "La actividad \"" + activityName + "\" ya existe." : e.getMessage();
+			request.setAttribute("activityError", errMsg);
 			request.setAttribute("draftedActivity", newActivity);
 			request.setAttribute("draftedActivityImgPart", activityPhotoPart);
 			request.setAttribute("draftedActivityImgHash", ImageManager.getFileHash(activityPhotoPart));
 			this.handleShowActivities(request, response);
-		} catch (IllegalArgumentException e) {
-			request.setAttribute("activityError", e.getMessage());
-			request.setAttribute("draftedActivity", newActivity);
-			request.setAttribute("draftedActivityImgPart", activityPhotoPart);
-			request.setAttribute("draftedActivityImgHash", ImageManager.getFileHash(activityPhotoPart));
-			this.handleShowActivities(request, response);
+			
 		}
 	}
 }

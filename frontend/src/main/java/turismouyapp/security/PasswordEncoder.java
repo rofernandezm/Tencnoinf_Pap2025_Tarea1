@@ -5,8 +5,7 @@ import org.mindrot.jbcrypt.BCrypt;
 public class PasswordEncoder {
     
     /**
-     * Factor de trabajo BCrypt (número de rondas).
-     * Valor 12 = ~250ms por hash (equilibrio seguridad/performance).
+     * Factor de trabajo BCrypt.
      */
     private static final int BCRYPT_ROUNDS = 12;
     
@@ -48,7 +47,7 @@ public class PasswordEncoder {
         }
         
         try {
-        	if (1 == 1) {
+        	if (1 == 0) {
 	        	System.out.println("PasswordEncoder.matches :: ByCrypt.checkpw :: "+ BCrypt.checkpw(rawPassword, encodedPassword));
 	        	System.out.println("PasswordEncoder.matches :: rawPassword :: "+ rawPassword);
 	        	System.out.println("PasswordEncoder.matches :: encodedPassword :: "+ encodedPassword);

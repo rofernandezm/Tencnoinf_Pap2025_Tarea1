@@ -76,4 +76,8 @@ public class UserWebService implements IUserWebService {
 	public String[] listUsers() {
 		return iUserController.listUsers();
 	}
+	
+	public void updateProfileImageUser(String nickname, String imageName) {
+		iUserController.updateProfileImageUser(nickname, imageName);
+	}
 }

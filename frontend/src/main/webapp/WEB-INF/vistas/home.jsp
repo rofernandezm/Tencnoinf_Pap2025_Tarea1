@@ -6,6 +6,7 @@
 String ctx = request.getContextPath();
 String activityImgPath = ctx + "/activity_img";
 
+@SuppressWarnings("unchecked")
 List<DtTouristActivity> activities = (List<DtTouristActivity>) request.getAttribute("confirmedActivities");
 boolean hasActivities = activities != null && !activities.isEmpty();
 %>

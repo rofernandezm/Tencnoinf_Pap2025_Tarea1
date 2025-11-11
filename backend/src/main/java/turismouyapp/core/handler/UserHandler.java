@@ -11,6 +11,7 @@ import turismouyapp.core.dto.DtUser;
 import turismouyapp.core.entity.Supplier;
 import turismouyapp.core.entity.Tourist;
 import turismouyapp.core.entity.User;
+import turismouyapp.webservices.utils.DateUtils;
 
 public class UserHandler {
 	private static UserHandler instance = null;
@@ -146,12 +147,12 @@ public class UserHandler {
 		if (dtUser == null) {
 			throw new IllegalArgumentException("DtUser no puede ser null");
 		}
-		
+
 		String nickname = dtUser.getNickname();
 		if (nickname == null || nickname.trim().isEmpty()) {
 			throw new IllegalArgumentException("El nickname del usuario no puede ser null o vacío");
 		}
-		
+
 		EntityManager em = PersistenceHandler.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
@@ -161,13 +162,13 @@ public class UserHandler {
 				user.setName(dtUser.getName());
 				user.setLastName(dtUser.getLastName());
 				user.setPassword(dtUser.getPassword());
-				
+
 				// Convertir birthDate (puede venir como String desde WebService)
 				Object birthDateObj = dtUser.getBirthDate();
 				if (birthDateObj != null) {
-					user.setBirthDate(turismouyapp.webservices.utils.DateUtils.parseToLocalDate(birthDateObj));
+					user.setBirthDate(DateUtils.parseToLocalDate(birthDateObj));
 				}
-				
+
 				user.setImagePath(dtUser.getImagePath());
 
 				if (user instanceof Tourist) {
@@ -188,7 +189,6 @@ public class UserHandler {
 		} finally {
 			em.close();
 		}
-
 	}
 
 	public void updateTourist(DtTourist dtTourist) {
@@ -253,4 +253,33 @@ public class UserHandler {
 		}
 	}
 
+	public void updateProfileImageUser(String nickname, String imageName) {
+		if (imageName == null) {
+			throw new IllegalArgumentException("La nueva imageName no puede ser null");
+		}
+
+		if (nickname == null || nickname.trim().isEmpty()) {
+			throw new IllegalArgumentException("El nickname del usuario no puede ser null o vacío");
+		}
+
+		EntityManager em = PersistenceHandler.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		try {
+			User user = em.find(User.class, nickname);
+			if (user != null) {
+				user.setImagePath(imageName);
+				em.merge(user);
+			}
+			tx.commit();
+		} catch (Exception e) {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+			throw new RuntimeException("Error al actualizar usuario: " + e.getMessage(), e);
+		} finally {
+			em.close();
+		}
+	}
 }

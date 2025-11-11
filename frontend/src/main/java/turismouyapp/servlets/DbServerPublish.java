@@ -2,7 +2,6 @@ package turismouyapp.servlets;
 
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
-import jakarta.servlet.annotation.WebListener;
 import org.hsqldb.server.Server;
 import java.io.File;
 

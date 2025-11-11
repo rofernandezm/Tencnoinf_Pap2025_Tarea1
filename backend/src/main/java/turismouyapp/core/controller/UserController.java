@@ -30,8 +30,6 @@ public class UserController implements IUserController {
 
 	public void dataEntry(DtUser dtUser) throws RepeatedUserEmailException, RepeatedUserNicknameException {
 
-		// this.dtUser = dtUser;
-
 		UserHandler uh = UserHandler.getIntance();
 
 		if (uh.existNickname(dtUser.getNickname()))
@@ -44,12 +42,12 @@ public class UserController implements IUserController {
 		User user;
 		if (dtUser instanceof DtSupplier) {
 			user = new Supplier((DtSupplier) dtUser);
-			
+
 		} else if (dtUser instanceof DtTourist) {
 			user = new Tourist((DtTourist) dtUser);
-			
+
 		} else {
-			
+
 			throw new IllegalArgumentException("Tipo de usuario no válido");
 		}
 
@@ -154,6 +152,14 @@ public class UserController implements IUserController {
 
 	public void modifyUserData(DtUser dtUser) {
 		UserHandler.getIntance().updateUser(dtUser);
+	}
+
+	public void updateProfileImageUser(String nickname, String imageName) {
+		try {
+			UserHandler.getIntance().updateProfileImageUser(nickname, imageName);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	public DtUser consultUserDataByEmail(String email) {

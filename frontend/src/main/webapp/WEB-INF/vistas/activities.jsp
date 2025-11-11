@@ -19,10 +19,6 @@ List<DtActivityWithOutings> actWtOuts = (List<DtActivityWithOutings>) request.ge
 if (actWtOuts == null) {
 	actWtOuts = Collections.emptyList();
 }
-
-
-//SimpleDateFormat sdfDateTime = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-//SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 %>
 
 

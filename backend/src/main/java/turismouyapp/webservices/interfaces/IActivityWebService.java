@@ -34,7 +34,7 @@ public interface IActivityWebService {
 
     @WebMethod
     void activityDataEntry(@WebParam(name = "dtTouristActivity") DtTouristActivity dtTouristActivity)
-            throws ActivityDoesNotExistException, RepeatedActivityNameException;
+            throws RepeatedActivityNameException;
 
     @WebMethod
     void modifyActivity(@WebParam(name = "dtTouristActivity") DtTouristActivity dtTouristActivity);
