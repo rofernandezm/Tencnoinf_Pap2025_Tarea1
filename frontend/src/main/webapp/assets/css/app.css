@@ -21,11 +21,13 @@
 	transition: 0.3s ease-in-out;
 }
 
-.btn-primary:active, .btn-secondary:active {
+.btn-primary:active,
+.btn-secondary:active {
 	transition: none;
 }
 
-.btn-primary:focus, .btn-secondary:focus {
+.btn-primary:focus,
+.btn-secondary:focus {
 	box-shadow: none;
 	outline: none;
 }
@@ -81,7 +83,9 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 	background: var(--background-primary-color);
 }
 
-.offcanvas-header, .offcanvas-body, .navbar-nav {
+.offcanvas-header,
+.offcanvas-body,
+.navbar-nav {
 	background: var(--background-primary-color);
 }
 
@@ -90,7 +94,8 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 	font-size: 1.25rem;
 }
 
-.navbar-toggler:focus, .btn-close:focus {
+.navbar-toggler:focus,
+.btn-close:focus {
 	box-shadow: none;
 	outline: none;
 }
@@ -100,7 +105,8 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 	position: relative;
 }
 
-.nav-link:hover, .nav-link.active {
+.nav-link:hover,
+.nav-link.active {
 	color: var(--secondary-color) !important;
 }
 
@@ -109,12 +115,13 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 	box-shadow: none;
 }
 
-@media ( min-width : 992px) {
+@media (min-width : 992px) {
 	.nav-link {
 		padding-top: 30px;
 		height: auto;
 		padding-bottom: 30px;
 	}
+
 	.nav-link::before {
 		content: "";
 		position: absolute;
@@ -127,7 +134,9 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 		visibility: hidden;
 		transition: 0.1s ease-in-out;
 	}
-	.nav-link:hover::before, .nav-link.active::before {
+
+	.nav-link:hover::before,
+	.nav-link.active::before {
 		visibility: visible;
 		width: 100%;
 	}
@@ -183,6 +192,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 .dropdown-menu .dropdown-divider {
 	border-top-color: rgba(255, 255, 255, 0.25);
 }
+
 /*END NAVBAR*/
 
 /*START SEARCHBAR*/
@@ -193,13 +203,17 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 
 /* hace que el botón mida igual que la form-control */
 .searchbar .search-btn {
-	--bs-btn-padding-y: .375rem; /* igual a input */
+	--bs-btn-padding-y: .375rem;
+	/* igual a input */
 	--bs-btn-padding-x: .75rem;
-	--bs-btn-border-radius: .75rem; /* mismo radio */
-	border-top-left-radius: 0; /* para unirse al input */
+	--bs-btn-border-radius: .75rem;
+	/* mismo radio */
+	border-top-left-radius: 0;
+	/* para unirse al input */
 	border-bottom-left-radius: 0;
 	display: inline-flex;
-	align-items: center; /* centra el ícono verticalmente */
+	align-items: center;
+	/* centra el ícono verticalmente */
 	justify-content: center;
 }
 
@@ -227,20 +241,20 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 
 /*START FOOTER*/
 footer {
-    background-color: var(--background-primary-color);
-    color: var(--primary-color);
-    border-top: 2px solid #1E375A1A;
+	background-color: var(--background-primary-color);
+	color: var(--primary-color);
+	border-top: 2px solid #1E375A1A;
 }
 
 .footer a {
-    color: var(--primary-color) !important;
-    text-decoration: none !important;
-    transition: color 0.3s ease;
-    cursor: pointer;
+	color: var(--primary-color) !important;
+	text-decoration: none !important;
+	transition: color 0.3s ease;
+	cursor: pointer;
 }
 
 .footer a:hover {
-    color: var(--secondary-color) !important;
+	color: var(--secondary-color) !important;
 }
 
 /*END FOOTER*/

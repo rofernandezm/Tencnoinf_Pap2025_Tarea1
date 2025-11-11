@@ -1,15 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.text.SimpleDateFormat"%>
-<%@ page import="java.time.LocalDateTime"%>
-<%@ page import="java.time.format.DateTimeFormatter"%>
+<%@page import="turismouyapp.utils.DateUtils"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
-
-<%
-SimpleDateFormat sdfDateTime = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
-DateTimeFormatter dtfDateTime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-%>
 
 <c:if test="${not empty usuario}">
 	<div class="modal fade" id="modalUserData" tabindex="-1"
@@ -98,9 +89,7 @@ DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 															<div class="col-md-6">
 																<p class="mb-2">
 																	<strong>Duración:</strong>
-																	${activityWithOutings.activity.duration}
-																	horas
-																</p>
+																	${DateUtils.parseDurationToHoursString(activityWithOutings.activity.duration)}																</p>
 																<p class="mb-2">
 																	<strong>Costo por turista:</strong>
 																	$${activityWithOutings.activity.costTurist}
@@ -111,7 +100,7 @@ DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 																</p>
 																<p class="mb-0">
 																	<strong>Fecha de registro:</strong>
-																	${activityWithOutings.activity.registrationDate}
+																	${DateUtils.parseIsoStringToFormattedDate(activityWithOutings.activity.registrationDate)}
 																</p>
 															</div>
 														</div>
@@ -141,26 +130,11 @@ DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 																			items="${activityWithOutings.outings.getOuting()}">
 																			<tr>
 																				<td><strong>${outing.outingName}</strong></td>
-																				<td>
-																					<%
-																					Object dep = pageContext.getAttribute("outing");
-																					if (dep != null) {
-																						turismouyapp.webservices.DtTouristOuting outingObj = (turismouyapp.webservices.DtTouristOuting) dep;
-																						Object depDate = outingObj.getDepartureDate();
-																						if (depDate instanceof LocalDateTime) {
-																							out.print(((LocalDateTime) depDate).format(dtfDateTime));
-																						} else if (depDate instanceof java.util.Date) {
-																							out.print(sdfDateTime.format((java.util.Date) depDate));
-																						} else {
-																							out.print(String.valueOf(depDate));
-																						}
-																					}
-																					%>
-																				</td>
+																				<td>${DateUtils.parseIsoStringToFormattedDateTime(outing.getDepartureDate())}</td>
 																				<td>${outing.departurePoint}</td>
 																				<td><span class="badge bg-info">
 																						${outing.maxNumTourists} </span></td>
-																				<td>${outing.dischargeDate}</td>
+																				<td>${DateUtils.parseIsoStringToFormattedDate(outing.getDischargeDate())}</td>
 																				<td><a
 																					href="${pageContext.request.contextPath}/outings?q=${activityWithOutings.activity.activityName}"
 																					class="btn btn-sm btn-outline-primary"
@@ -255,21 +229,8 @@ DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 																</p>
 																<p class="mb-2">
 																	<strong>Fecha de salida:</strong>
-																	<%
-																	Object insc = pageContext.getAttribute("inscription");
-																	if (insc != null) {
-																		turismouyapp.webservices.DtInscriptionTouristOuting inscObj = (turismouyapp.webservices.DtInscriptionTouristOuting) insc;
-																		Object depDate = inscObj.getTuristOuting().getDepartureDate();
-																		if (depDate instanceof LocalDateTime) {
-																			out.print(((LocalDateTime) depDate).format(dtfDateTime));
-																		} else if (depDate instanceof java.util.Date) {
-																			out.print(sdfDateTime.format((java.util.Date) depDate));
-																		} else {
-																			out.print(String.valueOf(depDate));
-																		}
-																	}
-																	%>
-																</p>
+																	${DateUtils.parseIsoStringToFormattedDateTime(inscription.turistOuting.departureDate)}
+																	</p>
 																<p class="mb-0">
 																	<strong>Punto de salida:</strong>
 																	${inscription.turistOuting.departurePoint}
@@ -283,7 +244,7 @@ DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 																<c:if test="${isOwnProfile}">
 																	<p class="mb-2">
 																		<strong>Fecha de inscripción:</strong>
-																		${inscription.inscriptionDate}
+																		${DateUtils.parseIsoStringToFormattedDate(inscription.getInscriptionDate())}
 																	</p>
 																	<p class="mb-2">
 																		<strong>Cantidad de turistas:</strong> <span

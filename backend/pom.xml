@@ -1,6 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>turismouy.Backend</groupId>
@@ -9,19 +8,19 @@
   <packaging>jar</packaging>
 
   <properties>
+    <eclipselink.version>4.0.4</eclipselink.version>
+    <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
+    <hsqldb.version>2.7.2</hsqldb.version>
+    <jakarta.persistence.version>3.1.0</jakarta.persistence.version>
+    <jakarta.xml.bind.version>4.0.2</jakarta.xml.bind.version>
+    <jax-ws.version>4.0.3</jax-ws.version>
+    <jaxb.runtime.version>4.0.5</jaxb.runtime.version>
+    <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+    <maven-shade-plugin.version>3.5.1</maven-shade-plugin.version>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <eclipselink.version>4.0.4</eclipselink.version>
-    <jakarta.persistence.version>3.1.0</jakarta.persistence.version>
-    <hsqldb.version>2.7.2</hsqldb.version>
     <tomcat-catalina.version>11.0.11</tomcat-catalina.version>
-    <jax-ws.version>4.0.3</jax-ws.version>
-    <jakarta.xml.bind.version>4.0.2</jakarta.xml.bind.version>
-    <jaxb.runtime.version>4.0.5</jaxb.runtime.version>
-    <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
-    <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-    <maven-shade-plugin.version>3.5.1</maven-shade-plugin.version>
   </properties>
 
   <dependencies>
@@ -103,7 +102,9 @@
         <executions>
           <execution>
             <phase>package</phase>
-            <goals><goal>shade</goal></goals>
+            <goals>
+              <goal>shade</goal>
+            </goals>
             <configuration>
               <filters>
                 <!-- Excluir MOXy del uber-jar si se sombrea -->
@@ -123,34 +124,6 @@
           </execution>
         </executions>
       </plugin>
-
-      <!-- Javadoc 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.6.3</version>
-        <configuration>
-          <show>protected</show>
-          <source>17</source>
-          <encoding>UTF-8</encoding>
-          <charset>UTF-8</charset>
-          <docencoding>UTF-8</docencoding>
-          <windowtitle>TurismoUY Backend API</windowtitle>
-          <doctitle><![CDATA[<h1>TurismoUY - Backend API Documentation</h1>]]></doctitle>
-          <bottom><![CDATA[<i>© 2025 TurismoUY Team</i>]]></bottom>
-          <additionalOptions>
-            <additionalOption>-html5</additionalOption>
-          </additionalOptions>
-          <doclint>none</doclint>
-          <failOnError>false</failOnError>
-        </configuration>
-        <executions>
-          <execution>
-            <id>attach-javadocs</id>
-            <goals><goal>jar</goal></goals>
-          </execution>
-        </executions>
-      </plugin>-->
     </plugins>
   </build>
 

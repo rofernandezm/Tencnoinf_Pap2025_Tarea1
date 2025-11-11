@@ -19,7 +19,7 @@
 
 // --- Searchbar: clear button + datalist a partir de 2 char ---
 (function () {
-  var form  = document.getElementById('searchForm');
+  var form = document.getElementById('searchForm');
   var input = document.getElementById('searchInput');
 
   // si no hay buscador en esta página, salimos

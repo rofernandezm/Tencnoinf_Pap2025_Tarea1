@@ -303,7 +303,7 @@ public class Login extends HttpServlet {
 
 		// Permitir rutas relativas internas
 		if (next.startsWith("/")) {
-			if (next.startsWith("//") || next.contains("\r") || next.contains("\n"))
+			if (next.startsWith("//") || next.contains("\r") || next.contains("\n") || next.equals(req.getContextPath()) || next.equals(req.getContextPath()+"/"))
 				return null;
 			return next;
 		}

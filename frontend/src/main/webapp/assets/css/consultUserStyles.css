@@ -39,7 +39,8 @@ main {
 }
 
 /* Readonly form controls styling */
-.form-control:read-only, .form-control[readonly] {
+.form-control:read-only,
+.form-control[readonly] {
 	background-color: #e9ecef;
 	border-color: #ced4da;
 	cursor: not-allowed;
@@ -87,39 +88,43 @@ main {
 	margin: 0 !Important;
 }
 
-.btn-outline-primary{
+.btn-outline-primary {
 	color: var(--primary-color);
 }
 
 .btn-outline-primary:hover {
-	background-color:var(--secondary-color) !Important;
-	border-color:var(--primary-color) !Important;
+	background-color: var(--secondary-color) !Important;
+	border-color: var(--primary-color) !Important;
 }
 
 #btnWebSite {
-	border-color:var(--primary-color) !Important;
+	border-color: var(--primary-color) !Important;
 	border-radius: 10px;
 }
 
 /*START MODAL STYLES - Matching outingsStyles.css*/
-.modal-header{
+.modal-header {
 	background-color: var(--primary-color);
-    color: var(--background-secondary-color);
+	color: var(--background-secondary-color);
 }
 
 .accordion-button:focus,
 .accordion-button:not(.collapsed) {
-    box-shadow: none;
-    outline: none;
-    background-color: var(--background-secondary-color) !important;
+	box-shadow: none;
+	outline: none;
+	background-color: var(--background-secondary-color) !important;
 }
+
 /*END MODAL STYLES*/
 
 /* Responsive adjustments */
-@media ( max-width : 768px) {
-	body main.flex-grow-1, main {
+@media (max-width : 768px) {
+
+	body main.flex-grow-1,
+	main {
 		padding-top: 70px !important;
 	}
+
 	.profile-pic {
 		width: 120px;
 		height: 120px;

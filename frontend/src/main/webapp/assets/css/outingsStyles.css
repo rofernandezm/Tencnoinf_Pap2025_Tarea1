@@ -25,6 +25,7 @@
     background-color: var(--primary-color);
     color: var(--background-secondary-color);
 }
+
 /*END CARDS*/
 
 /*START CARDS ACCORDION*/
@@ -34,11 +35,12 @@
     outline: none;
     background-color: var(--background-secondary-color) !important;
 }
+
 /*END CARDS ACCORDION*/
 
 /*START ACCORDION POPUP*/
-.modal-header{
-	background-color: var(--primary-color);
+.modal-header {
+    background-color: var(--primary-color);
     color: var(--background-secondary-color);
 }
 

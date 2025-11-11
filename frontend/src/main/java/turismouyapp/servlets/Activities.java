@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import turismouyapp.utils.DateUtils;
 import turismouyapp.utils.ImageManager;
 import turismouyapp.utils.ImageManager.UploadFolderType;
 import turismouyapp.webservices.ActivityDoesNotExistException;
@@ -105,16 +106,17 @@ public class Activities extends HttpServlet {
 		String supplier = request.getParameter("supplier"); // deberia ser el usuario loggeado?
 		String city = request.getParameter("city");
 		String description = request.getParameter("description");
-		String registrationDate = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
-		Duration duration = null;
+		String registrationDate = DateUtils.getCurrentDateIso();
+		String durationStr = DateUtils.parseDurationToHoursString(request.getParameter("durationHours"));
+//		Duration duration = null;
 		float cost = 0.0f;
 		
-		try {
-			duration = Duration.ofHours(Integer.parseInt(request.getParameter("durationHours")));
-		} catch (NumberFormatException ex) {
-			ex.printStackTrace();
-			// TODO: Falta manejo de mensajes en caso de error parseInt de durationHours
-		}
+//		try {
+//			duration = Duration.ofHours(Integer.parseInt(request.getParameter("durationHours")));
+//		} catch (NumberFormatException ex) {
+//			ex.printStackTrace();
+//			// TODO: Falta manejo de mensajes en caso de error parseInt de durationHours
+//		}
 		
 		try {
 			cost = Float.parseFloat(request.getParameter("cost"));
@@ -144,7 +146,7 @@ public class Activities extends HttpServlet {
 		DtTouristActivity newActivity = new DtTouristActivity();
 		newActivity.setActivityName(activityName);
 		newActivity.setDescription(description);
-		newActivity.setDuration(duration != null ? duration.toString() : null);
+		newActivity.setDuration(durationStr);
 		newActivity.setCostTurist(cost);
 		newActivity.setCity(city);
 		newActivity.setRegistrationDate(registrationDate);
@@ -152,7 +154,6 @@ public class Activities extends HttpServlet {
 		newActivity.setStatus(TouristActivityStatus.ADDED);
 		newActivity.setImageActPath(fileName);
 		
-		System.out.println(new Gson().toJson(newActivity));
 		try {
 			activityWebService.activityDataEntry(newActivity);
 			

@@ -12,7 +12,7 @@ import java.util.Set;
 public class AuthFilter implements Filter {
 
 	// Ajustá estos paths a tu app
-	private static final Set<String> PUBLIC_PATHS = Set.of("/login", "/iniciarSesionRegistrarse.jsp");
+	private static final Set<String> PUBLIC_PATHS = Set.of("/login", "/iniciarSesionRegistrarse.jsp", "/");
 
 	// Extensiones de archivos estáticos que no requieren sesión
 	private static final String[] STATIC_EXT = { ".css", ".js", ".png", ".jpg", ".jpeg", ".gif", ".svg", ".ico",

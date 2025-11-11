@@ -26,6 +26,7 @@
 .card-grid .btn {
 	margin-top: auto;
 }
+
 /*END ACTIVITY CARDS GRID*/
 
 /*START ADD ACTIVITY CARD*/
@@ -37,6 +38,7 @@
 .card-agregar .btn {
 	white-space: nowrap;
 }
+
 /*END ADD ACTIVITY CARD*/
 
 /*START ACTIVITY MODAL*/
@@ -64,4 +66,5 @@
 		height: 250px;
 	}
 }
+
 /*END ACTIVITY MODAL*/

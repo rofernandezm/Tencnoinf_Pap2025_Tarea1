@@ -1,4 +1,5 @@
 
+<%@page import="turismouyapp.utils.DateUtils"%>
 <%@page import="turismouyapp.webservices.DtTouristActivity"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
@@ -7,26 +8,21 @@
 <%@ page import="turismouyapp.webservices.DtTouristOuting"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
-<%!
-private static String fmtDuration(java.time.Duration d) {
-    if (d == null) return "";
-    return d.toHours() + " h";
-}
-%>
 
 <%
 String ctx = request.getContextPath();
 String activityImgPath = ctx + "/activity_img";
 String defaultImgPath = ctx + "/res/default_activity.jpg";
 
+@SuppressWarnings("unchecked")
 List<DtActivityWithOutings> actWtOuts = (List<DtActivityWithOutings>) request.getAttribute("activitiesWithOutings");
 if (actWtOuts == null) {
-    actWtOuts = Collections.emptyList();
+	actWtOuts = Collections.emptyList();
 }
 
-SimpleDateFormat sdfDateTime = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 
+//SimpleDateFormat sdfDateTime = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+//SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 %>
 
 
@@ -56,8 +52,8 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 <body class="d-flex flex-column min-vh-100">
 	<!-- Navbar -->
 	<%
-    request.setAttribute("navActive", "activities"); // activities | outings | inscriptions
-    %>
+	request.setAttribute("navActive", "activities"); // activities | outings | inscriptions
+	%>
 	<jsp:include page="/WEB-INF/partials/header.jsp" />
 	<!-- End Navbar-->
 
@@ -68,14 +64,14 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 			<!-- End Searchbar -->
 
 			<%
-            if (actWtOuts.isEmpty()) {
-            %>
+			if (actWtOuts.isEmpty()) {
+			%>
 			<div class="alert alert-info">No hay coincidencias.</div>
 			<%
-            } else {
+			} else {
 
-            int aIdx = 0;
-            %>
+			int aIdx = 0;
+			%>
 
 			<!-- CONTENEDOR PARA LAS CARDS DE ACTIVIDADES -->
 			<div class="container my-4 card-grid">
@@ -86,17 +82,19 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 					class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
 					<!-- Start Cards -->
 					<%
-            for (DtActivityWithOutings act : actWtOuts) {
-                DtTouristActivity a = act.getActivity();
-                String accId = "acc_" + aIdx;
-                String modalId = "modal_" + aIdx;
-            %>
+					for (DtActivityWithOutings act : actWtOuts) {
+						DtTouristActivity a = act.getActivity();
+						String accId = "acc_" + aIdx;
+						String modalId = "modal_" + aIdx;
+					%>
 
 					<section>
 						<div class="col">
 							<div class="card h-100">
 								<img
-									src="<%= (a.getImageActPath() != null && !a.getImageActPath().isEmpty()) ? activityImgPath + "/" + a.getImageActPath() : defaultImgPath %>"
+									src="<%=(a.getImageActPath() != null && !a.getImageActPath().isEmpty())
+		? activityImgPath + "/" + a.getImageActPath()
+		: defaultImgPath%>"
 									alt="Imagen de actividad" class="card-img-top"
 									style="object-fit: contain; object-position: center;">
 								<div class="card-body">
@@ -123,7 +121,9 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 									</div>
 									<div class="modal-body">
 										<img
-											src="<%= (a.getImageActPath() != null && !a.getImageActPath().isEmpty()) ? activityImgPath + "/" + a.getImageActPath() : defaultImgPath %>"
+											src="<%=(a.getImageActPath() != null && !a.getImageActPath().isEmpty())
+		? activityImgPath + "/" + a.getImageActPath()
+		: defaultImgPath%>"
 											id="actividadImg" alt="Imagen de la actividad"
 											class="modal-activity-img rounded mb-3">
 										<!-- Detalles -->
@@ -137,7 +137,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 											<dt class="col-sm-4">Ciudad</dt>
 											<dd class="col-sm-8"><%=a.getCity()%></dd>
 											<dt class="col-sm-4">Duración</dt>
-											<dd class="col-sm-8"><%= a.getDuration()%></dd>
+											<dd class="col-sm-8"><%=DateUtils.parseDurationToHoursString(a.getDuration())%></dd>
 											<dt class="col-sm-4">Costo por turista</dt>
 											<dd class="col-sm-8">
 												$<%=a.getCostTurist()%></dd>
@@ -164,12 +164,14 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 
 					</section>
 					<%
-            aIdx++;
-            }%>
+					aIdx++;
+					}
+					%>
 				</div>
 			</div>
-			<%            }
-            %>
+			<%
+			}
+			%>
 
 
 			<!-- End Cards -->
@@ -199,7 +201,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 									value="${not empty activityError ? draftedActivity.activityName : ''}"
 									required>
 								<div class="invalid-feedback">
-									<%= request.getAttribute("activityError") != null ? request.getAttribute("activityError") : "Ingrese el nombre." %>
+									<%=request.getAttribute("activityError") != null ? request.getAttribute("activityError") : "Ingrese el nombre."%>
 								</div>
 							</div>
 							<div class="col-md-6">
@@ -221,7 +223,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 								<div class="input-group">
 									<input type="number" min="1" step="1" class="form-control"
 										id="actDurationHours" name="durationHours"
-										value="${not empty activityError ? draftedActivity.duration.toHours() : ''}"
+										value="${not empty activityError ? DateUtils.parseDurationToHoursString(draftedActivity.getDuration()) : ''}"
 										required> <span class="input-group-text">horas</span>
 									<div class="invalid-feedback">Ingresá la duración en
 										horas.</div>
@@ -269,11 +271,12 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 	<script src="<%=request.getContextPath()%>/assets/js/app.js" defer></script>
 	<c:if test="${not empty activityError}">
 		<script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var modal = new bootstrap.Modal(document.getElementById('modalActividadForm'));
-            modal.show();
-        });
-    </script>
+			document.addEventListener('DOMContentLoaded', function() {
+				var modal = new bootstrap.Modal(document
+						.getElementById('modalActividadForm'));
+				modal.show();
+			});
+		</script>
 	</c:if>
 
 </body>

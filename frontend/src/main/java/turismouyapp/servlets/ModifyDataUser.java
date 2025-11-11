@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import turismouyapp.security.PasswordEncoder;
+import turismouyapp.utils.DateUtils;
 import turismouyapp.utils.ImageManager;
 import turismouyapp.utils.ImageManager.UploadFolderType;
 import turismouyapp.webservices.DtSupplier;
@@ -92,7 +93,10 @@ public class ModifyDataUser extends HttpServlet {
 			try {
 
 				String birthDateStr = request.getParameter("birthdate-user");
+				
 				birthDate = LocalDate.parse(birthDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
+				
+//				DateUtils.formatDate)
 
 			} catch (DateTimeParseException ex) {
 

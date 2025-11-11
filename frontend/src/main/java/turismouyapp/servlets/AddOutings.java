@@ -21,6 +21,7 @@ import turismouyapp.webservices.OutingAndInscriptionPortType;
 import turismouyapp.webservices.DtTouristOuting;
 import turismouyapp.webservices.DtUser;
 import turismouyapp.webservices.RepeatedTouristOutingException;
+import turismouyapp.utils.DateUtils;
 import turismouyapp.utils.ImageManager;
 import turismouyapp.utils.ImageManager.UploadFolderType;
 
@@ -87,14 +88,6 @@ public class AddOutings extends HttpServlet {
 			errors.add("Cantidad máxima de turistas inválida.");
 		}
 
-//		// Fecha
-//		try {
-//			outingDate = LocalDateTime.parse(outingDateStr, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-//		} catch (DateTimeParseException ex) {
-//			ex.printStackTrace();
-//			errors.add("Formato de fecha inválido.");
-//		}
-
 		// Si hay errores, reenviamos al form con mensajes
 		if (!errors.isEmpty()) {
 			request.setAttribute("errors", errors);
@@ -107,7 +100,7 @@ public class AddOutings extends HttpServlet {
 		newOuting.setMaxNumTourists(maxTourists);
 		newOuting.setDeparturePoint(outingPlace);
 		newOuting.setDepartureDate(outingDateStr);
-		newOuting.setDischargeDate(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
+		newOuting.setDischargeDate(DateUtils.getCurrentDateIso());
 		newOuting.setActivityName(activityName);
 		newOuting.setImageOutPath(fileName);
 

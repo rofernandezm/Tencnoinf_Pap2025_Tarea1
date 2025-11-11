@@ -1,4 +1,5 @@
 
+<%@page import="turismouyapp.utils.DateUtils"%>
 <%@page import="turismouyapp.webservices.DtTouristActivity"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
@@ -15,8 +16,8 @@ if (actWtOuts == null) {
     actWtOuts = Collections.emptyList();
 }
 
-SimpleDateFormat sdfDateTime = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
+//SimpleDateFormat sdfDateTime = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+//SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 String activityImgPath = ctx + "/activity_img";
 String defaultImgPath = ctx + "/res/default_activity.jpg";
 %>
@@ -108,7 +109,7 @@ String defaultImgPath = ctx + "/res/default_activity.jpg";
                                 <ul class="list-unstyled mb-0 small">
                                     <li><strong>Nombre:</strong> <%=a.getActivityName()%></li>
                                     <li><strong>Descripción:</strong> <%=a.getDescription()%></li>
-                                    <li><strong>Duración:</strong> <%=a.getDuration()%></li>
+                                    <li><strong>Duración:</strong> <%=DateUtils.parseDurationToHoursString(a.getDuration())%></li>
                                     <li><strong>Costo por turista:</strong> $<%=a.getCostTurist()%></li>
                                     <li><strong>Ciudad:</strong> <%=a.getCity()%></li>
                                     <li><strong>Proveedor:</strong> <%=a.getSupplierNickname()%></li>
@@ -156,7 +157,7 @@ String defaultImgPath = ctx + "/res/default_activity.jpg";
                                                     data-point="<%=o.getDeparturePoint()%>"
                                                     data-max="<%=o.getMaxNumTourists()%>"
                                                     data-cost="<%=a.getCostTurist()%>"
-                                                    data-date="<%=o.getDepartureDate()%>"
+                                                    data-date="<%=DateUtils.parseIsoStringToFormattedDateTime(o.getDepartureDate())%>"
                                                     data-disp=<%=dispMap != null && dispMap.get(o.getOutingName()) != null ? dispMap.get(o.getOutingName()) : 0%>
                                                     <%=(sel != null && sel.getOutingName().equals(o.getOutingName())) ? "selected" : ""%>>
                                                     <%=o.getOutingName()%>

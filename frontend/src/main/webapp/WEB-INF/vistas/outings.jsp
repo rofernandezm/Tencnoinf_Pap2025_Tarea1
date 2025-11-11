@@ -1,24 +1,22 @@
 
-<%@page import="java.time.Duration"%>
-<%@page import="turismouyapp.webservices.DtTouristActivity"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
+<%@page import="turismouyapp.utils.DateUtils"%>
+<%@page import="turismouyapp.webservices.DtTouristActivity"%>
 <%@ page import="java.util.*"%>
 <%@ page import="turismouyapp.webservices.DtActivityWithOutings"%>
 <%@ page import="turismouyapp.webservices.DtTouristOuting"%>
-<%@ page import="java.text.SimpleDateFormat"%>
 
 <%
 String ctx = request.getContextPath();
 String activityImgPath = ctx + "/activity_img";
 String outingImgPath = ctx + "/outing_img";
 
+@SuppressWarnings("unchecked")
 List<DtActivityWithOutings> actWtOuts = (List<DtActivityWithOutings>) request.getAttribute("activitiesWithOutings");
 if (actWtOuts == null) {
     actWtOuts = Collections.emptyList();
 }
-
-SimpleDateFormat sdfDateTime = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
 %>
 
 <!DOCTYPE html>
@@ -58,6 +56,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
             <!-- Start Cards -->
             <%
             String status = request.getParameter("status");
+            @SuppressWarnings("unchecked")
             List<String> errs = (List<String>) request.getAttribute("errors");
             if ("ok".equals(status)) {
             %>
@@ -87,36 +86,37 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
             } else {
 
             int aIdx = 0;
+            @SuppressWarnings("unchecked")
             Map<String, Integer> dispMap = (Map<String, Integer>) request.getAttribute("dispPorSalida");
-            for (DtActivityWithOutings act : actWtOuts) {
-                DtTouristActivity a = act.getActivity();
+            for (DtActivityWithOutings actWtOut : actWtOuts) {
+                DtTouristActivity act = actWtOut.getActivity();
                 String accId = "acc_" + aIdx;
             %>
             <section class="card mb-3">
                 <div class="row g-0">
                     <div class="col-md-3">
                         <img
-                            src="<%= activityImgPath + "/" + a.getImageActPath() %>"
+                            src="<%= activityImgPath + "/" + act.getImageActPath() %>"
                             class="img-fluid rounded-start" alt="Imagen de la actividad">
                     </div>
 
                     <div class="card-body p-0 col-md-9">
                         <div class="row h-100 g-0">
                             <div class="container p-3 col-md-4">
-                                <h5 class="card-title"><%=a.getActivityName()%></h5>
+                                <h5 class="card-title"><%=act.getActivityName()%></h5>
                                 <ul class="list-unstyled mb-0 small">
-                                    <li><strong>Descripción:</strong> <%=a.getDescription()%></li>
-                                    <li><strong>Duración:</strong> <%=Duration.parse(a.getDuration()).toHours() + " h"%></li>
-                                    <li><strong>Costo por turista:</strong> $<%=a.getCostTurist()%></li>
-                                    <li><strong>Ciudad:</strong> <%=a.getCity()%></li>
-                                    <li><strong>Proveedor:</strong> <%=a.getSupplierNickname()%></li>
+                                    <li><strong>Descripción:</strong> <%=act.getDescription()%></li>
+                                    <li><strong>Duración:</strong> <%=DateUtils.parseDurationToHoursString(act.getDuration())%></li>
+                                    <li><strong>Costo por turista:</strong> $<%=act.getCostTurist()%></li>
+                                    <li><strong>Ciudad:</strong> <%=act.getCity()%></li>
+                                    <li><strong>Proveedor:</strong> <%=act.getSupplierNickname()%></li>
                                 </ul>
                             </div>
                             <div class="col-md-8">
                                 <!-- Start Accordion -->
                                 <div class="accordion accordion-flush" id="<%=accId%>">
                                     <%
-                                    List<DtTouristOuting> outs = act.getOutings().getOuting();
+                                    List<DtTouristOuting> outs = actWtOut.getOutings().getOuting();
                                     if (outs == null || outs.isEmpty()) {
                                     %>
                                     <div class="p-3">
@@ -125,7 +125,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
                                     <%
                                     } else {
                                     int oIdx = 0;
-                                    for (DtTouristOuting t : outs) {
+                                    for (DtTouristOuting outing_ : outs) {
                                         String collapseId = "col_" + aIdx + "_" + oIdx;
                                         String modalId = "modal_" + aIdx + "_" + oIdx;
                                     %>
@@ -134,7 +134,7 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
                                             <button class="accordion-button collapsed" type="button"
                                                 data-bs-toggle="collapse" data-bs-target="#<%=collapseId%>"
                                                 aria-expanded="false" aria-controls="<%=collapseId%>">
-                                                <%=t.getOutingName()%>
+                                                <%=outing_.getOutingName()%>
                                             </button>
                                         </h2>
 
@@ -144,10 +144,10 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
                                                 <div class="row h-100 g-0">
                                                     <div class="col-md-8">
                                                         <ul class="list-unstyled my-0 small">
-                                                            <li><strong>Cupos:</strong> <%=t.getMaxNumTourists()%></li>
-                                                            <li><strong>Disponibilidad:</strong> <%=dispMap != null && dispMap.get(t.getOutingName()) != null ? dispMap.get(t.getOutingName()) : 0%></li>
-                                                            <li><strong>Punto de salida:</strong> <%=t.getDeparturePoint()%></li>
-                                                            <li><strong>Fecha de salida:</strong> <%=t.getDepartureDate()%></li>
+                                                            <li><strong>Cupos:</strong> <%=outing_.getMaxNumTourists()%></li>
+                                                            <li><strong>Disponibilidad:</strong> <%=dispMap != null && dispMap.get(outing_.getOutingName()) != null ? dispMap.get(outing_.getOutingName()) : 0%></li>
+                                                            <li><strong>Punto de salida:</strong> <%=outing_.getDeparturePoint()%></li>
+                                                            <li><strong>Fecha de salida:</strong> <%=DateUtils.parseIsoStringToFormattedDateTime(outing_.getDepartureDate())%></li>
                                                         </ul>
                                                     </div>
                                                     <div
@@ -169,9 +169,9 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title">
-                                                        <%=a.getActivityName()%>
+                                                        <%=act.getActivityName()%>
                                                         —
-                                                        <%=t.getOutingName()%>
+                                                        <%=outing_.getOutingName()%>
                                                     </h5>
                                                     <button type="button" class="btn-close btn-close-white"
                                                         data-bs-dismiss="modal" aria-label="Cerrar"></button>
@@ -182,32 +182,25 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
                                                     <div class="row g-3">
                                                         <div class="col-md-6">
                                                             <img
-                                                                src="<%= outingImgPath + "/" + t.getImageOutPath() %>"
+                                                                src="<%= outingImgPath + "/" + outing_.getImageOutPath() %>"
                                                                 class="img-fluid" alt="Imagen de la actividad">
                                                         </div>
                                                         <div class="col-md-6">
                                                             <h6 class="mb-1">Actividad</h6>
                                                             <ul class="list-unstyled small mb-2">
-                                                                <li><strong>Descripción:</strong> <%=a.getDescription()%></li>
-                                                                <li><strong>Duración:</strong> <%=Duration.parse(a.getDuration()).toHours() + " h"%></li>
-                                                                <li><strong>Costo por turista:</strong> $<%=a.getCostTurist()%></li>
-                                                                <li><strong>Ciudad:</strong> <%=a.getCity()%></li>
-                                                                <li><strong>Proveedor:</strong> <%=a.getSupplierNickname()%></li>
+                                                                <li><strong>Descripción:</strong> <%=act.getDescription()%></li>
+                                                                <li><strong>Duración:</strong> <%=DateUtils.parseDurationToHoursString(act.getDuration())%></li>
+                                                                <li><strong>Costo por turista:</strong> $<%=act.getCostTurist()%></li>
+                                                                <li><strong>Ciudad:</strong> <%=act.getCity()%></li>
+                                                                <li><strong>Proveedor:</strong> <%=act.getSupplierNickname()%></li>
                                                             </ul>
                                                             <h6 class="mb-1">Salida</h6>
                                                             <ul class="list-unstyled small mb-0">
-                                                                <li><strong>Punto de salida:</strong> <%=t.getDeparturePoint()%></li>
-                                                                <li><strong>Fecha de salida:</strong> <%
- Object dep = t.getDepartureDate();
- if (dep instanceof java.util.Date) {
-     out.print(sdfDateTime.format((java.util.Date) dep));
- } else {
-     out.print(String.valueOf(dep));
- }
- %></li>
-                                                                <li><strong>Cupos totales:</strong> <%=t.getMaxNumTourists()%></li>
+                                                                <li><strong>Punto de salida:</strong> <%=outing_.getDeparturePoint()%></li>
+                                                                <li><strong>Fecha de salida:</strong> <%=DateUtils.parseIsoStringToFormattedDateTime(outing_.getDepartureDate())%></li>
+                                                                <li><strong>Cupos totales:</strong> <%=outing_.getMaxNumTourists()%></li>
                                                                 <%-- Si tuvieramos disponibilidad real, mostrar aca --%>
-                                                                <li><strong>Disponibles:</strong> <%=dispMap != null && dispMap.get(t.getOutingName()) != null ? dispMap.get(t.getOutingName()) : 0%></li>
+                                                                <li><strong>Disponibles:</strong> <%=dispMap != null && dispMap.get(outing_.getOutingName()) != null ? dispMap.get(outing_.getOutingName()) : 0%></li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -221,9 +214,9 @@ SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
                                                         action="<%=request.getContextPath()%>/inscriptions"
                                                         class="d-inline">
                                                         <input type="hidden" name="q"
-                                                            value="<%=a.getActivityName()%>"> <input
+                                                            value="<%=act.getActivityName()%>"> <input
                                                             type="hidden" name="outing"
-                                                            value="<%=t.getOutingName()%>">
+                                                            value="<%=outing_.getOutingName()%>">
                                                         <button type="submit" class="btn btn-primary <% if(turismouyapp.webservices.UserType.TOURIST != request.getSession().getAttribute("user_role")) {%>d-none<% }%>">Inscribirme</button>
                                                     </form>
                                                 </div>

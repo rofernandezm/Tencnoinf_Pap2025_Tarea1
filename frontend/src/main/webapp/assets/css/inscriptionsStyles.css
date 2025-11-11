@@ -24,6 +24,7 @@
 	background-color: var(--primary-color);
 	color: var(--background-secondary-color);
 }
+
 /*END CARDS*/
 
 /*START INSCRIPTIONS BUTTON*/
@@ -50,4 +51,5 @@
 	box-shadow: 0 0 4px rgba(30, 55, 90, 0.3);
 	outline: none;
 }
+
 /*END INSCRIPTIONS BUTTON*/
