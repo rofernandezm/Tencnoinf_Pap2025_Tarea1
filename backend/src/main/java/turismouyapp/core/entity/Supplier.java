@@ -12,9 +12,9 @@ import turismouyapp.webservices.utils.DateUtils;
 @PrimaryKeyJoinColumn(name = "nickname")
 public class Supplier extends User {
 
-	@Column(updatable = false)
+	@Column(updatable = true)
 	private String description;
-	@Column(updatable = false)
+	@Column(updatable = true)
 	private String webSite;
 
 	@OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = false)

@@ -8,29 +8,29 @@
   <packaging>war</packaging>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
-    <ws.server>localhost</ws.server>
-    <ws.port>8007</ws.port>
-    <jakarta.servlet.version>6.0.0</jakarta.servlet.version>
-    <jakarta.servlet.jsp.version>3.1.0</jakarta.servlet.jsp.version>
-    <jakarta.el.version>5.0.0</jakarta.el.version>
+    <bcrypt.version>0.4</bcrypt.version>
+    <build-helper-plugin>3.5.0</build-helper-plugin>
+    <common.codecs.version>1.17.0</common.codecs.version>
     <eclipselink.version>4.0.4</eclipselink.version>
-    <jakarta.persistence.version>3.1.0</jakarta.persistence.version>
+    <gson.version>2.13.2</gson.version>
     <hsqldb.version>2.7.2</hsqldb.version>
+    <jakarta.el.version>5.0.0</jakarta.el.version>
+    <jakarta.persistence.version>3.1.0</jakarta.persistence.version>
+    <jakarta.servlet.jsp.version>3.1.0</jakarta.servlet.jsp.version>
     <jakarta.servlet.jstl.api.version>3.0.0</jakarta.servlet.jstl.api.version>
     <jakarta.servlet.jstl.version>3.0.1</jakarta.servlet.jstl.version>
+    <jakarta.servlet.version>6.0.0</jakarta.servlet.version>
+    <jakarta.xml.bind.version>4.0.2</jakarta.xml.bind.version>
+    <jax-ws.version>4.0.3</jax-ws.version>
+    <jaxb.runtime.version>4.0.5</jaxb.runtime.version>
+    <jaxws-plugin.version>3.0.0</jaxws-plugin.version>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
     <maven.javadoc.version>3.6.3</maven.javadoc.version>
     <maven.war.version>3.4.0</maven.war.version>
-    <common.codecs.version>1.17.0</common.codecs.version>
-    <bcrypt.version>0.4</bcrypt.version>
-    <jax-ws.version>4.0.3</jax-ws.version>
-    <jaxws-plugin.version>3.0.0</jaxws-plugin.version>
-    <jakarta.xml.bind.version>4.0.2</jakarta.xml.bind.version>
-    <jaxb.runtime.version>4.0.5</jaxb.runtime.version>
-    <build-helper-plugin>3.5.0</build-helper-plugin>
-    <gson.version>2.13.2</gson.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <ws.port>8007</ws.port>
+    <ws.server>localhost</ws.server>
     </properties>
 
   <dependencies>

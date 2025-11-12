@@ -13,7 +13,7 @@ import turismouyapp.webservices.utils.DateUtils;
 @PrimaryKeyJoinColumn(name = "nickname")
 public class Tourist extends User {
 
-	@Column(updatable = false)
+	@Column(updatable = true)
 	private String nationality;
 
 	@OneToMany(mappedBy = "tourist", cascade = CascadeType.ALL, orphanRemoval = true)

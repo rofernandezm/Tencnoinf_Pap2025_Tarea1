@@ -50,7 +50,6 @@
       <version>${hsqldb.version}</version>
     </dependency>
 
-    <!-- Tomcat APIs (solo si alguna clase las referencia) -->
     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-catalina</artifactId>
@@ -82,7 +81,6 @@
 
   <build>
     <plugins>
-      <!-- Compilador -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -93,8 +91,6 @@
           <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
       </plugin>
-
-      <!-- JAR ejecutable (opcional) -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
@@ -107,7 +103,6 @@
             </goals>
             <configuration>
               <filters>
-                <!-- Excluir MOXy del uber-jar si se sombrea -->
                 <filter>
                   <artifact>org.eclipse.persistence:eclipselink</artifact>
                   <excludes>
@@ -140,7 +135,6 @@
               <mainClass>turismouyapp.webservices.Publisher</mainClass>
               <classpathScope>runtime</classpathScope>
               <systemProperties>
-                <!-- Forzar JAXB-RI (para Metro y para cualquier JAXBContext) -->
                 <systemProperty>
                   <key>com.sun.xml.ws.spi.db.BindingContextFactory</key>
                   <value>com.sun.xml.ws.db.glassfish.JAXBRIContextFactory</value>
@@ -149,7 +143,6 @@
                   <key>jakarta.xml.bind.JAXBContextFactory</key>
                   <value>org.glassfish.jaxb.runtime.v2.ContextFactory</value>
                 </systemProperty>
-                <!-- Dump de SOAP para debug -->
                 <systemProperty>
                   <key>com.sun.xml.ws.transport.http.HttpAdapter.dump</key>
                   <value>true</value>
