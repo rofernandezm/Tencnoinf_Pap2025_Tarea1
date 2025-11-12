@@ -20,6 +20,11 @@ Sistema de gestión turística desarrollado en Java con arquitectura en capas, u
 - [Compilación del Proyecto](#-compilación-del-proyecto)
   - [Orden de Compilación](#orden-de-compilación)
   - [Verificación](#verificación)
+- [🌐 Web Services SOAP](#-web-services-soap)
+  - [Flujo de Ejecución Crítico](#flujo-de-ejecución-crítico)
+  - [Endpoints SOAP](#endpoints-soap)
+  - [Regeneración de Stubs (wsimport)](#regeneración-de-stubs-wsimport)
+- **[👉 Ver WEBSERVICES.md para guía completa de WS](#webservicesmd-guía-especializada)**
 - [Configuración en Eclipse IDE](#-configuración-en-eclipse-ide)
 - [Ejecución del Proyecto](#-ejecución-del-proyecto)
 - [✅ Checklist de Configuración](#-checklist-de-configuración)
@@ -35,117 +40,112 @@ Sistema de gestión turística desarrollado en Java con arquitectura en capas, u
 
 ## 🚀 Quick Start
 
-Para desarrolladores experimentados que quieren ejecutar el proyecto rápidamente:
+Para comenzar rápidamente:
 
-```bash
-# 1. Verificar Java 17
-java -version
+1. **Compilar Backend** (genera JAR con servicios):
+   ```bash
+   cd backend && mvn clean install
+   ```
 
-# 2. Compilar Backend y Frontend (orden importante)
-mvn clean install
+2. **Publicar Web Services en puerto 8007** (desde Eclipse o terminal):
+   ```bash
+   mvn exec:java -Prun-publisher
+   # Verás en consola:
+   # [UserWebService] http://localhost:8007/ws/user?wsdl
+   # [ActivityWebService] http://localhost:8007/ws/activity?wsdl
+   # [OutingAndInscriptionWebService] http://localhost:8007/ws/outingAndInscription?wsdl
+   ```
+   ⚠️ **Dejar corriendo** - Frontend lo necesita para compilar
 
-# 3. Iniciar Tomcat
-cd server/apache-tomcat-11.0.11/bin
-./startup.sh        # Linux/macOS
-startup.bat         # Windows
+3. **Compilar Frontend** (descarga WSDLs del paso 2 y genera stubs):
+   ```bash
+   cd frontend && mvn clean package
+   ```
 
-# 4. Acceder a la aplicación
-# http://localhost:8080/turismouy.UI/
+4. **Iniciar Tomcat desde Eclipse** (puerto 8080 + HSQLDB 9001):
+   - Eclipse → Servers view → Start
+
+5. **Acceder a aplicación**:
+   ```
+   http://localhost:8080/turismouy.UI/
+   ```
+
+### Diagrama de Flujo
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ COMPILACIÓN Y EJECUCIÓN                                 │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  1. mvn clean install                                   │
+│     (Backend JAR)                                       │
+│           ⬇                                             │
+│  2. mvn exec:java -Prun-publisher                       │
+│     (Publica WSDL en localhost:8007)                   │
+│           ⬇ (wsimport descarga WSDLs)                  │
+│  3. mvn clean package                                   │
+│     (Frontend WAR con stubs generados)                 │
+│           ⬇                                             │
+│  4. Eclipse: Start Tomcat (puerto 8080)                │
+│     (Tomcat iniciado + HSQLDB en 9001)                 │
+│           ⬇                                             │
+│  5. Browser: http://localhost:8080/turismouy.UI/       │
+│                                                         │
+│ PUERTOS:                                                │
+│ · 8007: Publisher (Backend WS SOAP)                    │
+│ · 8080: Tomcat (Frontend HTTP)                         │
+│ · 9001: HSQLDB (Database)                              │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
 ```
 
-⚠️ **¿Problemas?** Consultar la [Guía Completa de Instalación](#-instalación-paso-a-paso) y [Solución de Problemas](#-solución-de-problemas).
+⚠️ **Orden crítico**: Pasos 2 y 3 deben ser en ese orden exacto.
+
+Para configuración detallada, ver [📋 Tabla de Contenidos](#-tabla-de-contenidos).
 
 ---
 
 ## 💻 Requisitos del Sistema
 
-### Software Necesario
+### Software Requerido
 
-| Componente | Versión Mínima | Recomendada | Descripción |
-|------------|----------------|-------------|-------------|
-| **Java JDK** | 17 | 17 o 21 | OpenJDK o Oracle JDK |
-| **Apache Maven** | 3.8.0 | 3.9.11 | Gestor de dependencias (incluido en `/resources`) |
-| **Eclipse IDE** | 2023-06 | 2024-03+ | IDE con soporte Jakarta EE |
+| Componente | Versión | Descripción |
+|------------|---------|-------------|
+| **Java JDK** | 17+ | [OpenJDK](https://adoptium.net/) o [Oracle JDK](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) |
+| **Apache Maven** | 3.9.11 | Incluido en `/resources/apache-maven-3.9.11-bin.zip` |
+| **Eclipse IDE** | 2024-03+ | [Enterprise Java and Web Developers](https://www.eclipse.org/downloads/packages/) |
 
-### Puertos Necesarios
+### Puertos Requeridos (Configurables)
 
-| Puerto | Servicio | Configurable |
-|--------|----------|--------------|
-| **8080** | Apache Tomcat (HTTP) | Sí (server.xml) |
-| **8005** | Tomcat Shutdown | Sí (server.xml) |
-| **9001** | HSQLDB Server | Sí (setenv.sh/bat) |
+| Puerto | Servicio | Configuración |
+|--------|----------|-------------|
+| **8007** | Web Services SOAP (Backend) | `backend/pom.xml` (exec-maven-plugin) |
+| **8080** | Apache Tomcat (Frontend) | `server/apache-tomcat-11.0.11/conf/server.xml` |
+| **9001** | HSQLDB Database Server | `server/apache-tomcat-11.0.11/bin/setenv.sh` (DB_PORT) |
+| **8005** | Tomcat Shutdown | `server/apache-tomcat-11.0.11/conf/server.xml` |
 
----
-
-## 📦 Instalación Paso a Paso
-
-### 1. Java JDK 17
-
-#### Verificar Instalación Existente
-
-```bash
-java -version
-```
-
-Debe mostrar: `openjdk version "17.x.x"` o `java version "17.x.x"`
-
-#### Instalar Java 17
-
-**Windows:**
-1. Descargar desde [Adoptium](https://adoptium.net/) o [Oracle](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
-2. Ejecutar instalador
-3. Verificar que `JAVA_HOME` esté configurado:
-   ```cmd
-   echo %JAVA_HOME%
-   ```
-
-**Linux (Ubuntu/Debian):**
-```bash
-sudo apt update
-sudo apt install openjdk-17-jdk -y
-java -version
-```
-
-**Linux (Fedora/RHEL):**
-```bash
-sudo dnf install java-17-openjdk-devel -y
-java -version
-```
-
-**macOS:**
-```bash
-brew install openjdk@17
-# Agregar al PATH si es necesario
-echo 'export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"' >> ~/.zshrc
-source ~/.zshrc
-java -version
-```
+⚠️ **Asegurar que estos puertos estén disponibles antes de iniciar.**
 
 ---
 
-### 2. Maven
+## 📦 Setup Inicial
 
-#### Opción 1: Usar Maven Incluido (RECOMENDADO)
+### Requisito: Java 17
+
+Verifica que Java 17 esté instalado:
+
+```bash
+java -version
+# Debe mostrar: openjdk version "17.x.x" o java version "17.x.x"
+```
+
+Si no lo tienes, instala desde [Adoptium](https://adoptium.net/) o [Oracle](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html).
+
+### Maven (Incluido en el Repositorio)
 
 Este proyecto incluye Apache Maven 3.9.11 en `/resources/apache-maven-3.9.11-bin.zip`.
 
-**Extraer e Instalar:**
-
-**Windows:**
-```cmd
-cd resources
-tar -xf apache-maven-3.9.11-bin.zip
-cd apache-maven-3.9.11
-cd bin
-set PATH=%CD%;%PATH%
-mvn -version
-```
-
-Para hacerlo permanente:
-```cmd
-setx MAVEN_HOME "C:\ruta\completa\resources\apache-maven-3.9.11"
-setx PATH "%MAVEN_HOME%\bin;%PATH%"
-```
+**Para usar Maven incluido:**
 
 **Linux/macOS:**
 ```bash
@@ -155,53 +155,34 @@ export PATH=$PWD/apache-maven-3.9.11/bin:$PATH
 mvn -version
 ```
 
-Para hacerlo permanente (agregar a `~/.bashrc` o `~/.zshrc`):
-```bash
-export MAVEN_HOME="/ruta/completa/resources/apache-maven-3.9.11"
-export PATH="$MAVEN_HOME/bin:$PATH"
-```
-
-#### Opción 2: Instalar Maven del Sistema
-
-**Windows:**
-1. Descargar desde [maven.apache.org](https://maven.apache.org/download.cgi)
-2. Extraer en `C:\Program Files\Apache\maven`
-3. Configurar variables de entorno (igual que Opción 1)
-
-**Linux:**
-```bash
-# Ubuntu/Debian
-sudo apt update
-sudo apt install maven -y
-
-# Fedora/RHEL
-sudo dnf install maven -y
-
-# Verificar
+**Windows (PowerShell):**
+```powershell
+cd resources
+tar -xf apache-maven-3.9.11-bin.zip
+$env:PATH = "$PWD\apache-maven-3.9.11\bin;$env:PATH"
 mvn -version
 ```
 
-**macOS:**
-```bash
-brew install maven
-mvn -version
-```
+Alternativamente, instala Maven desde el sistema (ver [maven.apache.org](https://maven.apache.org/download.cgi)).
 
----
+### Eclipse IDE
 
-### 3. Eclipse IDE
+Descarga e instala [Eclipse IDE for Enterprise Java and Web Developers](https://www.eclipse.org/downloads/packages/) (recomendado: 2024-03 o superior).
 
-Descargar e instalar [Eclipse IDE for Enterprise Java and Web Developers](https://www.eclipse.org/downloads/packages/).
-
-Esta versión incluye todo lo necesario para el proyecto.
+**⚠️ Eclipse es la plataforma recomendada para ejecutar este proyecto. No se recomienda ejecutar desde terminal.**
 
 ---
 
 ## 🔨 Compilación del Proyecto
 
-### Orden de Compilación
+⚠️ **IMPORTANTE**: El Frontend **NO depende del Backend JAR**. 
 
-⚠️ **IMPORTANTE**: El Frontend depende del Backend. Debes compilar en este orden:
+El sistema usa **Web Services SOAP** para comunicación. El flujo es:
+1. Backend se compila y expone servicios en puerto 8007
+2. Frontend descarga WSDLs y genera stubs (wsimport)
+3. Los stubs invocan servicios SOAP remotos (no son locales)
+
+### Compilación Paso a Paso
 
 #### 1️⃣ Compilar Backend
 
@@ -210,92 +191,283 @@ cd backend
 mvn clean install
 ```
 
-**¿Qué hace esto?**
-- ✅ Compila el código fuente
-- ✅ Ejecuta tests unitarios
-- ✅ Genera `turismouy.Backend-1.0.0.jar`
-- ✅ **Instala el JAR en repositorio Maven local** (`~/.m2/repository/`)
-- ✅ Este JAR será usado por el Frontend
+**Resultado**: `backend/target/turismouy.Backend-1.0.0.jar` con clases de servicios.
 
-**Salida esperada:**
-```
-[INFO] Installing .../backend/target/turismouy.Backend-1.0.0.jar to ~/.m2/repository/...
-[INFO] BUILD SUCCESS
-```
-
-#### 2️⃣ Compilar Frontend
+#### 2️⃣ Publicar Web Services (Terminal 1 - DEJAR ABIERTA)
 
 ```bash
-cd ../frontend
+cd backend
+mvn exec:java -Prun-publisher
+```
+
+Verás en la consola:
+```
+[UserWebService] http://localhost:8007/ws/user?wsdl
+[ActivityWebService] http://localhost:8007/ws/activity?wsdl
+[OutingAndInscriptionWebService] http://localhost:8007/ws/outingAndInscription?wsdl
+```
+
+⚠️ **Dejar esta terminal abierta mientras compiles frontend.**
+
+#### 3️⃣ Compilar Frontend (Terminal 2)
+
+```bash
+cd frontend
 mvn clean package
 ```
 
-**¿Qué hace esto?**
-- ✅ Descarga el Backend desde repositorio Maven local
-- ✅ Compila servlets
-- ✅ Empaqueta todo en `turismouy.UI.war`
-- ✅ Incluye el JAR del Backend dentro del WAR
+**¿Qué hace?**
+- Descarga WSDLs del Publisher (puerto 8007)
+- Genera stubs en `target/generated-sources/wsimport/`
+- Empaqueta todo en `frontend/target/turismouy.UI.war`
 
-**Salida esperada:**
-```
-[INFO] Building war: .../frontend/target/turismouy.UI.war
-[INFO] BUILD SUCCESS
-```
+**Resultado**: `frontend/target/turismouy.UI.war` desplegable en Tomcat.
 
-#### Compilación desde la Raíz (Automática)
+### Resumen de Artefactos
 
-Si prefieres compilar ambos módulos de una vez:
-
-```bash
-cd /ruta/al/proyecto
-mvn clean install
-```
-
-Este comando usa el POM padre y compila Backend → Frontend automáticamente.
-
-### Verificación
-
-Después de compilar, verifica que estos archivos existan:
-
-```bash
-ls backend/target/turismouy.Backend-1.0.0.jar
-ls frontend/target/turismouy.UI.war
-```
-
-Ambos archivos deben estar presentes.
+| Archivo | Ubicación | Propósito |
+|---------|-----------|----------|
+| Backend JAR | `backend/target/turismouy.Backend-1.0.0.jar` | Clases de servicios (usado por Publisher) |
+| Frontend WAR | `frontend/target/turismouy.UI.war` | Aplicación web (desplegada en Tomcat) |
+| Generated Stubs | `frontend/target/generated-sources/wsimport/` | Proxies SOAP (NO editar) |
 
 ### Troubleshooting de Compilación
 
-**Problema**: Frontend no encuentra Backend
+**Error**: `Connection refused: 127.0.0.1:8007`
 ```
-[ERROR] Could not resolve dependencies for turismouy.Backend:turismouy.Backend:jar:1.0.0
-```
-
-**Solución**:
-```bash
-# 1. Limpiar repositorio Maven local
-rm -rf ~/.m2/repository/turismouy/Backend/turismouy.Backend
-
-# 2. Recompilar Backend
-cd backend
-mvn clean install
-
-# 3. Recompilar Frontend
-cd ../frontend
-mvn clean package
+Causa: Publisher no está corriendo
+Solución: Ejecutar en Terminal 1 ANTES de compilar frontend
+cd backend && mvn exec:java -Prun-publisher
 ```
 
-**Problema**: Fallo en tests del Backend
-
-**Solución temporal** (saltar tests):
-```bash
-cd backend
-mvn clean install -DskipTests
+**Error**: `Could not resolve dependencies for turismouy.Backend`
+```
+Causa: Backend no fue compilado
+Solución: cd backend && mvn clean install
 ```
 
 ---
 
-## 🏗️ Arquitectura del Proyecto
+## � Web Services SOAP
+
+### ⚠️ Flujo de Ejecución Crítico
+
+El proyecto TurismoUY utiliza **Web Services SOAP (JAX-WS 4.0.3)** para comunicación backend-frontend. El flujo de ejecución es **ESTRICTO** y debe respetarse para evitar errores:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ 1. COMPILAR BACKEND (genera clases webservices)             │
+│    $ cd backend && mvn clean install                        │
+│    ✅ Crea: turismouy.Backend-1.0.0.jar                    │
+└─────────────────────────────────────────────────────────────┘
+                            ⬇️
+┌─────────────────────────────────────────────────────────────┐
+│ 2. PUBLICAR WEB SERVICES (enciende puerto 8007)             │
+│    $ cd backend && mvn exec:java -Prun-publisher           │
+│    ✅ Publica WSDLs en http://localhost:8007/ws/*?wsdl    │
+└─────────────────────────────────────────────────────────────┘
+                            ⬇️
+┌─────────────────────────────────────────────────────────────┐
+│ 3. COMPILAR FRONTEND (wsimport descarga WSDLs)             │
+│    $ cd frontend && mvn clean package                       │
+│    ✅ Genera stubs en: frontend/target/generated-sources/  │
+└─────────────────────────────────────────────────────────────┘
+                            ⬇️
+┌─────────────────────────────────────────────────────────────┐
+│ 4. INICIAR TOMCAT (sirve aplicación web)                   │
+│    $ cd server/apache-tomcat-11.0.11/bin                   │
+│    $ ./startup.sh                                           │
+│    ✅ HSQLDB en puerto 9001, Tomcat en 8080                │
+└─────────────────────────────────────────────────────────────┘
+                            ⬇️
+┌─────────────────────────────────────────────────────────────┐
+│ 5. SERVLETS INVOCAN STUBS (para conectar a WS)             │
+│    Los servlets usan: ActivityService, UserService, etc.   │
+│    ✅ Comunican con Publisher en puerto 8007               │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### ❌ ¿Qué pasa si NO respetas el flujo?
+
+| Error | Causa | Solución |
+|-------|-------|----------|
+| `Connection refused: 127.0.0.1:8007` | Publisher no está corriendo | Ejecutar `mvn exec:java -Prun-publisher` en terminal separada |
+| `wsimport WSDL download failed` | Publisher no disponible durante compilación | Publicar WS ANTES de compilar frontend |
+| `ClassNotFoundException: UserService` | Stubs no regenerados | Compilar frontend DESPUÉS de publicar |
+| Datos no persisten en BD | Tomcat no iniciado con BD | Usar `./startup.sh` desde `server/apache-tomcat-11.0.11/bin` |
+
+### Endpoints SOAP
+
+Cuando el **Publisher está activo** (puerto 8007):
+
+| Servicio | URL WSDL | Interfaz | Métodos |
+|----------|----------|----------|---------|
+| **UserService** | `http://localhost:8007/ws/user?wsdl` | `UserPortType` | consultUserData, dataEntryUser, dataEntryTourist, dataEntrySupplier, modifyUserData, listUsers, updateProfileImageUser |
+| **ActivityService** | `http://localhost:8007/ws/activity?wsdl` | `ActivityPortType` | listTouristActivityData, listTouristActivities, activityDataEntry, modifyActivity, consultTouristActivityData, listTouristActivitiesByStatus, listTouristActivitiesBySupplierNickname |
+| **OutingAndInscriptionService** | `http://localhost:8007/ws/outingAndInscription?wsdl` | `OutingAndInscriptionPortType` | outingDataEntry, consultTouristOutingData, listOutingInscription, inscriptionDataEntry, listDtInscriptionTouristOutingByTouristNickname |
+
+**Namespace**: `http://ws.turismouyapp/schema`
+
+### Publicar Web Services Manualmente
+
+#### Desde Terminal (Recomendado para Desarrollo)
+
+```bash
+cd backend
+
+# Terminal 1: Publicar WS (deja corriendo)
+mvn exec:java -Prun-publisher
+
+# Verás en consola (mantén esta terminal abierta):
+# [UserWebService] http://localhost:8007/ws/user
+# [ActivityWebService] http://localhost:8007/ws/activity
+# [OutingAndInscriptionWebService] http://localhost:8007/ws/outingAndInscription
+```
+
+#### Desde Eclipse
+
+1. Click derecho en proyecto `backend`
+2. **Run As → Run Configurations...**
+3. Nueva configuración Java:
+   - **Name**: `Publisher WS`
+   - **Project**: `turismouy.Backend`
+   - **Main class**: `turismouyapp.webservices.Publisher`
+   - **VM arguments**: `-Dcom.sun.xml.ws.spi.db.BindingContextFactory=com.sun.xml.ws.db.glassfish.JAXBRIContextFactory`
+4. Click **Run** → La consola mostrará los endpoints publicados
+5. **Dejar la ejecución activa** mientras desarrollas
+
+#### Verificar Publicación
+
+```bash
+# Ver si el puerto 8007 está escuchando
+netstat -ano | findstr :8007  # Windows
+lsof -i :8007                 # Linux/Mac
+
+# Descarga el WSDL (desde otra terminal)
+curl -s http://localhost:8007/ws/user?wsdl | head -20
+```
+
+### Regeneración de Stubs (wsimport)
+
+El **frontend automáticamente regenera stubs** cuando compila, siempre y cuando el Publisher esté disponible.
+
+#### Regenerar Stubs Manualmente
+
+```bash
+cd frontend
+
+# Los stubs se generan en:
+mvn clean package
+
+# Ubicación: frontend/target/generated-sources/wsimport/turismouyapp/webservices/
+
+# Ver stubs generados:
+ls target/generated-sources/wsimport/turismouyapp/webservices/
+
+# Esperas ver:
+# UserService.java
+# UserPortType.java
+# ActivityService.java
+# ActivityPortType.java
+# OutingAndInscriptionService.java
+# OutingAndInscriptionPortType.java
+# DtUser.java, DtTourist.java, DtSupplier.java, etc.
+```
+
+#### ¿Dónde están los Stubs?
+
+| Ubicación | Descripción |
+|-----------|-------------|
+| `frontend/target/generated-sources/wsimport/` | Stubs generados por wsimport (NO editar) |
+| `frontend/src/main/java/turismouyapp/servlets/` | Servlets que USAN los stubs |
+| `frontend/pom.xml` | Configuración de wsimport con URLs |
+
+#### Configuración de wsimport en pom.xml
+
+```xml
+<plugin>
+  <groupId>com.sun.xml.ws</groupId>
+  <artifactId>jaxws-maven-plugin</artifactId>
+  <version>3.0.0</version>
+  <executions>
+    <execution>
+      <goals>
+        <goal>wsimport</goal>
+      </goals>
+    </execution>
+  </executions>
+  <configuration>
+    <wsdlUrls>
+      <!-- ⚠️ DEBE haber un Publisher activo en estos puertos -->
+      <wsdlUrl>http://localhost:8007/ws/user?wsdl</wsdlUrl>
+      <wsdlUrl>http://localhost:8007/ws/activity?wsdl</wsdlUrl>
+      <wsdlUrl>http://localhost:8007/ws/outingAndInscription?wsdl</wsdlUrl>
+    </wsdlUrls>
+    <packageName>turismouyapp.webservices</packageName>
+    <keep>true</keep>
+  </configuration>
+</plugin>
+```
+
+#### Troubleshooting: Stubs No Se Generan
+
+**Error**: `Connection refused` o `Failed to download WSDL`
+
+**Solución**:
+```bash
+# 1. Verificar Publisher activo
+cd backend && mvn exec:java -Prun-publisher
+
+# 2. Esperar 5 segundos
+sleep 5
+
+# 3. En otra terminal, compilar frontend
+cd frontend && mvn clean package
+```
+
+### Arquitectura de Web Services
+
+```
+┌──────────────────────────────────────────────────────────┐
+│ BACKEND (puerto 8007)                                    │
+├──────────────────────────────────────────────────────────┤
+│  IUserWebService (interfaz)                              │
+│  UserWebService (implementación)                         │
+│  └─ UserController (lógica negocio)                     │
+│                                                          │
+│  IActivityWebService (interfaz)                          │
+│  ActivityWebService (implementación)                     │
+│  └─ TouristActivityController (lógica negocio)          │
+│                                                          │
+│  IOutingAndInscriptionWebService (interfaz)             │
+│  OutingAndInscriptionWebService (implementación)        │
+│  └─ TouristOutingAndInscriptionController               │
+│                                                          │
+│  Publisher.java (main que publica los 3 servicios)      │
+└──────────────────────────────────────────────────────────┘
+         ⬅️ consume (via SOAP) ➡️
+┌──────────────────────────────────────────────────────────┐
+│ FRONTEND (puerto 8080, servlets)                         │
+├──────────────────────────────────────────────────────────┤
+│  UserService.java (stub generado por wsimport)          │
+│  ActivityService.java (stub generado por wsimport)      │
+│  OutingAndInscriptionService.java (generado)            │
+│                                                          │
+│  Activities.java (servlet)                              │
+│  └─ activityWebService.listTouristActivities() (invoca  │
+│     stub que llama a backend via SOAP)                  │
+│                                                          │
+│  ConsultUser.java (servlet)                             │
+│  └─ userWebService.consultUserData() (invoca stub)      │
+│                                                          │
+│  Inscriptions.java (servlet)                            │
+│  └─ outingAndInscriptionWebService.inscriptionDataEntry │
+└──────────────────────────────────────────────────────────┘
+```
+
+---
+
+## �🏗️ Arquitectura del Proyecto
 
 El proyecto TurismoUY está organizado en tres módulos principales:
 
@@ -693,29 +865,48 @@ Antes de ejecutar por primera vez, verifica:
 ### Requisitos Previos
 - [ ] Java 17 instalado (`java -version`)
 - [ ] Maven instalado (`mvn -version`)
-- [ ] Eclipse IDE instalado
-- [ ] Puerto 8080 libre
-- [ ] Puerto 9001 libre
+- [ ] Eclipse IDE instalado (opcional)
+- [ ] **Puerto 8007 libre** (Web Services SOAP)
+- [ ] **Puerto 8080 libre** (Tomcat HTTP)
+- [ ] **Puerto 9001 libre** (HSQLDB)
 
 ### Compilación
 - [ ] Backend compilado exitosamente (`mvn clean install`)
 - [ ] Archivo `backend/target/turismouy.Backend-1.0.0.jar` existe
 - [ ] Frontend compilado exitosamente (`mvn clean package`)
 - [ ] Archivo `frontend/target/turismouy.UI.war` existe
+- [ ] Stubs generados en `frontend/target/generated-sources/wsimport/`
 
-### Configuración Eclipse
+### Web Services SOAP (CRÍTICO)
+- [ ] Publisher puede iniciar sin errores (`mvn exec:java -Prun-publisher`)
+- [ ] **Publisher inicia EN TERMINAL SEPARADA** (antes de compilar frontend)
+- [ ] Frontend se compila DESPUÉS de publicar WS
+- [ ] Stubs se generaron desde WSDL (verificar `target/generated-sources/wsimport/`)
+- [ ] URLs en `frontend/pom.xml` apuntan a `localhost:8007` 
+
+### Configuración Eclipse (si usas Eclipse)
 - [ ] Proyectos importados como Maven projects
 - [ ] Servidor Tomcat 11 agregado
 - [ ] Tomcat apunta a `server/apache-tomcat-11.0.11`
 - [ ] **VM Arguments configurados** (`-Ddb.port`, `-Ddb.name`, `-Ddb.path`)
 - [ ] Proyecto `turismouy.UI` desplegado en el servidor
 - [ ] Java 17 configurado en ambos proyectos
+- [ ] Launch Configuration para Publisher creado
 
-### Primera Ejecución
-- [ ] Servidor inicia sin errores
-- [ ] Logs muestran `[DB] HSQLDB iniciado por Tomcat`
-- [ ] Aplicación accesible en http://localhost:8080/turismouy.UI/
-- [ ] Se crean archivos en `server/apache-tomcat-11.0.11/data/`
+### Ejecución (ORDEN IMPORTANTE)
+- [ ] **Terminal 1**: Publisher activo (`mvn exec:java -Prun-publisher`)
+- [ ] **Terminal 2**: Frontend compilado CON Publisher activo
+- [ ] **Terminal 3**: Tomcat iniciado (`./startup.sh` o `startup.bat`)
+- [ ] HSQLDB iniciado automáticamente por Tomcat (ver logs)
+- [ ] Aplicación accesible en `http://localhost:8080/turismouy.UI/`
+- [ ] Logs muestran:
+  ```
+  [UserWebService] http://localhost:8007/ws/user
+  [ActivityWebService] http://localhost:8007/ws/activity
+  [OutingAndInscriptionWebService] http://localhost:8007/ws/outingAndInscription
+  [DB] HSQLDB iniciado por Tomcat en puerto 9001
+  Server startup in [xxxx] milliseconds
+  ```
 
 **Si todos los checkboxes están marcados, ¡estás listo!** 🎉
 
@@ -723,80 +914,165 @@ Antes de ejecutar por primera vez, verifica:
 
 ## ▶️ Ejecución del Proyecto
 
-### Opción 1: Desde Eclipse
+### ⚠️ FLUJO RECOMENDADO: ECLIPSE (RECOMENDADO) + Terminals para Compila
 
-1. En la vista **Servers**, seleccionar el servidor
-2. Click en el botón **Start** (▶️) o click derecho → **Start**
-3. Esperar a que se inicie (verás en la consola):
-   ```
-   [DB] HSQLDB iniciado por Tomcat en puerto 9001
-   Server startup in [xxxx] milliseconds
-   ```
-4. Abrir navegador en: `http://localhost:8080/turismouy.UI/`
+### Paso a Paso: Ejecución Recomendada (Eclipse)
 
-### Opción 2: Desde Terminal/Línea de Comandos
+#### Paso 0a: Importar Proyectos en Eclipse
 
-#### Linux/macOS
+1. **File → Import → Maven → Existing Maven Projects**
+2. Seleccionar directorio raíz del proyecto
+3. Marcar:
+   - `backend/pom.xml`
+   - `frontend/pom.xml`
+4. **Finish**
 
-```bash
-# Navegar al directorio del servidor
-cd server/apache-tomcat-11.0.11
+#### Paso 0b: Configurar Tomcat en Eclipse
 
-# Iniciar Tomcat
-./bin/startup.sh
+1. **Window → Show View → Servers**
+2. Click derecho → **New → Server**
+3. **Server type**: Apache → Tomcat v11.0 Server
+4. **Tomcat installation directory**: `<proyecto>/server/apache-tomcat-11.0.11`
+5. **JRE**: Java 17
+6. **Finish**
 
-# Ver logs en tiempo real (opcional)
-tail -f logs/catalina.out
+#### Paso 0c: Configurar VM Arguments para HSQLDB (CRÍTICO)
 
-# Detener servidor
-./bin/shutdown.sh
+1. Vista **Servers** → Doble click en "Tomcat v11.0 Server"
+2. Click **"Open launch configuration"**
+3. Pestaña **Arguments** → Campo **VM arguments**
+4. Pegar (reemplazar rutas):
+
+```
+-Ddb.port=9001
+-Ddb.name=turismoUyDB
+-Ddb.path=/RUTA_ABSOLUTA/server/apache-tomcat-11.0.11/data/turismoUyDB
 ```
 
-#### Windows
-
-```cmd
-REM Navegar al directorio del servidor
-cd server\apache-tomcat-11.0.11
-
-REM Iniciar Tomcat
-bin\startup.bat
-
-REM Ver logs (en otra terminal)
-type logs\catalina.YYYY-MM-DD.log
-
-REM Detener servidor
-bin\shutdown.bat
+**Ejemplo Windows:**
+```
+-Ddb.port=9001
+-Ddb.name=turismoUyDB
+-Ddb.path=C:/Users/juan/eclipse-workspace/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB
 ```
 
-### Opción 3: Despliegue Manual del WAR
+**Ejemplo Linux:**
+```
+-Ddb.port=9001
+-Ddb.name=turismoUyDB
+-Ddb.path=/home/juan/workspace/turismouyApp/server/apache-tomcat-11.0.11/data/turismoUyDB
+```
 
-Si prefieres NO usar Eclipse:
+5. **OK** → Guardar configuración
 
-1. Copiar el WAR generado:
-   ```bash
-   cp frontend/target/turismouy.UI.war server/apache-tomcat-11.0.11/webapps/
-   ```
+⚠️ **Verificación**: En los logs de Tomcat deberías ver:
+```
+[setenv.sh] db.port=9001
+[DB] HSQLDB iniciado por Tomcat en puerto 9001
+```
 
-2. Iniciar Tomcat (método anterior)
-
-3. Tomcat desplegará automáticamente el WAR en `webapps/turismouy.UI/`
-
-4. Acceder a: `http://localhost:8080/turismouy.UI/`
-
-### Aplicación de Escritorio (Swing)
-
-Para ejecutar la interfaz gráfica de escritorio:
+#### Paso 1: Compilar Backend
 
 ```bash
 cd backend
-java -jar target/turismouy.Backend-1.0.0.jar
+mvn clean install
 ```
 
-O desde Eclipse:
-1. Navegar a `backend/src/main/java/desktop/Main.java`
-2. Click derecho → **Run As → Java Application**
+#### Paso 2: Crear Launch Configuration para Publisher
 
----
+1. **Run → Run Configurations...**
+2. **New Java Application**:
+   - **Name**: `TurismoUY Publisher WS`
+   - **Project**: `turismouy.Backend`
+   - **Main class**: `turismouyapp.webservices.Publisher`
+   - **VM arguments**: `-Dcom.sun.xml.ws.spi.db.BindingContextFactory=com.sun.xml.ws.db.glassfish.JAXBRIContextFactory`
+3. **Run** → Verás en consola:
+   ```
+   [UserWebService] http://localhost:8007/ws/user?wsdl
+   [ActivityWebService] http://localhost:8007/ws/activity?wsdl
+   [OutingAndInscriptionWebService] http://localhost:8007/ws/outingAndInscription?wsdl
+   ```
+
+⚠️ **Dejar esta ejecución activa** (no cerrar consola)
+
+#### Paso 3: Compilar Frontend (con Publisher activo)
+
+1. Click derecho en proyecto `turismouy.UI`
+2. **Maven → Maven Build**:
+   - **Goals**: `clean package`
+3. **Run** → wsimport descargará WSDLs y generará stubs
+
+#### Paso 4: Desplegar en Tomcat
+
+1. Vista **Servers** → Click derecho en servidor → **Add and Remove...**
+2. Seleccionar `turismouy.UI` → Click **Add >**
+3. **Finish**
+
+#### Paso 5: Iniciar Tomcat
+
+1. Vista **Servers** → Click botón **Start** (▶️)
+2. Espera en la consola de Eclipse:
+   ```
+   [DB] HSQLDB iniciado por Tomcat en puerto 9001
+   INFO: Server startup in [xxxx] milliseconds
+   ```
+
+#### Paso 6: Acceder a Aplicación
+
+```
+http://localhost:8080/turismouy.UI/
+```
+
+#### Resumen Visual (Estado de Ejecución)
+
+```
+┌─────────────────────────────────────────────────────┐
+│ Console Tab 1 [Publisher WS]                        │
+│ [UserWebService] http://localhost:8007/ws/user     │
+│ (CORRIENDO - NO CERRAR)                            │
+├─────────────────────────────────────────────────────┤
+│ Console Tab 2 [Tomcat v11.0 Server]                │
+│ [DB] HSQLDB iniciado por Tomcat en puerto 9001     │
+│ (CORRIENDO - Ver cambios en vivo)                  │
+├─────────────────────────────────────────────────────┤
+│ Serv Vista: Tomcat v11.0 Server [Started]          │
+│ http://localhost:8080/turismouy.UI/  ← Acceder aquí │
+└─────────────────────────────────────────────────────┘
+```
+
+#### Detener Aplicación
+
+Vista **Servers** → Click botón **Stop** (Stop button)
+
+### Alternativa: Ejecución desde Terminal (NO Recomendado - Solo Fallback)
+
+Si Eclipse no funciona, puedes usar terminal (pero con configuración manual):
+
+```bash
+# Terminal 1: Compilar Backend
+cd backend
+mvn clean install
+
+# Terminal 1: Publicar Publisher (DEJAR ABIERTA)
+mvn exec:java -Prun-publisher
+# Verás endpoints en localhost:8007
+
+# Terminal 2: Compilar Frontend (DESPUÉS de ver endpoints)
+cd frontend
+mvn clean package
+
+# Terminal 3: Iniciar Tomcat
+cd server/apache-tomcat-11.0.11
+./bin/startup.sh    # Linux/macOS
+# o startup.bat en Windows
+
+# Acceder a http://localhost:8080/turismouy.UI/
+```
+
+⚠️ **Nota**: Esta opción requiere:
+- Configurar manualmente `setenv.sh` o `setenv.bat` con DB_PATH
+- Perder la capacidad de Eclipse de hot-reload cambios
+- Se recomienda fuertemente usar Eclipse en su lugar
 
 ## 📁 Estructura de Directorios
 
@@ -986,6 +1262,134 @@ del data\turismoUyDB.*    # Windows
 ---
 
 ## 🔧 Solución de Problemas
+
+### ⚠️ Problemas de Web Services SOAP (Leer Primero)
+
+#### Problema 0a: wsimport Falla - "Connection refused: 127.0.0.1:8007"
+
+**Síntomas:**
+```
+[ERROR] Failed to download WSDL: http://localhost:8007/ws/user?wsdl
+[ERROR] Connection refused: 127.0.0.1:8007
+[ERROR] BUILD FAILURE
+```
+
+**Causa**: El Publisher NO está corriendo cuando intentas compilar frontend.
+
+**Solución**:
+```bash
+# Terminal 1: Asegúrate que el Publisher esté corriendo
+cd backend
+mvn exec:java -Prun-publisher
+
+# Espera a ver en la consola:
+# [UserWebService] http://localhost:8007/ws/user
+# [ActivityWebService] http://localhost:8007/ws/activity
+# [OutingAndInscriptionWebService] http://localhost:8007/ws/outingAndInscription
+
+# Terminal 2: DESPUÉS de ver los endpoints, compila frontend
+cd frontend
+mvn clean package
+```
+
+⚠️ **Nunca compiles frontend sin que Publisher esté activo**
+
+#### Problema 0b: Stubs No Se Generan en `generated-sources/wsimport/`
+
+**Síntomas**:
+```
+[INFO] Building war: .../frontend/target/turismouy.UI.war
+[WARNING] No artifacts to generate SOAP stubs from
+```
+
+**Causa**: El plugin wsimport no pudo descargar los WSDLs.
+
+**Verificación**:
+```bash
+# Verificar que Publisher esté corriendo
+curl http://localhost:8007/ws/user?wsdl
+
+# Si ves XML, está bien. Si ves error, inicia Publisher:
+cd backend && mvn exec:java -Prun-publisher
+```
+
+**Solución**:
+```bash
+# 1. Asegurar Publisher activo (ver arriba)
+# 2. Limpiar caché de Maven
+rm -rf ~/.m2/repository/turismouyapp/
+
+# 3. Recompilar frontend
+cd frontend
+mvn clean package
+
+# 4. Verificar stubs generados
+ls target/generated-sources/wsimport/turismouyapp/webservices/
+# Debe listar: UserService.java, ActivityService.java, etc.
+```
+
+#### Problema 0c: Servlets Dicen "ClassNotFoundException: UserService"
+
+**Síntomas**:
+```
+java.lang.ClassNotFoundException: turismouyapp.webservices.UserService
+```
+
+**Causa**: Los stubs no fueron generados (ver Problema 0b).
+
+**Solución**:
+```bash
+# 1. Verificar que los stubs existen:
+find frontend/target -name "UserService.java" -type f
+
+# Si no existen:
+# - Publisher debe estar activo
+# - Compilar frontend: mvn clean package
+
+# 2. En Eclipse: Maven → Update Project (limpia caché)
+```
+
+#### Problema 0d: "Address already in use: port 8007"
+
+**Síntomas**:
+```
+java.net.BindException: Address already in use: 127.0.0.1:8007
+```
+
+**Causa**: Ya hay un Publisher corriendo en ese puerto.
+
+**Solución**:
+```bash
+# Linux/macOS: Ver qué está usando el puerto
+lsof -i :8007
+
+# Windows: Ver proceso
+netstat -ano | findstr :8007
+
+# Matar el proceso (reemplaza PID)
+kill -9 <PID>  # Linux/macOS
+taskkill /PID <PID> /F  # Windows
+
+# O simplemente inicia Publisher en otra terminal
+```
+
+#### Problema 0e: Publisher Inicia pero "No logs de endpoints"
+
+**Síntomas**:
+```
+# Solo ves esto en la consola:
+[UserWebService] java.net.BindException: Address already in use
+```
+
+**Solución**:
+```bash
+# 1. Matar proceso en puerto 8007 (ver arriba)
+# 2. Intentar de nuevo
+cd backend
+mvn exec:java -Prun-publisher
+```
+
+---
 
 ### Problema 1: Puerto 8080 o 9001 Ya en Uso
 
@@ -1300,6 +1704,20 @@ mvn clean install -X
 mvn help:effective-pom
 ```
 
+### ⚠️ Nota Importante: Profiles No Recomendados
+
+El archivo `backend/pom.xml` contiene dos profiles que **NO son recomendados**:
+
+```bash
+# ❌ NO USAR - Comportamiento no probado
+mvn exec:java -Prun-desktop    # Swing GUI (untested)
+mvn exec:java -Prun-publisher  # Publisher (use Eclipse instead)
+```
+
+**Alternativas recomendadas:**
+- **Publisher**: Usar Eclipse con Launch Configuration (ver [Ejecución del Proyecto](#-ejecución-del-proyecto))
+- **Desktop GUI**: Ejecutar desde Eclipse → click derecho en `desktop/Main.java` → Run As → Java Application
+
 ### Equivalencias con npm (para desarrolladores Node.js)
 
 | npm | Maven | Descripción |
@@ -1312,6 +1730,50 @@ mvn help:effective-pom
 | `npm run docs` | `mvn javadoc:javadoc` | Genera documentación |
 
 Para más detalles, consultar [COMANDOS.md](COMANDOS.md).
+
+---
+
+## 🚀 Flujo de Desarrollo Rápido (Referencia Rápida)
+
+### Setup Inicial (Una sola vez)
+
+```bash
+# 1. Compilar backend
+mvn clean install
+
+# 2. Publicar WS (Terminal 1 - DEJAR ABIERTA)
+cd backend
+mvn exec:java -Prun-publisher
+# Verás: [UserWebService] http://localhost:8007/ws/user
+
+# 3. Compilar frontend (Terminal 2)
+cd frontend
+mvn clean package
+
+# 4. Iniciar Tomcat (Terminal 3 - DEJAR ABIERTA)
+cd server/apache-tomcat-11.0.11
+./bin/startup.sh  # o startup.bat en Windows
+```
+
+### Desarrollo Iterativo
+
+```bash
+# Cambio en backend → Recompilar Backend
+cd backend && mvn clean install
+
+# Cambio en frontend → Recompilar Frontend
+# (Publisher y Tomcat siguen corriendo)
+cd frontend && mvn clean package
+
+# Cambio en JSP → Solo refrescar navegador
+# (Tomcat autodeploya cambios)
+```
+
+### Hot Reload
+
+- **Archivos JSP/CSS/JS**: Refrescar navegador (Tomcat autodeploya)
+- **Java**: Recompilar módulo correspondiente
+- **Configuración**: Reiniciar Tomcat
 
 ---
 
