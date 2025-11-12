@@ -76,7 +76,7 @@ public class ModifyDataUser extends HttpServlet {
 		String password = this.isNullOrEmptyParameter(request, "password-user") ? loggedUser.getPassword()
 				: request.getParameter("password-user");
 
-		LocalDate birthDate = LocalDate.now();
+		String birthDate = DateUtils.getCurrentDateIso();
 
 		// Si passsword no es encriptada, es nueva
 		if (!PasswordEncoder.isBCryptHash(password)) {
@@ -91,7 +91,7 @@ public class ModifyDataUser extends HttpServlet {
 		if (!this.isNullOrEmptyParameter(request, "birthdate-user")) {
 			try {
 				String birthDateStr = request.getParameter("birthdate-user");
-				birthDate = LocalDate.parse(birthDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
+		        birthDate = DateUtils.validateAndReturnIsoDateString(birthDateStr);
 
 			} catch (DateTimeParseException ex) {
 
@@ -108,26 +108,28 @@ public class ModifyDataUser extends HttpServlet {
 				: loggedUser.getImagePath();
 
 		// Actualizacion de perfil actual
-		DtUser updatedUser = null;
+		DtUser updatedUser = userRole == UserType.TOURIST ? new DtTourist() : new DtSupplier();
 		String hashedPassword = !PasswordEncoder.isBCryptHash(password)
 				|| !PasswordEncoder.matches(password, loggedUser.getPassword()) ? PasswordEncoder.encode(password)
 						: password;
 
+		// Update data		
+		updatedUser.setNickname(loggedUser.getNickname());
+		updatedUser.setName(name);
+		updatedUser.setLastName(lastname);
+		updatedUser.setEmail(loggedUser.getEmail());
+		updatedUser.setBirthDate(birthDate);
+		updatedUser.setPassword(hashedPassword);
+		updatedUser.setImagePath(fileName);
+		
 		switch (userRole) {
 		case TOURIST:
 			String nationality = this.isNullOrEmptyParameter(request, "nationality-user")
 					? ((DtTourist) loggedUser).getNationality()
 					: request.getParameter("nationality-user");
 
-			updatedUser = new DtTourist();
-			updatedUser.setNickname(loggedUser.getNickname());
-			updatedUser.setName(name);
-			updatedUser.setLastName(lastname);
-			updatedUser.setEmail(loggedUser.getEmail());
-			updatedUser.setBirthDate(birthDate.toString());
-			updatedUser.setPassword(hashedPassword);
+//			updatedUser = new DtTourist();
 			((DtTourist)updatedUser).setNationality(nationality);
-			updatedUser.setImagePath(fileName);
 			break;
 
 		case SUPPLIER:
@@ -140,16 +142,16 @@ public class ModifyDataUser extends HttpServlet {
 					? ((DtSupplier) loggedUser).getWebSite()
 					: request.getParameter("website-user");
 
-			updatedUser = new DtSupplier();
-			updatedUser.setNickname(loggedUser.getNickname());
-			updatedUser.setName(name);
-			updatedUser.setLastName(lastname);
-			updatedUser.setEmail(loggedUser.getEmail());
-			updatedUser.setBirthDate(birthDate.toString());
-			updatedUser.setPassword(hashedPassword);
+//			updatedUser = new DtSupplier();
+//			updatedUser.setNickname(loggedUser.getNickname());
+//			updatedUser.setName(name);
+//			updatedUser.setLastName(lastname);
+//			updatedUser.setEmail(loggedUser.getEmail());
+//			updatedUser.setBirthDate(birthDate);
+//			updatedUser.setPassword(hashedPassword);
 			((DtSupplier)updatedUser).setDescription(description);
 			((DtSupplier)updatedUser).setWebSite(website);
-			updatedUser.setImagePath(fileName);
+//			updatedUser.setImagePath(fileName);
 			
 			break;
 

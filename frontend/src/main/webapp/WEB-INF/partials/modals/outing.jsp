@@ -2,7 +2,7 @@
 <%@page import="java.util.List"%>
 <div class="modal fade" id="modalOuting" tabindex="-1"
     aria-labelledby="modalOutingLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalOutingLabel">Alta de salida

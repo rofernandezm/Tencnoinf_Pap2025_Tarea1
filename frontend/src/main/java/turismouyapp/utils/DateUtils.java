@@ -10,8 +10,9 @@ import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 /**
- * Utilidades para conversión de fechas en el contexto de Web Services.
- * Maneja la conversión entre String (formato SOAP/XML) y LocalDate/LocalDateTime (entidades JPA).
+ * Utilidades para conversión de fechas en el contexto de Web Services. Maneja
+ * la conversión entre String (formato SOAP/XML) y LocalDate/LocalDateTime
+ * (entidades JPA).
  */
 public class DateUtils {
 
@@ -21,12 +22,14 @@ public class DateUtils {
 	private static final SimpleDateFormat DATE_LOCAL = new SimpleDateFormat("dd/MM/yyyy");
 
 	/**
-	 * Convierte un objeto fecha (String o LocalDate) a LocalDate.
-	 * Útil para parsear fechas recibidas desde Web Services donde pueden venir como String.
+	 * Convierte un objeto fecha (String o LocalDate) a LocalDate. Útil para parsear
+	 * fechas recibidas desde Web Services donde pueden venir como String.
 	 *
-	 * @param dateValue El valor de la fecha (puede ser String en formato ISO o LocalDate)
+	 * @param dateValue El valor de la fecha (puede ser String en formato ISO o
+	 *                  LocalDate)
 	 * @return LocalDate parseado, o null si el valor es null o vacío
-	 * @throws IllegalArgumentException si el tipo no es soportado o el formato es inválido
+	 * @throws IllegalArgumentException si el tipo no es soportado o el formato es
+	 *                                  inválido
 	 */
 	public static LocalDate parseToLocalDate(Object dateValue) {
 		if (dateValue == null) {
@@ -46,13 +49,12 @@ public class DateUtils {
 				return LocalDate.parse(dateStr, ISO_DATE_FORMATTER);
 			} catch (DateTimeParseException e) {
 				throw new IllegalArgumentException(
-					"Formato de fecha inválido: '" + dateStr + "'. Se espera formato ISO (yyyy-MM-dd)", e);
+						"Formato de fecha inválido: '" + dateStr + "'. Se espera formato ISO (yyyy-MM-dd)", e);
 			}
 		}
 
 		throw new IllegalArgumentException(
-			"Tipo de fecha no soportado: " + dateValue.getClass().getName() +
-			". Se esperaba String o LocalDate");
+				"Tipo de fecha no soportado: " + dateValue.getClass().getName() + ". Se esperaba String o LocalDate");
 	}
 
 	/**
@@ -66,12 +68,15 @@ public class DateUtils {
 	}
 
 	/**
-	 * Convierte un objeto fecha-hora (String o LocalDateTime) a LocalDateTime.
-	 * Útil para parsear fechas-horas recibidas desde Web Services donde pueden venir como String.
+	 * Convierte un objeto fecha-hora (String o LocalDateTime) a LocalDateTime. Útil
+	 * para parsear fechas-horas recibidas desde Web Services donde pueden venir
+	 * como String.
 	 *
-	 * @param dateTimeValue El valor de la fecha-hora (puede ser String en formato ISO o LocalDateTime)
+	 * @param dateTimeValue El valor de la fecha-hora (puede ser String en formato
+	 *                      ISO o LocalDateTime)
 	 * @return LocalDateTime parseado, o null si el valor es null o vacío
-	 * @throws IllegalArgumentException si el tipo no es soportado o el formato es inválido
+	 * @throws IllegalArgumentException si el tipo no es soportado o el formato es
+	 *                                  inválido
 	 */
 	public static LocalDateTime parseToLocalDateTime(Object dateTimeValue) {
 		if (dateTimeValue == null) {
@@ -90,14 +95,13 @@ public class DateUtils {
 			try {
 				return LocalDateTime.parse(dateTimeStr, ISO_DATETIME_FORMATTER);
 			} catch (DateTimeParseException e) {
-				throw new IllegalArgumentException(
-					"Formato de fecha-hora inválido: '" + dateTimeStr + "'. Se espera formato ISO (yyyy-MM-dd'T'HH:mm:ss)", e);
+				throw new IllegalArgumentException("Formato de fecha-hora inválido: '" + dateTimeStr
+						+ "'. Se espera formato ISO (yyyy-MM-dd'T'HH:mm:ss)", e);
 			}
 		}
 
-		throw new IllegalArgumentException(
-			"Tipo de fecha-hora no soportado: " + dateTimeValue.getClass().getName() +
-			". Se esperaba String o LocalDateTime");
+		throw new IllegalArgumentException("Tipo de fecha-hora no soportado: " + dateTimeValue.getClass().getName()
+				+ ". Se esperaba String o LocalDateTime");
 	}
 
 	/**
@@ -111,10 +115,12 @@ public class DateUtils {
 	}
 
 	/**
-	 * Convierte un String en formato ISO 8601 Duration (ej: "PT2H", "PT1H30M") a un string formateado de horas.
+	 * Convierte un String en formato ISO 8601 Duration (ej: "PT2H", "PT1H30M") a un
+	 * string formateado de horas.
 	 * 
 	 * @param durationStr El string de duración en formato ISO 8601 (ej: "PT2H")
-	 * @return String formateado con las horas (ej: "2.0 horas", "1.5 horas"), o null si el string es null o vacío
+	 * @return String formateado con las horas (ej: "2.0 horas", "1.5 horas"), o
+	 *         null si el string es null o vacío
 	 * @throws IllegalArgumentException si el formato de duración es inválido
 	 */
 	public static String parseDurationToHoursString(String durationStr) {
@@ -125,15 +131,15 @@ public class DateUtils {
 		try {
 			Duration duration = Duration.parse(durationStr.trim());
 			double hours = duration.toMinutes() / 60.0;
-			
+
 			// Si es un número entero, no mostrar decimales
 			if (hours == (int) hours) {
 				return String.format("%d horas", (int) hours);
 			}
 			return String.format("%.1f horas", hours);
 		} catch (DateTimeParseException e) {
-			throw new IllegalArgumentException(
-				"Formato de duración inválido: '" + durationStr + "'. Se espera formato ISO 8601 (ej: PT2H, PT1H30M)", e);
+			throw new IllegalArgumentException("Formato de duración inválido: '" + durationStr
+					+ "'. Se espera formato ISO 8601 (ej: PT2H, PT1H30M)", e);
 		}
 	}
 
@@ -141,8 +147,10 @@ public class DateUtils {
 	 * Convierte un String en formato ISO LocalDateTime a String formateado.
 	 * Ejemplo: "2025-11-10T22:27:00" -> "10/11/2025 22:27"
 	 *
-	 * @param dateTimeStr El string de fecha-hora en formato ISO (yyyy-MM-dd'T'HH:mm:ss)
-	 * @return String formateado (dd/MM/yyyy HH:mm), o null si el string es null o vacío
+	 * @param dateTimeStr El string de fecha-hora en formato ISO
+	 *                    (yyyy-MM-dd'T'HH:mm:ss)
+	 * @return String formateado (dd/MM/yyyy HH:mm), o null si el string es null o
+	 *         vacío
 	 * @throws IllegalArgumentException si el formato es inválido
 	 */
 	public static String parseIsoStringToFormattedDateTime(String dateTimeStr) {
@@ -155,14 +163,14 @@ public class DateUtils {
 			Date date = java.sql.Timestamp.valueOf(localDateTime);
 			return DATE_LOCAL_TIME.format(date);
 		} catch (DateTimeParseException e) {
-			throw new IllegalArgumentException(
-				"Formato de fecha-hora inválido: '" + dateTimeStr + "'. Se espera formato ISO (yyyy-MM-dd'T'HH:mm:ss)", e);
+			throw new IllegalArgumentException("Formato de fecha-hora inválido: '" + dateTimeStr
+					+ "'. Se espera formato ISO (yyyy-MM-dd'T'HH:mm:ss)", e);
 		}
 	}
 
 	/**
-	 * Convierte un String en formato ISO Date a String formateado.
-	 * Ejemplo: "2025-11-10" -> "10/11/2025"
+	 * Convierte un String en formato ISO Date a String formateado. Ejemplo:
+	 * "2025-11-10" -> "10/11/2025"
 	 *
 	 * @param dateStr El string de fecha en formato ISO (yyyy-MM-dd)
 	 * @return String formateado (dd/MM/yyyy), o null si el string es null o vacío
@@ -179,13 +187,12 @@ public class DateUtils {
 			return DATE_LOCAL.format(date);
 		} catch (DateTimeParseException e) {
 			throw new IllegalArgumentException(
-				"Formato de fecha inválido: '" + dateStr + "'. Se espera formato ISO (yyyy-MM-dd)", e);
+					"Formato de fecha inválido: '" + dateStr + "'. Se espera formato ISO (yyyy-MM-dd)", e);
 		}
 	}
 
 	/**
-	 * Obtiene la fecha actual como String en formato ISO.
-	 * Ejemplo: "2025-11-10"
+	 * Obtiene la fecha actual como String en formato ISO. Ejemplo: "2025-11-10"
 	 *
 	 * @return String con la fecha actual en formato yyyy-MM-dd
 	 */
@@ -194,9 +201,8 @@ public class DateUtils {
 	}
 
 	/**
-	 * Convierte un String en formato ISO a LocalDate.
-	 * Método wrapper para parseToLocalDate que acepta solo String.
-	 * Ejemplo: "2025-11-10" -> LocalDate
+	 * Convierte un String en formato ISO a LocalDate. Método wrapper para
+	 * parseToLocalDate que acepta solo String. Ejemplo: "2025-11-10" -> LocalDate
 	 *
 	 * @param dateStr El string de fecha en formato ISO (yyyy-MM-dd)
 	 * @return LocalDate parseado, o null si el string es null o vacío
@@ -211,8 +217,40 @@ public class DateUtils {
 			return LocalDate.parse(dateStr.trim(), ISO_DATE_FORMATTER);
 		} catch (DateTimeParseException e) {
 			throw new IllegalArgumentException(
-				"Formato de fecha inválido: '" + dateStr + "'. Se espera formato ISO (yyyy-MM-dd)", e);
+					"Formato de fecha inválido: '" + dateStr + "'. Se espera formato ISO (yyyy-MM-dd)", e);
 		}
+	}
+
+	/**
+	 * Valida que un String tenga formato ISO de fecha válido. Si es válido, retorna
+	 * el mismo String (trimmed), si no lanza excepción. Útil para validar fechas de
+	 * formularios antes de guardarlas. Ejemplo: "2025-11-10" -> "2025-11-10" (si es
+	 * válido)
+	 *
+	 * @param dateStr El string de fecha en formato ISO (yyyy-MM-dd)
+	 * @return El mismo String validado y trimmed
+	 * @throws DateTimeParseException si el formato es inválido
+	 */
+	public static String validateAndReturnIsoDateString(String dateStr) throws DateTimeParseException {
+		if (dateStr == null || dateStr.trim().isEmpty()) {
+			throw new DateTimeParseException("La fecha no puede ser null o vacía", dateStr != null ? dateStr : "", 0);
+		}
+
+		String trimmed = dateStr.trim();
+		// Parsea para validar el formato, pero retorna el String
+		LocalDate.parse(trimmed, ISO_DATE_FORMATTER);
+		return trimmed;
+	}
+
+	/**
+	 * Convierte un LocalDate a String en formato ISO. Método de conveniencia que
+	 * maneja null de forma segura. Ejemplo: LocalDate -> "2025-11-10"
+	 *
+	 * @param date El LocalDate a convertir
+	 * @return String en formato ISO (yyyy-MM-dd), o null si date es null
+	 */
+	public static String localDateToIsoString(LocalDate date) {
+		return date != null ? date.format(ISO_DATE_FORMATTER) : null;
 	}
 
 	/**
@@ -251,7 +289,7 @@ public class DateUtils {
 			return DATE_LOCAL_TIME.parse(dateStr.trim());
 		} catch (ParseException e) {
 			throw new IllegalArgumentException(
-				"Formato de fecha inválido: '" + dateStr + "'. Se espera formato dd/MM/yyyy HH:mm", e);
+					"Formato de fecha inválido: '" + dateStr + "'. Se espera formato dd/MM/yyyy HH:mm", e);
 		}
 	}
 
@@ -271,7 +309,7 @@ public class DateUtils {
 			return DATE_LOCAL.parse(dateStr.trim());
 		} catch (ParseException e) {
 			throw new IllegalArgumentException(
-				"Formato de fecha inválido: '" + dateStr + "'. Se espera formato dd/MM/yyyy", e);
+					"Formato de fecha inválido: '" + dateStr + "'. Se espera formato dd/MM/yyyy", e);
 		}
 	}
 
@@ -282,13 +320,14 @@ public class DateUtils {
 	public static DateTimeFormatter getIsoDatetimeFormatter() {
 		return ISO_DATETIME_FORMATTER;
 	}
-	
+
 	/**
-	 * Convierte un número de horas (como String) a String en formato ISO 8601 Duration.
-	 * Ejemplo: "2" -> "PT2H", "1.5" -> "PT1H30M"
+	 * Convierte un número de horas (como String) a String en formato ISO 8601
+	 * Duration. Ejemplo: "2" -> "PT2H", "1.5" -> "PT1H30M"
 	 *
 	 * @param hoursStr El número de horas como String
-	 * @return String en formato ISO 8601 Duration, o null si hoursStr es null o vacío
+	 * @return String en formato ISO 8601 Duration, o null si hoursStr es null o
+	 *         vacío
 	 * @throws IllegalArgumentException si el string no es un número válido
 	 */
 	public static String hoursToDurationString(String hoursStr) {
@@ -300,17 +339,17 @@ public class DateUtils {
 			Double hours = Double.parseDouble(hoursStr.trim());
 			return DateUtils.hoursToDurationString(hours);
 		} catch (NumberFormatException e) {
-			throw new IllegalArgumentException(
-				"Valor de horas inválido: '" + hoursStr + "'. Se espera un número", e);
+			throw new IllegalArgumentException("Valor de horas inválido: '" + hoursStr + "'. Se espera un número", e);
 		}
 	}
-	
+
 	/**
-	 * Convierte un número de horas a String en formato ISO 8601 Duration.
-	 * Ejemplo: 2.0 -> "PT2H", 1.5 -> "PT1H30M"
+	 * Convierte un número de horas a String en formato ISO 8601 Duration. Ejemplo:
+	 * 2.0 -> "PT2H", 1.5 -> "PT1H30M"
 	 *
 	 * @param hours El número de horas (puede incluir decimales para minutos)
-	 * @return String en formato ISO 8601 Duration (ej: "PT2H", "PT1H30M"), o null si hours es null
+	 * @return String en formato ISO 8601 Duration (ej: "PT2H", "PT1H30M"), o null
+	 *         si hours es null
 	 */
 	protected static String hoursToDurationString(Double hours) {
 		if (hours == null) {

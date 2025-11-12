@@ -92,7 +92,8 @@ if (actWtOuts == null) {
 		? activityImgPath + "/" + a.getImageActPath()
 		: defaultImgPath%>"
 									alt="Imagen de actividad" class="card-img-top"
-									style="object-fit: contain; object-position: center;">
+									style="object-fit: contain; object-position: center;"/>
+									
 								<div class="card-body">
 									<h5 class="card-title"><%=a.getActivityName()%></h5>
 									<!-- BOTON DETALLES CARGANDO EL MODAL -->
@@ -116,12 +117,14 @@ if (actWtOuts == null) {
 											data-bs-dismiss="modal" aria-label="Cerrar"></button>
 									</div>
 									<div class="modal-body">
+									<div class="card-img-container">
 										<img
 											src="<%=(a.getImageActPath() != null && !a.getImageActPath().isEmpty())
 		? activityImgPath + "/" + a.getImageActPath()
 		: defaultImgPath%>"
 											id="actividadImg" alt="Imagen de la actividad"
-											class="modal-activity-img rounded mb-3">
+											class="modal-activity-img rounded mb-3"/>
+											</div>
 										<!-- Detalles -->
 										<p class="mb-3">
 											<strong>Descripción:</strong>

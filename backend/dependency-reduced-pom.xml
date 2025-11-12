@@ -110,8 +110,8 @@
     <maven-shade-plugin.version>3.5.1</maven-shade-plugin.version>
     <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
     <eclipselink.version>4.0.4</eclipselink.version>
-    <maven.compiler.target>17</maven.compiler.target>
     <jax-ws.version>4.0.3</jax-ws.version>
+    <maven.compiler.target>17</maven.compiler.target>
     <jaxb.runtime.version>4.0.5</jaxb.runtime.version>
     <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
   </properties>

@@ -257,4 +257,9 @@ footer {
 	color: var(--secondary-color) !important;
 }
 
+#privacyModal .modal-header, #termsModal .modal-header {
+	background-color: var(--primary-color) !Important;
+	color: var(--background-primary-color) !Important;
+}
+
 /*END FOOTER*/
