@@ -282,4 +282,43 @@ public class DateUtils {
 	public static DateTimeFormatter getIsoDatetimeFormatter() {
 		return ISO_DATETIME_FORMATTER;
 	}
+	
+	/**
+	 * Convierte un número de horas (como String) a String en formato ISO 8601 Duration.
+	 * Ejemplo: "2" -> "PT2H", "1.5" -> "PT1H30M"
+	 *
+	 * @param hoursStr El número de horas como String
+	 * @return String en formato ISO 8601 Duration, o null si hoursStr es null o vacío
+	 * @throws IllegalArgumentException si el string no es un número válido
+	 */
+	public static String hoursToDurationString(String hoursStr) {
+		if (hoursStr == null || hoursStr.trim().isEmpty()) {
+			return null;
+		}
+
+		try {
+			Double hours = Double.parseDouble(hoursStr.trim());
+			return DateUtils.hoursToDurationString(hours);
+		} catch (NumberFormatException e) {
+			throw new IllegalArgumentException(
+				"Valor de horas inválido: '" + hoursStr + "'. Se espera un número", e);
+		}
+	}
+	
+	/**
+	 * Convierte un número de horas a String en formato ISO 8601 Duration.
+	 * Ejemplo: 2.0 -> "PT2H", 1.5 -> "PT1H30M"
+	 *
+	 * @param hours El número de horas (puede incluir decimales para minutos)
+	 * @return String en formato ISO 8601 Duration (ej: "PT2H", "PT1H30M"), o null si hours es null
+	 */
+	protected static String hoursToDurationString(Double hours) {
+		if (hours == null) {
+			return null;
+		}
+
+		long totalMinutes = Math.round(hours * 60);
+		Duration duration = Duration.ofMinutes(totalMinutes);
+		return duration.toString();
+	}
 }

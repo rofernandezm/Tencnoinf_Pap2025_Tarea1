@@ -100,7 +100,7 @@ public class Activities extends HttpServlet {
 		String city = request.getParameter("city");
 		String description = request.getParameter("description");
 		String registrationDate = DateUtils.getCurrentDateIso();
-		String durationStr = DateUtils.parseDurationToHoursString(request.getParameter("durationHours"));
+		String durationStr = DateUtils.hoursToDurationString(request.getParameter("durationHours"));
 		float cost = 0.0f;
 		
 		try {
