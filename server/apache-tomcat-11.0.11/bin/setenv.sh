@@ -9,7 +9,7 @@ if [ -z "$CATALINA_BASE" ]; then
 fi
 
 if [ -z "$DB_PATH" ]; then
-  DB_PATH="$CATALINA_BASE/data/$DB_NAME"
+  DB_PATH="$CATALINA_BASE/data/db/$DB_NAME"
 fi
 
 mkdir -p "$DB_PATH"

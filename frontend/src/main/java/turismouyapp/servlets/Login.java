@@ -231,8 +231,11 @@ public class Login extends HttpServlet {
 				userWebService.updateProfileImageUser(nickname, defaultImage);
 			}
 
+			// Consultar el usuario recién creado desde el webservice para obtener la instancia correcta
+			DtUser persistedUser = userWebService.consultUserData(nickname);
+			
 			request.setAttribute("mensaje", "Se ha ingresado correctamente el usuario " + nickname + " en el sistema.");
-			this.createNewSessionAndAssingUser(request, response, newUser);
+			this.createNewSessionAndAssingUser(request, response, persistedUser);
 
 		} catch (RepeatedUserNicknameException e) {
 
