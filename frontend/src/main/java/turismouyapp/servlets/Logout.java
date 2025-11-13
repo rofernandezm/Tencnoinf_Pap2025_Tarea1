@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import turismouyapp.webservices.UserType;
+
 import java.io.IOException;
 
 /**
@@ -46,7 +48,11 @@ public class Logout extends HttpServlet {
 
         if (session != null) {
             // Invalida la sesión
+    		session.setAttribute("guest_mode", true);
+    		session.setAttribute("user_role", UserType.GUEST);
+    		session.setAttribute("logged_user", null);
             session.invalidate();
+            
         }
 
         // Redirige al login
