@@ -1,4 +1,4 @@
-🌐 Language: **Español** | [English](FEATURES_EN.md)
+🌐 Idioma: **Español** | [Inglés](FEATURES_EN.md)
 
 # Funcionalidades
 
@@ -114,3 +114,4 @@ El sistema garantiza:
 - Integridad entre actividades, salidas e inscripciones.
 - Relaciones consistentes entre usuarios y entidades asociadas.
 - Almacenamiento estructurado mediante modelo relacional.
+
