@@ -1,4 +1,4 @@
-Language: [Español](SETUP.md) | **English**
+🌐 Language: [Spanish](SETUP.md) | **English**
 
 # Setup Guide (TurismoUY)
 
@@ -359,4 +359,5 @@ mvn javadoc:javadoc
 
 - The project was developed under an academic requirement to use Eclipse IDE.
 - The repository includes a portable Tomcat + HSQLDB configuration to ensure cross-platform reproducibility.
+
 - The execution order is critical due to SOAP stub generation (`wsimport`).
