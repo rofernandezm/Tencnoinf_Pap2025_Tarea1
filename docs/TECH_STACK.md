@@ -1,4 +1,4 @@
-🌐 Language: **Español** | [English](TECH_STACK_EN.md)
+🌐 Idioma: **Español** | [Inglés](TECH_STACK_EN.md)
 
 # Stack Tecnológico
 
@@ -77,3 +77,4 @@ La aplicación desktop comparte directamente la lógica del backend dentro del m
 
 - **Git**
   - Control de versiones
+
