@@ -1,4 +1,4 @@
-🌐 Language: **Español** | [English](README_EN.md)
+🌐 Idioma: **Español** | [Inglés](README_EN.md)
 
 # TurismoUY - Sistema de Gestión Turística
 
