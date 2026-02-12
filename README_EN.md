@@ -1,4 +1,4 @@
-🌐 Language: [Español](README.md) | **English**
+🌐 Language: [Spanish](README.md) | **English**
 
 # TurismoUY - Tourism Management System (Academic Project)
 
@@ -138,4 +138,5 @@ Even though the project includes scripts and a portable server setup, Eclipse re
 
 This repository is part of the **Tecnólogo en Informática** program, a degree jointly managed by **Universidad de la República (UDELAR)**, **Universidad Tecnológica (UTEC)**, and **Dirección General de Educación Técnico Profesional UTU**.  
 More information about the program can be found here:  
+
 https://eduterciaria.utu.edu.uy/2024/06/18/tecnologo-en-informatica/
