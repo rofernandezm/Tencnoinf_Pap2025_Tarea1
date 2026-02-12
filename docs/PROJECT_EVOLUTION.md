@@ -1,4 +1,4 @@
-🌐 Language: **Español** | [English](PROJECT_EVOLUTION_EN.md)
+🌐 Idioma: **Español** | [Inglés](PROJECT_EVOLUTION_EN.md)
 
 # Evolución del Proyecto
 
@@ -131,3 +131,4 @@ El proyecto permitió experimentar con:
 - Portabilidad y configuración reproducible.
 
 Más allá del resultado funcional, el valor principal radica en la transición desde una aplicación centralizada hacia una arquitectura distribuida con separación clara de responsabilidades.
+
