@@ -1,4 +1,4 @@
-🌐 Language: [Español](TECH_STACK.md) | **English**
+🌐 Language: [Spanish](TECH_STACK.md) | **English**
 
 # Tech Stack
 
@@ -77,3 +77,4 @@ The desktop application shares backend business logic directly within the same m
 
 - **Git**
   - Version control
+
