@@ -1,4 +1,4 @@
-🌐 Language: **Español** | [English](SETUP_EN.md)
+🌐 Idioma: **Español** | [Inglés](SETUP_EN.md)
 
 # Guía de instalación y ejecución (SETUP)
 
@@ -325,5 +325,6 @@ Este repositorio fue estructurado como **monorepo portable** (no fue requisito d
 - Tomcat incluido y preconfigurado dentro del repo (`/server`)
 - configuración de base de datos orientada a compartir un directorio estable (`/server/.../data`)
 - soporte para Windows/Linux manteniendo el mismo stack y rutas de ejecución
+
 
 El objetivo es que cualquier persona pueda clonar el repo, respetar el orden de ejecución y correr el proyecto con mínima fricción.
