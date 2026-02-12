@@ -1,4 +1,4 @@
-🌐 Language: [Español](PROJECT_EVOLUTION.md) | **English**
+🌐 Language: [Spanish](PROJECT_EVOLUTION.md) | **English**
 
 # Project Evolution
 
@@ -131,3 +131,4 @@ The final architecture supports:
 - Multiple presentation layers
 - Controlled inter-process communication
 - Cross-platform execution
+
