@@ -1,4 +1,4 @@
-🌐 Language: **Español** | [English](WEBSERVICES_EN.md)
+🌐 Idioma: **Español** | [Inglés](WEBSERVICES_EN.md)
 
 # Web Services SOAP (TurismoUY)
 
@@ -348,3 +348,4 @@ Esto habilita flujos de interacción donde el usuario opera desde web y ciertas 
 - [README.md](../README.md)
 - [SETUP.md](SETUP.md)
 - [ARCHITECTURE.md](ARCHITECTURE.md)
+
