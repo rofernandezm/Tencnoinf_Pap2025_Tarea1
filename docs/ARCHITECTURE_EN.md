@@ -1,4 +1,4 @@
-🌐 Language: [Español](ARCHITECTURE.md) | **English**
+🌐 Language: [Spanish](ARCHITECTURE.md) | **English**
 
 # TurismoUY - Architecture Overview
 
@@ -180,3 +180,4 @@ TurismoUY demonstrates an architecture with:
 Overall, the project provides a strong example of a distributed architecture implemented using classic Java enterprise technologies, while still prioritizing modularity and maintainability.
 
 ---
+
