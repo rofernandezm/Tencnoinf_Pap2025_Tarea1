@@ -1,4 +1,4 @@
-🌐 Language: **Español** | [English](ARCHITECTURE_EN.md)
+🌐 Idioma: **Español** | [Inglés](ARCHITECTURE_EN.md)
 
 # Arquitectura - TurismoUY (ES)
 
@@ -389,5 +389,6 @@ Para más detalles técnicos se recomienda consultar:
 - [Stack Tecnológico](TECH_STACK.md)
 
 ---
+
 
 **Fin del documento.**
