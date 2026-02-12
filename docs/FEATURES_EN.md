@@ -1,4 +1,4 @@
-🌐 Language: [Español](FEATURES.md) | **English**
+🌐 Language: [Spanish](FEATURES.md) | **English**
 
 # Functionalities
 
@@ -157,3 +157,4 @@ It does not aim to include:
 - Production-grade infrastructure.
 
 Its purpose is educational and architectural demonstration.
+
